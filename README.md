@@ -1,7 +1,7 @@
 # React Hooks + TypeScript Tome
 Online site walking you through React Hooks+TypeScript frontend web development. Encourages specific "assignments" along the way to keep you engaged.
 
-# Table of Contents
+# Notes
 
 * Setup:
   * Setting up VSCode, Node
@@ -63,5 +63,3 @@ Online site walking you through React Hooks+TypeScript frontend web development.
   * User stories
   * Agile
   * Sketching out your app
-
-# Notes
