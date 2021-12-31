@@ -10,6 +10,8 @@ Online site walking you through React Hooks+TypeScript frontend web development.
   * Basics of HTML, CSS, BootStrap
   * Function calls: Basic app with some text. They can style and change the text. Call some JS functions and output the results. 
   * JS API stuff: Time/date, random, maybe fetch, vibrate, barcode detection, camera, geolocation, sensor API, speech, web cryptography.
+  * Buttons
+  * Testing simplistic interfaces
 * Basics of TypeScript
   * Basic types
   * Arrays, Interfaces, Nested Data
@@ -19,12 +21,31 @@ Online site walking you through React Hooks+TypeScript frontend web development.
   * Tests: Monster mash exercises, rendered results in react. Test cases prove that they succeeded. Demand they use map, filter, and reduce rather than for loops. Just a subset tho, some are examples and some are problems. Gives a nice chance to cover types, pure functions, loops, conditionals, and other basics.
 * Basic State
   * Data/control/visual one-way MVC architecture
-  * Basic of useState concept, example of calculator with one state? 
+  * Basic of useState concept
     * set entire state
-  * form with K states
+    * Testing user interaction
+    * Boolean state: visible/not visible, disabled/not disabled, text1/text2
+    * Number state: counter, calculator
+    * String state: Anagramer, pig-latin, etc?, something with emojis?
+  * Passing down props, lifting state up
+  * Form with K states
     * User input pattern, with link to big collection of other input types
+      * Textbox
+        * Simple string
+        * Have to parse as number
+      * Checkbox
+      * Textarea
+      * Select menu
+    * How to test each input form type
+      * Simulating user event
+      * Finding things by their role
+      * Finding some text
+      * Dangerous fallback: test-id
+  * Dependent state based on other state
 * Complex State
   * list of primitive states
+    * List of names of people, need to be able to add, remove, edit
+    * List of numbers where you need to be reporting the sum at the end
   * Edit patterns
     * push, insert into array
     * edit element of array
