@@ -1,8 +1,52 @@
 # Basic Application
 
-* Basic app
-  * Basics of HTML, CSS, BootStrap
-  * Function calls: Basic app with some text. They can style and change the text. Call some JS functions and output the results. 
-  * JS API stuff: Time/date, random, maybe fetch, vibrate, barcode detection, camera, geolocation, sensor API, speech, web cryptography.
-  * Buttons
-  * Testing simplistic interfaces
+You should have already installed and run the starter application. This is the base.
+
+## What is a web application?
+
+What is a website?
+
+What is HTML?
+
+What is CSS? What is Bootstrap?
+
+What is JavaScript?
+
+What is TypeScript?
+
+What is JSX/TSX?
+
+## Editing HTML
+
+Make some tweaks to the HTML content of the page. View the changes in the browser.
+
+1. Fill in a paragraph of text.
+2. Create a list.
+3. Make a link to some other site.
+4. Add in an image.
+
+## Passing Tests
+
+Run:
+
+```sh
+$> npm run test
+```
+
+If you are failing the first N tests, then we need to fix them.
+
+## Editing CSS
+
+1. Make some text bigger
+2. Change the background color
+3. Put an icon in the page
+4. Float the image, put padding and border around the image
+
+## Making a Button
+
+1. Make a Bootstrap Button
+2. Console log a message when you press the button
+3. Testing a button (provide an example test, then have them make their own too)
+
+* JS API stuff: Time/date, random, maybe fetch, vibrate, barcode detection, camera, geolocation, sensor API, speech, web cryptography.
+
