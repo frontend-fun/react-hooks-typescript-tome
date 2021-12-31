@@ -130,6 +130,49 @@ setPeople(people)
 * record state
   * change value of object
   * add key to record, remove key from record
+
+# List of Object States
+
+## Editing an Object in an Array at an Index
+
+```typescript
+
+interface Movie {
+  name: string
+  price: number
+}
+
+const INITIAL_MOVIES: Movie[] = [
+  {name: "First", price: 1.99}, // TODO: ...
+]
+
+export function MovieListings(): JSX.Element {
+  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
+  
+  function changePrice(movieName: string, newPrice: number) {
+    // Need to map a new version of the array
+    return movies.map((movie: Movie): Movie =>
+      // If this movie is not the target movie
+      (movie.name !== movieName) ?
+        // Return it unchanged
+        {...movie} :
+        // Otherwise make the new version of the movie
+        {...movie, price: newPrice});
+  }
+
+  return <div>
+    <ol>
+      (movies.map((movie: Movie): JSX.Element => 
+        <li>{movie.name}: {movie.price} 
+          <button onClick={
+            ()=>changePrice(movie.name, 2*movie.price)
+          }>Increase price</button>
+      </li>))
+    </ol>
+  </div>;
+}
+```
+
 * list of object states
   * State gone wrong: Ultimately we escalate to multiple levels of nested state. We have some specific examples where that breaks down when done incorrectly.
 * list of list of object states
