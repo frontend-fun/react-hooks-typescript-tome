@@ -170,6 +170,10 @@ So why not `while` loops? ARE YOU SERIOUS DO NOT USE `while` LOOPS.
 
 ## Filter an Array
 
+Want to remove some elements from an array?
+
+## Conditionally Modify Array
+
 What if we combine the `?` and `map`? IT WILL BE AWESOME.
 
 ## Reduce an Array
