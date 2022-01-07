@@ -37,7 +37,7 @@ const [state, setState] = useState<number>(initialValue);
 
 ## Basic State
 
-```typescript
+```tsx
 
 export function ShowHide(): JSX.Element {
   const [visible, setVisible] = useState<boolean>(true);
