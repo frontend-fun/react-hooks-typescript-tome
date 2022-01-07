@@ -17,17 +17,19 @@ nav_order: 3
 
 ## What is JavaScript Again?
 
+The programming language of the web.
+
 ## The Problem with JavaScript
 
-Its type system is madness!
+Its type system is madness! Things are very inconsistent and surprising. It's super easy to make mistakes that will take forever to debug.
 
 What are the basic types:
 
-* number
-* boolean
-* string
-* null
-* undefined
+* number: Actually floating points.
+* boolean: `true` or `false`
+* string: You can use `'single quotes'` or `"double quotes"`. There are also backticks ` for multi-line strings.
+* null: A special value used to indicate something is "unknown".
+* undefined: Another special value used to indicate a value is not yet set.
 
 ## Operators
 
@@ -37,15 +39,58 @@ Booleans use `&&`, `||`, and `!`
 
 Strings use `+`, indexing. Strings have a bunch of useful methods that you can call.
 
+## Variables
+
+```typescript
+const UNCHANGED_VALUE = 100;
+
+let name = "Dr. Bart";
+```
+
+You might also see `var`, but you don't need to worry about using it.
+
+```typescript
+// You won't need this:
+var name = "Dr. Bart";
+```
+
 # Basic Functions
 
 Parameters, arguments
 
 Function name
 
+```typescript
+// Classic syntax
+function add(first: number, second: number): number {
+  return first + second;
+}
+
+// Modern "lambda" syntax
+const subtract = (first: number, second: number): number => {
+  return first - second;
+}
+```
+
+To make functions available in other files, you need to use the `export` keyword:
+
+```typescript
+export const multiply = (first: number, second: number): number => {
+  return first * second;
+}
+```
+
 ## Function Signature
 
-The `void` type
+The `void` type is used for a function that doesn't return anything.
+
+```typescript
+export const sayHello = (name: string): void => {
+  console.log("Hello", name);
+}
+```
+
+# Function Practice 1
 
 **TODO** At this point we know enough to start having them define Monster Mash functions, right?
 Some basic calculation functions that take in primitive information.
@@ -75,15 +120,41 @@ Ternary `if` operator
 
 == vs. ===
 
+You will basically never use `==` or `!=`. You will only ever use `===` and `!==`.
+
 # Arrays
 
-Creating an array
+JavaScript has lists, but calls them "Arrays". This is because JavaScript is drunk.
 
-The array type
+```typescript
+// Example of creating array variables
+let fruits: string[] = ["apple", "banana", "orange"];
+let grades: number[] = [90, 93, 78, 45, 99, 100];
 
-Reference equality vs value equality
+// Function that consumes an array
+const summate = (numbers: number[]): number => {
+  // ...
+}
+```
 
+The array type is just a regular type followed by a pair of empty square brackets.
 
+## Reference equality vs value equality
+
+This is the big critical test. Do you know what the answers are?
+
+```typescript
+const x = [1, 2, 3];
+const y = [1, 2, 3, 4];
+const z = x;
+
+// Append a 4 to the end of the array
+x.push(4);
+
+// Which of these evaluate to true?
+console.log(x === y);
+console.log(x === z);
+```
 
 ## Map an Array
 
