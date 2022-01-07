@@ -1,3 +1,7 @@
+---
+layout: home
+---
+
 
 1. [Setup](1-setup/index.md)
 2. [Basic App](2-app/index.md)

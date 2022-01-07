@@ -4,17 +4,25 @@ You should have already installed and run the starter application. This is the b
 
 ## What is a web application?
 
-What is a website?
+### What is a website?
 
-What is HTML?
+### What is HTML?
 
-What is CSS? What is Bootstrap?
+### What is CSS?
 
-What is JavaScript?
+### What is Bootstrap?
 
-What is TypeScript?
+### What is JavaScript?
 
-What is JSX/TSX?
+The programming language of the web.
+
+### What is TypeScript?
+
+A modified version of JavaScript that adds in strict **static** typing. TypeScript compiles into JavaScript.
+
+### What is JSX/TSX?
+
+A modified version of JavaScript (JSX) or TypeScript (TSX) that allows you to embed HTML directly into the code.
 
 ## Editing HTML
 
