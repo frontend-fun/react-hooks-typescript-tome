@@ -1,3 +1,10 @@
+---
+layout: default
+title: Using State
+nav_order: 4
+---
+
+
 # Using State
 
 JavaScript and TypeScript are not interesting because they let us do basic calculations and stuff. They are cool because they let us control web pages. So let's do that now instead.

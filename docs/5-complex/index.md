@@ -1,3 +1,10 @@
+---
+layout: default
+title: Complex Representation
+nav_order: 5
+---
+
+
 # Complex Representation
 
 So things get complicated here. You can't make a web application with just a string. You need complicated nested states.

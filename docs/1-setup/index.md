@@ -1,3 +1,10 @@
+---
+layout: default
+title: Setup
+nav_order: 1
+---
+
+
 # Setup:
 
 * [Install Git](https://github.com/git-guides/install-git)

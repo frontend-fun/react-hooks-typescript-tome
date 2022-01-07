@@ -1,3 +1,9 @@
+---
+layout: default
+title: Basic Application
+nav_order: 2
+---
+
 # Basic Application
 
 You should have already installed and run the starter application. This is the base.
