@@ -9,6 +9,14 @@ nav_order: 5
 
 So things get complicated here. You can't make a web application with just a string. You need complicated nested states.
 
+## Data Organization
+
+Organize State Structure Based on Data Types, Not Components
+
+> For example, a blogging app might need to track who is logged in, information on authors and posts, and perhaps some info on what screen is active. A good state structure might look like `{auth, posts, users, ui}`. A bad structure would be something like `{loginScreen, usersList, postsList}`.
+
+# Patterns
+
 ## Array Edit Patterns
 
 ```typescript
