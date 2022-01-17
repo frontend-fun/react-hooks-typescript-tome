@@ -90,7 +90,7 @@ function mockFunctions(backup) {
 function logData(data, where) {
   for (var i = 0; i < data.length; i++) {
     if (typeof data[i] == 'object') {
-        where.innerHTML += (JSON && JSON.stringify ? JSON.stringify(data[i], undefined, 2) : data[i]) + '<br />';
+        where.innerHTML += JSON.stringify(data[i]) + '<br />';
     } else {
       where.innerHTML += data[i] + '<br />';
     }
