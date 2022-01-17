@@ -101,7 +101,6 @@ function wrapCode(code, outputArea, errorArea) {
       backup.error(...arguments);
     };
     ${code}
-    if (typeof App !== "undefined") {ReactDOM.render(<App/>, mockDocument);}
   })();`;
 }
 
@@ -112,6 +111,7 @@ function executeCode(code, mockDocument, outputArea, errorArea) {
   let noErrors = true;
   compilerOptions =  {jsx: window.ts.JsxEmit.React, module: window.ts.ModuleKind.CommonJS};
   try {
+    code += `\nif (typeof App !== "undefined") {ReactDOM.render(<App/>, mockDocument);}`;
     code = window.ts.transpile(code, compilerOptions);
     code = wrapCode(code, outputArea, errorArea);
     eval(code);
