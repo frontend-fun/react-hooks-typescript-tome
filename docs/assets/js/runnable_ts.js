@@ -87,18 +87,30 @@ function mockFunctions(backup) {
   console.error = backup.error;
 }
 
+function logData(data, where) {
+  for (var i = 0; i < data.length; i++) {
+    if (typeof data[i] == 'object') {
+        where.innerHTML += (JSON && JSON.stringify ? JSON.stringify(data[i], undefined, 2) : data[i]) + '<br />';
+    } else {
+      where.innerHTML += data[i] + '<br />';
+    }
+  }
+}
+
 function wrapCode(code, outputArea, errorArea) {
   return `(function(){
     const backup = { log: window.console.log, error: window.console.error }
     let console = {};
     console.log = function() {
       const outputArea = document.querySelector("${_getHtmlSelector(outputArea)}");
-      outputArea.innerText += [...arguments].join(" ") + "\\n";
+      logData([...arguments], outputArea);
+      //outputArea.innerText += [...arguments].join(" ") + "\\n";
       backup.log(...arguments);
     };
     console.error = function() {
       const errorArea = document.querySelector("${_getHtmlSelector(errorArea)}");
-      errorArea.innerText += [...arguments].join(" ") + "\\n";
+      //errorArea.innerText += [...arguments].join(" ") + "\\n";
+      logData([...arguments], errorArea);
       backup.error(...arguments);
     };
     ${code}

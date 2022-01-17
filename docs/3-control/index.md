@@ -97,7 +97,7 @@ Booleans use `&&`, `||`, and `!`
 
 ```typescript
 console.log("This produces false:", true && false);
-console.log("This produces false:", true || false);
+console.log("This produces true:", true || false);
 ```
 
 Strings use `+`, indexing. Strings have a bunch of useful methods that you can call.
@@ -170,10 +170,10 @@ export const sayHello = (name: string): void => {
 
 sayHello();
 
-console.log(sayHello);
+console.log(sayHello());
 ```
 
-What happens when you log the result of calling a `void` function? Check it out.
+What happens when you log the result of calling a `void` function? The function MUST return a value, so it returns `undefined` by default. Depending on how you log it, it might appear as an empty string or the word `undefined`. Importantly, `console.log` is NOT the same thing as `return`.
 
 # Function Practice 1
 
