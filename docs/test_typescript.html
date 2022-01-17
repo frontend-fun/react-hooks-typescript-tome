@@ -1,0 +1,206 @@
+<html>
+<head>
+  <style type="text/css" media="screen">
+    .ace_editor {
+        position: relative;
+        height:300px;
+        width: 100%;
+    }
+
+    .runnable-sub-area {
+      border: 1px solid lightgray;
+      width: 100%;
+      margin-bottom: 2px;
+      padding: 2px;
+    }
+
+    @-webkit-keyframes fadeIn {
+      0% {
+        background-color: yellow;
+        opacity: 1;
+      }
+      100% {
+        background-color: inherit;
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        background-color: lightgray;
+        opacity: 1;
+      }
+      100% {
+        background-color: inherit;
+      }
+    }
+
+    .fadeIn {
+      -webkit-animation-name: fadeIn;
+      -webkit-animation-duration: 900ms;
+      -webkit-animation-iteration-count: 1;
+      -webkit-animation-timing-function: ease;
+      -moz-animation-name: fadeIn;
+      -moz-animation-duration: 900ms;
+      -moz-animation-iteration-count: 1;
+      -moz-animation-timing-function: ease;
+      animation-name: fadeIn;
+      animation-duration: 900ms;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+    }
+  </style>
+  
+</head>
+<body>
+<div class="language-typescript highlighter-rouge"><pre>let num: number = 123;
+console.log(num);
+function App() {
+  return &lt;div&gt;Hello World!&lt;/div&gt;
+}</pre>
+</div>
+
+<div class="language-typescript highlighter-rouge"><pre></pre>
+let num: number = 123;
+console.log(num);
+function App() {
+    const [counter, setCounter] = useState<number>(0);
+      console.log(counter);
+    return &lt;button onClick={() =&gt; setCounter(counter+1)}&gt;{counter}&lt;/button&gt;;
+}</pre>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/2.1.1/react-bootstrap.js" integrity="sha512-h0++nKB8LVpfoMzbOPSofyIrltFg4Qk6y7CpI5nSCIHwpdnLKzrNWgy017Mx7vVKQD7XVH3wpLMmwA8/56Zs8Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://unpkg.com/typescript@latest/lib/typescriptServices.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/ace.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/mode-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/snippets/tsx.min.js"></script>
+<script>
+  ({useState, useEffect} = React);
+
+  function _getHtmlSelector(el) {
+      if (el.tagName.toLowerCase() == "html")
+          return "html";
+      var str = el.tagName.toLowerCase();
+      str += (el.id != "") ? "#" + el.id : "";
+      if (el.className) {
+          var classes = el.className.trim().split(/\s+/);
+          for (var i = 0; i < classes.length; i++) {
+              str += "." + classes[i]
+          }
+      }
+      
+      if(document.querySelectorAll(str).length==1) return str;
+      
+      return _getHtmlSelector(el.parentNode) + " > " + str;
+  }
+
+
+  let uniqueID = 0;
+  function addSubArea(area, headerText, type) {
+    const subarea = document.createElement("div");
+    subarea.className = "runnable-sub-area";
+    subarea.id = "runnable-sub-area-"+uniqueID;
+    uniqueID += 1;
+    const header = document.createElement("strong");
+    header.appendChild(document.createTextNode(headerText));
+    subarea.appendChild(header);
+    const body = document.createElement(type);
+    subarea.appendChild(body);
+    subarea.body = body;
+    area.after(subarea);
+    return subarea;
+  }
+
+  function setupExecutionZone(target, editor) {
+    const runButton = document.createElement("button");
+    runButton.appendChild(document.createTextNode("Run"));
+    const errorArea = addSubArea(target, "Errors", "pre");
+    const outputArea = addSubArea(target, "Console Log", "pre");
+    const mockDocument = addSubArea(target, "React Application", "div");
+    runButton.onclick = () => {
+      executeCode(editor.getSession().getValue(), 
+        mockDocument.body, outputArea.body, errorArea.body);
+      target.classList.add("fadeIn");
+      target.addEventListener("webkitAnimationEnd", () => target.classList.remove("fadeIn"), false);
+      target.addEventListener("animationEnd", () => target.classList.remove("fadeIn"), false);
+    };
+    target.after(runButton);
+  }
+
+  function setupAce(target, initialCode) {
+    const editor = ace.edit(target);
+    editor.getSession().setUseWorker(false);
+    editor.setFontSize(14);
+    //editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/tsx");
+    editor.getSession().setValue(initialCode);
+    setupExecutionZone(target, editor);
+    console.log(initialCode);
+  }
+
+  window.addEventListener('load', function() {
+    document.querySelectorAll('.language-typescript.highlighter-rouge').forEach((area) => {
+      const editButton = document.createElement("button");
+      editButton.appendChild(document.createTextNode("✏️"));
+      editButton.style.float = 'right';
+      editButton.onclick = () => {
+        setupAce(area, area.textContent);
+        editButton.remove();
+      };
+      area.parentNode.insertBefore(editButton, area);
+    });
+  });
+  
+  function backupFunctions() {
+    return {
+      log: console.log,
+      error: console.error
+    }
+  }
+
+  function mockFunctions(backup) {
+    console.log = backup.log;
+    console.error = backup.error;
+  }
+
+  function executeCode(code, mockDocument, outputArea, errorArea) {
+    const backup = backupFunctions();
+    outputArea.innerText = "";
+    errorArea.innerText = "";
+    let noErrors = true;
+    compilerOptions =  {jsx: window.ts.JsxEmit.React, module: window.ts.ModuleKind.CommonJS};
+    code = `(function(){
+      const backup = { log: window.console.log, error: window.console.error }
+      let console = {};
+      console.log = function() {
+        const outputArea = document.querySelector("${_getHtmlSelector(outputArea)}");
+        outputArea.innerText += [...arguments].join(" ") + "\\n";
+        backup.log(...arguments);
+      };
+      console.error = function() {
+        const errorArea = document.querySelector("${_getHtmlSelector(errorArea)}");
+        errorArea.innerText += [...arguments].join(" ") + "\\n";
+        backup.error(...arguments);
+      };
+      ${code}
+      if (typeof App !== "undefined") {ReactDOM.render(<App/>, mockDocument);}
+    })();`;
+    try {
+      const jsCode = window.ts.transpile(code, compilerOptions);
+      eval(jsCode);
+    } catch (e) {
+      errorArea.innerText += e;
+      noErrors = false;
+    } finally {
+      //mockFunctions(backup);
+    }
+    if (noErrors) {
+      errorArea.innerText += "No errors";
+    }
+  }
+
+</script>
+</body>
+</html>
