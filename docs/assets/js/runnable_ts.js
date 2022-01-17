@@ -1,4 +1,5 @@
 ({useState, useEffect} = React);
+exports = {};
 
 function _getHtmlSelector(el) {
     if (el.tagName.toLowerCase() == "html")
