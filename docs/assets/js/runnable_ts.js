@@ -87,13 +87,19 @@ function mockFunctions(backup) {
   console.error = backup.error;
 }
 
+function repr(obj) {
+  if(obj == null || typeof obj === 'string' || typeof obj === 'number') return String(obj);
+  if(obj.length) return '[' + Array.prototype.map.call(obj, repr).join(', ') + ']';
+  if(obj instanceof HTMLElement) return '<' + obj.nodeName.toLowerCase() + '>';
+  if(obj instanceof Text) return '"' + obj.nodeValue + '"';
+  if(obj.toString) return obj.toString();
+
+  return String(obj);
+}
+
 function logData(data, where) {
   for (var i = 0; i < data.length; i++) {
-    if (typeof data[i] == 'object') {
-        where.innerHTML += JSON.stringify(data[i]) + ' ';
-    } else {
-      where.innerHTML += data[i] + ' ';
-    }
+    where.innerHTML += repr(data[i]) + ' ';
   }
   where.innerHTML += '<br />';
 }
