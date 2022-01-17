@@ -21,9 +21,14 @@ The programming language of the web.
 
 ## The Problem with JavaScript
 
-Its type system is madness! Things are very inconsistent and surprising. It's super easy to make mistakes that will take forever to debug. When you're writing JavaScript, things will be a little crazy. That's why we're eventually going to be using TypeScript instead.
+Its type system is madness! Things are very inconsistent and surprising. It's super easy to make mistakes that will take forever to debug. When you're writing JavaScript, things will be a little crazy.
 
-TypeScript adds static types to JavaScript. That means when you declare a variable, you say what type of value it holds. The variable cannot hold other kinds of values. Similarly, when you define a function, you say what type of values it takes as parameters and what type of value it returns.
+*Good bit of the video below starts at 1:23*
+
+<iframe width="481" height="361" src="https://www.youtube.com/embed/3se2-thqf-A?t=83" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+That's why we're going to be using TypeScript instead. TypeScript adds static types to JavaScript. That means when you declare a variable, you say what type of value it holds. The variable cannot hold other kinds of values. Similarly, when you define a function, you say what type of values it takes as parameters and what type of value it returns.
 
 ## Developer Console
 
@@ -82,6 +87,7 @@ Numeric operations are normal, but are always using floating point math.
 console.log("3+4 is", 3 + 4);
 console.log("9/3 is", 9 / 3);
 console.log("4/0 is", 4 / 0);
+console.log("0/0 is", 0 / 0);
 console.log("2.1*4.7 is", 2.1 * 4.7);
 // Remember modulo? Clock arithematic? Remainder? Whatever you want to call it. 
 console.log("18 % 12 is", 18 % 12);
