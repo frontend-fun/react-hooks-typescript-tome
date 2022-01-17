@@ -1,0 +1,61 @@
+  <style type="text/css" media="screen">
+    .ace_editor {
+        position: relative;
+        height:300px;
+        width: 100%;
+    }
+
+    .runnable-sub-area {
+      border: 1px solid lightgray;
+      width: 100%;
+      margin-bottom: 2px;
+      padding: 2px;
+    }
+
+    @-webkit-keyframes fadeIn {
+      0% {
+        background-color: yellow;
+        opacity: 1;
+      }
+      100% {
+        background-color: inherit;
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        background-color: lightgray;
+        opacity: 1;
+      }
+      100% {
+        background-color: inherit;
+      }
+    }
+
+    .fadeIn {
+      -webkit-animation-name: fadeIn;
+      -webkit-animation-duration: 900ms;
+      -webkit-animation-iteration-count: 1;
+      -webkit-animation-timing-function: ease;
+      -moz-animation-name: fadeIn;
+      -moz-animation-duration: 900ms;
+      -moz-animation-iteration-count: 1;
+      -moz-animation-timing-function: ease;
+      animation-name: fadeIn;
+      animation-duration: 900ms;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+    }
+  </style>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.min.js" crossorigin="anonymous" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js" crossorigin="anonymous" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/2.1.1/react-bootstrap.js" integrity="sha512-h0++nKB8LVpfoMzbOPSofyIrltFg4Qk6y7CpI5nSCIHwpdnLKzrNWgy017Mx7vVKQD7XVH3wpLMmwA8/56Zs8Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/@testing-library/react@12/dist/index.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/typescript@latest/lib/typescriptServices.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/ace.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/mode-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/snippets/tsx.min.js"></script>
+<script>
+function _getHtmlSelector(e){if("html"==e.tagName.toLowerCase())return"html";var t=e.tagName.toLowerCase();if(t+=""!=e.id?"#"+e.id:"",e.className)for(var o=e.className.trim().split(/\s+/),n=0;n<o.length;n++)t+="."+o[n];return 1==document.querySelectorAll(t).length?t:_getHtmlSelector(e.parentNode)+" > "+t}({useState:useState,useEffect:useEffect}=React);let uniqueID=0;function addSubArea(e,t,o){const n=document.createElement("div");n.className="runnable-sub-area",n.id="runnable-sub-area-"+uniqueID,uniqueID+=1;const r=document.createElement("strong");r.appendChild(document.createTextNode(t)),n.appendChild(r);const c=document.createElement(o);return n.appendChild(c),n.body=c,e.after(n),n}function setupExecutionZone(e,t){const o=document.createElement("button");o.appendChild(document.createTextNode("Run"));const n=addSubArea(e,"Errors","pre"),r=addSubArea(e,"Console Log","pre"),c=addSubArea(e,"React Application","div");o.onclick=(()=>{executeCode(t.getSession().getValue(),c.body,r.body,n.body),e.classList.add("fadeIn"),e.addEventListener("webkitAnimationEnd",()=>e.classList.remove("fadeIn"),!1),e.addEventListener("animationEnd",()=>e.classList.remove("fadeIn"),!1)}),e.after(o)}function setupAce(e,t){const o=ace.edit(e);o.getSession().setUseWorker(!1),o.setFontSize(14),o.session.setMode("ace/mode/tsx"),o.getSession().setValue(t),setupExecutionZone(e,o),console.log(t)}function backupFunctions(){return{log:console.log,error:console.error}}function mockFunctions(e){console.log=e.log,console.error=e.error}function executeCode(code,mockDocument,outputArea,errorArea){const backup=backupFunctions();outputArea.innerText="",errorArea.innerText="";let noErrors=!0;compilerOptions={jsx:window.ts.JsxEmit.React,module:window.ts.ModuleKind.CommonJS};try{code=window.ts.transpile(code,compilerOptions);code=`(function(){\n      const backup = { log: window.console.log, error: window.console.error }\n      let console = {};\n      console.log = function() {\n        const outputArea = document.querySelector("${_getHtmlSelector(outputArea)}");\n        outputArea.innerText += [...arguments].join(" ") + "\\n";\n        backup.log(...arguments);\n      };\n      console.error = function() {\n        const errorArea = document.querySelector("${_getHtmlSelector(errorArea)}");\n        errorArea.innerText += [...arguments].join(" ") + "\\n";\n        backup.error(...arguments);\n      };\n      ${code}\n      if (typeof App !== "undefined") {ReactDOM.render(<App/>, mockDocument);}\n    })();`;eval(code)}catch(e){errorArea.innerText+=e,noErrors=!1}noErrors&&(errorArea.innerText+="No errors")}window.addEventListener("load",function(){document.querySelectorAll(".language-typescript.highlighter-rouge,.language-tsx.highlighter-rouge").forEach(e=>{const t=document.createElement("button");t.appendChild(document.createTextNode("✏️")),t.style.float="right",t.onclick=(()=>{setupAce(e,e.textContent),t.remove()}),e.parentNode.insertBefore(t,e)})});
+</script>
+
