@@ -90,11 +90,12 @@ function mockFunctions(backup) {
 function logData(data, where) {
   for (var i = 0; i < data.length; i++) {
     if (typeof data[i] == 'object') {
-        where.innerHTML += JSON.stringify(data[i]) + '<br />';
+        where.innerHTML += JSON.stringify(data[i]) + ' ';
     } else {
-      where.innerHTML += data[i] + '<br />';
+      where.innerHTML += data[i] + ' ';
     }
   }
+  where.innerHTML += '<br />';
 }
 
 function wrapCode(code, outputArea, errorArea) {
