@@ -39,12 +39,12 @@ const [state, setState] = useState<number>(initialValue);
 
 ```tsx
 
-export function ShowHide(): JSX.Element {
+function App(): JSX.Element {
   const [visible, setVisible] = useState<boolean>(true);
 
   return <div>
     <button onClick={()=>setVisible(!visible)}>Show/Hide</button>
-    (visible && <div>Hello!</div>)
+    {visible && <div>Hello!</div>}
   </div>;
 }
 
