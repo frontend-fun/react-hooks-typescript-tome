@@ -23,38 +23,7 @@ Organize State Structure Based on Data Types, Not Components
 const [prices, setPrices] = useState<number>([10, 8, 9, 7]);
 ```
 
-### Adding an element to the end (push)
 
-We can use the "spread operator" (three periods, like `...`) to unpack an array.
-
-```typescript
-const pricesAtEnd = [...prices, 55];
-// [10, 8, 9, 7, 55]
-
-const pricesAtStart = [55, ...prices];
-// [55, 10, 8, 9, 7]
-
-const doublePrices = [...prices, ...prices];
-// [10, 8, 9, 7, 10, 8, 9, 7]
-```
-
-### The Spread Operator
-
-The `...` operator is not part of the `[  ]` square brackets. The square brackets are being used to create a new literal array. The `...` works separately. These dots work with function calls too.
-
-```typescript
-console.log(10, 8, 9, 7, 55);
-// 10, 8, 9, 7, 55
-
-console.log(prices);
-// [10, 8, 9, 7, 55]
-
-console.log(...prices);
-// 10, 8, 9, 7, 55
-
-console.log([...prices]);
-// [10, 8, 9, 7, 55]
-```
 
 ### Inserting an element at an index
 
