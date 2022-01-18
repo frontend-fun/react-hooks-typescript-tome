@@ -24,7 +24,7 @@ export function App(): JSX.Element {
 
 ## The useState concept
 
-```typescript
+```typescript?key=value
 const [state, setState] = useState<number>(initialValue);
 ```
 
