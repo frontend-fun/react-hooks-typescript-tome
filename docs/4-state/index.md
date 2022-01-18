@@ -191,6 +191,8 @@ function App(): JSX.Element {
 
 Click the image a few times and you should see it randomly cycle between the pets.
 
+Remember, 1/3 of the time it will stay on the same photo!
+
 ## Multiple States: Traffic Light
 
 Here is a much more complex example representing a traffic light. You can only go when the light is "green" or "yellow".
@@ -213,16 +215,15 @@ function App(): JSX.Element {
           'yellow' :
           'red'
     )
-  }, driving === 'yellow' ? 1000 : driving === 'red' ? 3000 : 2000);
+  // Ternary ? operator allows us to succinctly give three possible values
+  }, lightColor === 'yellow' ? 1000 : lightColor === 'red' ? 3000 : 2000);
 
-  function flipDriving(): void {
-    setDriving(!driving);
-  }
-
+  // Notice how we bind an anonymous lambda function to onClick instead of a named function?
   return <div>
     <div>Current light: <span>{lightColor}</span></div>
     <div>
-      <Button onClick={flipDriving}>{driving ? 'Stop Driving' : 'Drive'}</Button>
+      <Button onClick={()=>{setDriving(true)})}>Drive</Button>
+      <Button onClick={()=>{setDriving(false)})}>Stop</Button>
     </div>
     <div>
       {lightColor === 'red' && driving ?
