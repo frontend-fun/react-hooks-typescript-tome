@@ -72,6 +72,8 @@ function setupAce(target, initialCode) {
   const editor = ace.edit(target);
   editor.getSession().setUseWorker(false);
   editor.setFontSize(14);
+  editor.getSession().setTabSize(2);
+  editor.getSession().setUseSoftTabs(true);
   //editor.setTheme("ace/theme/monokai");
   editor.session.setMode("ace/mode/tsx");
   editor.getSession().setValue(initialCode);
