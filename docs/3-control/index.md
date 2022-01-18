@@ -122,6 +122,19 @@ var name = "Dr. Bart";
 console.log(name);
 ```
 
+## String Interpolation
+
+A cool feature in modern JavaScript is that we can embed variables and expressions into string literals when we use backticks.
+
+```typescript
+let name: string = "Dr. Bart";
+let pets: number = 3;
+
+let message: string = `${name} has ${pets} pets. He would like ${pets+1} pets though!`;
+
+console.log(message);
+```
+
 # Basic Functions
 
 Remember the vocabuarly you have seen in previous courses:
