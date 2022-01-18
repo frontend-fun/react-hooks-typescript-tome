@@ -222,8 +222,8 @@ function App(): JSX.Element {
   return <div>
     <div>Current light: <span>{lightColor}</span></div>
     <div>
-      <Button onClick={()=>{setDriving(true)})}>Drive</Button>
-      <Button onClick={()=>{setDriving(false)})}>Stop</Button>
+      <Button onClick={()=>{setDriving(true)})} disabled={driving}>Drive</Button>
+      <Button onClick={()=>{setDriving(false)})} disabled={!driving}>Stop</Button>
     </div>
     <div>
       {lightColor === 'red' && driving ?
