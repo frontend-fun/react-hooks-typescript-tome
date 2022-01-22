@@ -23,6 +23,8 @@ Organize State Structure Based on Data Types, Not Components
 
 > For example, a blogging app might need to track who is logged in, information on authors and posts, and perhaps some info on what screen is active. A good state structure might look like `{auth, posts, users, ui}`. A bad structure would be something like `{loginScreen, usersList, postsList}`.
 
+`postsList` sounds like a good Component, a View that renders the Model. But the actual Model itself is not the list on the screen, but the underlying abstraction of the current `posts`.
+
 # Patterns
 
 ## Array Edit Patterns
@@ -128,38 +130,47 @@ setPeople(people)
 ## Editing an Object in an Array at an Index
 
 ```typescript
-
 interface Movie {
   name: string
-  price: number
+  released: number
+  seen: boolean
 }
 
 const INITIAL_MOVIES: Movie[] = [
-  {name: "First", price: 1.99}, // TODO: ...
+  {name: "Kiki's Delivery Service", released: 1989, seen: true},
+  {name: "Ponyo", released: 2008, seen: false},
+  {name: "Howl's Moving Castle", released: 2004, seen: true},
+  {name: "Castle in the Sky", released: 1986, seen: true},
+  {name: "Arietty", released: 2010, seen: false},
+  {name: "Whisper of the Heart", released: 1995, seen: false}
 ]
 
-export function MovieListings(): JSX.Element {
+export function App(): JSX.Element {
   const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
   
-  function changePrice(movieName: string, newPrice: number) {
+  function changeMovieSeen(movieName: string, newSeen: boolean) {
     // Need to map a new version of the array
-    return movies.map((movie: Movie): Movie =>
-      // If this movie is not the target movie
-      (movie.name !== movieName) ?
-        // Return it unchanged
-        {...movie} :
-        // Otherwise make the new version of the movie
-        {...movie, price: newPrice});
+    const modifiedMovies = movies.map((movie: Movie): Movie =>
+      // If this movie is the target movie
+      (movie.name === movieName) ?
+        // Return a new modified movie
+        {...movie, seen: newSeen} :
+        // Otherwise return the movie unchanged
+        {...movie}));
+    // Update the movies array to be the new version
+    setMovies(modifiedMovies);
   }
 
+  // Render each movie in a bulleted list
   return <div>
     <ol>
-      (movies.map((movie: Movie): JSX.Element => 
-        <li>{movie.name}: {movie.price} 
-          <button onClick={
-            ()=>changePrice(movie.name, 2*movie.price)
-          }>Increase price</button>
-      </li>))
+      {(movies.map((movie: Movie): JSX.Element => 
+        <li>
+          {movie.name} ({movie.released}): 
+          <Button onClick={()=>changeMovieSeen(movie.name, !movie.seen)}>
+            {movie.seen ? 'Seen' : 'Not seen'}
+          </Button>
+      </li>))}
     </ol>
   </div>;
 }
