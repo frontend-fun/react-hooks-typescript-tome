@@ -223,6 +223,80 @@ export function App(): JSX.Element {
 }
 ```
 
+## Adding a New Object
+
+```typescript
+interface Movie {
+  name: string
+  released: number
+  seen: boolean
+}
+
+const INITIAL_MOVIES: Movie[] = [
+  {name: "Kiki's Delivery Service", released: 1989, seen: true},
+  {name: "Ponyo", released: 2008, seen: false},
+  {name: "Howl's Moving Castle", released: 2004, seen: true},
+  {name: "Castle in the Sky", released: 1986, seen: true},
+  {name: "Arietty", released: 2010, seen: false},
+  {name: "Whisper of the Heart", released: 1995, seen: false}
+];
+
+type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
+
+interface AddMovieBoxParams {
+  appendMovie: (movie: Movie)=>void
+}
+
+export function AddMovieBox({appendMovie}: AddMovieBoxParams): JSX.Element {
+  const [name, setName] = useState<string>('New Movie');
+  const [released, setReleased] = useState<number>(2022);
+
+  return <div>
+    <Form>
+      <Form.Group controlId="formMovieName">
+        <Form.Label>Name:</Form.Label>
+        <Form.Control type="text" value={name}
+          onChange={(event: ChangeEvent) => setName(event.target.value)} />
+      </Form.Group>
+    </Form>
+    <Form>
+      <Form.Group controlId="formMovieReleased">
+        <Form.Label>Released:</Form.Label>
+        <Form.Control type="number" value={released}
+          onChange={(event: ChangeEvent) => setReleased(event.target.value)} />
+      </Form.Group>
+    </Form>
+    <Button onClick={()=>appendMovie(name, released)}>Append</Button>
+  </div>;
+}
+
+export function App(): JSX.Element {
+  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
+  
+  function appendMovie(name: string, released: number) {
+    // Making a new array of movies, with an additional extra one
+    const modifiedMovies = [...movies, {
+      name: name, released: released, seen: false
+    }];
+    // Update the movies array to be the new version
+    setMovies(modifiedMovies);
+  }
+
+  // Render each movie in a bulleted list, with a MovieBox
+  return <div>
+    <ol>
+      {(movies.map((movie: Movie): JSX.Element => 
+        <li>
+          {movie.name} ({movie.released})
+      </li>))}
+    </ol>
+    <AddMovieBox appendMovie={appendMovie}></AddMovieBox>
+  </div>;
+}
+```
+
+# TODO: Finish these
+
 * list of object states
   * State gone wrong: Ultimately we escalate to multiple levels of nested state. We have some specific examples where that breaks down when done incorrectly.
 * list of list of object states
