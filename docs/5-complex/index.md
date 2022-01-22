@@ -65,7 +65,7 @@ setPrices(newPrices)
 Fix an application where they try to do something like this:
 
 
-```typescript
+```tsx
 export function BrokenNames(): JSX.Element {
   const [people, setPeople] = useState<string[]>([]);
   const [newName, setNewName] = useState<string>("New Name");
@@ -129,7 +129,7 @@ setPeople(people)
 
 ## Editing an Object in an Array with a Given Value
 
-```typescript
+```tsx
 interface Movie {
   name: string
   released: number
@@ -178,7 +178,7 @@ export function App(): JSX.Element {
 
 ## Removing an Object with a Given Value
 
-```typescript
+```tsx
 interface Movie {
   name: string
   released: number
@@ -225,7 +225,7 @@ export function App(): JSX.Element {
 
 ## Adding a New Object
 
-```typescript
+```tsx
 interface Movie {
   name: string
   released: number
@@ -241,16 +241,24 @@ const INITIAL_MOVIES: Movie[] = [
   {name: "Whisper of the Heart", released: 1995, seen: false}
 ];
 
+// Simplify type definition of the Change Event
 type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
+// Simplify the Component's parameter's type
 interface AddMovieBoxParams {
-  appendMovie: (movie: Movie)=>void
+  // Consumes a function that consumes the name and released date
+  //  and returns nothing (because it's passed to a React State Setter).
+  // This is passed in much later
+  appendMovie: (n: string, r: number)=>void
 }
 
 export function AddMovieBox({appendMovie}: AddMovieBoxParams): JSX.Element {
+  // These will be the values for the new Movie
   const [name, setName] = useState<string>('New Movie');
   const [released, setReleased] = useState<number>(2022);
 
+  // Provide forms for editing the new movie
+  // And also a button to append the movie
   return <div>
     <Form>
       <Form.Group controlId="formMovieName">
@@ -271,6 +279,7 @@ export function AddMovieBox({appendMovie}: AddMovieBoxParams): JSX.Element {
 }
 
 export function App(): JSX.Element {
+  // The entire list of all movies
   const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
   
   function appendMovie(name: string, released: number) {
@@ -282,7 +291,7 @@ export function App(): JSX.Element {
     setMovies(modifiedMovies);
   }
 
-  // Render each movie in a bulleted list, with a MovieBox
+  // Render each movie in a bulleted list, with an AddMovieBox below
   return <div>
     <ol>
       {(movies.map((movie: Movie): JSX.Element => 
@@ -291,6 +300,58 @@ export function App(): JSX.Element {
       </li>))}
     </ol>
     <AddMovieBox appendMovie={appendMovie}></AddMovieBox>
+  </div>;
+}
+```
+
+## Inserting an Object at a Given Location
+
+
+```tsx
+interface Movie {
+  name: string
+  released: number
+  seen: boolean
+}
+
+const INITIAL_MOVIES: Movie[] = [
+  {name: "Kiki's Delivery Service", released: 1989, seen: true},
+  {name: "Ponyo", released: 2008, seen: false},
+  {name: "Howl's Moving Castle", released: 2004, seen: true},
+  {name: "Castle in the Sky", released: 1986, seen: true},
+  {name: "Arietty", released: 2010, seen: false},
+  {name: "Whisper of the Heart", released: 1995, seen: false}
+];
+
+export function App(): JSX.Element {
+  // The entire list of all movies
+  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
+  
+  function duplicateMovie(targetName: string) {
+    // Find the target movie's index
+    const targetMovieIndex = movies.findIndex((movie: Movie):boolean =>
+      // Returns `true` if this is the movie with the target name
+      movie.name === targetName);
+    // Access the original movie
+    const originalMovie = movies[targetMovieIndex];
+    // Make a modified duplicate
+    const copiedMovie = {...originalMovie, name: "Copy of "+originalMovie.name};
+    // Make a new array with the copy in the correct location, with zero deletions
+    const modifiedMovies = movies.slice(0);
+    modifiedMovies.splice(1+targetMovieIndex, 0, copiedMovie);
+    // Update the movies array to be the new version
+    setMovies(modifiedMovies);
+  }
+
+  // Render each movie in a bulleted list, with an AddMovieBox below
+  return <div>
+    <ol>
+      {(movies.map((movie: Movie): JSX.Element => 
+        <li key={movie.name}>
+          {movie.name} ({movie.released}):
+          <Button onClick={()=>duplicateMovie(movie.name)}>Duplicate</Button>
+      </li>))}
+    </ol>
   </div>;
 }
 ```
