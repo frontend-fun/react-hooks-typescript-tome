@@ -127,7 +127,7 @@ setPeople(people)
 
 # List of Object States
 
-## Editing an Object in an Array at an Index
+## Editing an Object in an Array with a Given Value
 
 ```typescript
 interface Movie {
@@ -169,6 +169,53 @@ export function App(): JSX.Element {
           {movie.name} ({movie.released}): 
           <Button onClick={()=>changeMovieSeen(movie.name, !movie.seen)}>
             {movie.seen ? 'Seen' : 'Not seen'}
+          </Button>
+      </li>))}
+    </ol>
+  </div>;
+}
+```
+
+## Removing an Object with a Given Value
+
+```typescript
+interface Movie {
+  name: string
+  released: number
+  seen: boolean
+}
+
+const INITIAL_MOVIES: Movie[] = [
+  {name: "Kiki's Delivery Service", released: 1989, seen: true},
+  {name: "Ponyo", released: 2008, seen: false},
+  {name: "Howl's Moving Castle", released: 2004, seen: true},
+  {name: "Castle in the Sky", released: 1986, seen: true},
+  {name: "Arietty", released: 2010, seen: false},
+  {name: "Whisper of the Heart", released: 1995, seen: false}
+]
+
+export function App(): JSX.Element {
+  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
+  
+  function removeMovieByName(movieName: string) {
+    // Need to map a new version of the array
+    const modifiedMovies = movies.filter(
+      (movie: Movie): Movie =>
+        // If this movie is the target movie
+        movie.name !== movieName
+    );
+    // Update the movies array to be the new version
+    setMovies(modifiedMovies);
+  }
+
+  // Render each movie in a bulleted list
+  return <div>
+    <ol>
+      {(movies.map((movie: Movie): JSX.Element => 
+        <li>
+          {movie.name} ({movie.released}): 
+          <Button onClick={()=>removeMovieByName(movie.name)}>
+            Remove
           </Button>
       </li>))}
     </ol>
