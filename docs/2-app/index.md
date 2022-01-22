@@ -4,6 +4,15 @@ title: Basic Application
 nav_order: 2
 ---
 
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
 # Basic Application
 
 You should have already installed and run the starter application. This is the base.
