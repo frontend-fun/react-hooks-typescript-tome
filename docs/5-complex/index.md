@@ -358,6 +358,8 @@ export function App(): JSX.Element {
 
 # TODO: Finish these
 
+A complex example in a github repository that models an application where we have a complex nested object.
+
 * list of object states
   * State gone wrong: Ultimately we escalate to multiple levels of nested state. We have some specific examples where that breaks down when done incorrectly.
 * list of list of object states
