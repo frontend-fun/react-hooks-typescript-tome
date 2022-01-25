@@ -203,7 +203,7 @@ Remember, 1/3 of the time it will stay on the same photo!
 
 ## Multiple States: Traffic Light
 
-Here is a much more complex example representing a traffic light. You can only go when the light is "green" or "yellow".
+Here is a much more complex example simulating a traffic light. You can only go when the light is `"green"` or `"yellow"`. You can advance the current state of the light by clicking the "Advance Light" button.
 
 ```tsx
 // LightColor is a Type Union of three possible string values
@@ -214,21 +214,26 @@ function App(): JSX.Element {
   const [lightColor, setLightColor] = useState<LightColor>("red");
   const [driving, setDriving] = useState<boolean>(false);
 
-  setTimeout(function changeLightColor(): void {
-    // Red -> Green, Green -> Yellow, Yellow -> Red
+  // No parameters or return value, because it's a closure
+  function changeLightColor(): void {
     setLightColor(
+      // If it's red, make it green
       lightColor === 'red' ?
         'green' :
+        // If it's green, make it yellow
         lightColor === 'green' ?
           'yellow' :
+          // Otherwise it is yellow, so make it yellow
           'red'
     )
-  // Ternary ? operator allows us to succinctly give three possible values
-  }, lightColor === 'yellow' ? 1000 : lightColor === 'red' ? 3000 : 2000);
+  }
 
   // Notice how we bind an anonymous lambda function to onClick instead of a named function?
   return <div>
-    <div>Current light: <span>{lightColor}</span></div>
+    <div>
+      Current light: <span>{lightColor}</span>
+      <Button onClick={()=>changeLightColor()}>Advance Light</Button>
+    </div>
     <div>
       <Button onClick={()=>setDriving(true)} disabled={driving}>Drive</Button>
       <Button onClick={()=>setDriving(false)} disabled={!driving}>Stop</Button>
