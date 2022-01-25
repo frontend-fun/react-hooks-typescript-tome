@@ -375,9 +375,39 @@ console.log(doublePrices);
 
 A function that converts a single value to a single value
 
+```
+map:
+  items: X[]
+  (currentItem: X) -> Y
+  ----
+  Returns: Y[]
+```
+
+Let's use this to modify every element of the array.
+
+```typescript
+// Double all the prices
+const prices = [13, 7, 8, 2];
+
+// Using `map` - awesome!
+const doubled = prices.map((num: number): number => num*2);
+console.log(doubled);
+
+// Foreach loop style - do not use this!
+let doubled = [];
+for (const num of prices) {
+  doubled = [...doubled, num];
+  // Mutable style which we won't use:
+  // doubled.push(num);
+}
+console.log(doubled);
+```
+
 Then what if we want to convert an array? WE USE MAP.
 
-Show how it is exactly equivalent to `for` loop
+```typescript
+// Example where we change the type
+```
 
 So why not `for` loop? Not the style. We tend to always have a list, take advantage of that.
 
@@ -387,13 +417,61 @@ So why not `while` loops? ARE YOU SERIOUS DO NOT USE `while` LOOPS.
 
 Want to remove some elements from an array?
 
+```
+filter:
+  items: X[]
+  (currentItem: X) -> boolean
+  ----
+  Returns: X[]
+```
+
+```typescript
+
+```
+
 ## Conditionally Modify Array
 
 What if we combine the `?` and `map`? IT WILL BE AWESOME.
 
 ## Reduce an Array
 
-Summate an array
+```
+reduce:
+  items: X[]
+  (resultSoFar: Y, currentItem: X) -> Y
+  initialValue: X
+  ----
+  Returns: Y
+```
+
+People tend to get confused by the `reduce` function, because it's weirder. It has an extra parameter (`initialValue`) and its function (the "reducer") has two parameters instead of one.
+
+The `reduce` function makes more sense when you see how it connects to a classic `for` or `foreach` loop accumulation. The idea is that you have an "in-progress" variable with some initial value that is defined *outside* of the loop and updated *inside* of the loop. 
+
+```typescript
+const prices = [13, 7, 8, 2];
+
+// Using `reduce` method - awesome!
+const sum = prices.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
+console.log(sum);
+
+// Foreach style - do not use!
+let currentTotal = 0;
+for (const num of prices) {
+  currentTotal += num;
+}
+const sum = currentTotal;
+console.log(sum);
+
+// For style - do not use!
+let currentTotal = 0;
+for (let i=0; i < prices.length; i+=1) {
+  const num = prices[i];
+  currentTotal += num;
+}
+const sum = currentTotal;
+console.log(sum);
+```
 
 ## Other Array Operations
 
@@ -409,7 +487,66 @@ We don't make classes, we just make objects.
 
 You CAN make classes. But, like, we don't. We just make objects directly.
 
-It's actually really convenient. Just use `{}` syntax.
+It's actually really convenient. You use `{}` to make a new object.
+
+```typescript
+let drBart = { title: "Dr. Bart", shirtColor: "blue", isProfessor: true };
+let ada = { height: 23, name: "Ada Bart" };
+let cisc275 = { id: "CISC275", seats: 80, online: false, labs: ['20', '21', '22'] };
+let emptyObject = {};
+
+// Get fields
+console.log(drBart.shirtColor);
+console.log(ada.height);
+console.log(cisc275.labs);
+
+// Fields are case-sensitive; this logs `undefined`
+console.log(drBart.Title)
+
+// If fields don't exist, then `undefined` is produced
+console.log(emptyObject.name)
+```
+
+## Object-Oriented Programming vs. Functional Programming
+
+Most likely, you have had a lot of experience with classic Object-Oriented Programming, where you organize data and control flow using classes and methods. A class describes the layout of an object, including its fields and methods. You can use the class as a template for creating new objects, which will come with an initial state based on a constructor method. When you call any method, you expect the method to manipulate the state stored in the fields of an object. The objects cluster together related state - for example, a `Person` might have their `name` and `age` fields, which relate so closely to the `Person` that it would be crazy to separate them.
+
+On the other hand, the classic idea of Functional Programming is to organize your application's logic around function application. You still want to cluster related state - but whether you organize them into "objects" or "structs" or "records" or whatever, the functions live independent of the state. In other words, you don't have methods. Instead, you are focused on describing the composition of function calls that transform the state.
+
+Compare these two chunks of code:
+
+```typescript
+// Object-Oriented Style
+const recipe = make_new_recipe();
+recipe.load_ingredients();
+recipe.mix();
+recipe.bake();
+const result = recipe.serve();
+
+// Functional Style
+const recipe = make_new_recipe();
+const ingredients = get_ingredients(recipe);
+const mixedIngredients = mix(ingredients);
+const bakedIngredients = bake(mixedIngredients);
+const result = serve(bakedIngredients);
+```
+
+The true differences extend far beyond this simplistic example, but you can start getting the idea of the experience as a programmer. With Object-Oriented Programming, you call methods that manipulate the mutable state of the object; you always have a `recipe`, you just change its state over time. On the other hand, the Functional Style has you calling functions that create a new object at each step, as the state changes over time. 
+
+Someone may try to tell you that Object-Oriented or Functional programming is superior to the other. They may also suggest other kinds of programming styles. Don't believe the hype. All of these different styles are just tools for your toolkit. You use the right tool for the right job. Get experience with every kind of programming style that you can, and you will eventually learn what the best tool to reach for a given problem is. There's a lot of personal preference involved, but that preference will change over time. Someday, you too will be amused when you hear people advocate for one style over another.
+
+For now, though, we're going to focus on learning to work in a Functional Style. Ironically, we will still see a lot of methods and objects, because those are still useful abstractions to build on. In particular, Arrays in TypeScript are implemented as Objects, and we use their methods to manipulate them in a Functional Style.
+
+```typescript
+const originalNumbers = [10, 20, 30, 40];
+const doubledNumbers = originalNumbers.map((num: number): number => num*2);
+const smallNumbers = doubledNumbers.filter((num: number): boolean => num < 30);
+const sum = smallNumbers.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
+console.log(originalNumbers);
+console.log(doubledNumbers);
+console.log(smallNumbers);
+console.log(sum);
+```
 
 ## Interfaces
 
