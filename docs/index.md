@@ -5,8 +5,8 @@ layout: home
 
 1. [Setup](1-setup/index.md)
 2. [Basic App](2-app/index.md)
-3. TypeScript
-   1. [Primitives and Control Flow](3-control/index.md)
+3. [TypeScript](3-control/index.md)
+   1. [Primitives and Control Flow](3-control/primitives.md)
    2. [Arrays](3-control/arrays.md)
    3. [Objects](3-control/objects.md)
    4. [Nested Data](3-control/nested.md)
