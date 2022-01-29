@@ -336,8 +336,9 @@ export function App(): JSX.Element {
     const originalMovie = movies[targetMovieIndex];
     // Make a modified duplicate
     const copiedMovie = {...originalMovie, name: "Copy of "+originalMovie.name};
-    // Make a new array with the copy in the correct location, with zero deletions
-    const modifiedMovies = movies.slice(0);
+    // Make a new array based on the old array
+    const modifiedMovies = [... movies];
+    // Splice in the `copiedMovie` in the correct location (`1+targetMovieIndex`), with `0` deletions
     modifiedMovies.splice(1+targetMovieIndex, 0, copiedMovie);
     // Update the movies array to be the new version
     setMovies(modifiedMovies);
