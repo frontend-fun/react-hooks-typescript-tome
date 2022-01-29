@@ -57,7 +57,7 @@ console.log("***************************************************");
 
 // Add together the number of characters in the movie's titles
 const totalCharacters = ghibliMovies.reduce(
-    (movie: Movie, currentSum: number) => currentSum + movie.name.length
+    (currentSum: number, movie: Movie) => currentSum + movie.name.length
 , 0);
 console.log("Total Characters:", totalCharacters);
 
@@ -113,7 +113,7 @@ console.log("A movie released after 2000:", post2000Movie.name);
 
 // Find the oldest movie
 const oldestMovie = ghibliMovies.reduce(
-    (movie: Movie, currentOldest: Movie): Movie =>
+    (currentOldest: Movie, movie: Movie): Movie =>
         // Flip the < to be a > for the newest movie
         (movie.released < currentOldest.released ? movie : currentOldest)
 );
@@ -152,7 +152,7 @@ const fullCollection: MovieDetails[] = myGhibliCollection.map(
     (movie: Movie): MovieDetails => ({
         title: movie.name,
         studio: "Studio Ghibli",
-        abbreviation: movie.slice(0, 3),
+        abbreviation: movie.name.slice(0, 3),
         released: movie.released,
         seen: true
     })
