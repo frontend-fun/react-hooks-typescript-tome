@@ -50,6 +50,8 @@ On the other hand, the classic idea of Functional Programming is to organize you
 Compare these two chunks of code:
 
 ```typescript
+// This isn't real code, it's just an example comparing OO and FP a little
+
 // Object-Oriented Style
 const recipe = make_new_recipe();
 recipe.load_ingredients();
@@ -73,12 +75,15 @@ For now, though, we're going to focus on learning to work in a Functional Style.
 
 ```typescript
 const originalNumbers = [10, 20, 30, 40];
-const doubledNumbers = originalNumbers.map((num: number): number => num*2);
-const smallNumbers = doubledNumbers.filter((num: number): boolean => num < 30);
-const sum = smallNumbers.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
 console.log(originalNumbers);
+
+const doubledNumbers = originalNumbers.map((num: number): number => num*2);
 console.log(doubledNumbers);
+
+const smallNumbers = doubledNumbers.filter((num: number): boolean => num < 30);
 console.log(smallNumbers);
+
+const sum = smallNumbers.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
 console.log(sum);
 ```
 
@@ -117,7 +122,7 @@ console.log("New player:", player.score, player.money, player.position);
 
 // Make an unchanged copy
 const copyPlayer = { ...player };
-console.log("New player:", copyPlayer.score, copyPlayer.money, copyPlaer.position);
+console.log("New player:", copyPlayer.score, copyPlayer.money, copyPlayer.position);
 
 // Modify multiple fields at once (double the score, increase position by one)
 const advancedPlayer = { ...player, score: player.score*2, position: player.position+1 }
@@ -142,6 +147,11 @@ interface Dog {
 }
 
 const ada: Dog = {name: "Ada Bart", breed: "Corgi", age: 4, fuzzy: true };
+console.log(ada.name);
+console.log(ada.age);
+
+const olderAda = {...ada, age: ada.age+1 };
+console.log(ada.age);
 ```
 
 ## Records
@@ -180,12 +190,14 @@ Sometimes we need ways to turn JSON values into a string, and then back again. T
 ```typescript
 const someData = { name: "Blah Blah", isCool: true, nums: [1, 7, 9] };
 console.log(someData);
+console.log(someData.name, someData.isCool, someData.nums);
 
 const dataAsText = JSON.stringify(someData);
 console.log(dataAsText);
 
 const dataAgain = JSON.parse(dataAsText);
 console.log(dataAgain);
+console.log(dataAgain.name, dataAgain.isCool, dataAgain.nums);
 ```
 
 ## Type Difficulties
