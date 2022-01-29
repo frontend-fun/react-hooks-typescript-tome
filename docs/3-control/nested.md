@@ -2,7 +2,18 @@
 layout: default
 title: TypeScript Nested Data
 nav_order: 3.4
+parent: TypeScript
 ---
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
 
 ## Arrays of Objects
 
@@ -18,7 +29,7 @@ interface Movie {
 }
 
 // Make an array of objects
-const GHIBLI_MOVIES: Movie[] = [
+const ghibliMovies: Movie[] = [
   {name: "Kiki's Delivery Service", released: 1989, seen: true},
   {name: "Ponyo", released: 2008, seen: false},
   {name: "Howl's Moving Castle", released: 2004, seen: true},
@@ -27,9 +38,15 @@ const GHIBLI_MOVIES: Movie[] = [
   {name: "Whisper of the Heart", released: 1995, seen: false}
 ];
 
-// Filter out all the movies we have seen
+// Filter all the movies we have not seen
+// AKA only keep movies that not seen
+const unseenMovies = ghibliMovies.filter(
+    (movie: Movie): boolean => !movie.seen
+)
+console.log(unseenMovies);
 
 // Make a new list of just the movie titles
+
 
 // Add together the number of characters in the movie's titles
 
