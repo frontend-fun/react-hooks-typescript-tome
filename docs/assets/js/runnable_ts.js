@@ -54,6 +54,7 @@ function addSubArea(area, headerText, type) {
 
 function setupExecutionZone(target, editor) {
   const runButton = document.createElement("button");
+  runButton.classList.add("btn", "btn-success");
   runButton.appendChild(document.createTextNode("Run"));
   const errorArea = addSubArea(target, "Errors", "pre");
   const outputArea = addSubArea(target, "Console Log", "pre");
@@ -84,6 +85,7 @@ function setupAce(target, initialCode) {
 window.addEventListener('load', function() {
   document.querySelectorAll('.language-typescript.highlighter-rouge,.language-tsx.highlighter-rouge').forEach((area) => {
     const editButton = document.createElement("button");
+    editButton.classList.add("btn", "btn-primary");
     editButton.appendChild(document.createTextNode("✏️"));
     editButton.style.float = 'right';
     editButton.onclick = () => {

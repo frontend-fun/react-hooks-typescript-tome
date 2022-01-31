@@ -40,7 +40,9 @@ One last thing to understand is the idea of Remote repositories. Right now, ther
 
 These three repositories can have a different set of branches and commits, but at any time you could tell them to coordinate with each other and get them back in sync (using `git pull` and `git push`). You won't be able to update our `upstream`, but you will frequently make the `origin` match your local repository.
 
-# Create Your First Branch
+TODO: Get a picture here
+
+# 📝 Task - Create Your First Branch
 
 Every time we start a new task, we will have you run the same general set of commands. Here are the commands we want you to run right now:
 

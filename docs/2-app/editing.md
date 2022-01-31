@@ -117,7 +117,98 @@ export function App(): JSX.Element {
 
 If you look closely, this tag doesn't have an end tag (there's no `</img>`). Instead, it's just a "self-closing" tag (`<img/>`).
 
-## Passing Tests
+# Editing CSS
+
+There are two ways to change the style of a elements. You can use the `style` attribute or edit the rules in the `App.css` file. Let's run through some quick examples.
+
+## Add Border and Padding
+
+```tsx
+export function App(): JSX.Element {
+    return <div style={{border: '1px solid blue', padding: '4px'}}>
+        this will be surrounded by a border and padding.
+    </div>
+}
+```
+
+## Make Text Red
+
+Create a `span` (as in "text that spans some region of space"), and then give it a `color` field in its tag.
+
+```tsx
+export function App(): JSX.Element {
+    return <div>
+        This is <span style={{color: 'red'}}>colored text</span>.
+    </div>
+}
+```
+
+## CSS Rules
+
+Open the `src/App.css` file and look for the `.App-header` rule. Any element that has a `className` that includes `App-header` will have all of these style rules applied. You can change the `background-color` there from a hexadecimal color (e.g., `#282c34`) to something else.
+
+There are tons of HTML color strings out there. Or you can learn how to specify colors in hexadecimal. Go wild.
+
+# Bootstrap
+
+We're going to use the Bootstrap library quite a lot. This is a really convenient library.
+
+## Making a Button
+
+Let's make a simple Bootstrap Button.
+
+```tsx
+export function App(): JSX.Element {
+    return <div>
+        <Button>Click Me</Button>
+    </div>
+}
+```
+
+You will need to add an import statement at the top of your file (something like `import {Button} from 'react-bootstrap';`). This should be easy to do in Visual Studio Code: hover over the red squiggles under the word `<Button`, click `Quick Fix`, and then choose the appropriate import.
+
+The button does not do anything, which is sad. We'll give you some code so that something happens when you click the button.
+
+```tsx
+export function App(): JSX.Element {
+    return <div>
+        <Button onClick={ () => console.log("I am logged") }>Click Me</Button>
+    </div>;
+}
+```
+
+Now clicking the button will log `"I am logged"` to the console. Yay!
+
+## Two Column Layout
+
+Organize the page into at least two columns of layout.
+
+```tsx
+export function App(): JSX.Element {
+    return <div>
+        <Container>
+            <Row>
+                <Col>First column.</Col>
+                <Col>
+                    Second column.
+                    You can put whatever you want in here, and it will be on the right side.
+                    Maybe try adding an image?
+                </Col>
+            </Row>
+        </Container>
+    </div>;
+}
+```
+
+# 📝 Task - HTML and CSS
+
+Our next task is to edit the HTML and CSS of our application. We have prepared a bunch of new tests to help structure you.
+
+```sh
+$> git pull upstream
+$> git checkout -b solved-html-css
+$> git merge upstream/task-html-css
+```
 
 Run:
 
@@ -125,20 +216,12 @@ Run:
 $> npm run test
 ```
 
-If you are failing the first N tests, then we need to fix them.
+Since we are now failing these tests, we need to fix them. Refer to the information in the page above to tackle each test in turn:
 
-## Editing CSS
-
-1. Make some text bigger
-2. Change the background color
-3. Put an icon in the page
-4. Float the image, put padding and border around the image
-
-## Making a Button
-
-1. Make a Bootstrap Button
-2. Console log a message when you press the button
-3. Testing a button (provide an example test, then have them make their own too)
-
-* JS API stuff: Time/date, random, maybe fetch, vibrate, barcode detection, camera, geolocation, sensor API, speech, web cryptography.
-
+* Add a header
+* Add an image with alt text
+* Add a list with at least three elements
+* Add a floating red box
+* Change the background color of the header area
+* Add a bootstrap button
+* Make the button log 'Hello World!` when clicked
