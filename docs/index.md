@@ -4,6 +4,8 @@ layout: home
 
 
 1. [Setup](1-setup/index.md)
+   1. [Environment Setup](1-setup/environment.md)
+   2. [Branching Out](1-setup/branching.md)
 2. [Basic App](2-app/index.md)
    1. [All the Concepts](2-app/concepts.md)
    2. [Basics of HTML and CSS](2-app/editing.md)
