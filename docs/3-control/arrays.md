@@ -14,7 +14,6 @@ parent: TypeScript
 {:toc}
 </details>
 
-
 # Arrays
 
 JavaScript has lists, but calls them "Arrays". This is because JavaScript was dumb and doesn't know what to name things. They are really lists, but we'll go with the JavaScript lingo and call them Arrays.
@@ -44,7 +43,7 @@ const removeQuestions = (sentences: string[]): string[] => {
 }
 ```
 
-## Reference equality vs value equality
+# Reference equality vs value equality
 
 This is the big critical test. Do you know what the answers are?
 
@@ -83,7 +82,7 @@ console.log("myGrades is the same as drBartsGrades:", myGrades === drBartsGrades
 console.log("myGrades is not the same as yourGrades:", myGrades !== yourGrades);
 ```
 
-### The Spread Operator
+# The Spread Operator
 
 We can create a new copy of an existing array by using the spread operator `...` to unpack the existing array into a new array literal.
 
@@ -117,7 +116,7 @@ console.log([...prices]);
 // [10, 8, 9, 7, 55]
 ```
 
-### Adding an element to the end (push)
+# Adding an element to the end (push)
 
 Previously you saw me use the `push` method to add an element to an array. You won't do that anymore. Instead, you're going to use the spread operator to unpack the array and then add a new element to the end, thereby creating NEW arrays. We'll talk about why later, but the gist is that we aren't going to modify our arrays, we're going to make new arrays based on old arrays.
 
@@ -138,7 +137,7 @@ console.log(doublePrices);
 // [10, 8, 9, 7, 10, 8, 9, 7]
 ```
 
-### Inserting into an Array
+# Inserting into an Array
 
 There are many ways to add an element into an array at an arbitrary position. In this course, since we want to avoid mutating the original array, we will follow this pattern:
 
@@ -162,7 +161,7 @@ We clone the original array with the spread operator, and then mutate the cloned
 
 Why does `splice` take a **number of deletions**? Because if you wanted to replace items, you could pass in `1` instead of `0`. Then it would delete one element at that index, and then add another. Whether or not this is truly convenient, it is necessary to remember when using `splice`.
 
-## Map an Array
+# Map an Array
 
 A function that converts a single value to a single value
 
@@ -204,7 +203,7 @@ So why not `for` loop? Not the style. We tend to always have a list, take advant
 
 So why not `while` loops? ARE YOU SERIOUS DO NOT USE `while` LOOPS.
 
-## Filter an Array
+# Filter an Array
 
 Want to remove some elements from an array?
 
@@ -220,11 +219,11 @@ filter:
 
 ```
 
-## Conditionally Modify Array
+# Conditionally Modify Array
 
 What if we combine the `?` and `map`? IT WILL BE AWESOME.
 
-## Reduce an Array
+# Reduce an Array
 
 ```
 reduce:
@@ -264,7 +263,7 @@ const sum = currentTotal;
 console.log(sum);
 ```
 
-## Other Array Operations
+# Other Array Operations
 
 ```typescript
 // TODO: Finish this list

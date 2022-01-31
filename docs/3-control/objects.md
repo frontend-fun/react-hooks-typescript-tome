@@ -41,7 +41,7 @@ console.log(drBart.Title)
 console.log(emptyObject.name)
 ```
 
-## Object-Oriented Programming vs. Functional Programming
+# Object-Oriented Programming vs. Functional Programming
 
 Most likely, you have had a lot of experience with classic Object-Oriented Programming, where you organize data and control flow using classes and methods. A class describes the layout of an object, including its fields and methods. You can use the class as a template for creating new objects, which will come with an initial state based on a constructor method. When you call any method, you expect the method to manipulate the state stored in the fields of an object. The objects cluster together related state - for example, a `Person` might have their `name` and `age` fields, which relate so closely to the `Person` that it would be crazy to separate them.
 
@@ -87,7 +87,7 @@ const sum = smallNumbers.reduce((currentTotal: number, num: number) => currentTo
 console.log(sum);
 ```
 
-### Updating Objects Immutabily
+# Updating Objects Immutabily
 
 Technically speaking, you can edit fields of objects the same way you can in most Object-Oriented languages:
 
@@ -129,7 +129,7 @@ const advancedPlayer = { ...player, score: player.score*2, position: player.posi
 console.log("New player:", advancedPlayer.score, advancedPlayer.money, advancedPlayer.position);
 ```
 
-## Interfaces
+# Interfaces
 
 Okay so what type is it? Currently, we've said that it's an "object with these specific keys which must have these types". But we probably would rather give it a name.
 
@@ -154,7 +154,7 @@ const olderAda = {...ada, age: ada.age+1 };
 console.log(ada.age);
 ```
 
-## Records
+# Records
 
 If you paid attention in Data Structures, you know that Hash Maps are the best thing ever. Python calls them Dictionaries, some languages call them Tables, but the idea is that you can look up a value given a key. Unlike an object, you can have any number of keys and values bound together. The lookup time is *very* fast, similar to an array (thanks to the magic of hashing).
 
@@ -200,7 +200,7 @@ console.log(dataAgain);
 console.log(dataAgain.name, dataAgain.isCool, dataAgain.nums);
 ```
 
-## Type Difficulties
+# Type Difficulties
 
 Check out this confusing error message you get for using the following code:
 
