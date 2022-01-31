@@ -299,4 +299,30 @@ JavaScript has several kinds of loops that are similar to what you have seen in 
 But hey we aren't going to teach you how to use these because we'll do something even better in the next section with arrays. Get hyped!
 
 
+# 📝 Task - Functions
 
+So did you get all of that? Let's find out. Our next task has you define some TypeScript functions.
+
+As always, begin by pulling our changes, making a new branch, and merging in our changes.
+
+```sh
+$> git pull upstream
+$> git checkout -b solved-functions
+$> git merge upstream/task-functions
+```
+
+You'll need to edit the `functions.ts` file.
+
+Check your status with the tests by running:
+
+```sh
+$> npm run test:cov
+```
+
+As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
+
+Once you are passing all the tests, you should be able to push your branch to the remote and make a Pull Request to `main`. We'll be checking your tests to make sure you pass!
+
+```sh
+$> git push --set-upstream origin solved-functions
+```
