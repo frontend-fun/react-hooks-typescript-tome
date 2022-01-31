@@ -221,7 +221,13 @@ Since we are now failing these tests, we need to fix them. Refer to the informat
 * Add a header
 * Add an image with alt text
 * Add a list with at least three elements
-* Add a floating red box
 * Change the background color of the header area
 * Add a bootstrap button
 * Make the button log 'Hello World!` when clicked
+
+THERE ARE TWO TASKS NOT REPRESENTED IN THE TESTS.
+
+1. Have a two-column layout on the page somwhere
+2. Put a red rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
+
+To earn full points, you must pass all the tests and also complete these two additional tasks.
