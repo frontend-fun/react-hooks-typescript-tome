@@ -27,6 +27,10 @@ Organize State Structure Based on Data Types, Not Components
 
 # Patterns
 
+## Rendering an Array
+
+Make sure you use a `key`: <https://reactjs.org/docs/lists-and-keys.html>
+
 ## Array Edit Patterns
 
 ```typescript
@@ -212,7 +216,7 @@ export function App(): JSX.Element {
   return <div>
     <ol>
       {(movies.map((movie: Movie): JSX.Element => 
-        <li>
+        <li key={movie.name}>
           {movie.name} ({movie.released}): 
           <Button onClick={()=>removeMovieByName(movie.name)}>
             Remove
@@ -295,7 +299,7 @@ export function App(): JSX.Element {
   return <div>
     <ol>
       {(movies.map((movie: Movie): JSX.Element => 
-        <li>
+        <li key={movie.name}>
           {movie.name} ({movie.released})
       </li>))}
     </ol>

@@ -275,23 +275,3 @@ This is a complicated problem. Fundamentally, there are only two ways that you c
 * Problem where they need to lift a state up to the top component
 * Situation where the state can be moved down to a child component
 
-# Forms for Editing State
-
-* Form with K states
-  * User input pattern, with link to big collection of other input types
-    * Textbox
-      * Simple string
-      * Have to parse as number
-    * Checkbox
-    * Textarea
-    * Select menu
-  * How to test each input form type
-    * Simulating user event
-    * Finding things by their role
-    * Finding some text
-    * Dangerous fallback: test-id
-
-# State based on State
-
-* Dependent state based on other state
-* What, you mean just calculating something? I suppose we need to make a point that just because you have some concept does not mean it needs to be represented in the Hooks.
