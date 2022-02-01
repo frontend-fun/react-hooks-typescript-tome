@@ -5,6 +5,8 @@ nav_order: 3.2
 parent: TypeScript
 ---
 
+# TypeScript Arrays
+
 <details open markdown="block">
   <summary>
     Table of contents
