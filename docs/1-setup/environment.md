@@ -5,6 +5,10 @@ nav_order: 1.1
 parent: Setup
 ---
 
+# Environment Setup
+
+[&laquo; Return to the Index](index.md)
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -118,4 +122,6 @@ If the site failed to build properly, there will be a Red X. Clicking the Red X 
 
 Otherwise, hopefully your changes will now be live on the website. You might need to do a hard-refresh.
 
-At this point in time, your setup is done. We are now ready for the FIRST TASK.
+At this point in time, your setup is done.
+
+Let's try the first task: [Branching Out &raquo;](../1-setup/branching.md)
