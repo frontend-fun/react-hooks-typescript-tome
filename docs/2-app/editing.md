@@ -5,6 +5,10 @@ nav_order: 2.2
 parent: Basic Application
 ---
 
+# Basic HTML and CSS
+
+[&laquo; Return to All the Concepts](concepts.md)
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -231,3 +235,5 @@ THERE ARE TWO TASKS NOT REPRESENTED IN THE TESTS.
 2. Put a red rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
 
 To earn full points, you must pass all the tests and also complete these two additional tasks.
+
+Once you're done, we'll start learning more about [TypeScript &raquo;](../3-control/index.md)

@@ -7,6 +7,8 @@ parent: TypeScript
 
 # TypeScript Arrays
 
+[&laquo; Return to Primitives and Control Flow](primitives.md)
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -18,7 +20,7 @@ parent: TypeScript
 
 # Arrays
 
-JavaScript has lists, but calls them "Arrays". This is because JavaScript was dumb and doesn't know what to name things. They are really lists, but we'll go with the JavaScript lingo and call them Arrays.
+JavaScript has lists, but calls them "Arrays". This is because JavaScript was dumb and doesn't know what to name things. They are really lists, but we'll go with the JavaScript lingo and call them Arrays. But remember they act more like Java's `ArrayList` or Python's Lists, compared to Java's or C++'s arrays.
 
 ```typescript
 // Example of creating array variables
@@ -182,28 +184,31 @@ Let's use this to modify every element of the array.
 const prices = [13, 7, 8, 2];
 
 // Using `map` - awesome!
-const doubled = prices.map((num: number): number => num*2);
+const doubled = prices.map((price: number): number => price*2);
 console.log(doubled);
 
 // Foreach loop style - do not use this!
 let doubled = [];
-for (const num of prices) {
-  doubled = [...doubled, num];
-  // Mutable style which we won't use:
-  // doubled.push(num);
+for (const price of prices) {
+  doubled.push(price);
+  // Alternative Immutable style which we won't use either:
+  // doubled = [...doubled, price];
 }
 console.log(doubled);
 ```
 
-Then what if we want to convert an array? WE USE MAP.
+Then what if we want to convert an array? WE STILL USE MAP. We can change the return type to be something besides the original element type.
 
 ```typescript
-// Example where we change the type
+const prices = [13, 7, 8, 2];
+
+const dollars = prices.map((price: number): string => "$"+price.toString());
+console.log(dollars);
 ```
 
 So why not `for` loop? Not the style. We tend to always have a list, take advantage of that.
 
-So why not `while` loops? ARE YOU SERIOUS DO NOT USE `while` LOOPS.
+So why not `while` loops? ARE YOU SERIOUS DO NOT USE `while` LOOPS. They are messy and error-prone. I will be surprised if you ever actually need a `while` loop in this course.
 
 # Filter an Array
 
@@ -217,13 +222,85 @@ filter:
   Returns: X[]
 ```
 
-```typescript
+The `filter` function consumes an element of the array, and let's you ask a question by passing in a "predicate", or a function that returns a boolean. For instance, you might have a helper function that asks something like "is this an even number?", or "does this string begin with a certain symbol?" If you want to make a list smaller than it was (or potentially the same size), without changing the type, then this is the function for you.
 
+```typescript
+const prices = [13, 7, 8, 2, 19];
+
+const lowPrices = prices.filter((price: number): boolean => price < 10);
+console.log(lowPrices);
+```
+
+This might be easier to see if break the helper function out separately:
+
+```typescript
+const prices = [13, 7, 8, 2, 19];
+
+const isLowPrice = (price: number): boolean => price < 10;
+const lowPrices = prices.filter(isLowPrice);
+console.log(lowPrices);
+```
+
+Do you see how we wrote `isLowPrice` instead of `isLowPrice`? We're not calling `isLowPrice`, we're passing the reference to the `isLowPrice` function to the `filter` so the `filter` function can call `isLowPrice` for us without us having to do so.
+
+Let's write it one more time, as if it were an `if` statement in a `for` loop, just so you can see.
+
+```typescript
+// Don't use this approach!
+const prices = [13, 7, 8, 2, 19];
+
+let lowPrices = [];
+for (const price of prices) {
+  if (price < 10) {
+    lowPrices.push(price);
+  }
+}
+console.log(lowPrices);
+```
+
+A handy trick is to use the `length` field to count the quantity of something:
+
+```typescript
+const sentences = ["How are you?", "I am great.", "Oh really?"];
+
+const questions = sentences.filter((sentence: string): boolean => sentence.contains("?"));
+console.log("There were", questions.length, "questions.");
 ```
 
 # Conditionally Modify Array
 
-What if we combine the `?` and `map`? IT WILL BE AWESOME.
+So we saw how to REMOVE elements from an array, and how to CHANGE elements in an array. What if we want to CHANGE SOME OF THE ELEMENTS in the array? Sometimes folks get confused and think they need `filter`, but you actually need to use `map`. Think about it - the list is still the same size, we're just changing some of the elements. The confusing part is that we still need a *question*.
+
+Let's say we want to double all the "small" prices (prices less than $10). We can use the ternary `?` operator, which we saw in the previous chapter, to write this succinctly.
+
+```typescript
+const prices = [13, 7, 8, 2, 19];
+
+const doubledLowPrices = prices.map(
+  // If the price is less than 10, double the price, otherwise use the price unchanged
+  (price: number): number => (price < 10) ? (2 * price) : price
+);
+console.log(lowPrices);
+```
+
+If you aren't used to the `?` operator yet, you might find the `for` loop version easier to read - but that does not mean you should use that version!
+
+```typescript
+// Don't use this approach!
+const prices = [13, 7, 8, 2, 19];
+
+let doubledLowPrices = [];
+for (const price of prices) {
+  if (price < 10) {
+    doubledLowPrices.push(2 * price);
+  } else {
+    doubledLowPrices.push(price);
+  }
+}
+console.log(doubledLowPrices);
+```
+
+Once you get used to the ternary `?` operator, your life will be very sweet indeed.
 
 # Reduce an Array
 
@@ -267,23 +344,76 @@ console.log(sum);
 
 # Other Array Operations
 
+Real quick, here are some other useful array functions. You gotta go learn them on your own though!
+
 ```typescript
-// TODO: Finish this list
+const prices = [13, 7, 8, 2, 19];
 
 // `find` gives you an element matching a condition
+const firstLowPrice = prices.find((price: number): boolean => price < 10);
+console.log("First low price is", firstLowPrice);
 
 // `findIndex` gives you the index of the element matching a condition
+const firstLowPriceIndex = prices.findIndex((price: number): boolean => price < 10);
+console.log("Index of irst low price is", firstLowPriceIndex);
 
-// `every` checks if a condition holds for all elements (repeatedly and)
+// `every` checks if a condition holds for each element (repeatedly and)
+const allLowPrices = prices.every((price: number): boolean => price < 10);
+console.log("All prices are low:", allLowPrices);
 
 // `some` checks if a conditions holds for at least one element (repeatedly or)
+const anyLowPrices = prices.some((price: number): boolean => price < 10);
+console.log("Any prices are low:", anyLowPrices);
 
 // `join` combines elements with a string
+const thePrices = prices.join(" and ");
+console.log("The prices are", thePrices);
 
-// `sort` sorts a list. Keep an eye on the second argument, very tricky.
+// `sort` sorts a list. This is done inplace, like `splice`, so we need a copy.
+// Keep an eye on the second argument, very tricky: it's the comparison function
+const descendingPrices = [...prices];
+descendingPrices.sort((a: number, b: number): number => b - a);
+console.log("The prices in descending order are", descendingPrices);
+// Still isn't this better than making your own sort function?
 
 // `length` is a field, not a function, gives you the length of the array.
+const priceCount = prices.length;
+console.log("There are", priceCount, "prices");
 ```
 
-Seriously try to find a list of these? I don't want to recreate the wheel.
 
+# 📝 Task - Arrays
+
+This stuff never makes sense just reading about it. Let's try working on some problems instead!
+
+As always, begin by pulling our changes, making a new branch, and merging in our changes.
+
+```sh
+$> git pull upstream
+$> git checkout -b solved-arrays
+$> git merge upstream/task-arrays
+```
+
+You'll need to edit the `arrays.ts` file.
+
+YOU MAY NOT USE `for` LOOPS, `while` LOOPS, or recursion! You MUST use the array methods we have taught you. You must also avoid mutating the original arrays - all changes must be immutable! As long as you stick to the commands on this page, you shouldn't have any issues.
+
+You may need additional functions in JavaScript; don't be afraid to seek help as needed if you aren't sure how to do a specific conversion (e.g., a string into an integer).
+
+Check your status with the tests by running:
+
+```sh
+$> npm run test:cov
+```
+
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `bookEndList`). You can go back to running all the tests by typing `a`.
+
+As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
+
+Once you are passing all the tests, you should be able to push your branch to the remote and make a Pull Request to `main`. We'll be checking your tests to make sure you pass!
+
+```sh
+$> git push --set-upstream origin solved-functions
+```
+
+Once you're done submitting, we can learn about [TypeScript Objects &raquo;](../3-control/objects.md)

@@ -5,6 +5,10 @@ parent: TypeScript
 nav_order: 3.1
 ---
 
+# TypeScript Primitives and Control Flow
+
+[&laquo; Return to the Chapter Index](index.md)
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -326,3 +330,5 @@ Once you are passing all the tests, you should be able to push your branch to th
 ```sh
 $> git push --set-upstream origin solved-functions
 ```
+
+Once you're done submitting, we can learn about [TypeScript Arrays &raquo;](../3-control/arrays.md)

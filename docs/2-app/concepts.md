@@ -5,6 +5,10 @@ nav_order: 2.1
 parent: Basic Application
 ---
 
+# All the Concepts
+
+[&laquo; Return to the Chapter Index](index.md)
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -108,3 +112,8 @@ Now, all code that you write for the web application is eventually being run in 
 
 Right now, creating a new blank React application with TypeScript support requires about 200Mb of libraries. This is insane, but welcome to the future. It is very convenient, albeit a bit bloated.
 
+# Phew
+
+Phew, that was a lot of text. Did anyone actually read that?
+
+Well, either way, let's start editing some [Basic HTML and CSS &raquo;](../2-app/editing.md)
