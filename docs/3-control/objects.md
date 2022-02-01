@@ -5,6 +5,10 @@ nav_order: 3.3
 parent: TypeScript
 ---
 
+# Typescript Objects
+
+[&laquo; Return to TypeScript Objects](arrays.md)
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -13,7 +17,6 @@ parent: TypeScript
 1. TOC
 {:toc}
 </details>
-
 
 # Objects
 
@@ -131,18 +134,18 @@ console.log("New player:", advancedPlayer.score, advancedPlayer.money, advancedP
 
 # Interfaces
 
-Okay so what type is it? Currently, we've said that it's an "object with these specific keys which must have these types". But we probably would rather give it a name.
+Okay so what type is it? Currently, we've said that it's an "object with these specific keys which must have these types". But we probably would rather give it a name. You could use a Class, but instead we will use an "interface" to specify the shape of the structured data.
 
-The idea of an interface vs. a class
+How is this different from a class? Well, a class has methods and an interface does not. Also, you can use classes to make instances, but technically we're never going to make instances - we're just going to make objects that "satisfy" the requirements of an interface. As long as they have the right names and types, TypeScript will be happy with us.
 
-Terminology: "field", "attribute", all of these are appropriate.
-
+The data inside of an object is organized into "fields" or "attributes" (you could also say "keys", or "properties", there are many words). Each field has a specific type.
 
 ```typescript
 interface Dog {
   name: string
-  breed: "Corgi" | "Chihuahua" | "Mutt"
   age: number
+  // Type union of strings, must be one of these options
+  breed: "Corgi" | "Chihuahua" | "Mutt"
   fuzzy: boolean
 }
 
@@ -152,6 +155,27 @@ console.log(ada.age);
 
 const olderAda = {...ada, age: ada.age+1 };
 console.log(ada.age);
+
+function makeCorgi(name: string): Dog {
+  return {name: name, breed: "Corgi", age: 1, fuzzy: true};
+}
+
+function groomDog(dog: Dog): Dog {
+  return {... dog, fuzzy: false };
+}
+
+function ageInHumanYears(dog: Dog): number {
+  return dog.age * 7;
+}
+
+const grace = makeCorgi("Grace");
+console.log("The new corgi is named:", grace.name);
+
+console.log("Ada is", ageInHumanYears(ada), "in human years.");
+
+const fancyAda = groomDog(ada);
+console.log("Before grooming, is Ada fuzzy?", ada.fuzzy);
+console.log("After grooming, is Ada fuzzy?", fancyAda.fuzzy);
 ```
 
 # Records
@@ -170,6 +194,95 @@ const courseLookup: Record<string, string> = {
 
 console.log(courseLookup['CISC275'])
 console.log(courseLookup['CISC108'])
+```
+
+## Records from Arrays
+
+A Record is almost more similar to an Array than an Object. Which is actually a weird statement because technically Arrays are Objects, and Records are exactly Objects. But in terms of how we use them, Records are very similar to Arrays - a collection of an unknown things. Looking up an item in a record by its key is almost as fast as looking up an item by its position in an Array. In practice, they should usually be fairly instantenous ("constant time") operations.
+
+Anyway, the point is that it's often very useful to convert an Array into a Record, so that you can look up items quickly based on a key (e.g., `id` or `name`) rather than having to use `find` or `findIndex` (which are linear time searches, yuck).
+
+```typescript
+interface State {
+  abbreviation: string
+  name: string
+  capitol: string
+}
+
+const usaStates: State[] = [
+  { abbreviation: "DE", name: "Delaware", capitol: "Dover" },
+  { abbreviation: "MD", name: "Maryland", capitol: "Annapolis" },
+  { abbreviation: "VA", name: "Virginia", capitol: "Richmond" },
+  { abbreviation: "PA", name: "Pennsylvania", capitol: "Harrisburg" }
+];
+
+// The `fromEntries` function converts an array of pairs to an object
+const lookupState: Record<string, State> = Object.fromEntries(
+    // Convert the array to an array of pairs, where each pair has the abbreviation
+    // and the state.
+    usaStates.map((state: State): [string, State] => [state.abbreviation, state])
+);
+
+console.log(lookupState["DE"].capitol);
+
+// You can also go back using Object.keys() or Object.values()
+console.log("State Abbreviations:", Object.keys(lookupState);
+```
+
+# Unpacking Objects ("Destructuring Assignment")
+
+Okay this is a really weird and cool feature, but it's gonna be a little complicated. Basically, we can unpack objects' fields directly into variables.
+
+```typescript
+const ada = {name: "Ada Bart", breed: "Corgi", age: 4, fuzzy: true };
+
+// This works, because you can access fields
+console.log("Ada's name:", ada.name);
+
+// But this DOES NOT work, because the variable `name` does not exist (it's a field)
+// console.log("Ada's name:", name);
+
+// But it DOES work if we unpack that field first!
+const { name, breed } = ada
+console.log("Ada's name", name);
+console.log("Ada's breed", breed);
+
+// You can also rename fields if you wanted to
+const { name: adaName } = ada
+console.log("Ada's name", adaName);
+```
+
+This works with parameters, weird as that might sound. We'll see later that it can be really convenient.
+
+```typescript
+interface Dog {
+  name: string
+  breed: "Corgi" | "Chihuahua" | "Mutt"
+  age: number
+  fuzzy: boolean
+}
+
+// We only specify that the object passed to the function MUST contain the field `breed`
+// and that field MUST be a string. It can have other fields, too.
+function checkIfCorgi({breed}: {breed: string}): boolean {
+    return breed === "Corgi";
+}
+
+// Compare that to this version; they're not better or worse in this case, just have tradeoffs.
+// Try swapping out the parameter types between two functions, you'll see it works either way!
+function checkIfCorgi(aDog: Dog): boolean {
+    return aDog.breed === "Corgi";
+}
+```
+
+This works with arrays too, if you know how long the array is.
+
+```typescript
+const rgbColor = [255, 128, 200];
+const [red, green, blue] = rgbColor;
+
+console.log(rgbColor);
+console.log(red, green, blue);
 ```
 
 # JSON
@@ -200,9 +313,36 @@ console.log(dataAgain);
 console.log(dataAgain.name, dataAgain.isCool, dataAgain.nums);
 ```
 
-# Type Difficulties
+# 📝 Task - Objects
 
-Check out this confusing error message you get for using the following code:
+This will be a short task!
 
-* TODO: Some code where you have returned a function instead of a value, passed in a value instead of a value.
-* TODO: Function where you are taking in an object instead of its fields
+As always, begin by pulling our changes, making a new branch, and merging in our changes.
+
+```sh
+$> git pull upstream
+$> git checkout -b solved-objects
+$> git merge upstream/task-objects
+```
+
+You'll need to edit the `objects.ts` file.
+
+You may need additional functions in JavaScript; don't be afraid to seek help as needed if you aren't sure how to do a specific conversion (e.g., a string into an integer).
+
+Check your status with the tests by running:
+
+```sh
+$> npm run test:cov
+```
+
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `makeQuiz`). You can go back to running all the tests by typing `a`.
+
+As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
+
+Once you are passing all the tests, you should be able to push your branch to the remote and make a Pull Request to `main`. We'll be checking your tests to make sure you pass!
+
+```sh
+$> git push --set-upstream origin solved-objects
+```
+
+Once you're done submitting, we can learn about [Nesting Data &raquo;](../3-control/nested.md)

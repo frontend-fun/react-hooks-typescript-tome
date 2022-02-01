@@ -263,7 +263,10 @@ A handy trick is to use the `length` field to count the quantity of something:
 ```typescript
 const sentences = ["How are you?", "I am great.", "Oh really?"];
 
-const questions = sentences.filter((sentence: string): boolean => sentence.contains("?"));
+const questions = sentences.filter(
+    // Check if the string in `sentence` includes the substring "?"
+    (sentence: string): boolean => sentence.includes("?"));
+// Get the `length` of the array
 console.log("There were", questions.length, "questions.");
 ```
 
@@ -280,7 +283,7 @@ const doubledLowPrices = prices.map(
   // If the price is less than 10, double the price, otherwise use the price unchanged
   (price: number): number => (price < 10) ? (2 * price) : price
 );
-console.log(lowPrices);
+console.log(doubledLowPrices);
 ```
 
 If you aren't used to the `?` operator yet, you might find the `for` loop version easier to read - but that does not mean you should use that version!
@@ -355,7 +358,7 @@ console.log("First low price is", firstLowPrice);
 
 // `findIndex` gives you the index of the element matching a condition
 const firstLowPriceIndex = prices.findIndex((price: number): boolean => price < 10);
-console.log("Index of irst low price is", firstLowPriceIndex);
+console.log("Index of first low price is", firstLowPriceIndex);
 
 // `every` checks if a condition holds for each element (repeatedly and)
 const allLowPrices = prices.every((price: number): boolean => price < 10);
@@ -413,7 +416,7 @@ As you complete functions, use the `git add`/`git commit` or the Visual Studio C
 Once you are passing all the tests, you should be able to push your branch to the remote and make a Pull Request to `main`. We'll be checking your tests to make sure you pass!
 
 ```sh
-$> git push --set-upstream origin solved-functions
+$> git push --set-upstream origin solved-arrays
 ```
 
 Once you're done submitting, we can learn about [TypeScript Objects &raquo;](../3-control/objects.md)
