@@ -7,7 +7,7 @@ parent: Setup
 
 # Environment Setup
 
-[&laquo; Return to the Index](index.md)
+[&laquo; Return to the Chapter Index](index.md)
 
 <details open markdown="block">
   <summary>

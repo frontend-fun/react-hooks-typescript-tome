@@ -5,6 +5,8 @@ nav_order: 1.2
 parent: Setup
 ---
 
+[&laquo; Return to Environment Setup](index.md)
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -99,3 +101,5 @@ $> git push --set-upstream origin solved-first-branch
 This makes the local branch `solved-first-branch` available on the remote, and then pushes the branches' commits. You can now return to the repository on GitHub, where you will be presented with an orange box offering to make a Pull Request. Click the button to get started.
 
 Assuming you do not have any issues with your code, you can click through the menus and initiate the Pull Request. Once completed, the `main` branch is updated and should rebuild itself shortly. After a couple minutes, your changes should now be live on the deployed site.
+
+Once you're done, we can start our [Basic Application &raquo;](../2-app/index.md)

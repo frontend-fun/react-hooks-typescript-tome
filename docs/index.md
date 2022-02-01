@@ -4,6 +4,8 @@ title: Index
 nav_order: 0
 ---
 
+# React Hooks TypeScript Tome
+
 This irreverant, sloppy, but interactive textbook wants to teach you how to make web applications using TypeScript and React Hooks. Give it a try.
 
 1. [Setup](1-setup/index.md)
