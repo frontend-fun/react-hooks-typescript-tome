@@ -129,7 +129,7 @@ There are two ways to change the style of a elements. You can use the `style` at
 
 ```tsx
 export function App(): JSX.Element {
-    return <div style={{border: '1px solid blue', padding: '4px'}}>
+    return <div style={ {border: '1px solid blue', padding: '4px'} }>
         this will be surrounded by a border and padding.
     </div>
 }
@@ -142,7 +142,7 @@ Create a `span` (as in "text that spans some region of space"), and then give it
 ```tsx
 export function App(): JSX.Element {
     return <div>
-        This is <span style={{color: 'red'}}>colored text</span>.
+        This is <span style={ {color: 'red'} }>colored text</span>.
     </div>
 }
 ```
