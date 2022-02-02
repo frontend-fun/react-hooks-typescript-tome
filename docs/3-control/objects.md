@@ -44,7 +44,7 @@ console.log(drBart.Title)
 console.log(emptyObject.name)
 ```
 
-# Object-Oriented Programming vs. Functional Programming
+## Object-Oriented Programming vs. Functional Programming
 
 Most likely, you have had a lot of experience with classic Object-Oriented Programming, where you organize data and control flow using classes and methods. A class describes the layout of an object, including its fields and methods. You can use the class as a template for creating new objects, which will come with an initial state based on a constructor method. When you call any method, you expect the method to manipulate the state stored in the fields of an object. The objects cluster together related state - for example, a `Person` might have their `name` and `age` fields, which relate so closely to the `Person` that it would be crazy to separate them.
 
@@ -90,7 +90,7 @@ const sum = smallNumbers.reduce((currentTotal: number, num: number) => currentTo
 console.log(sum);
 ```
 
-# Updating Objects Immutabily
+## Updating Objects Immutabily
 
 Technically speaking, you can edit fields of objects the same way you can in most Object-Oriented languages:
 
@@ -132,9 +132,24 @@ const advancedPlayer = { ...player, score: player.score*2, position: player.posi
 console.log("New player:", advancedPlayer.score, advancedPlayer.money, advancedPlayer.position);
 ```
 
+## Nested Fields
+
+When you are updating fields that have a data structure (like an array or another object), things get a little trickier. We have to be very careful to avoid modifying the original. Therefore, we do a nested copy.
+
+```typescript
+const student = { name: "Ada", grades: [100, 99, 78, 97]};
+
+const studentWithNewGrade = {
+  ...student,
+  grades: [...student.grades, 100]
+}
+console.log("Original student grades:", student.grades);
+console.log("New version's grades:", studentWithNewGrade.grades);
+```
+
 # Interfaces
 
-Okay so what type is it? Currently, we've said that it's an "object with these specific keys which must have these types". But we probably would rather give it a name. You could use a Class, but instead we will use an "interface" to specify the shape of the structured data.
+Okay so what type is an Object? We don't have a class, so technically each of these curly braced things are just "plain old javascript objects" ("POJOs"). But we probably would rather give them a name and refer to similarly structured objects by their category. You could use a Class, but instead we will use an "Interface" to specify the shape of the structured data.
 
 How is this different from a class? Well, a class has methods and an interface does not. Also, you can use classes to make instances, but technically we're never going to make instances - we're just going to make objects that "satisfy" the requirements of an interface. As long as they have the right names and types, TypeScript will be happy with us.
 
@@ -312,6 +327,8 @@ const dataAgain = JSON.parse(dataAsText);
 console.log(dataAgain);
 console.log(dataAgain.name, dataAgain.isCool, dataAgain.nums);
 ```
+
+Often, you will find data stored as JSON in files (`.json`). Modern TypeScript tooling can load that data into our programs, the same way we'd load files (using `import` statements). This makes JSON a good way to store configuration settings, raw data, swappable user interface text, test case data, and much more.
 
 # 📝 Task - Objects
 
