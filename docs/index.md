@@ -20,5 +20,8 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
    3. [Objects](3-control/objects.md)
    4. [Nested Data](3-control/nested.md)
 4. [Using State](4-state/index.md)
+   1. [State](4-state/state.md)
+   2. [Components](4-state/components.md)
+   3. [Forms](4-state/forms.md)
 5. [Complex Representations](5-complex/index.md)
 6. [Your Own App](6-journey/index.md)
