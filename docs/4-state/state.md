@@ -18,17 +18,6 @@ parent: Using State
 {:toc}
 </details>
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
-
-# Using State
-
 JavaScript and TypeScript are not interesting because they let us do basic calculations and render static HTML. They are cool because they let us control web pages and make things dynamic and interactive. So let's do that now instead.
 
 # A State-less Component
