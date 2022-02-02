@@ -27,7 +27,7 @@ Do not skip steps.
 Read error messages, and ask questions. Talk to humans as needed to get help, and use google intelligently.
 
 
-# Setup:
+# Installations
 
 There's a bunch of Software that you need on your machine. We aren't providing instructions for most of these. Seek help proactively.
 
@@ -124,4 +124,4 @@ Otherwise, hopefully your changes will now be live on the website. You might nee
 
 At this point in time, your setup is done.
 
-Let's try the first task: [Branching Out &raquo;](../1-setup/branching.md)
+Let's try the first REAL task: [Branching Out &raquo;](../1-setup/branching.md)
