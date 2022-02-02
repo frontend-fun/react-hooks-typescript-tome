@@ -29,60 +29,7 @@ Organize State Structure Based on Data Types, Not Components
 
 # Patterns
 
-## Rendering an Array
 
-Make sure you use a `key`: <https://reactjs.org/docs/lists-and-keys.html>
-
-## Immutability
-
-Fix an application where they try to do something like this:
-
-
-```tsx
-export function App(): JSX.Element {
-  const [people, setPeople] = useState<string[]>([]);
-  const [newName, setNewName] = useState<string>("New Name");
-
-  function addPerson(name: string) {
-    // ...
-  }
-
-  return <div>
-    <input type="textbox" onChange={(event) => setNewName(event.target.value)}/>
-    <button onClick={()=>addPerson(newName)}>Add Person</button>
-    <ul>
-      {(people.map(
-        (person: string): JSX.Element => <li key={person}>{person}</li>
-      ))}
-    </ul>
-  </div>;
-}
-```
-
-Explain why each of these don't work.
-
-```typescript
-// String and string[] are not compatible
-setPeople(newName);
-```
-
-
-```typescript
-// Need to call setState
-people.push(newName);
-```
-
-```typescript
-// No detection of changed value, reference equality
-people.push(newName);
-setPeople(people)
-```
-
-```typescript
-// You can't overwrite a constant
-people = [...people, newName];
-setPeople(people)
-```
 
 * list of primitive states
   * List of names of people, need to be able to add, remove, edit

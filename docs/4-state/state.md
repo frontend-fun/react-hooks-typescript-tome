@@ -31,7 +31,7 @@ parent: Using State
 
 JavaScript and TypeScript are not interesting because they let us do basic calculations and render static HTML. They are cool because they let us control web pages and make things dynamic and interactive. So let's do that now instead.
 
-## A State-less Component
+# A State-less Component
 
 Let us look at a very simplistic application that has no state:
 
@@ -44,7 +44,7 @@ export function App(): JSX.Element {
 
 There are no buttons, input boxes, or other mechanisms to let us interact with the application, because there is no State to get or set. We just return a constant value. If there was a button, clicking it could not mess with the "Hello World" text. We need State in order to do fun interactive stuff.
 
-## Interactivity
+# Interactivity
 
 Interactivity means that a page changes when you interact with the page. That means a page has a BEFORE and an AFTER. At any given point in time, you can check the "State" of the page.
 
@@ -63,7 +63,7 @@ We represent State with *values*, and describe the possible sets of State with *
 
 When you build an application, you need to think of the State first. Often, this means describing the State in terms of types and data structures. React is built around the idea of "one-way" State.
 
-## Model, View, and Controller
+# Model, View, and Controller
 
 One of the most common architectural patterns in Software Engineering is the idea of "Model-View-Controller".
 
@@ -83,7 +83,7 @@ The View can also bind *events* to *functions*, so that when a user interacts wi
 
 When the Controllers update the Model, React automatically knows to re-render the View by calling the Component Function again. The State updates happen in one big circular direction - The Controller modifies the Model, the Model tells the View to update, and the View provides mechanisms for the Controller to activate.
 
-## A Component with State
+# A Component with State
 
 So what does this mean in practice? Let's take a look at a Component that does have State:
 
@@ -103,7 +103,7 @@ Run this application and click the button. Every time you click, the counter sho
 
 But what on earth is happening in that second line with the `const [counter, setCounter] = ...`?
 
-## The useState concept
+# The useState concept
 
 Let's take a look at that most important line, with the `useState`.
 
@@ -118,7 +118,7 @@ On its own outside of `App`, this line won't run. Not only because we haven't de
 
 Before we dive into a proper example, let's get some terminology about that line of code, because we're going to see A LOT of it.
 
-### Terminology
+## Terminology
 
 Memorize these terms
 
@@ -127,7 +127,7 @@ Memorize these terms
 * `useState` is the "Hook Creation Function", giving us a "Hook" to store our Model in. This name is always the same.
 * `initialValue` is the "Initial Value" for the state variable, giving us the ability to set our initial Model. This is replaced with a literal value.
 
-### The Concept of a Hook
+## The Concept of a Hook
 
 When you call `useState`, think of React creating a "Hook" that values can be hung on.
 When we say values, you can imagine a piece of paper with a number, some text, a list, etc.
@@ -162,6 +162,10 @@ This is where "Hooks" come in. There is clever code inside of the definition of 
 How does this magic work? You can watch a longer explanation [here](https://www.youtube.com/watch?v=1VVfMVQabx0), but basically the idea is the "Hooks" are just being stored in an array that lives outside of the Component Function. Even though the Component Function's execution may end, that same array will be available in the Component Function's next execution. This is why we must never put `useState` inside of conditional statements, loops, or other complex control flow - we need to call `useState` in the same order every time, so that each piece of the State matches between renders.
 
 If that was all too confusing, then here's the bottom line: if you want State in your application, you need to create a Hook using `useState`.
+
+# State Type Examples
+
+Let's run through some examples of different types of State.
 
 ## Boolean State: Show/Hide Example
 
