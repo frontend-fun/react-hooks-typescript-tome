@@ -1,6 +1,6 @@
 ---
 layout: default
-title: TypeScript Objects
+title: Objects
 nav_order: 3.3
 parent: TypeScript
 ---
@@ -331,8 +331,6 @@ console.log(dataAgain.name, dataAgain.isCool, dataAgain.nums);
 Often, you will find data stored as JSON in files (`.json`). Modern TypeScript tooling can load that data into our programs, the same way we'd load files (using `import` statements). This makes JSON a good way to store configuration settings, raw data, swappable user interface text, test case data, and much more.
 
 # 📝 Task - Objects
-
-This will be a short task!
 
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 

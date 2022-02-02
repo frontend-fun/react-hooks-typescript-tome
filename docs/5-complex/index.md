@@ -4,6 +4,8 @@ title: Complex Representation
 nav_order: 5
 ---
 
+# Complex Representation
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -31,61 +33,28 @@ Organize State Structure Based on Data Types, Not Components
 
 Make sure you use a `key`: <https://reactjs.org/docs/lists-and-keys.html>
 
-## Array Edit Patterns
-
-```typescript
-const [prices, setPrices] = useState<number>([10, 8, 9, 7]);
-```
-
-
-
-### Inserting an element at an index
-
-
-
-### Inserting an element after a value
-
-const targetIndex = prices.findIndex()
-
-### Edit element of array
-
-IF THE ARRAY HAS PRIMITIVE DATA THAN THIS IS EASY. But rarely is that the case. Be warned and be prepared to go to a later section.
-
-```typescript
-const newPrices = [...prices];
-newPrices[index] = 55;
-setPrices(newPrices)
-```
-
-
-* Edit patterns
-  * push, insert into array
-  * edit element of array
-  * pop, remove index, remove value
-
-
 ## Immutability
 
 Fix an application where they try to do something like this:
 
 
 ```tsx
-export function BrokenNames(): JSX.Element {
+export function App(): JSX.Element {
   const [people, setPeople] = useState<string[]>([]);
   const [newName, setNewName] = useState<string>("New Name");
 
-  function addPerson() {
-    // TODO
+  function addPerson(name: string) {
+    // ...
   }
 
   return <div>
+    <input type="textbox" onChange={(event) => setNewName(event.target.value)}/>
+    <button onClick={()=>addPerson(newName)}>Add Person</button>
     <ul>
-      (people.map(
-        (person: string): JSX.Element => <li>{person}</li>
-      ))
+      {(people.map(
+        (person: string): JSX.Element => <li key={person}>{person}</li>
+      ))}
     </ul>
-    <input type="textbox" onChange={(event: ___) => setNewName(event.target.result)}/>
-    <button onClick={addPerson}>Add Person</button>
   </div>;
 }
 ```

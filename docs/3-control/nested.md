@@ -1,9 +1,22 @@
 ---
 layout: default
-title: TypeScript Nested Data
+title: Nested Data
 nav_order: 3.4
 parent: TypeScript
 ---
+
+# Nested Data
+
+[&laquo; Return to Objects](objects.md)
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
 
 So far, we have talked about arrays and we have talked about objects. These complicated data structures allow us to represent more interesting values. Now let's combine them and increase our power EVEN FURTHER.
 
@@ -147,3 +160,37 @@ const fullCollection: MovieDetails[] = myGhibliCollection.map(
 );
 console.log("First movie in full collection:", fullCollection[0].title);
 ```
+
+# 📝 Task - Nested Data
+
+This will be a complex task!
+
+As always, begin by pulling our changes, making a new branch, and merging in our changes.
+
+```sh
+$> git pull upstream
+$> git checkout -b solved-nested
+$> git merge upstream/task-nested
+```
+
+You'll need to edit the `nested.ts` file.
+
+You may need additional functions in JavaScript; don't be afraid to seek help as needed if you aren't sure how to do a specific conversion (e.g., a string into an integer).
+
+Check your status with the tests by running:
+
+```sh
+$> npm run test:cov
+```
+
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `makeQuiz`). You can go back to running all the tests by typing `a`.
+
+As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
+
+Once you are passing all the tests, you should be able to push your branch to the remote and make a Pull Request to `main`. We'll be checking your tests to make sure you pass!
+
+```sh
+$> git push --set-upstream origin solved-nested
+```
+
+Once you're done, we can start learning about more complex applications by [Using State &raquo;](../4-state/index.md)

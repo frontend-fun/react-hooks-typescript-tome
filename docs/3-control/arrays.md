@@ -1,6 +1,6 @@
 ---
 layout: default
-title: TypeScript Arrays
+title: Arrays
 nav_order: 3.2
 parent: TypeScript
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: TypeScript Primitives and Control Flow
+title: Primitives and Control Flow
 parent: TypeScript
 nav_order: 3.1
 ---
