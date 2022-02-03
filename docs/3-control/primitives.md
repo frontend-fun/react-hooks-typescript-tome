@@ -22,7 +22,7 @@ We're going to start by going over the basics of primitive data and the major co
 
 # Developer Console
 
-You can bring up your developer console by pressing `CTRL+SHIFT+J`. TODO: VERIFY THIS
+You can bring up your developer console by pressing `CTRL+SHIFT+J` (windows) and `CMD+SHIFT+J` (Mac).
 
 The console has several useful views like the Elements panel and the Network Panel. But right now we need to focus on the `Console` tab. There you can write individual lines of JavaScript to experiment with the language, manipulate the page, and see the results of logging and errors. The Developer Console is a useful tool, don't be afraid to try it.
 
@@ -52,7 +52,7 @@ Here are the basic types:
 
 * `number`: Includes integers and decimals. Implemented as floating points.
 * `boolean`: Either `true` or `false`
-* `string`: You can use `'single quotes'` or `"double quotes"`. There are also backticks ` for multi-line strings (and a lot more).
+* `string`: You can use `'single quotes'` or `"double quotes"`. There are also backticks ` for multi-line strings (and a lot more). You should stick to double quotes and backticks; Prettier will change double quotes into single quotes, and the linter will complain about single quotes.
 
 ```typescript
 // Numbers

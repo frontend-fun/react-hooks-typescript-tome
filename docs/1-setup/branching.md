@@ -60,6 +60,8 @@ Then, we have you `checkout` a new branch (the `-b` means create-branch-if-neede
 
 Finally, we `merge` in the upstream branch named `task-first-branch` which has a bunch of instructor-provided code to help us get started on the task. Remember, at any given time, there are multiple repositories, each potentially with their own version of a given branch. So if you see things like `upstream/task-first-branch`, we're referring to the remote's version of that branch (which might not even have a local version). 
 
+Depending on your operating system and command line setup, you may be asked to write a "commit message" when you try to `merge`. You can use the default message.
+
 ## The New Test
 
 When we ran `git merge upstream/task-first-branch`, a new file appeared named `src/text.Test.tsx`. The file contains a single new Test; inspecting its contents will reveal that the test expects the text `"Hello World"` without quotes to be somewhere on the page.

@@ -36,6 +36,8 @@ In general, all HTML tags are written with angle brackets (`<h1>`). You gotta ha
 
 Let's start with a basic tag, the first-level header `h1`.
 
+By the way, anytime you see a chunk of code in this book with a pencil button to the right, you can click the pencil to edit and run the code right here on the page!
+
 ```tsx
 export function App(): JSX.Element {
     return <h1>This is header text</h1>;
@@ -185,7 +187,7 @@ Now clicking the button will log `"I am logged"` to the console. Yay!
 
 ## Two Column Layout
 
-Organize the page into at least two columns of layout.
+Organize the page into at least two columns of layout. You need to have a `Container` tag with a `Row` tag inside, and then you can have any number of `Col` tags.
 
 ```tsx
 export function App(): JSX.Element {
@@ -204,6 +206,8 @@ export function App(): JSX.Element {
 }
 ```
 
+Bootstrap layouts are pretty sophisticated, you can do a lot: <https://react-bootstrap.github.io/layout/grid/>
+
 # 📝 Task - HTML and CSS
 
 Our next task is to edit the HTML and CSS of our application. We have prepared a bunch of new tests to help structure you.
@@ -217,7 +221,7 @@ $> git merge upstream/task-html-css
 Run:
 
 ```sh
-$> npm run test
+$> npm run test:cov
 ```
 
 Since we are now failing these tests, we need to fix them. Refer to the information in the page above to tackle each test in turn:
@@ -226,8 +230,8 @@ Since we are now failing these tests, we need to fix them. Refer to the informat
 * Add an image with alt text
 * Add a list with at least three elements
 * Change the background color of the header area
-* Add a bootstrap button
-* Make the button log 'Hello World!` when clicked
+* Add a bootstrap button with the text `Log Hello World`
+* Make the button log `Hello World!` when clicked
 
 THERE ARE TWO TASKS NOT REPRESENTED IN THE TESTS.
 
@@ -235,5 +239,7 @@ THERE ARE TWO TASKS NOT REPRESENTED IN THE TESTS.
 2. Put a red rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
 
 To earn full points, you must pass all the tests and also complete these two additional tasks.
+
+Once you are done, add/commit/push your changes for the branch. Then, make a Pull Request back to your `main` branch on the GitHub repository. Make sure your tests pass and the site deploys, before you submit!
 
 Once you're done, we'll start learning more about [TypeScript &raquo;](../3-control/index.md)

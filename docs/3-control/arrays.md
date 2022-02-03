@@ -78,7 +78,7 @@ const yourGrades = [100, 95, 97];
 // I can get another reference to myGrades
 const drBartsGrades = myGrades;
 
-// Append a 4 to the end of the array
+// Append a 55 to the end of the array
 myGrades.push(55);
 
 // Which of these evaluate to true?

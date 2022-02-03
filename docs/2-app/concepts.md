@@ -112,6 +112,16 @@ Now, all code that you write for the web application is eventually being run in 
 
 Right now, creating a new blank React application with TypeScript support requires about 200Mb of libraries. This is insane, but welcome to the future. It is very convenient, albeit a bit bloated.
 
+# What is Visual Studio Code?
+
+A popular, free code editor that is often used for web development.
+
+# What is Linting? What is Prettier?
+
+Linters are programs that analyze programs and report formatting and semantic issues. They put the red squiggles under the lines that are bad. You need to address Linting issues before you submit code, because otherwise your code will be rejected. We really care about having good formatting.
+
+Prettier is a plugin that helps format your code automatically. If everything is setup correctly, then the plugin will automatically fix up the formatting of your code every time you save a file. That way, you never have to worry about missing semicolons, amount of indentation, or any other squirrely differences.
+
 # Phew
 
 Phew, that was a lot of text. Did anyone actually read that?
