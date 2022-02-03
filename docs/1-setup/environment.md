@@ -45,15 +45,19 @@ To accompany the material in this book, we have created a special GitHub reposit
 
 Begin by forking the `tasks` repository to your GitHub account: <https://github.com/UD-CISC275-S22/tasks/fork>
 
+## Enable Workflow Actions
+
 You'll need to enable Workflow actions in your forked repository; go to the Actions tab, and then click the "I understand my workflows, go ahead and enable them". Assuming you trust us. The workflows will handle deploying your site and running your tests automatically.
 
 ![Enable Workflow Actions in your Forked Repository](../images/enable-actions.png)
+
+## Setup Personal Access Key
 
 Your website is not yet deployed, because we have not yet setup the personal access key. Scroll down on the repository's page and follow the steps to set up the personal access key.
 
 # Get the Tasks
 
-Once the repository is forked, click the green button that says "<> Code", copy the URL, and use the command below to clone the repo and move into the cloned directory:
+Once the repository is forked and deployed, click the green button that says "<> Code", copy the URL, and use the command below to clone the repo and move into the cloned directory:
 
 ```sh
 $> git clone https://WHATEVER-URL-YOU-GET
