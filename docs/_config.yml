@@ -20,7 +20,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "/react-hooks-typescript-tome" # the subpath of your site, e.g. /blog
 url: "https://frontend-fun.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  acbart
-footer_content: "Created by Dr. Austin Cory Bart."
+footer_content: "Created by Austin Cory Bart and Josh Lyon."
 
 gh_edit_link: true
 gh_edit_link_text: "Edit this page on GitHub."
