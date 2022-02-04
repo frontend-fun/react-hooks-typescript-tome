@@ -6,6 +6,11 @@ nav_order: 5
 
 # Complex Representation
 
+Coming soon
+{: .label .label-yellow }
+
+**Oops! This page is not yet ready. Please be patient while we finish it up.**
+
 <details open markdown="block">
   <summary>
     Table of contents

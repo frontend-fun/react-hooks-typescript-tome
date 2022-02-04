@@ -4,6 +4,13 @@ title: Your Own Application
 nav_order: 6
 ---
 
+# Your Own Application
+
+Coming soon
+{: .label .label-yellow }
+
+**Oops! This page is not yet ready. Please be patient while we finish it up.**
+
 <details open markdown="block">
   <summary>
     Table of contents
@@ -13,7 +20,6 @@ nav_order: 6
 {:toc}
 </details>
 
-# Your Own Application
 
 * User stories
 * Agile
