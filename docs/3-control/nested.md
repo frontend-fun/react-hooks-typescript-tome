@@ -163,6 +163,11 @@ console.log("First movie in full collection:", fullCollection[0].title);
 
 # 📝 Task - Nested Data
 
+Stop Here
+{: .label .label-yellow }
+
+**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
+
 This will be a complex task!
 
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
