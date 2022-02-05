@@ -335,7 +335,8 @@ Often, you will find data stored as JSON in files (`.json`). Modern TypeScript t
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
-$> git pull upstream
+$> git pull upstream main
+$> git fetch upstream task-objects
 $> git checkout -b solved-objects
 $> git merge upstream/task-objects
 ```

@@ -5,12 +5,12 @@ nav_order: 4.2
 parent: Using State
 ---
 
+# Components
+
 Coming soon
 {: .label .label-yellow }
 
 **Oops! This page is not yet ready. Please be patient while we finish it up.**
-
-# Components
 
 [&laquo; Return to State](state.md)
 
@@ -127,7 +127,8 @@ This stuff never makes sense just reading about it. Let's try working on some pr
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
-$> git pull upstream
+$> git pull upstream main
+$> git fetch upstream task-components
 $> git checkout -b solved-components
 $> git merge upstream/task-components
 ```

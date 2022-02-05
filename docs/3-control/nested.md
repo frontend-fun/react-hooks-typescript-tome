@@ -173,7 +173,8 @@ This will be a complex task!
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
-$> git pull upstream
+$> git pull upstream main
+$> git fetch upstream task-nested
 $> git checkout -b solved-nested
 $> git merge upstream/task-nested
 ```

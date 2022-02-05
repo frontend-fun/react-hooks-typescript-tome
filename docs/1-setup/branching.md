@@ -49,16 +49,19 @@ TODO: Get a picture here
 Every time we start a new task, we will have you run the same general set of commands. Here are the commands we want you to run right now:
 
 ```sh
-$> git pull upstream
+$> git pull upstream main
+$> git fetch upstream task-first-branch
 $> git checkout -b solved-first-branch
 $> git merge upstream/task-first-branch
 ```
 
-First, we are `pull`ing the latest versions of the tasks from our upstream; you never know when we've fixed bugs and stuff, you know?
+First, we are `pull`ing the latest versions of the `main` tasks branch from our upstream. If we have pushed any bug fixes to the main repository files, this will retrieve them.
+
+Next, we `fetch` the latest version of the `task-first-branch`, which has a bunch of instructor-provided code to help us get started on the task. Normally, we would use `pull` since that it does a `fetch` and a `merge`, but we are going to do these separately so that we can put the files into a new branch with our solution.
 
 Then, we have you `checkout` a new branch (the `-b` means create-branch-if-needed) that is named `solved-first-branch`, since this branch will contain our solution to the first task.
 
-Finally, we `merge` in the upstream branch named `task-first-branch` which has a bunch of instructor-provided code to help us get started on the task. Remember, at any given time, there are multiple repositories, each potentially with their own version of a given branch. So if you see things like `upstream/task-first-branch`, we're referring to the remote's version of that branch (which might not even have a local version). 
+Finally, we `merge` in the upstream branch named `task-first-branch` which has those instructor-provided files we mentioned. Remember, at any given time, there are multiple repositories, each potentially with their own version of a given branch. So if you see things like `upstream/task-first-branch`, we're referring to the remote's version of that branch (which might not even have a local version). 
 
 Depending on your operating system and command line setup, you may be asked to write a "commit message" when you try to `merge`. You can use the default message.
 

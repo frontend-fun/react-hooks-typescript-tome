@@ -274,7 +274,8 @@ This stuff never makes sense just reading about it. Let's try working on some pr
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
-$> git pull upstream
+$> git pull upstream main
+$> git fetch upstream task-state
 $> git checkout -b solved-state
 $> git merge upstream/task-state
 ```

@@ -310,7 +310,8 @@ So did you get all of that? Let's find out. Our next task has you define some Ty
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
-$> git pull upstream
+$> git pull upstream main
+$> git fetch upstream task-functions
 $> git checkout -b solved-functions
 $> git merge upstream/task-functions
 ```

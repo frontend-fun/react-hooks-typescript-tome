@@ -32,7 +32,7 @@ Read error messages, and ask questions. Talk to humans as needed to get help, an
 There's a bunch of Software that you need on your machine. We aren't providing instructions for most of these. Seek help proactively.
 
 1. [Install Git](https://github.com/git-guides/install-git): Make sure you have `git` on your path. You can test out `git` on your command line by running `git --version`
-2. [Install Node](https://nodejs.org/en/download/): Make sure you have `node` on your path by running `npm --version`
+2. [Install Node](https://nodejs.org/en/download/): You can use the LTS version. You may need to reinstall Node if you do not have at least the LTS version. Make sure you have `node` on your path by running `npm --version`
 3. [Install VS Code](https://code.visualstudio.com/download): This is an editor that you can open files and folders in.
 4. [Install React Devtools for Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en): This is a browser extension that will work on pages that have React running (like this one!).
 5. Install the Prettier Plugin for VS Code using the menu shown below (last tab on the left, type in `prettier`, and then click `install`).
