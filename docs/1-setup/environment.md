@@ -98,7 +98,9 @@ Edit `App.tsx` to include your name somewhere in the `return` statement, alongsi
 
 Save the file, and then check the website again in your browser. The site should update automatically.
 
-Then to test if things are working, run the tests:
+Once you have visually confirmed the text is there, you can use `CTRL+C` to cancel the `npm run start` command running in the termainal, so you can run other commands. 
+
+The next command to run is the tests, which will give another perspective on whether you are meeting our requirements:
 
 ```sh
 $> npm run test:cov
