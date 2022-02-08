@@ -98,7 +98,7 @@ After a minute or two, a web browser window will pop up, showing off the working
 
 Open Visual Studio Code, and use the "File" -> "Open Folder" menu to open the repository directory.
 
-![Screenshot of VS Code in action](../assets/images/vs-code-screenshot.png)
+![Screenshot of VS Code in action](../images/vs-code-screenshot.png)
 
 Edit `App.tsx` to include your name somewhere in the `return` statement, alongside the other text.
 
