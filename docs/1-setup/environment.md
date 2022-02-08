@@ -96,6 +96,10 @@ After a minute or two, a web browser window will pop up, showing off the working
 
 # Edit the Site
 
+Open Visual Studio Code, and use the "File" -> "Open Folder" menu to open the repository directory.
+
+![Screenshot of VS Code in action](../assets/images/vs-code-screenshot.png)
+
 Edit `App.tsx` to include your name somewhere in the `return` statement, alongside the other text.
 
 Save the file, and then check the website again in your browser. The site should update automatically.
