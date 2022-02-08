@@ -22,13 +22,13 @@ Our first task will be to add a little bit of new text to the site.
 
 We have previously mentioned that Git organizes projects into repositories, and that a repository is a history of commits. Each commit represents a bunch of changes to some files, with a human-friendly message and a machine-friendly hash attached. The message is written by a person to describe the changes. The hash was created by the machine to uniquely label the commit. These are important for referring to the commits. You can see the latest commits' messages and hashes with `git log`.
 
-TODO: Get a picture here
+<!-- TODO: Get a picture here -->
 
 # Branches
 
 The history of commits is not linear. Instead, it is a graph, because at some points we want to **branch** off changes and work on them separately. The big advantage of this model is that we can work on new features for our application in isolation, without breaking the `main` branch (the special branch that most represents the stable codebase over time). You can branch off branches, and undo branches, and merge branches back into each other. It's a lot to learn all at once.
 
-TODO: Get a picture here
+<!-- TODO: Get a picture here -->
 
 We can use `git checkout` to switch to another branch, replacing the files that we see in the folder based on the commits in that branches history. We also use `git checkout -b` to create a new branch based on the current branch. We can combine changes from another branch with `git merge`.
 
@@ -42,7 +42,7 @@ One last thing to understand is the idea of Remote repositories. Right now, ther
 
 These three repositories can have a different set of branches and commits, but at any time you could tell them to coordinate with each other and get them back in sync (using `git pull` and `git push`). You won't be able to update our `upstream`, but you will frequently make the `origin` match your local repository.
 
-TODO: Get a picture here
+<!-- TODO: Get a picture here -->
 
 # 📝 Task - Create Your First Branch
 
