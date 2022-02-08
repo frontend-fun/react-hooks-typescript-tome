@@ -59,7 +59,16 @@ You'll need to enable Workflow actions in your forked repository; go to the Acti
 
 ## Setup Personal Access Key
 
-Your website is not yet deployed, because we have not yet setup the personal access key. Scroll down on the repository's page and follow the steps to set up the personal access key.
+Your website is not yet deployed, because we have not yet setup the personal access key. Go to the Forked Repository on Github:
+
+1. Click on your picture -> `settings` in the top right of Github.
+2. Then, scroll to `Developer Settings` and click `Personal access tokens`
+3. Generate a new token with `repo` access and no expiration date.
+4. Make sure you copy the created token as you will not be able to see it after this.
+5. Back in this repository, go to `settings` -> `secrets` -> `Actions` and click the `New repository secret` button in the topright.
+6. Name the secret "GH_TOKEN" and paste in the token you copied in the previous step.
+
+The site should now be able to deploy whenever you push a change to the `main` branch!
 
 # Get the Tasks
 
