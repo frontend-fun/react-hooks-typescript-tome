@@ -20,6 +20,8 @@ parent: TypeScript
 
 So far, we have talked about arrays and we have talked about objects. These complicated data structures allow us to represent more interesting values. Now let's combine them and increase our power EVEN FURTHER.
 
+Everything you need to know about working with nested data, you already learned when you worked with Objects and Arrays. It's the exact same rules and methods, just now they work inside of each other.
+
 In this section, we're going to provide a whole bunch of examples with comments embedded. The ongoing example is a bunch of movies in a collection.
 
 ```typescript
