@@ -151,7 +151,7 @@ function App(): JSX.Element {
 
 Every time this bad code calls `App`, the bad code resets `counter` back to zero. The fact that the bad code increased `counter` by one doesn't matter - the `App` function doesn't remember the old value, and just unconditionally sets the `counter` to be zero each time the bad component is called, and then renders that new `0`. We need some way of "remembering" the value in that variable.
 
-This is where "Hooks" come in. There is clever code inside of the definition of `useState` that remembers the variable's value each time we call `App`. When you call the State Setter Function, it first updates the value on the Hook, then re-renders the Component Function. Because we're not relying on a normal variable, 
+This is where "Hooks" come in. There is clever code inside of the definition of `useState` that remembers the variable's value each time the `App` function is called by React. When you call the State Setter Function, it first updates the value on the Hook, then re-renders the Component Function. Because we're not relying on a normal variable, React knows to use the latest updated value (which will now be `1`) instead of the initial value `0`.
 
 How does this magic work? You can watch a longer explanation [here](https://www.youtube.com/watch?v=1VVfMVQabx0), but basically the idea is the "Hooks" are just being stored in an array that lives outside of the Component Function. Even though the Component Function's execution may end, that same array will be available in the Component Function's next execution. This is why we must never put `useState` inside of conditional statements, loops, or other complex control flow - we need to call `useState` in the same order every time, so that each piece of the State matches between renders.
 
@@ -163,7 +163,7 @@ Let's run through some examples of different types of State.
 
 ## Boolean State: Show/Hide Example
 
-Let's look at another example. This time, we will have a button that shows or hides some text.
+In this example, we will have a button that shows or hides some text.
 
 ```tsx
 function App(): JSX.Element {
@@ -176,15 +176,19 @@ function App(): JSX.Element {
 
   // Only includes <div>Hello!</div> if `visible` is true
   return <div>
-    <Button onClick={flipVisiblity}>Show/Hide</Button>
+    <Button onClick={flipVisibility}>Show/Hide</Button>
     {visible && <div>Hello!</div>}
   </div>;
 }
 ```
 
-Run the application. When you click the button, the text will be hidden. We are using the `&&` operator which only evaluates the right-hand expression when the left-hand expression is `true`. 
+Run the application. When you click the button, the text will be hidden. We are using the `&&` operator which only evaluates the right-hand expression when the left-hand expression is `true`. So if `visible` is `true`, we render the `Hello!` in the `div`. Otherwise, it won't render anything in that line. We could have also written this as `{visible ? <div>Hello!</div> : ''}` but that would be a little longer and uglier.
 
-Notice how we can embed the Model into our View using curly brackets. Without those curly brackets, that just becomes boring HTML text. Try removing the curly brackets and see for yourself.
+Notice how we can embed the Model into our View using curly brackets. Without those curly brackets, the logic involving `visible` just becomes boring HTML text. Try removing the curly brackets and see for yourself. We need those brackets whenever we want to render a bit of our state.
+
+One last thing to highlight: we bind give `onClick` the name of the function `flipVisibility` WITHOUT calling the function. If we were calling `flipVisibility`, we would have parentheses after it like this: `flipVisibility()`
+
+Instead, we hand the function's reference to the `Button`, and allow the `Button` to decide when to call its `onClick` function (in this case, `flipVisibility`). This is the magic of event binding, and we'll use it A LOT.
 
 ## String State: Pet Photos
 
@@ -209,9 +213,24 @@ function App(): JSX.Element {
 }
 ```
 
-Click the image a few times and you should see it randomly cycle between the pets.
+Click the image a few times and you should see it randomly cycle between the pets. Remember, 1/3 of the time it will stay on the same photo!
 
-Remember, 1/3 of the time it will stay on the same photo!
+We could have stored the URL into a variable, if we wanted to simplify the complexity of that `Image` tag. You see, we're allowed to make variables that are based on the State variables. Every time the State changes and the components renders again, the variables will be recalculated.
+
+```tsx
+function App(): JSX.Element {
+  const PETS: string[] = ["ada", "pumpkin", "babbage"];
+  const [pet, setPet] = useState<string>(PETS[0]);
+  // Make a variable based on some State. No problem!
+  const url = `../assets/images/pet-${pet}.jpg`;
+
+  const setRandomPet = (): void => {
+    const chosenIndex = Math.floor(Math.random() * PETS.length);
+    setPet(PETS[chosenIndex]);
+  };
+  return <Image onClick={setRandomPet} src={url}/>
+}
+```
 
 ## Multiple States: Traffic Light
 
@@ -240,11 +259,56 @@ function App(): JSX.Element {
     )
   }
 
-  // Notice how we bind an anonymous lambda function to onClick instead of a named function?
   return <div>
     <div>
       Current light: <span>{lightColor}</span>
-      <Button onClick={()=>changeLightColor()}>Advance Light</Button>
+      <Button onClick={changeLightColor}>Advance Light</Button>
+    </div>
+    <div>
+      <Button onClick={()=>setDriving(true)} disabled={driving}>Drive</Button>
+      <Button onClick={()=>setDriving(false)} disabled={!driving}>Stop</Button>
+    </div>
+    <div>
+      {lightColor === 'red' && driving ?
+        <span>Oh no you need to stop!</span> :
+        <span>All okay!</span>}
+    </div>
+  </div>;
+}
+```
+
+You might notice that we use `() => setDriving(true)` for the Drive button's `onClick`. This is technically no different from passing
+in a function like we do for the `Advance Light` button, except that we are technically defining a new (anonymous) function that sort of "wraps" the `setDriving` function.
+What's the advantage? Well, we want to use `setDriving` in two different ways: once with `true` and once with `false`. We could have created two separate functions (e.g., `stopDriving` and `startDriving`), but that would be so much extra code. This is shorter and sweeter.
+
+Our `changeLightColor` function is a little complicated, but it basically represents a simple "Finite State Machine", where we have a set of possible states and define transitions between those states. The `green` light becomes a `yellow` light, the `yellow` light becomes a `red` light, and the `red` light becomes a `green` light again. Here is another way of writing that function, which might be a little cleaner, using a Record:
+
+```tsx
+// LightColor is a Type Union of three possible string values
+type LightColor = 'red' | 'yellow' | 'green';
+
+// Maps the Old state -> New State
+const LIGHT_TRANSITIONS: Record<LightColor, LightColor> = {
+  'green': 'yellow',
+  'yellow': 'red',
+  'red': 'green'
+};
+
+function App(): JSX.Element {
+  // We have two parts to our State
+  const [lightColor, setLightColor] = useState<LightColor>("red");
+  const [driving, setDriving] = useState<boolean>(false);
+
+  // No parameters or return value, because it's a closure
+  function changeLightColor(): void {
+    const newColor = LIGHT_TRANSITIONS[lightColor];
+    setLightColor(newColor);
+  }
+
+  return <div>
+    <div>
+      Current light: <span>{lightColor}</span>
+      <Button onClick={changeLightColor}>Advance Light</Button>
     </div>
     <div>
       <Button onClick={()=>setDriving(true)} disabled={driving}>Drive</Button>
@@ -267,6 +331,37 @@ Stop Here
 
 **THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
 
+
+You are going to need to make the following components and include them in your `App` component:
+
+1. The `RevealAnswer` component: Show hide some text based on clicking a button labeled `reveal answer`.
+2. The `StartAttempt` component: One button (`start quiz`) decreases the number of attempts, while another button (`mulligan`) gives you more attempts. Button is disabled when you run out of attempts.
+3. The `TwoDice` component: Two states, each with a "Roll" button (`roll left` and `roll right`) to pick different random values for the two states. When the two states are equal, print a message saying they got it right. Unless they roll snake eyes, then they fail.
+4. The `ChangeType` component: One string state based on QuestionType, with a button (`change quiz type`) to flip between the two possible states.
+5. The `CycleHoliday` component: One string state, with two buttons (`next holiday alphabetically` and `next holiday in year`) that let you "cycle" through different states based on holidays. Students pick 5 emoji to represent their 5 favorite holidays. They can use any emoji that they want (e.g., a 🎃 pumpkin to represent Halloween, 🧧 Red Envelope to represent Chinese New Year, 🪔 Diya Lamp to represent Diwali). Notice that the buttons transition in two different ways!
+
+
+We provide the starter files for you, but you are responsible for integrating them into your `App` like so:
+
+```tsx
+function App(): JSX.Element {
+    return (
+        <div className="App">
+
+            <hr>
+            <RevealAnswer></RevealAnswer>
+            <hr>
+            <StartAttempt></StartAttempt>
+            <hr>
+            <TwoDice></TwoDice>
+            <hr>
+            <ChangeType></ChangeType>
+            <hr>
+            <CycleHoliday></CycleHoliday>
+        </div>
+    )
+}
+```
 
 * Basic of useState concept
   * set entire state
