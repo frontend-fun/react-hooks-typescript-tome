@@ -42,7 +42,7 @@ Technically the semi-colon is optional but using it will avoid certain kinds of 
 
 You can use `console.log` to get a lot of information about variables. Expect to use it frequently!
 
-## Primitive Data
+# Primitive Data
 
 Let's talk about types, values, operators, and variables.
 
