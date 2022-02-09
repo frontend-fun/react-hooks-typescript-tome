@@ -40,9 +40,9 @@ There are no buttons, input boxes, or other mechanisms to let us interact with t
 
 # Interactivity
 
-Interactivity means that a page changes when you interact with the page. That means a page has a BEFORE and an AFTER. At any given point in time, you can check the "State" of the page.
+Interactivity means that a page changes when you interact with the page. That means a page has a BEFORE and an AFTER. At any given point in time, you can check the "State" of the page. Think of watching a movie where you hit the play button, and then you advance one frame forward. How has the "state" of the world changed?
 
-TODO: Image of a BEFORE and AFTER state for an application
+<!-- TODO: Image of a BEFORE and AFTER state for an application -->
 
 Every application you have ever used or created has some kind of state. State is fundamental to a program. All those fancy control structures like `if` and `for` are all in service to the idea of *getting* and *updating* state. Here are some examples of State in applications:
 
@@ -55,7 +55,7 @@ Every application you have ever used or created has some kind of state. State is
 
 We represent State with *values*, and describe the possible sets of State with *types*. Often, State ends up being stored in *variables* temporarily, since those variables' values can change over time to reflect changes in State.
 
-When you build an application, you need to think of the State first. Often, this means describing the State in terms of types and data structures. React is built around the idea of "one-way" State.
+When you build an application, you need to think of the State first. Often, this means describing the State in terms of types and data structures. React is built around the idea of "one-way" State updates.
 
 # Model, View, and Controller
 
@@ -67,7 +67,7 @@ One of the most common architectural patterns in Software Engineering is the ide
 
 Most folks recommend trying to keep your Model, View, and Controller relatively distinct from each other. "How" to do this varies among frameworks and languages, but we're going to focus on React's model, which is called One-way Data Binding.
 
-TODO: Image of React's One-way Data Binding architecture
+<!-- TODO: Image of React's One-way Data Binding architecture -->
 
 React is organized into Component, and each Component has its own State. The main Component is called `App` and its State is the most important one. We will see later how we can have more components with their own State. For now, when we talk about State, we are talking about the State of `App`. That State is our **Model**.
 
@@ -128,11 +128,11 @@ When we say values, you can imagine a piece of paper with a number, some text, a
 The first value that will be hung is the "Initial Value" that you passed in to `useState`.
 At any time, you can check the current value using the "State Variable", or update the value with the "State Setter Function".
 
-TODO: Image of a hook holding values
+<!-- TODO: Image of a hook holding values -->
 
 So how is any of this different from a variable? It comes down to how it works when the Component Function is called. Recall that the Component Function is called by React to produce the HTML of your application. When a user interacts with that HTML (clicking a button, typing into a form, etc.), the State of the application changes by calling the State Setter Function (`setState`) and the Component Function needs to be rendered again - which React does by calling the Component Function on our behalf.
 
-TODO: Image of React's model
+<!-- TODO: Image of React's model -->
 
 Local variables inside of a function do not stick around between function calls. They disppear when you reach a `return` statement, and the next time the function is called they are not still there. That's why this doesn't work.
 
@@ -261,6 +261,13 @@ function App(): JSX.Element {
 
 # 📝 Task - Using State
 
+
+Stop Here
+{: .label .label-yellow }
+
+**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
+
+
 * Basic of useState concept
   * set entire state
   * Testing user interaction
@@ -280,7 +287,7 @@ $> git checkout -b solved-state
 $> git merge upstream/task-state
 ```
 
-TODO: ALL OF THIS STUFF
+<!-- TODO: ALL OF THIS STUFF -->
 
 You'll need to edit the `arrays.ts` file.
 

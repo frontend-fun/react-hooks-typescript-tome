@@ -163,12 +163,7 @@ console.log("First movie in full collection:", fullCollection[0].title);
 
 # 📝 Task - Nested Data
 
-Stop Here
-{: .label .label-yellow }
-
-**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
-
-This will be a complex task!
+This will be a complex task! We have a LOT of functions to write.
 
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
@@ -181,15 +176,13 @@ $> git merge upstream/task-nested
 
 You'll need to edit the `nested.ts` file.
 
-You may need additional functions in JavaScript; don't be afraid to seek help as needed if you aren't sure how to do a specific conversion (e.g., a string into an integer).
-
 Check your status with the tests by running:
 
 ```sh
 $> npm run test:cov
 ```
 
-If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `makeQuiz`). You can go back to running all the tests by typing `a`.
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `getPublishedQuestions`). You can go back to running all the tests by typing `a`.
 
 As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
 
