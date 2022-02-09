@@ -109,7 +109,7 @@ Open Visual Studio Code, and use the "File" -> "Open Folder" menu to open the re
 
 ![Screenshot of VS Code in action](../images/vs-code-screenshot.png)
 
-Edit `App.tsx` to include your name somewhere in the `return` statement, alongside the other text.
+Edit `src/App.tsx` to include your name somewhere in the `return` statement, alongside the other text.
 
 Save the file, and then check the website again in your browser. The site should update automatically.
 
@@ -127,7 +127,7 @@ So far, we only have one test, which checks to make sure that the text `CISC275`
 
 The window that appeared is showing your website running from a local webserver. You cannot share its link with other people, because that webserver is only available on your computer. Fortunately, we can *deploy* the web application through GitHub.
 
-GitHub is a platform that let's us store copies of our code as it changes over time ("Version Control"), share that code with others, and even host simple websites. Projects are organized into repositories, and changes to the repository over time are organized into "commits". When you change your source code, you need to *commit* the changes and *push* them to the remote version of the repository.
+GitHub is a platform that lets us store copies of our code as it changes over time ("Version Control"), share that code with others, and even host simple websites. Projects are organized into repositories, and changes to the repository over time are organized into "commits". When you change your source code, you need to *commit* the changes and *push* them to the remote version of the repository.
 
 Before you can make a commit, you must *stage* file any files that you want to include in the commit as being changed. You can quickly list files via the third menu on the left of Visual Studio Code, or using this terminal command:
 
