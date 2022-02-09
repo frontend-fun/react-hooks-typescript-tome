@@ -28,6 +28,8 @@ We have previously mentioned that Git organizes projects into repositories, and 
 
 The history of commits is not linear. Instead, it is a graph, because at some points we want to **branch** off changes and work on them separately. The big advantage of this model is that we can work on new features for our application in isolation, without breaking the `main` branch (the special branch that most represents the stable codebase over time). You can branch off branches, and undo branches, and merge branches back into each other. It's a lot to learn all at once.
 
+Would you like some supervised practice with branching? Try this excellent [interactive tutorial:](https://learngitbranching.js.org/?locale=en_US)
+
 <!-- TODO: Get a picture here -->
 
 We can use `git checkout` to switch to another branch, replacing the files that we see in the folder based on the commits in that branches history. We also use `git checkout -b` to create a new branch based on the current branch. We can combine changes from another branch with `git merge`.
