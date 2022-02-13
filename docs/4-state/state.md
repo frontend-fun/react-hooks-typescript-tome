@@ -535,9 +535,10 @@ Testing is a lot of work, and you may find it frustrating. It is a prime example
 # 📝 Task - Using State
 
 
-As always, begin by pulling our changes, making a new branch, and merging in our changes.
+As always, begin by pulling our changes, making a new branch, and merging in our changes. This time, be sure that you create your new branch from the previous branch we worked on (`solved-nested`) by checking out that branch first.
 
 ```sh
+$> git checkout solved-nested
 $> git pull upstream main
 $> git fetch upstream task-state
 $> git checkout -b solved-state
