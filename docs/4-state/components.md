@@ -118,6 +118,11 @@ Upside: we can conveniently include variables directly inside. Also, functions a
 
 # 📝 Task - Fixing Components
 
+Stop Here
+{: .label .label-yellow }
+
+**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
+
 * They need to fix an example where they've tried to move the useState outside of the component.
 * Problem where they need to lift a state up to the top component
 * Situation where the state can be moved down to a child component

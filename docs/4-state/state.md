@@ -7,11 +7,6 @@ parent: Using State
 
 # State
 
-Coming soon
-{: .label .label-yellow }
-
-**Oops! This page is not yet ready. Please be patient while we finish it up.**
-
 [&laquo; Return to the Chapter Index](index.md)
 
 <details open markdown="block">
@@ -539,11 +534,6 @@ Testing is a lot of work, and you may find it frustrating. It is a prime example
 
 # 📝 Task - Using State
 
-
-Stop Here
-{: .label .label-yellow }
-
-**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
 
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
