@@ -22,7 +22,7 @@ We're going to start by going over the basics of primitive data and the major co
 
 # Developer Console
 
-You can bring up your developer console by pressing `CTRL+SHIFT+J` (windows) and `CMD+SHIFT+J` (Mac).
+You can bring up your developer console by pressing `CTRL+SHIFT+J` (windows) and `CMD+OPTION+J` (Mac).
 
 The console has several useful views like the Elements panel and the Network Panel. But right now we need to focus on the `Console` tab. There you can write individual lines of JavaScript to experiment with the language, manipulate the page, and see the results of logging and errors. The Developer Console is a useful tool, don't be afraid to try it.
 
