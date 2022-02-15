@@ -241,6 +241,14 @@ THERE ARE TWO TASKS NOT REPRESENTED IN THE TESTS.
 
 To earn full points, you must pass all the tests and also complete these two additional tasks.
 
-Once you are done, add/commit/push your changes for the branch. Then, make a Pull Request back to your `main` branch on the GitHub repository. Make sure your tests pass and the site deploys, before you submit!
+Once you are done, add and commit all your changes for the branch. Then, you will need to push your local branch to the remote repository.
+We will no longer remind you about this command to push a new branch after this page!
+
+```sh
+$> git push --set-upstream origin solved-html-css
+```
+
+
+Anyway, next you need to make a Pull Request back to your `main` branch on the GitHub repository. Make sure your tests pass and the site deploys, before you submit!
 
 Once you're done, we'll start learning more about [TypeScript &raquo;](../3-control/index.md)

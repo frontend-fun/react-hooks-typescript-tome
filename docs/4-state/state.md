@@ -7,11 +7,6 @@ parent: Using State
 
 # State
 
-Coming soon
-{: .label .label-yellow }
-
-**Oops! This page is not yet ready. Please be patient while we finish it up.**
-
 [&laquo; Return to the Chapter Index](index.md)
 
 <details open markdown="block">
@@ -323,72 +318,328 @@ function App(): JSX.Element {
 }
 ```
 
-# 📝 Task - Using State
+# Components Across Files
 
-
-Stop Here
-{: .label .label-yellow }
-
-**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
-
-
-You are going to need to make the following components and include them in your `App` component:
-
-1. The `RevealAnswer` component: Show hide some text based on clicking a button labeled `reveal answer`.
-2. The `StartAttempt` component: One button (`start quiz`) decreases the number of attempts, while another button (`mulligan`) gives you more attempts. Button is disabled when you run out of attempts.
-3. The `TwoDice` component: Two states, each with a "Roll" button (`roll left` and `roll right`) to pick different random values for the two states. When the two states are equal, print a message saying they got it right. Unless they roll snake eyes, then they fail.
-4. The `ChangeType` component: One string state based on QuestionType, with a button (`change quiz type`) to flip between the two possible states.
-5. The `CycleHoliday` component: One string state, with two buttons (`next holiday alphabetically` and `next holiday in year`) that let you "cycle" through different states based on holidays. Students pick 5 emoji to represent their 5 favorite holidays. They can use any emoji that they want (e.g., a 🎃 pumpkin to represent Halloween, 🧧 Red Envelope to represent Chinese New Year, 🪔 Diya Lamp to represent Diwali). Notice that the buttons transition in two different ways!
-
-
-We provide the starter files for you, but you are responsible for integrating them into your `App` like so:
+Our examples are starting to get very big and complicated, so we don't really want to keep putting everything inside of `App`. Instead, we will put Components into separate files, import the components, and then use them inside of `App`. We'll talk more about this process in the next chapter. For now, let's take a look at an example meant to represent two different files:
 
 ```tsx
-function App(): JSX.Element {
-    return (
-        <div className="App">
+// src/Counter.tsx
+export function Counter(): JSX.Element {
+  const [value, setValue] = useState<number>(0);
+  return <span>
+    <Button onClick={() => setValue(1+value)}>Add One</Button>
+    to {value}.
+  </span>;
+}
 
-            <hr>
-            <RevealAnswer></RevealAnswer>
-            <hr>
-            <StartAttempt></StartAttempt>
-            <hr>
-            <TwoDice></TwoDice>
-            <hr>
-            <ChangeType></ChangeType>
-            <hr>
-            <CycleHoliday></CycleHoliday>
-        </div>
-    )
+// src/App.tsx
+function App(): JSX.Element {
+  // Have three counters, each on their own line.
+  return <div>
+    <p>
+      Counter 1: <Counter></Counter>
+    </p>
+    <p>
+      Counter 2: <Counter></Counter>
+    </p>
+    <p>
+      Counter 3: <Counter></Counter>
+    </p>
+  </div>
 }
 ```
 
-* Basic of useState concept
-  * set entire state
-  * Testing user interaction
-  * Boolean state: visible/not visible, disabled/not disabled, text1/text2
-  * Number state: counter, calculator
-  * String state: Anagramer, pig-latin, etc?, something with emojis?
-  * Two use states in one
+Each `Counter` component has its own isolated state, so changing the `value` in one `Counter` does not affect the other `Counter`s. We can have any number of instances of our `Counter`, as we demonstrate in our `App`.
 
-This stuff never makes sense just reading about it. Let's try working on some problems instead!
+# Testing Components
 
-As always, begin by pulling our changes, making a new branch, and merging in our changes.
+Previously, we checked that your code worked by providing simple unit tests.
+
+Now, we need to determine if your code's View works, so we have to use *Integration* tests. These are more complicated than *Unit* Tests, since we're looking at how multiple functions and elements are interacting together to achieve some more complicated effect.
+
+* The goal is to test the behavior and look of the Component. Our goal is NOT to test the implementation details of our Component.
+* We expect certain text, labels, and interactive elements (e.g., buttons). We do NOT expect certain state behind the scenes.
+
+This kind of testing is probably very unfamiliar to you, so we'll take it slow and provide most of the tests in this chapter. Still, you will need to read and understand the tests you are failing, so we need to explain what you are seeing. If you want more information sooner, you can go read over a [React Testing Library article](
+https://www.robinwieruch.de/react-testing-library/). There are also [React Testing Library Cheat Sheets](https://testing-library.com/docs/react-testing-library/cheatsheet/). However, everything you *really* need to know for now should be described below.
+
+## General Test Structure
+
+To organize the structure of our tests, we often use the following general approach named "Given-When-Then":
+
+1. Make an instance of the Component ("Given")
+2. Simulate some interactions ("When")
+3. Assert that the Component has changed correctly ("Then")
+
+## `render` the `screen`
+
+Each test begins by "rendering" just the component we are testing. This make a virtual DOM of the components' View, which we can then access in order to make assertions. Most of the time, since this `render` has to happen before each test, we use a special React Testing Library function: 
+
+```tsx
+beforeEach(() => {
+    render(<Counter/>)
+});
+```
+
+Once we have called `render`, we can use a special imported variable `screen` from the React Testing Library to access the virtual DOM. Often, you will see error messages that display all or part of the current `screen` in the console. You can also manually check what the screen looks like using `console.log(screen);`
+
+<!-- TODO: An image of an error showing the current screen -->
+
+We have now been "given" the initial state of the app.
+In order to simulate interaction and check that the component has changed, we must access specific parts of the Component.
+
+## Access the `screen`
+
+How do we access the elements in the `screen`'s virtual DOM? There's a complicated set of commands. We'll describe the full set of commands in the next chapter, but for now we're just going to rely on a few basic ones that can be loosely grouped by their prefix and suffix.
+
+
+|        | getBy       | queryBy       |
+|--------|-------------|---------------|
+| Text   | getByText   | queryByText   |
+| Role   | getByRole   | queryByRole   |
+| TestId | getByTestId | queryByTestId |
+
+We have three types of suffixes (which determine "what kind" of elements we look for) and two types of prefixes (which determine "how many" elements we look for). You will often need a mixture of these different search functions in order to find the parts of the screen you want to interact and read from.
+
+### Prefixes
+
+The prefixes determine "how many elements" we look for.
+
+* `getBy` means we expect there to be exactly ONE instance of the element. Any more or less and an error is thrown instead.
+* `queryBy` means we expect there to be ONE or ZERO instances of the element. If there are more than one, than an error is thrown. If there are zero elements, than `null` is returned.
+
+These two prefixes are very handy when you can narrow the numbers down to just one. The `getBy` is good when you have an element you DO expect in the document; the `queryBy` is good when you have an element you DO NOT expect in the document (since it does not cause an error, just returns `null`).
+
+There are other prefixes for accessing "more than one" element, but we'll tackle those later when we need them. For now, all of our examples will assume we have uniquely labelled everything and don't have more than one instance of a given chunk of text.
+
+### Suffixes
+
+The suffixes determine "how we search for those elements". They are a little more complicated, so let us look at each one in turn. We will stick to using the `getBy` prefix for each one, but remember that we can use either prefix for any of the suffixes.
+
+#### Text Suffix
+
+The `Text` (such as `getByText`) means we are literally looking for the given text.
+
+```tsx
+// This example doesn't run, it's just a snippet of example
+<p>
+    Hello, how are you doing today?
+</p>
+
+// The corresponding access would look like
+const paragraph = screen.getByText(/hello/i);
+```
+
+This is the simplest suffix type, but one nice feature is that we can provide either an exact string literal (e.g., `"Hello World") or a *Regular Expression*. The Regular Expression type is very convenient type of data provided by JavaScript, although its history and usage extends far beyond this language. Using "Regexes", we can search for text without needing to be as exact and specific (e.g., ignore capitalization, check for digits, look for repeated characters matching a pattern). If you haven't heard about Regular Expressions, we recommend reading over this [Regular Expressions Guide](https://eloquentjavascript.net/09_regexp.html) and using this [interactive Regular Expression Editor](https://regex101.com/). But briefly, here are some examples of handy regular expression checks:
+
+```typescript
+let someText = "Hello world, is it is 77 degrees outside.";
+
+// Check for a specific word
+console.log("The word 'degrees' is in the text:", /degrees/.test(someText));
+// Searches are case sensitive by default
+console.log("The word 'hello' is in the text:", /hello/.test(someText));
+// But adding `i` to the end makes it insensitive
+console.log("The word 'hello' (any case) is in the text:", /hello/i.test(someText));
+// There are ways to specify things like "one or more digits"
+console.log("There is a one or two digit number in the text:", /\d\d?/.test(someText));
+// We can extract text too, using `match` method of strings
+console.log("The first number is:", someText.match(/(\d\d?)/)[0]);
+```
+
+#### Role Suffix
+
+The `Role` (such as `getByRole`) means we are looking for an *Aria* role. The *Aria* system is a bunch of rules to make web applications more accessible - this is critical for folks who need to use tools like screen-readers, but is also generally very helpful for anyone interacting with websites. The principle here is "Universal Design", which we'll revisit in the next chapter. But for now, know that every HTML element gets a designated "Aria role" which identfies its purpose. Sometimes, these roles are automatically associated  with a corresponding default HTML element tag (e.g., the `link` role and the `a` tag), but that's not always the case. Frequently, a specific role is provided to "override" the default role, when an HTML Element is being used in an unusual way (e.g., the `button` role being applied to a specially formatted `div`). You can read more about [Aria Roles here](https://www.codeinwp.com/blog/wai-aria-roles/), or see a [convenient table of roles here](https://www.digitala11y.com/wai-aria-1-1-cheat-sheet/).
+
+Often, we will need to be more specific when searching by role, so we will also specify some text associated with the element via the `name` option in a second parameter. When doing so, it is often convenient to use a regular expression rather than a specific name, to adjust for differences in capitalization or whitespace.
+
+```tsx
+// This example doesn't run, it's just a snippet of example
+<div>
+  You can <Button>Add</Button> more.
+</div>
+
+// The corresponding access would look like
+const addButton = screen.getByRole("button", { name: /add/i });
+```
+
+#### TestId Suffix
+
+The `TestId` (such as `getByTestId`) means we are looking for an element with a `data-testid` attribute that matches the given `test-id`. This is the last resort when it comes to testing, since it violates the ideal of "acting like a user". The `data-testid` is an attribute that is completely invisible to the user and has no purpose other than to support your tests. Most folks believe that tests should always be in service to your code, not the other way around - changing your code (without adding value) just to make your tests easier is usually a bad deal. But sometimes, there's just no other way to check the data you need!
+
+```tsx
+// This example doesn't run, it's just a snippet of example
+<div>
+  The answer is <span data-testid="question-answer">42</span>.
+</div>
+
+// The corresponding access would look like
+const answer = screen.getByTestId("question-answer");
+```
+
+## Simulating Interactivity
+
+Sometimes, in addition to what you are "Given" at the start of the test (i.e., just by rendering the component), you have additional interaction that should be performed. The classic simple example we will use is clicking on a button, but other forms of interaction will eventually be shown: typing into a textbox, choosing a dropdown menu option, etc. For now, know that some elements have a `click` method provided to simulate a user pressing a button.
+
+```tsx
+// This example doesn't run, it's just a snippet of example
+<div>
+  You can <Button>Add</Button> more.
+</div>
+
+// Given the add button is on the screen...
+const addButton = screen.getByRole("button", { name: /add/i });
+// When the add button is clicked...
+addButton.click();
+```
+
+## Making Assertions with `expect`
+
+The ultimate goal of a test is to assert that some behavior occurs, which is our "Then" phase. Given some initial state, when we've done some interactions, *then* we expect that part of the document will have some new state. We sometimes want to check the state of entire HTML elements, or just their text content, or some other attribute of the element (e.g., its `disabled` status, its `backgroundColor`). In general, the tests might end up looking like this:
+
+```tsx
+// This example doesn't run, it's just a snippet of example
+<div>
+  The answer is <span data-testid="question-answer">42</span>.
+</div>
+
+// Given the question-answer is on the screen
+const answer = screen.getByTestId("question-answer");
+// Then the answer should be 42
+expect(answer.textContent).toEqual('42');
+```
+
+React's Testing Library provides many kinds of assertions using its `expect` function. Here's a quick rundown of some types of assertions you will see:
+
+* `toBeInTheDocument()`: Checks that the given HTML element is SOMEWHERE in the HTML of the screen.
+* `toEqual(other)`: Checks that the `expect`ed value is equivalent to the `other` value.
+* `toBe(other)`: Checks that the `expect`ed value is identical to the `other` value (as in they have the exact same reference in memory).
+* `toHaveLength(length)`: Checks that the `expect`ed value will be an Array with the given `length`.
+* `toBeNull()`: Checks that the `expect`ed value will be `null`.
+* `toBeCalledTimes(times)`: Checks that the `expect`ed value will be a function that is called a number of `times`.
+
+One last complication: you will sometimes see a field `not` between the `expect` and the assertion method. This field causes the assertion's logic to inverse. For example, to check that a given value is not equal to another you write:
+
+```typescript
+expect(5).not.toEqual(7);
+```
+
+## Testing is Time Consuming
+
+Testing is extremely complicated, and you can often spend more time writing tests than writing the original code. Novices often reject the value of tests, because they don't seem to provide much value for the amount of work they require.
+
+The payoff is that, ultimately, your code is likely to stick around and serve as the base for other folks' code. You need confidence that your code works, even if changes are made to the code it relies on. Integration tests (and unit tests) are critical in dealing with the chaos brought by changes.
+
+Testing is a lot of work, and you may find it frustrating. It is a prime example of something that pays off more down the road in Software Engineering. However, you will be expected to write tests for all of your code as a professional Software Engineer, so the skill is absolutely essential to develop.
+
+# 📝 Task - Using State
+
+
+As always, begin by pulling our changes, making a new branch, and merging in our changes. This time, be sure that you create your new branch from the previous branch we worked on (`solved-nested`) by checking out that branch first.
 
 ```sh
+$> git checkout solved-nested
 $> git pull upstream main
 $> git fetch upstream task-state
 $> git checkout -b solved-state
 $> git merge upstream/task-state
 ```
 
-<!-- TODO: ALL OF THIS STUFF -->
+## Merge Conflicts
 
-You'll need to edit the `arrays.ts` file.
+Unfortunately, it is extremely likely that you will encounter "merge" conflicts between your code and our code. These conflicts occur because we are providing edits to a file that you have also edited. If you are lucky, the conflicts will be automatically merged. However, it is just as likely that there will be merge conflicts that you must resolve. If you are not familiar with resolving merge conflicts, here is a [tutorial on merging conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line) that might help. The VS Code editor can make choosing the appropriate updated code easier, though you still will have to merge the chosen change. You may want to read the rest of the instructions to understand what the final version of this branch should look like. 
 
-YOU MAY NOT USE `for` LOOPS, `while` LOOPS, or recursion! You MUST use the array methods we have taught you. You must also avoid mutating the original arrays - all changes must be immutable! As long as you stick to the commands on this page, you shouldn't have any issues.
+If your repository still has the `HtmlCss.test.tsx` and `text.test.tsx` files, then we give you special permission to remove those files from your new `solved-state` branch. You can also remove the old HTML that you added in your `App` that is no longer relevant to the new tasks we are working on, so that the screen is not crowded. Fortunately, none of that code is gone - it is all safely available in the other branches you made before, in case you ever need it again. This is the power of Version Control!
 
-You may need additional functions in JavaScript; don't be afraid to seek help as needed if you aren't sure how to do a specific conversion (e.g., a string into an integer).
+![Image of a merge conflict in Visual Studio Code](../images/incoming-merge-conflict.png)
+
+## Creating Components
+
+For this task, you will ultimately create 5 new components. We have provided you with the skeleton of all 5 components, one additional fully-completed component, and extensive tests for each component. We have also added them to the bottom of the `App` component, separated by horizontal rules (`hr` HTML tags).
+
+You are going to need to edit the components themselves and include them in your `App` component:
+
+### Counter
+
+The `Counter` component is one that we provide, allowing you to click a button to increase a rendered number. You should be able to run the application and interact with the `Counter`, similar to what you saw earlier on this page. You should also be able to run the tests and see that they are all passing.
+
+### RevealAnswer
+
+The `RevealAnswer` component simulates a quiz application that provides a way to "reveal the answer" to a user by clicking a button. The answer will be `42` for our purposes.
+
+* You will need a state to handle whether the text is visible.
+* There is a button labelled `Reveal Answer` that inverts the state.
+* The text `42` is not initially visible.
+* When the button is clicked, the text `42` should be visible.
+
+### ChangeType
+
+The `ChangeType` component simulates another an editor for a quiz application that provides a way to change the type of a quiz question by pressing a button. Recall from the Objects task that Quiz Questions can come in either Multiple Choice or Short Answer.
+
+* You will need a single state to handle whether the type is `multiple_choice_question` or `short_answer_question`. 
+* The type of the state should be `QuestionType`, not `string`.
+* There should be a button labelled `Change Type` that changes the state from one type to the other.
+* When the type is `multiple_choice_question`, the text `Multiple Choice` should be visible.
+* When the type is `short_answer_question`, the text `Short Answer` should be visible.
+* The initial type must be `short_answer_question`.
+
+### StartAttempt
+
+The `StartAttempt` component simulates yet another part of the quiz application, this time providing a "Start" and "Stop" button for the quiz. Since the quiz should have a limited number of attempts, there is also a "Mulligan" button to give more attempts.
+
+* You will need two pieces of state: the number of attempts and whether the quiz in progress.
+  * The initial number of attempts is 4
+  * The quiz is initially NOT in progress
+* There is a button labelled `Start Quiz` that puts the Quiz in progress and increases the number of attempts by one.
+* There is a button labelled `Stop Quiz` that stops the Quiz from being in progress.
+* There is a button labelled `Mulligan` that increase the attempts by one.
+* When the quiz is in progress, the `Start Quiz` and `Mulligan` buttons are disabled.
+* When the quiz is not in progress, the `Stop Quiz` and button is disabled.
+* When the attempts are zero, the `Start Quiz` button is disabled.
+
+### TwoDice
+
+The `TwoDice` component will simulate a game where you roll two dice in attempt to get matching values. However, you lose the game if your dice ever come up as a pair of ones ("snake eyes").
+
+* You will need two states, one for each dice.
+* Each dice's value should be rendered in the View in a `span` tag of their own, with the first dice having the `data-testid` of `left-die` and the second dice having the `data-testid` of `right-die`.
+* You will need two "Roll" buttons (labelled `Roll Left` and `Roll Right`).
+* Clicking a Roll button will change the value for the corresponding dice using the provided `d6` function.
+* The initial values of the dice cannot be the same.
+* When the two states are equal, render a message that includes the word `Lose`.
+* When the two states are equal, render a message that includes the word `Win`.
+
+### CycleHoliday
+
+The `CycleHoliday` component is a little more complicated, but should be an opportunity to be creative. Think about your 5 favorite holidays, and then find 5 emojis that represent them. You will create two buttons that let you "cycle" through each holiday, one button alphabetically and the other button by time in the year. Ultimately, the holidays you pick are up to you, and we will not micromanage your choice of alphabetization or specific date chosen EXCEPT that the two orderings should not be the same (because that's no fun).
+
+* You will need one state, either a `string` or an enumeration of 5 strings like `QuestionType` (perhaps named `Holiday`).
+* You will need to define two functions (or two `Record`s) that can take in an existing holiday and produce the next holiday - one function should produce the next holiday alphabetically, and the other produces the next holiday in the year.
+* The view should render the current holiday with the text `Holiday: ` followed by the emoji (e.g., `Holiday: 🎃`).
+* The first button should include the text `Alphabet` somewhere (e.g., `Advance by Alphabet`) and changes the current holiday to the next one alphabetically.
+* The second button should include the text `Year` somewhere (e.g., `Advance by Year`) and changes the current holiday to the next one in the year.
+
+For example, let us say we only had three holidays:
+
+* 🎏 to represent the **Dr**agon Boat Festival in the summer
+* 🎃 to represent **H**alloween at the end of October
+* 🪔 to represent **Di**iwali earlier in October
+
+Then the transitions in the year would be:
+
+* 🎏 -> 🪔
+* 🪔 -> 🎃 
+* 🎃 -> 🎏
+
+And the transitions alphabetically would be:
+
+* 🪔 -> 🎏
+* 🎏 -> 🎃 
+* 🎃 -> 🪔
+
+If you need help finding emojis, then you can use a website like [emojis.wiki](https://emojis.wiki/)
+
+## Testing and Deploying
 
 Check your status with the tests by running:
 
@@ -398,7 +649,7 @@ $> npm run test:cov
 
 If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `bookEndList`). You can go back to running all the tests by typing `a`.
 
-As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
+As you complete components, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
 
 Once you are passing all the tests, you should be able to push your branch to the remote and make a Pull Request to `main`. We'll be checking your tests to make sure you pass!
 

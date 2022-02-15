@@ -282,6 +282,21 @@ export function App(): JSX.Element {
 }
 ```
 
+# Writing Your Own Tests
+
+
+## Happy Paths
+
+When writing tests, you often focus on what your application should do.
+
+## Mocking
+
+In the previous chapter, we had to write tests for the `TwoDice` component, which relied on random number generation. The whole point of random numbers is to make things more random. This presents a challenge when we want to *deterministically* test our applications.
+
+# Supporting Multiple Languages
+
+<!-- https://betterprogramming.pub/add-multi-language-support-in-react-js-a771c9ab31c3 -->
+
 # TODO: Finish these
 
 A complex example in a github repository that models an application where we have a complex nested object.
