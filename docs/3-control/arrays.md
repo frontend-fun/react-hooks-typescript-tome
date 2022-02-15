@@ -241,7 +241,7 @@ const lowPrices = prices.filter(isLowPrice);
 console.log(lowPrices);
 ```
 
-Do you see how we wrote `isLowPrice` instead of `isLowPrice`? We're not calling `isLowPrice`, we're passing the reference to the `isLowPrice` function to the `filter` so the `filter` function can call `isLowPrice` for us without us having to do so.
+Do you see how we wrote `isLowPrice` instead of `isLowPrice()`? We're not calling `isLowPrice`, we're passing the reference to the `isLowPrice` function to the `filter` so the `filter` function can call `isLowPrice` for us without us having to do so.
 
 Let's write it one more time, as if it were an `if` statement in a `for` loop, just so you can see.
 
