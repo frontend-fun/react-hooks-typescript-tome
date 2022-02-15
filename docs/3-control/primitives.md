@@ -139,13 +139,13 @@ You will never ever be allowed to use this.
 
 Seriously, if you use this we literally will throw your project out.
 
-The idea of the `any` type is to admit that you don't know what type something is. That means you don't know what you're doing. If you don't know what you're doing, then you need to learn (because that is the purpose of all this). If you learn what you are doing, then you know what type of data you are dealing with. Then you don't need `any`.
+The idea of the `any` type is to admit that you don't know what type something is. That means you don't know what you're doing. If you don't know what you're doing, then you need to learn (because that is the purpose of all this). If you learn what you are doing, then you know what type of data you are dealing with. Then you don't need `any`. (Hint: the error messages are great at telling you what types are not working in an expression!)
 
-I'm not joking, don't you dare ever use `any`.
+Use of `any` will result in a zero grade for an assignment.
 
 # Functions
 
-Remember the vocabuarly you have seen in previous courses:
+Remember the vocabulary you have seen in previous courses:
 
 * Define: To specify what a function does
 * Call: To activate a function

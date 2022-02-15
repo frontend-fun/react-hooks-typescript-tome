@@ -210,7 +210,7 @@ Bootstrap layouts are pretty sophisticated, you can do a lot: <https://react-boo
 
 # 📝 Task - HTML and CSS
 
-Our next task is to edit the HTML and CSS of our application. We have prepared a bunch of new tests to help structure you.
+Our next task is to edit the HTML and CSS of our application. We have prepared a bunch of new tests to give you helpful milestones.
 
 ```sh
 $> git pull upstream main

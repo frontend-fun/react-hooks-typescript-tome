@@ -46,7 +46,7 @@ Our goal is to make web applications.
 
 HTML stands for HyperText Markup Language. Basically this is the content and text of a website, similar to the idea of a Document in something like Word.
 
-The HTML of the page is accessible as the "Document Object Model". The idea is that the entire page is a collection of "HTML Elements". Example elements are headers, paragraphs of text, images, links, buttons, and so much more. Each HTML Element can have attributes. Attributes vary by the type of element: links have URLS they redirect the user to, images have alternative text they render when the image fails to load, etc.
+The HTML of the page is accessible as the "Document Object Model" (DOM). The idea is that the entire page is a collection of "HTML Elements". Example elements are headers, paragraphs of text, images, links, buttons, and so much more. Each HTML Element can have attributes. Attributes vary by the type of element: links have URLS they redirect the user to, images have alternative text they render when the image fails to load, etc.
 
 Elements can also have children elements, making the collection of elements into a Tree structure. Recall that a Tree data structure is an object that contains children of the same type. Some HTML Elements are explicitly designed to contain other HTML Elements (`div` for a logical divison of content, `body` for all the visible elements, `head` for loading scripts and metadata). The whole thing ends up very complicated to navigate.
 
@@ -80,7 +80,7 @@ Anyway, JavaScript is the only language that runs directly in modern web-browser
 
 We aren't going to be writing JavaScript, at least not really. That's because JavaScript is kind of a mess when it comes to data, and applications are too complicated to live in a world with messes. JavaScript's whole execution model is based on the idea of, "If anything goes wrong, let's pretend that it doesn't." This is fine when you are just trying to put a document on a screen. This is not fine when you are dealing with people's money, or health data, or grades. Therefore we are actually using **TypeScript**.
 
-TypeScript is a modified version of JavaScript that adds in strict **static** typing. TypeScript compiles into JavaScript by removing all the extra static type information. The language is almost identical in terms of control strucures (`for` loops, `while` loops, `if` statements, etc.) and operators (`+`, `===`, `?`, etc.). The only real difference is that you have to specify the type of your variables, functions, and attributes. This will feel a lot like Java, or modern Python with optional static typing.
+TypeScript is a modified version of JavaScript that adds in strict **static** typing. TypeScript compiles into JavaScript by removing all the extra static type information. The language is almost identical in terms of control structures (`for` loops, `while` loops, `if` statements, etc.) and operators (`+`, `===`, `?`, etc.). The only real difference is that you have to specify the type of your variables, functions, and attributes. This will feel a lot like Java, or modern Python with optional static typing.
 
 The big advantage here is that when you make a mistake using your data (e.g., accessing a field that does not exist, expecting a different type of value to be returned from a function, passing in the wrong argument to a function), you will get error messages. This is much better than what JavaScript would do: act like nothing is wrong but subtley act incorrectly, eventually causing data loss or bad user experiences. You may hate error messages, but you know what you hate even more? Getting fired because your website had a secret bug that ate your biggest customer's latest order. Embrace the error message, love the error messages.
 
@@ -124,6 +124,6 @@ Prettier is a plugin that helps format your code automatically. If everything is
 
 # Phew
 
-Phew, that was a lot of text. Did anyone actually read that?
+Phew, that was a lot of text. Did anyone actually read that? (If you said "yes", pat yourself on the back!)
 
 Well, either way, let's start editing some [Basic HTML and CSS &raquo;](../2-app/editing.md)
