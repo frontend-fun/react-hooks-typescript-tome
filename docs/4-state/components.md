@@ -23,61 +23,9 @@ Coming soon
 {:toc}
 </details>
 
-# The React Model
+# Array State
 
-What happens when you call `setState`? The Component functions get called again.
-
-React is very good at figuring out which Components need to be called again. It is based strictly on the hooks's value, relying on *reference equality*.
-
-## Whether to Render
-
-Remember how we kept making a big deal about Immutability back in Chapter 3? We kept stressing that we had to make NEW lists and NEW objects in our functions, rather than mutating existing ones. 
-
-What happens if we fail to follow the rule of immutability? Let's look at an example.
-
-```tsx
-export function App(): JSX.Element {
-  const [people, setPeople] = useState<string[]>([]);
-  const [newName, setNewName] = useState<string>("New Name");
-
-  function addPerson(name: string) {
-    // ...
-  }
-
-  return <div>
-    <input type="textbox" onChange={(event) => setNewName(event.target.value)}/>
-    <button onClick={()=>addPerson(newName)}>Add Person</button>
-    <ul>
-      {(people.map(
-        (person: string): JSX.Element => <li key={person}>{person}</li>
-      ))}
-    </ul>
-  </div>;
-}
-```
-
-Replace the `// ...` with the code below, which tries to manipulate the list mutably.
-
-```typescript
-// No detection of changed value, reference equality
-people.push(newName);
-setPeople(people)
-```
-
-If you run the application, type into the box, and press the "Add Person" button, nothing will occur. HOWEVER, if you *then* type into the box, suddenly the application will re-render and the new person will appear in the list.
-
-This behavior, where messing with a different part of the application seems to suddenly "fix" another part of the application, is a dead giveaway that you are using state incorrectly. Avoiding that problem is why we are avoiding mutable state so diligently.
-
-To fix the issue, we simply need to follow our rules of immutability. Try this code instead:
-
-```typescript
-const newPeople = [...people, newName];
-setPeople(newPeople);
-```
-
-The core idea is that we must create a NEW list so that React can compare their references, and discover that the new list is different. Otherwise, it compares the old reference to itself, without realizing that the CONTENTS of the array has changed.
-
-Review [Reference Equality vs. Value Quality](../3-control/arrays.md#reference-equality-vs-value-equality) for more information about reference and value (content) equality. This is also known as shallow vs. deep equality. If you still don't understand the concept, please go out and seek more help until you understand!
+Before we start talking about sharing state across components, we're going to take a closer look at how setState works when it comes to Arrays. Their behavior can be quite surprising, since Arrays are objects. To understand everything involved, we must understand how React's model of rendering components works. But first, let's just see how we can use an Array in a Component.
 
 ## Rendering an Array
 
@@ -105,6 +53,118 @@ We have to be very precise about the curly braces. Notice how:
 TSX allows us to nest HTML tags anywhere that we would normally write an expression. However, in order to embed values, variables, and code in the TSX, we must surround the expression with curly braces. Be very careful with this nesting, since skipping a curly brace or parentheses can have a disasterous effect on the code!
 
 You might also notice that we include an attribute named `key`. This is related to what we saw previously about object equality. You can read more about `key` in the [React guide page about lists and keys](https://reactjs.org/docs/lists-and-keys.html), but the basic idea is that we must provide a `key` attribute to help React distinguish between different adjacent elements created from the `map`. It'll be easy to forget, but can often be the source of many errors.
+
+The example above is simple, because the State of the application is constant. Nothing changes the `names`, and the Component only ever needs to render once. That makes this a pretty lame application. Let's mix it up a little.
+
+## Whether to Render
+
+What happens when you call `setState`? The Component functions get called again. This means we end up generating the TSX to be returned all over again, binding the freshest version of all the Hook's values. This sounds expensive, but the costs aren't as bad as you might think (especially compared to just naively rendering ALL the components again). In fact, React is very good at figuring out which Components need to be called again. React decides to renrender a Component based strictly on the hooks's value, relying on *reference equality*.
+
+Remember how we kept making a big deal about Immutability back in Chapter 3? We kept stressing that we had to make NEW lists and NEW objects in our functions, rather than mutating existing ones. 
+
+What happens if we fail to follow the rule of immutability? Let's look at an example using an editable box; don't worry about how the input box works, we'll learn more about it later. For now, we're focusing on adding and removing elements from the list.
+
+```tsx
+export function App(): JSX.Element {
+  const [people, setPeople] = useState<string[]>([]);
+  const [newName, setNewName] = useState<string>("New Name");
+
+  function addPerson(name: string) {
+    // No detection of changed value, reference equality
+    people.push(newName);
+    setPeople(people)
+    // VERY BAD!!!
+  }
+
+  return <div>
+    <input type="textbox" onChange={(event) => setNewName(event.target.value)}/>
+    <button onClick={()=>addPerson(newName)}>Add Person</button>
+    <ul>
+      {(people.map(
+        (person: string) => <li key={person}>{person}</li>
+      ))}
+    </ul>
+  </div>;
+}
+```
+
+If you run the application, type into the box, and press the "Add Person" button, nothing will occur. HOWEVER, if you *then* type into the box, suddenly the application will re-render and the new person will appear in the list.
+
+This behavior, where messing with a different part of the application seems to suddenly "fix" another part of the application, is a dead giveaway that you are using state incorrectly. Avoiding that problem is why we are avoiding mutable state so diligently.
+
+To fix the issue, we simply need to follow our rules of immutability. Try this code instead:
+
+```typescript
+const newPeople = [...people, newName];
+setPeople(newPeople);
+```
+
+The core idea is that we must create a NEW list so that React can compare their references, and discover that the new list is different. Otherwise, it compares the old reference to itself, without realizing that the CONTENTS of the array has changed.
+
+Review [Reference Equality vs. Value Quality](../3-control/arrays.md#reference-equality-vs-value-equality) for more information about reference and value (content) equality. This is also known as shallow vs. deep equality. If you still don't understand the concept, please go out and seek more help until you understand!
+
+# Late Updates
+
+Continuing the conversation about weird React behavior, another critical thing to note is that React does NOT update Hook's State Variable immediately when the Hook's State Setter is called. In fact, it would be impossible for that to happen, because the State Variable is actually stored in a constant.
+
+```tsx
+function App(): JSX.Element {
+  const [value, setValue] = useState<number>(0);
+  
+  function increaseTwice() {
+    // Nope, doesn't actually increase twice!
+    setValue(1+value);
+    setValue(1+value);
+  }
+  
+  return <Button onClick={increaseTwice}>{value}</Button>
+}
+```
+
+If you run this application, you might expect that the value shown on the button would increase by two, since we are calling `setValue` twice. However, that is not what happens. We are calling `setValue` twice, but each time we are performing the same calculation (`1+value`), and that value involves a constant (`value`) that cannot change. The `setValue` function *does not modify `value`*. This is probably strange to think about, just based on its name. But the idea is that we are updating the Hook's value, and that Hook will provide a value the next time the component renders, which does not happen immediately when you call `setValue`. React waits until the `increaseTwice` function is done before it re-renders anything.
+
+The issue is a little easier to see when you have two pieces of state that are relying on each other. The code below works because the order of calling `setNewNumber` and `setNums` has no effect on the elements being added to the list.
+
+```tsx
+function App(): JSX.Element {
+  const [ nums, setNums ] = useState<number[]>([]);
+  const [ newNumber, setNewNumber ] = useState<number>(0);
+  
+  const addNumber = () => {
+    setNewNumber(newNumber+1);
+    // The correct number is added even though we just did `newNumber+1`!
+    setNums([...nums, newNumber]);
+  };
+  
+  return <div>
+    <Button onClick={addNumber}>Add {newNumber}</Button>
+    <ul>
+      { nums.map((num: number) => <li key={num}>{num}</num>)}
+    </ul>
+  </div>
+}
+```
+
+Compare that to this non-working code below, which tries to rely on a `count` variable. Since the `nums` has not changed just because we called `setNums`, the `count` does not get updated the right way! When you run this, the first two elements become zero instead of just the first element.
+
+```tsx
+function App(): JSX.Element {
+  const [ nums, setNums ] = useState<number[]>([]);
+  const [ count, setCount ] = useState<number>(0);
+  
+  const addNumber = () => {
+    setNums([...nums, count]);
+    setCount(nums.length);
+  };
+  
+  return <div>
+    <Button onClick={addNumber}>Add {count}</Button>
+    <ul>
+      { nums.map((num: number) => <li key={num}>{num}</li>)}
+    </ul>
+  </div>
+}
+```
 
 # State Across Components
 
@@ -437,13 +497,6 @@ Stop Here
 
 **THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
 
-* They need to fix an example where they've tried to move the useState outside of the component.
-* Problem where they need to lift a state up to the top component
-* Situation where the state can be moved down to a child component
-* Incorrect behavior because of a list missing its key
-
-This stuff never makes sense just reading about it. Let's try working on some problems instead!
-
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
@@ -454,7 +507,35 @@ $> git checkout -b solved-components
 $> git merge upstream/task-components
 ```
 
-TODO: ALL OF THIS STUFF
+## Fix `DoubleHalf`
+
+The `DoubleHalf` component provides two buttons. One doubles the value, the other halves the value.
+
+Currently, the component is commented out because it is broken and crashes your application. Uncomment the component's instantiation in `src/App.tsx`, and then fix the Component so that it works correctly.
+
+You must NOT add or remove components; you can only *modify* the existing components.
+
+## Fix `ColoredBox`
+
+The `ColoredBox` component provides a single button that cycles through a list of colors, updating a box off to its right.
+
+Currently, the component does not work, since the box always stays the same color when clicked. Fix the state so the component works correctly.
+
+You must NOT add or remove components; you can only *modify* the existing components.
+
+## Fix `ShoveBox`
+
+The `ShoveBox` component provides a button that moves an adjancet box farther away, by increasing the boxes left margin.
+
+Currently, part of the component's returned body is commented out because it is broken and crashes your application. Uncomment the component's body in `src/ShoveBox.tsx` and then fix the Component so that it works correctly.
+
+You must NOT add or remove components; you can only *modify* the existing components.
+
+## Fix `Tracking Array`
+
+The `TrackingArray` component provides a button to track numbers in a list; each number tracked in the list can be removed.
+
+Currently, the component is commented out because of an error. Further, when the error is fixed, you will find that the number being tracked is incorrect. Uncomment the component, handle the error, and then fix so that the number being tracked is correct..
 
 ## Testing and Deploying
 
