@@ -440,6 +440,7 @@ Stop Here
 * They need to fix an example where they've tried to move the useState outside of the component.
 * Problem where they need to lift a state up to the top component
 * Situation where the state can be moved down to a child component
+* Incorrect behavior because of a list missing its key
 
 This stuff never makes sense just reading about it. Let's try working on some problems instead!
 
