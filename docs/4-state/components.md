@@ -147,9 +147,8 @@ Functions and variables defined inside of a Component are NOT available outside 
 // Cannot access local variables from a function
 
 // First file: src/Reveal.tsx
-
 export function Reveal(): JSX.Element {
-    export const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
     return <Button onClick={() => setVisible(!visible)}>Show/Hide</Button>
 }
 
@@ -213,7 +212,7 @@ function IDCard(props: IDCardProps): JSX.Element {
 
 function App(): JSX.Element {
     return <div>
-        <IDCard firstName="Pumpkin" lastName="Bart"></IDCard>
+        <IDCard firstName="Babbage" lastName="Bart"></IDCard>
         <IDCard firstName="Ada" lastName="Bart"></IDCard>
     </div>;
 }
@@ -239,7 +238,7 @@ function IDCard({firstName, lastName}: IDCardProps): JSX.Element {
 
 function App(): JSX.Element {
     return <div>
-        <IDCard firstName="Pumpkin" lastName="Bart"></IDCard>
+        <IDCard firstName="Babbage" lastName="Bart"></IDCard>
         <IDCard firstName="Ada" lastName="Bart"></IDCard>
     </div>;
 }
@@ -263,7 +262,7 @@ function IDCard({firstName, lastName}: {
 
 function App(): JSX.Element {
     return <div>
-        <IDCard firstName="Pumpkin" lastName="Bart"></IDCard>
+        <IDCard firstName="Babbage" lastName="Bart"></IDCard>
         <IDCard firstName="Ada" lastName="Bart"></IDCard>
     </div>;
 }
