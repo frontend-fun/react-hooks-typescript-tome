@@ -203,7 +203,7 @@ interface IDCardProps {
 }
 
 function IDCard(props: IDCardProps): JSX.Element {
-    return <div style={{border: '1px solid black'}}>
+    return <div style={ {border: '1px solid black'} }>
         <h3>ID Card</h3>
         <p>First name: <span>{props.firstName}</span></p>
         <p>Last name: <span>{props.lastName}</span></p>
@@ -229,7 +229,7 @@ interface IDCardProps {
 }
 
 function IDCard({firstName, lastName}: IDCardProps): JSX.Element {
-    return <div style={{border: '1px solid black'}}>
+    return <div style={ {border: '1px solid black'} }>
         <h3>ID Card</h3>
         <p>First name: <span>{firstName}</span></p>
         <p>Last name: <span>{lastName}</span></p>
@@ -253,7 +253,7 @@ function IDCard({firstName, lastName}: {
     firstName: string;
     lastName: string;
 }): JSX.Element {
-    return <div style={{border: '1px solid black'}}>
+    return <div style={ {border: '1px solid black'} }>
         <h3>ID Card</h3>
         <p>First name: <span>{firstName}</span></p>
         <p>Last name: <span>{lastName}</span></p>
@@ -288,7 +288,7 @@ function RevealButtons({setVisible}: RevealButtonsProps): JSX.Element {
 }
 
 export function App(): JSX.Element {
-    export const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
     return <div>
         <RevealButtons setVisible={setVisible}></RevealButtons>
         {visible && '42'}
@@ -316,7 +316,7 @@ function RevealButton({setVisible, visible}: RevealButtonProps): JSX.Element {
 }
 
 export function App(): JSX.Element {
-    export const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
     return <div>
         <RevealButton setVisible={setVisible} visible={visible}></RevealButton>
         {visible && '42'}
@@ -341,7 +341,7 @@ function RevealButton({showHide}: RevealButtonProps): JSX.Element {
 }
 
 export function App(): JSX.Element {
-    export const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
     // Closure on visible and setVisible
     const flipVisible = () => setVisible(!visible);
     // The attribute and the value do not have to match!
