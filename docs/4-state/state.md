@@ -647,7 +647,7 @@ Check your status with the tests by running:
 $> npm run test:cov
 ```
 
-If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `bookEndList`). You can go back to running all the tests by typing `a`.
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `p` and entering the name of the file you want to test (e.g., `Counter.test.tsx`). You can go back to running all the tests by typing `a`.
 
 As you complete components, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
 

@@ -447,6 +447,7 @@ This stuff never makes sense just reading about it. Let's try working on some pr
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
+$> git checkout task-state
 $> git pull upstream main
 $> git fetch upstream task-components
 $> git checkout -b solved-components
@@ -455,11 +456,7 @@ $> git merge upstream/task-components
 
 TODO: ALL OF THIS STUFF
 
-You'll need to edit the `arrays.ts` file.
-
-YOU MAY NOT USE `for` LOOPS, `while` LOOPS, or recursion! You MUST use the array methods we have taught you. You must also avoid mutating the original arrays - all changes must be immutable! As long as you stick to the commands on this page, you shouldn't have any issues.
-
-You may need additional functions in JavaScript; don't be afraid to seek help as needed if you aren't sure how to do a specific conversion (e.g., a string into an integer).
+## Testing and Deploying
 
 Check your status with the tests by running:
 
@@ -467,14 +464,14 @@ Check your status with the tests by running:
 $> npm run test:cov
 ```
 
-If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `bookEndList`). You can go back to running all the tests by typing `a`.
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `p` and entering the name of the file you want to test (e.g., `Counter.test.tsx`). You can go back to running all the tests by typing `a`.
 
-As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
+As you complete components, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
 
 Once you are passing all the tests, you should be able to push your branch to the remote and make a Pull Request to `main`. We'll be checking your tests to make sure you pass!
 
 ```sh
-$> git push --set-upstream origin solved-state
+$> git push --set-upstream origin solved-components
 ```
 
 Once you're done submitting, we can learn about [Forms &raquo;](../4-state/forms.md)
