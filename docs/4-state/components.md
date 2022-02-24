@@ -128,7 +128,7 @@ That `name` variable is available for any code inside of the `map` function's in
 
 ```tsx
 function App(): JSX.Element {
-  const [colors, setColors] = useState<string[]>(["Red", "Blue", "Green", "Orange", "White]);
+  const [colors, setColors] = useState<string[]>(["Red", "Blue", "Green", "Orange", "White"]);
   const [chosen, setChosen] = useState<string>(colors[0]);
 
   function updateChosen(newColor: string) {
