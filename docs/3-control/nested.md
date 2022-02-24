@@ -88,7 +88,7 @@ console.log("Rereleased Year:", rereleasedMovies[0].released);
 console.log("***************************************************");
 
 // Relabel the old movies as "Ghibli Classic: WHATEVER"
-const relabeledMovies = ghibliMovies.filter(
+const relabeledMovies = ghibliMovies.map(
     (movie: Movie): Movie => ({
         ...movie, 
         name: movie.released <= 2000 ?
