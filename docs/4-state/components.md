@@ -547,20 +547,19 @@ To summarize, there are plusses and minuses to closures compared to just having 
 
 # 📝 Task - Fixing Components
 
-Stop Here
-{: .label .label-yellow }
-
-**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
-
 As always, begin by pulling our changes, making a new branch, and merging in our changes.
 
 ```sh
-$> git checkout task-state
+$> git checkout solved-state
 $> git pull upstream main
 $> git fetch upstream task-components
 $> git checkout -b solved-components
 $> git merge upstream/task-components
 ```
+
+Congratulations! We gave you four broken components. Some of them are so broken, they will immediately cause errors. Yay!
+
+You're going to need to fix the components. Beware: just passing their tests MAY not be sufficient. Make sure you achieve the desired functionality in the correct way. For example, simply deleting a test or component is not a good strategy.
 
 ## Fix `DoubleHalf`
 
@@ -568,7 +567,7 @@ The `DoubleHalf` component provides two buttons. One doubles the value, the othe
 
 Currently, the component is commented out because it is broken and crashes your application. Uncomment the component's instantiation in `src/App.tsx`, and then fix the Component so that it works correctly.
 
-You must NOT add or remove components; you can only *modify* the existing components.
+You must NOT add or remove components; you can only *modify* the existing components. Hint: You are free to delete files if they serve no purpose, thouhgh...
 
 ## Fix `ChooseTeam`
 
@@ -594,11 +593,16 @@ Currently, part of the component's returned body is commented out because it is 
 
 You must NOT add or remove components; you can only *modify* the existing components.
 
-## Fix `Tracking Array`
+<!--
+TODO: Decided not to use this question. It's too easy to game, and doesn't say its point clearly enough. I wanted something where students would see that React doesnt' update its variables immediately. But it's a relatively rare situation. For now, I'm holding off on this until we get something better.
 
-The `TrackingArray` component provides a button to track numbers in a list; each number tracked in the list can be removed.
+## Fix `Tracking Numbers`
+
+The `TrackingNumbers` component provides a button to track ID numbers in a list; each time the button is clicked, a new number is added to the list starting with 1. A number can be clicked on to remove that number from the list.
 
 Currently, the component is commented out because of an error. Further, when the error is fixed, you will find that the number being tracked is incorrect. Uncomment the component, handle the error, and then fix so that the number being tracked is correct..
+
+-->
 
 ## Testing and Deploying
 
