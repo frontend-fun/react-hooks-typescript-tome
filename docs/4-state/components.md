@@ -574,7 +574,7 @@ You must NOT add or remove components; you can only *modify* the existing compon
 
 The `ChooseTeam` component provides a list of buttons representing people, and a list of people representing a team. Clicking a button adds the given person to the team on the right, if they are not already there.
 
-Currently, the component is broken out, because its click handlers are not coded correctly to properly update state. Fix the click handler functions so that the component works correctly. Hint: You will want to modify the signature and binding of one of the inner helper functions.
+Currently, the component is broken and partially out, because its click handlers are not coded correctly to properly update state. Fix the click handler functions so that the component works correctly. Hint: You will want to modify the signature and binding of one of the inner helper functions.
 
 You must not add or remove components; you can only *modify* the existing components.
 
