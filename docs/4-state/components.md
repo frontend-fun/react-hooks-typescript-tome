@@ -7,11 +7,6 @@ parent: Using State
 
 # Components
 
-Coming soon
-{: .label .label-yellow }
-
-**Oops! This page is not yet ready. Please be patient while we finish it up.**
-
 [&laquo; Return to State](state.md)
 
 <details open markdown="block">
