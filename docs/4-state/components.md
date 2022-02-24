@@ -103,6 +103,61 @@ The core idea is that we must create a NEW list so that React can compare their 
 
 Review [Reference Equality vs. Value Quality](../3-control/arrays.md#reference-equality-vs-value-equality) for more information about reference and value (content) equality. This is also known as shallow vs. deep equality. If you still don't understand the concept, please go out and seek more help until you understand!
 
+## Closures and Mapping Arrays
+
+If you render an array with `map`, then the function defined inside of the `map` has a parameter representing each element of the array. To be clear, the parameter can only represent ONE element at any given time - the `map` function iterates through ALL of the elements one-by-one, just like a `for` loop, passing each element as an argument to the provided function. This allows us to use an individual *singular* element from a *plural* collection of elements (and also provides a hint to how we should name the variables involved: plural words for the variable holding the array, and the singular version of that word for the parameter). In the example below, we have `colors` holding an array of strings and `color` representing one element.
+
+```tsx
+function App(): JSX.Element {
+  const [colors, setColors] = useState<string[]>(["Red", "Blue", "Green"]);
+
+  return <div>
+    The colors are:
+    <ul>
+      { colors.map((color: string) => 
+          <li key={color}>
+            {color}
+          </li>
+        )}
+    </ul>
+  </div>
+}
+```
+
+That `name` variable is available for any code inside of the `map` function's inner function. This is especially important when we want to have a click handler for each element of an array, since we can provide the variable as a **Closure** ("a variable from an outer scope being used inside of a function"). Let's say we wanted to modify the example above so that we could select one of the colors in the list and store it in a new bit of string state.
+
+```tsx
+function App(): JSX.Element {
+  const [colors, setColors] = useState<string[]>(["Red", "Blue", "Green", "Orange", "White]);
+  const [chosen, setChosen] = useState<string>(colors[0]);
+
+  function updateChosen(newColor: string) {
+    setChosen(newColor);
+  }
+
+  return <div>
+    <div>
+      Current Color is:
+      <span style={ {backgroundColor: chosen} }>{chosen}</span>
+    </div>
+    <div>
+      Choose a color:
+      <ul>
+        { colors.map((color: string) => 
+            <li key={color}>
+              <Button onClick={() => updateChosen(color)}>{color}</Button>
+            </li>
+          )}
+      </ul>
+    </div>
+  </div>
+}
+```
+
+Notice that we *had* to use an anonymous function instead of just providing the name `updateChosen`. The `updateChosen` function requires a parameter (the `newColor`), which was fortunately available to us via the `color` parameter of the `colors.map` anonymous function.
+
+The idea here is that we create a temporary function `() => updateChosen(color)` who's only job when called is to invoke the `updateChosen` function with the current `color`. Since we define the temporary function INSIDE of the loop from `colors.map`, the variable `color` is *closed over* the function and will use the value from that iteration of the loop. This would not work if we did `onClick={updateChosen}`!
+
 # Late Updates
 
 Continuing the conversation about weird React behavior, another critical thing to note is that React does NOT update Hook's State Variable immediately when the Hook's State Setter is called. In fact, it would be impossible for that to happen, because the State Variable is actually stored in a constant.
@@ -514,6 +569,14 @@ The `DoubleHalf` component provides two buttons. One doubles the value, the othe
 Currently, the component is commented out because it is broken and crashes your application. Uncomment the component's instantiation in `src/App.tsx`, and then fix the Component so that it works correctly.
 
 You must NOT add or remove components; you can only *modify* the existing components.
+
+## Fix `ChooseTeam`
+
+The `ChooseTeam` component provides a list of buttons representing people, and a list of people representing a team. Clicking a button adds the given person to the team on the right, if they are not already there.
+
+Currently, the component is broken out, because its click handlers are not coded correctly to properly update state. Fix the click handler functions so that the component works correctly. Hint: You will want to modify the signature and binding of one of the inner helper functions.
+
+You must not add or remove components; you can only *modify* the existing components.
 
 ## Fix `ColoredBox`
 
