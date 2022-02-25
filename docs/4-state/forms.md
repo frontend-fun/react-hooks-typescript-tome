@@ -50,7 +50,7 @@ function App(): JSX.Element {
 
 Notice the `controlId` parameter we have included in the form above. This improves the accessibility of the form for folks using Screen Readers and other automated tools. You should always keep these kinds of users' experience in mind!
 
-Technically, a Form should be surrounded by a `form` tag, but we will often relax this requirement out of convenience.
+You will sometimes see widgets surrounded by a `Form` tag, but we recommend against using a `Form` tag for now. This tag makes the widgets behave as a full HTML Form, which has a lot of additional functionality that you probably do not want at this point in time. 
 
 ## Form Attributes
 
@@ -164,14 +164,12 @@ export function App(): JSX.Element {
 
   // This is the View
   return <div>
-    <Form>
-      <Form.Group controlId="formMovieName">
-        <Form.Label>Name:</Form.Label>
-        <Form.Control
-          value={name}
-          onChange={updateName} />
-      </Form.Group>
-    </Form>
+    <Form.Group controlId="formMovieName">
+      <Form.Label>Name:</Form.Label>
+      <Form.Control
+        value={name}
+        onChange={updateName} />
+    </Form.Group>
     <div>
       The movie is "{name}".
     </div>
@@ -246,24 +244,20 @@ export function App(): JSX.Element {
   // Provide forms for editing the new movie
   // And also a button to append the movie
   return <div>
-    <Form>
-      <Form.Group controlId="formMovieName" as={Row} >
-        <Form.Label column sm={2}>Name:</Form.Label>
-        <Col>
-          <Form.Control
-            value={name}
-            onChange={(event: ChangeEvent) => setName(event.target.value)} />
-        </Col>
-      </Form.Group>
-    </Form>
-    <Form>
-      <Form.Group controlId="formMovieReleased" as={Row}>
-        <Form.Label column sm={2}>Released:</Form.Label>
-        <Col><Form.Control type="number" value={released}
-          onChange={(event: ChangeEvent) => setReleased(event.target.value)} />
-        </Col>
-      </Form.Group>
-    </Form>
+    <Form.Group controlId="formMovieName" as={Row} >
+      <Form.Label column sm={2}>Name:</Form.Label>
+      <Col>
+        <Form.Control
+          value={name}
+          onChange={(event: ChangeEvent) => setName(event.target.value)} />
+      </Col>
+    </Form.Group>
+    <Form.Group controlId="formMovieReleased" as={Row}>
+      <Form.Label column sm={2}>Released:</Form.Label>
+      <Col><Form.Control type="number" value={released}
+        onChange={(event: ChangeEvent) => setReleased(event.target.value)} />
+      </Col>
+    </Form.Group>
     <div>
       The movie {name} was released in {released}.
     </div>
@@ -291,16 +285,14 @@ export function App(): JSX.Element {
 
   // This is the View
   return <div>
-    <Form>
-      <Form.Group controlId="formMovieName">
-        <Form.Label>Name:</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          value={description}
-          onChange={updateDescription} />
-      </Form.Group>
-    </Form>
+    <Form.Group controlId="formMovieName">
+      <Form.Label>Name:</Form.Label>
+      <Form.Control
+        as="textarea"
+        rows={3}
+        value={description}
+        onChange={updateDescription} />
+    </Form.Group>
     <div>
       Your description is {description.length} characters.
     </div>
@@ -638,6 +630,16 @@ They need to make components that:
 * Have a checkbox that controls whether another component is visible
 * Have a dropdown that renders a bunch of multiple choice options
 * Have a checkbox that controls whether a question's body is in "edit" mode or not
+
+## CheckAnswer
+
+## GiveAttempts
+
+## EditMode
+
+## MultipleChoiceQuestions
+
+## AddQuestion
 
 As always, begin by pulling our changes, making a new branch, and merging in our changes. This time, be sure that you create your new branch from the previous branch we worked on (`solved-components`) by checking out that branch first.
 
