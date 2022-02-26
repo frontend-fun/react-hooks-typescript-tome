@@ -79,7 +79,7 @@ console.log(movieCSV);
 console.log("***************************************************");
 
 // Make a new list where we re-release all the movies to be this year
-const rereleasedMovies = ghibliMovies.filter(
+const rereleasedMovies = ghibliMovies.map(
     // The parentheses around the curly braces are CRITICAL!
     (movie: Movie): Movie => ({...movie, released: 2022})
 );
@@ -88,7 +88,7 @@ console.log("Rereleased Year:", rereleasedMovies[0].released);
 console.log("***************************************************");
 
 // Relabel the old movies as "Ghibli Classic: WHATEVER"
-const relabeledMovies = ghibliMovies.filter(
+const relabeledMovies = ghibliMovies.map(
     (movie: Movie): Movie => ({
         ...movie, 
         name: movie.released <= 2000 ?
