@@ -557,7 +557,13 @@ If your repository still has the `HtmlCss.test.tsx` and `text.test.tsx` files, t
 
 For this task, you will ultimately create 5 new components. We have provided you with the skeleton of all 5 components, one additional fully-completed component, and extensive tests for each component. We have also added them to the bottom of the `App` component, separated by horizontal rules (`hr` HTML tags).
 
-You are going to need to edit the components themselves and include them in your `App` component:
+You are going to need to edit the components themselves and include them in your `App` component. Remember that you can view your website locally by running it with:
+
+```sh
+$> npm run start
+```
+
+Every time you save a file in VS Code, the website should update automatically!
 
 ### Counter
 
