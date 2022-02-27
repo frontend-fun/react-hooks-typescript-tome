@@ -237,7 +237,7 @@ Since we are now failing these tests, we need to fix them. Refer to the informat
 THERE ARE TWO TASKS NOT REPRESENTED IN THE TESTS.
 
 1. Have a two-column layout on the page somwhere
-2. Put a red rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
+2. Put a red-filled rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
 
 To earn full points, you must pass all the tests and also complete these two additional tasks.
 

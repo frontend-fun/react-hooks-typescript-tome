@@ -557,7 +557,13 @@ If your repository still has the `HtmlCss.test.tsx` and `text.test.tsx` files, t
 
 For this task, you will ultimately create 5 new components. We have provided you with the skeleton of all 5 components, one additional fully-completed component, and extensive tests for each component. We have also added them to the bottom of the `App` component, separated by horizontal rules (`hr` HTML tags).
 
-You are going to need to edit the components themselves and include them in your `App` component:
+You are going to need to edit the components themselves and include them in your `App` component. Remember that you can view your website locally by running it with:
+
+```sh
+$> npm run start
+```
+
+Every time you save a file in VS Code, the website should update automatically!
 
 ### Counter
 
@@ -647,7 +653,7 @@ Check your status with the tests by running:
 $> npm run test:cov
 ```
 
-If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `bookEndList`). You can go back to running all the tests by typing `a`.
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `p` and entering the name of the file you want to test (e.g., `Counter.test.tsx`). You can go back to running all the tests by typing `a`.
 
 As you complete components, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
 
