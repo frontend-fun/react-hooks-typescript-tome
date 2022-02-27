@@ -330,7 +330,7 @@ const myEmails = [
         body: "HEY EVERY !! IT'S ME!!!",
         sender: { name: "Spamton", address: "spamton@g.spamton" },
         tags: ["spam", "offer", "junk"],
-        contacts: [
+        recipients: [
             { name: "Kris", address: "krisscross@light.ner"}
         ]
     },
@@ -339,7 +339,7 @@ const myEmails = [
         body: "Let me become your strength.",
         sender: { name: "Spamton", address: "spamton@g.spamton" },
         tags: ["correspondence", "sincere"]
-        contacts: [
+        recipients: [
             { name: "Kris", address: "krisscross@light.ner"},
             { name: "Susie", address: "biggator@light.ner"},
             { name: "Ralsei", address: "littlegoat@dark.ner"}
@@ -373,11 +373,11 @@ function deepCloneEmails(emails: Email[]): Email[] {
 const copiedEmails = deepCloneEmails(myEmails);
 
 // Mutate the first email's first contact
-myEmails[0].contacts[0].address = "stranger@gaster.net";
+myEmails[0].recipients[0].address = "stranger@gaster.net";
 
 // And check the resulting data
-console.log("The first email address of the first contact of `myEmails` is", myEmails[0].contacts[0].address);
-console.log("The first email address of the first contact of `copiedEmails` is", copiedEmails[0].contacts[0].address);
+console.log("The first email address of the first contact of `myEmails` is", myEmails[0].recipients[0].address);
+console.log("The first email address of the first contact of `copiedEmails` is", copiedEmails[0].recipients[0].address);
 ```
 
 There are shortcut approaches to doing a Deep Copy, but we do not recommend them:
