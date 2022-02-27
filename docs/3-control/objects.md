@@ -90,7 +90,7 @@ const sum = smallNumbers.reduce((currentTotal: number, num: number) => currentTo
 console.log(sum);
 ```
 
-## Updating Objects Immutabily
+## Updating Objects Immutably
 
 Technically speaking, you can edit fields of objects the same way you can in most Object-Oriented languages:
 
