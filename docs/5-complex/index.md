@@ -24,34 +24,6 @@ Coming soon
 
 So things get complicated here. You can't make a web application with just a string. You need complicated nested states.
 
-## Data Organization
-
-Organize State Structure Based on Data Types, Not Components
-
-> For example, a blogging app might need to track who is logged in, information on authors and posts, and perhaps some info on what screen is active. A good state structure might look like `{auth, posts, users, ui}`. A bad structure would be something like `{loginScreen, usersList, postsList}`.
-
-`postsList` sounds like a good Component, a View that renders the Model. But the actual Model itself is not the list on the screen, but the underlying abstraction of the current `posts`.
-
-# Patterns
-
-
-
-* list of primitive states
-  * List of names of people, need to be able to add, remove, edit
-  * List of numbers where you need to be reporting the sum at the end
-
-
-
-
-
-* object state
-  * Want to have a situation where they must know shallow vs deep equality
-* record state
-  * change value of object
-  * add key to record, remove key from record
-
-# List of Object States
-
 ## Editing an Object in an Array with a Given Value
 
 ```tsx
@@ -282,6 +254,12 @@ export function App(): JSX.Element {
 }
 ```
 
+## Record State
+
+* record state
+  * change value of object
+  * add key to record, remove key from record
+
 # Writing Your Own Tests
 
 
@@ -296,6 +274,16 @@ In the previous chapter, we had to write tests for the `TwoDice` component, whic
 # Supporting Multiple Languages
 
 <!-- https://betterprogramming.pub/add-multi-language-support-in-react-js-a771c9ab31c3 -->
+
+## Data Organization
+
+Organize State Structure Based on Data Types, Not Components
+
+> For example, a blogging app might need to track who is logged in, information on authors and posts, and perhaps some info on what screen is active. A good state structure might look like `{auth, posts, users, ui}`. A bad structure would be something like `{loginScreen, usersList, postsList}`.
+
+`postsList` sounds like a good Component, a View that renders the Model. But the actual Model itself is not the list on the screen, but the underlying abstraction of the current `posts`.
+
+
 
 # TODO: Finish these
 

@@ -7,11 +7,6 @@ parent: Using State
 
 # Forms
 
-Coming soon
-{: .label .label-yellow }
-
-**Oops! This page is not yet ready. Please be patient while we finish it up.**
-
 [&laquo; Return to Components](components.md)
 
 <details open markdown="block">
@@ -644,36 +639,13 @@ userEvent.type(nameElement, "s the Movie");
 expect(nameElement).toHaveValue("Aliens the Movie");
 ```
 
-There are many other ways to simulate user input, depending on what kinds of forms you are dealing with. We won't get into any more details, but expect to have to use the resources we have pointed to before:
+There is also the `.selectOptions()` function for targetting dropdowns. There are many other ways to simulate user input, depending on what kinds of forms you are dealing with. We won't get into any more details, but expect to have to use the resources we have pointed to before:
 
 * Here is an article on the [React Testing Library](
 https://www.robinwieruch.de/react-testing-library/).
 * Here is a [React Testing Library Cheat Sheet](https://testing-library.com/docs/react-testing-library/cheatsheet/).
 
 # 📝 Task - Making Forms
-
-Stop Here
-{: .label .label-yellow }
-
-**THIS TASK IS NOT READY YET. PLEASE WAIT UNTIL THE TASK OPENS ON CANVAS TO CONTINUE.**
-
-They need to make components that:
-
-* Accept text and compare it to some expected value
-* Accept a number and increase the number of attempts by that amount
-* Have a checkbox that controls whether another component is visible
-* Have a dropdown that renders a bunch of multiple choice options
-* Have a checkbox that controls whether a question's body is in "edit" mode or not
-
-## CheckAnswer
-
-## GiveAttempts
-
-## EditMode
-
-## MultipleChoiceQuestions
-
-## AddQuestion
 
 As always, begin by pulling our changes, making a new branch, and merging in our changes. This time, be sure that you create your new branch from the previous branch we worked on (`solved-components`) by checking out that branch first.
 
@@ -684,12 +656,70 @@ $> git fetch upstream task-forms
 $> git checkout -b solved-forms
 $> git merge upstream/task-forms
 ```
+You may encounter merge errors once again. If so, then you need to resolve the conflicts, stage the files, and then commit your changes BEFORE you start working on the components. Here is a [tutorial on merging conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line) if you are still struggling.
 
 ## Creating Components
 
-For this task, you will ultimately create 4 new components and some tests. We have provided you with the skeleton of all 5 components, and some tests for each component. We have also added them to the bottom of the `App` component, separated by horizontal rules (`hr` HTML tags).
+Once again, you are going to create 5 new components. We have provided you with the skeleton of all 5 components and extensive tests for each component. We have also added them to the `App` component, separated by horizontal rules (`hr` HTML tags). Note that you must follow all of our instructions and requirements!
 
-You are going to need to edit the components themselves and include them in your `App` component:
+You are going to need to edit the components themselves and include them in your `App` component. Remember that you can view your website locally by running it with:
+
+```sh
+$> npm run start
+```
+
+Every time you save a file in VS Code, the website should update automatically while this command is running!
+
+## CheckAnswer
+
+The `CheckAnswer` component allows a user to enter an answer to a short answer question, and then displays whether they got it correct or incorrect. The component takes in a parameter representing the `expectedAnswer`.
+
+* You will need a state to handle the user's given answer
+* The user's given answer should initially be the empty string
+* When the user's given answer matches the `expectedAnswer`, display ✔️; otherwise display ❌
+
+## GiveAttempts
+
+The `GiveAttempts` component simulates a user taking a quiz with a limited number of attempts, but also provides a way for them to gain as many attempts as they want via a numeric input box.
+
+* You will need a state to represent the number of attempts the user has left, and another state to represent the number of attempts they are requesting.
+* There should be a numeric input box where the user can specify their requested number of attempts.
+* There should be two buttons, one labeled `use` that decreases the attempts by one and one labeled `gain` that increases the attempts by the amount in the input box.
+* If the user attempts to request an invalid amount (e.g., the empty string `""`) that cannot be parsed as an integer, then do not change their number of attempts.
+* When the user is out of attempts, the `use` button should be disabled
+
+## EditMode
+
+The `EditMode` component has two states controlled by a switch: the default state shows text indiciating the user's name and whether they are a student, and then the alternate state is an editable form for editing the user's name and whether they are a student.
+
+* You will need state to handle the component being in "edit mode", the user's name, and whether or not the user is a student.
+* Initially, the component is NOT in edit mode, the user's name is literally the string `Your Name` (as in, that exact string, not your actual name), and the user IS a student.
+* When not in edit mode, the text of the component must include `Your Name is a student` or `Your Name is not a student`.
+* As another example, if the user entered their name as `Charles Babbage` and said they were NOT a student, then the text would be `Charles Babbage is not a student`.
+
+## ChangeColor
+
+The `ChangeColor` component offers the user a bunch of radio buttons labeled with different colors; choosing a radio button updates the text and color of a nearby box of text.
+
+* You will need state to represent the chosen color
+* You are free to make up your own list of colors, but you must have AT LEAST 8 unique colors. 
+* Each color must be represented by a radio button.
+* There should be a box of text with a `data-testid="colored-box"` attribute and value.
+* The box of text should have the same text and `backgroundColor` style as the currently selected radio button.
+
+HINT: We strongly recommend you use `map` to render all the color's `Form.Check` tags rather than hardcoding each one!
+
+HINT: We recommend you use the `inline` attribute for the radio buttons.
+
+![Screenshot of the ChangeColor component containing 8 colors, with red currently chosen](../images/task-form-components_change-color.png)
+
+## MultipleChoiceQuestions
+
+The `MultipleChoiceQuestions` component allows a user to select an answer from a list in a dropdown, and then displays whether they got it correct or incorrect. The component takes in a parameter representing the `expectedAnswer` and also a parameter representing the list of `options`.
+
+* You will need a state to represent the user's currently selected choice.
+* The initial state of the selected choice is the first element of the `options` list.
+* When the user's given answer matches the `expectedAnswer`, display ✔️; otherwise display ❌
 
 ## Testing and Deploying
 
@@ -699,7 +729,7 @@ Check your status with the tests by running:
 $> npm run test:cov
 ```
 
-If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `p` and entering the name of the file you want to test (e.g., `Counter.test.tsx`). You can go back to running all the tests by typing `a`.
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `p` and entering the name of the file you want to test (e.g., `ChangeColor.test.tsx`). You can go back to running all the tests by typing `a`.
 
 As you complete components, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
 
