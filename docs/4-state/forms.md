@@ -67,3 +67,25 @@ export function App(): JSX.Element {
 ## Textarea
 
 ## Select Menu
+
+# Testing Forms
+
+First, let's look at the prefixes we can use:
+
+No Match	1 Match	1+ Match	Await?
+getBy	throw	return	throw	No
+findBy	throw	return	throw	Yes
+queryBy	null	return	throw	No
+getAllBy	throw	array	array	No
+findAllBy	throw	array	array	Yes
+queryAllBy	[]	array	array	No
+
+Next, let's look at the suffixes we can use:
+
+* `ByLabelText` find by label or aria-label text content
+* `ByPlaceholderText` find by input placeholder value
+* `ByText` find by element text content
+* `ByDisplayValue` find by form element current value
+* `ByAltText` find by img alt attribute
+* `ByTitle` find by title attribute or svg title tag
+* `ByTestId` find by data-testid attribute

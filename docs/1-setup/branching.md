@@ -101,7 +101,7 @@ Many folks feel that the best way to merge changes from a branch back into the `
 
 The first time you push your changes for this branch, you will need to run the following command after you have added and committed your files:
 
-```
+```sh
 $> git push --set-upstream origin solved-first-branch
 ```
 
