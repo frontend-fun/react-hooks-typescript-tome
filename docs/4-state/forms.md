@@ -415,6 +415,40 @@ export function App(): JSX.Element {
 }
 ```
 
+If you add the `inline` attribute to the `<Form.Check>` tag, you can make put the radio buttons all on the same row.
+
+```tsx
+export function App(): JSX.Element {
+    const [response, setResponse] = useState<string>("good");
+
+    return (
+        <div>
+            <Form.Check
+                inline
+                type="radio"
+                name="response"
+                onChange={(e) => setResponse(e.target.value)}
+                id="response-good"
+                label="😃"
+                value="good"
+                checked={response === "good"}
+            />
+            <Form.Check
+                inline
+                type="radio"
+                name="response"
+                onChange={(e) => setResponse(e.target.value)}
+                id="response-bad"
+                label="😒"
+                value="bad"
+                checked={response === "bad"}
+            />
+            <div>The response is {response === "good" ? "😃" : "😒"}.</div>
+        </div>
+    );
+}
+```
+
 ### Multi-Checkbox
 
 Radio buttons are mutually exclusive, but what if you want to have a bunch of options and the user can select any one of them? This means that we have some state that is really a list.
