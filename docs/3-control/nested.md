@@ -107,12 +107,16 @@ const castleInTheSky = ghibliMovies.find(
 );
 console.log("Release year of Castle in the Sky:", castleInTheSky.released)
 
+console.log("***************************************************");
+
 // Find an array's object with a less specific field value:
 // Find a movie in the list released after 2000
 const post2000Movie = ghibliMovies.find(
     (movie: Movie): boolean => movie.released >= 2000
 );
 console.log("A movie released after 2000:", post2000Movie.name);
+
+console.log("***************************************************");
 
 // Find the oldest movie
 const oldestMovie = ghibliMovies.reduce(
@@ -122,6 +126,8 @@ const oldestMovie = ghibliMovies.reduce(
 );
 console.log("Oldest movie:", oldestMovie.name, "in", oldestMovie.released);
 
+console.log("***************************************************");
+
 // Add a new movie to the end
 const ghibliWithMonoke = [...ghibliMovies, {
     name: "Princess Mononoke",
@@ -129,6 +135,8 @@ const ghibliWithMonoke = [...ghibliMovies, {
     seen: true
 }];
 console.log("Last movie is:", ghibliWithMonoke.slice(-1)[0].name);
+
+console.log("***************************************************");
 
 // Insert an element after a specific existing element
 // Add Naussica after Castle in the Sky
@@ -142,6 +150,8 @@ myGhibliCollection.splice(1+castleIndex, 0, {
     seen: true
 }];
 console.log("Added:", myGhibliCollection[castleIndex+1].name);
+
+console.log("***************************************************");
 
 // Map to a new interface named `MovieDetails`
 interface MovieDetails {
