@@ -68,6 +68,9 @@ console.log("***************************************************");
 
 // Create a CSV representation of the movies
 // CSVs are just comma-separated values in a multi-line string
+// If the single quotes and braces are confusing, look back at
+//https://frontend-fun.github.io/react-hooks-typescript-tome/3-control/primitives.html#string-interpolation
+
 const movieCSV = ghibliMovies.map(
     (movie: Movie): string =>
         // Convenient String Interpolation; could have just used + operator too
