@@ -485,7 +485,7 @@ function Answer({visible}: {visible: boolean}): JSX.Element {
 }
 
 export function App(): JSX.Element {
-    export const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
     // Closure on visible and setVisible
     const flipVisible = () => setVisible(!visible);
     // The attribute and the value do not have to match!
@@ -539,6 +539,62 @@ To summarize, there are plusses and minuses to closures compared to just having 
 
 * Upsides: We can conveniently include variables directly inside the closure, reducing the number of variables that have to be passed around. Also, functions are close to where they will be used.
 
+## Mostly Wrong: Nested Components
+
+An idea that leads to runnable but *inefficient* code is to use nested components. Using closures, you can technically define components inside of other components - which means defining a function inside of another function. This may lead to working code, like below.
+
+```tsx
+// Not the best approach! See below
+export function App(): JSX.Element {
+    const [visible, setVisible] = useState<boolean>(false);
+
+    function RevealButton(): JSX.Element {
+        return <div>
+          <Button onClick={()=> setVisible(!visible)}>Show/Hide</Button>
+        </div>
+    }
+
+    function Answer(): JSX.Element {
+        return <div>
+          The answer is { visible ? <span>42</span> : <span>A SECRET!</span>}.
+        </div>
+    }
+    
+    // The attribute and the value do not have to match!
+    return <div>
+        <RevealButton></RevealButton>
+        <Answer></Answer>
+    </div>
+}
+```
+
+This code works fine in the browser, similar to code we saw before. And this approach might seem convenient, since there are no parameters ("Props") required for the Components. Everything is just available as a closure!
+
+Unfortunately, there are hidden penalties because of how React expects things to work. Remember that React is essentially a sophisticated system for detecting changes to the State, determining when a Component needs to re-render to avoid unnecessary work. The computational cost of deciding whether a component has changed is much smaller than the cost of actually having to redraw a component, so we save a lot of time if we figure out that a component has not changed. This is true not only of parent components, but also for children components. In this case, the `App` is the parent component and `RevealButton` and `Answer` are both *nested*, *children* components. If React is acting intelligently, then it might find situations where it has to re-render `App` but could *remount* (aka reuse) existing versions of `RevealButton` and `Answer` instead of having to re-render them.
+
+But with nested components, when you call `App` and render the component, there is no way for React to know whether or not `RevealButton` and `Answer` depend on data that has changed, so React makes the decision to *always* re-render those children components. In fact, it wouldn't matter if props were passed in to those components (which also defeats the value of a closure), since React will actually be inspecting the actual reference (essentially the memory address) of the components. Since new functions were declared for these nested components, React will always identify them as changing - regardless of any parameters that changed, the functions themselves were redeclared. Even if two functions have the exact same body and name and other properties, TypeScript only believes they are equal if they live in the same memory address. 
+
+So the outcome here is that if you are nesting components, you lose some of the best advantages of React: rather than efficiently reusing existing versions of a child component, React must instead recreate and redraw a new version of a component, even if the data involved in rendering the component has not changed. The `Answer` component above may change every time `visible` changes its value, but the `RevealButton` definitely should not, since its `onClick` function doesn't actually change. These small inefficiencies can add up quickly in large applications!
+
+Another place this can cause trouble is with tests. The code below is supposed to find a button named `Show/Hide`, and then click on that button to reveal or hide some text (`42`). Although the first test can be expected to pass, the second test will fail because the button referenced by `reveal` is no longer available in the screen. We would need to use `getByRole` each time to get a fresh reference to the button, even though we'd expect that button's component to be unchanged as described above.
+
+```tsx
+// Just example code, does not run in the browser
+const reveal = screen.getByRole("button", { name: /Show\/Hide/i });
+
+// Passes
+expect(screen.queryByText("42")).not.toBeInTheDocument();
+
+reveal.click();
+// Passes because clicking worked once
+expect(screen.getByText("42")).toBeInTheDocument();
+
+reveal.click();
+// Fails because the reference to `reveal` was out of date!
+expect(screen.queryByText("42")).not.toBeInTheDocument();
+```
+
+Arguably, a test relying on a component to not change its reference is fragile, and it might be better to use `getByRole` to get a fresh refrence before each click. However, if the developers intention was that the component should not re-render, then the test is not only safe, but defines and accurately tests the expected behavior of the component. As with all testing, you must think critically about what requirements and behavior you are trying to enforce!
 
 # 📝 Task - Fixing Components
 
