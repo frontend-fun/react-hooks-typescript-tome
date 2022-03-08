@@ -533,7 +533,7 @@ console.log("At a 7% tax rate, a price of $9.99 is now", calculatePriceInAlaska(
 
 Connecting this back to the example we saw earlier with `showHide` and `flipVisible`, you can see that a closure provides a simpler interface: the `calculatePriceInAlaska` function takes only a single parameter, and the `showHide` function takes no parameters. Of course, we had to create a custom function in order to do so in both cases. In the case of the Components, this is happening *whenever* we render that Component. This is not insanely expensive, but it is a cost!
 
-To summarize, there are plusses and minuses to closures compared to just having more parameters in functions:
+To summarize, there are pluses and minuses to closures compared to just having more parameters in functions:
 
 * Downsides: Functions are recreated every time our component renders. Functions are not as reusable between components because they are specifically bound to the variables they are closed upon.
 
