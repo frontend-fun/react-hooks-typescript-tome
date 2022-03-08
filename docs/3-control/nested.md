@@ -69,7 +69,7 @@ console.log("***************************************************");
 // Create a CSV representation of the movies
 // CSVs are just comma-separated values in a multi-line string
 // If the single quotes and braces are confusing, look back at
-//https://frontend-fun.github.io/react-hooks-typescript-tome/3-control/primitives.html#string-interpolation
+// https://frontend-fun.github.io/react-hooks-typescript-tome/3-control/primitives.html#string-interpolation
 
 const movieCSV = ghibliMovies.map(
     (movie: Movie): string =>
@@ -390,7 +390,7 @@ There are shortcut approaches to doing a Deep Copy, but we do not recommend them
 
 There are several issues with these approaches. First, you may see performance impacts since the approaches know nothing about your data, although whether this is a problem varies over time, hardware, and context. Using a third-party library means additional dependencies, which potentially bring vulnerabilities, require updates of their own, and may mean a bloated website. In either case, any non-standard JSON-formatted data (e.g., anything besides objects, arrays, strings, numbers, and nulls) in your structure may fail to get copied correctly - this includes functions and many other useful kinds of data that we have not talked about.
 
-Therefore, in general, we recommend sticking to the approaches for copying data that we have outlined in the previous section, rather than the shortcut approaches you will often find recommended by more experienced developers. Once you are an experienced developer, the choice is your's.
+Therefore, in general, we recommend sticking to the approaches for copying data that we have outlined in the previous section, rather than the shortcut approaches you will often find recommended by more experienced developers. Once you are an experienced developer, the choice is yours.
 
 # 📝 Task - Nested Data
 

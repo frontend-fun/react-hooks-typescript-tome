@@ -56,7 +56,7 @@ When you build an application, you need to think of the State first. Often, this
 
 One of the most common architectural patterns in Software Engineering is the idea of "Model-View-Controller".
 
-* Model is the State, describing what possible values your State can live in.
+* Model is the State, describing what possible values your State can live in. It needs to be *persistent*.
 * View is the parts of your application's logic that let you show off the current State.
 * Controller is the parts of your application's logic that let you change the current State.
 
@@ -64,11 +64,11 @@ Most folks recommend trying to keep your Model, View, and Controller relatively 
 
 <!-- TODO: Image of React's One-way Data Binding architecture -->
 
-React is organized into Component, and each Component has its own State. The main Component is called `App` and its State is the most important one. We will see later how we can have more components with their own State. For now, when we talk about State, we are talking about the State of `App`. That State is our **Model**.
+React is organized into Components, and each Component has its own State. The main Component is called `App` and its State is the most important one. We will see later how we can have more components with their own State. For now, when we talk about State, we are talking about the State of `App`. That State is our **Model**.
 
 A Component Function, by definition, returns JSX (aka HTML). This is the **View**. That View can use the current values of the State.
 
-The View can also bind *events* to *functions*, so that when a user interacts with the View (e.g., clicking a button, typing into an input box), inner function can be fired that modifies the Model. We call those inner functions the **Controllers**. 
+The View can also bind *events* to *functions*, so that when a user interacts with the View (e.g., clicking a button, typing into an input box), an inner function can be fired that modifies the Model. We call those inner functions the **Controllers**. 
 
 When the Controllers update the Model, React automatically knows to re-render the View by calling the Component Function again. The State updates happen in one big circular direction - The Controller modifies the Model, the Model tells the View to update, and the View provides mechanisms for the Controller to activate.
 
@@ -111,17 +111,19 @@ Before we dive into a proper example, let's get some terminology about that line
 
 Memorize these terms
 
-* `state` is the "State Variable", representing our current Model. We control its name.
-* `setState` is the "State Setter Function", giving us a low-level Controller to modify our Model. We control its name.
-* `useState` is the "Hook Creation Function", giving us a "Hook" to store our Model in. This name is always the same.
+* `state` is the "State Variable", representing our current Model. We control its name. What is its name in the app above?
+* `setState` is the "State Setter Function", giving us a low-level Controller to modify our Model. We control its name. What is its name in the app above?
+* `useState` is the "Hook Creation Function", giving us a "Hook" to store our Model in. It returns the State and the State Setter. This name is always the same.
 * `initialValue` is the "Initial Value" for the state variable, giving us the ability to set our initial Model. This is replaced with a literal value.
 
 ## The Concept of a Hook
 
-When you call `useState`, think of React creating a "Hook" that values can be hung on.
+When you call `useState`, think of React creating a "Hook" that values can be hung on. These values will be persistent (i.e. they won't go away) while the app runs. 
 When we say values, you can imagine a piece of paper with a number, some text, a list, etc.
 The first value that will be hung is the "Initial Value" that you passed in to `useState`.
-At any time, you can check the current value using the "State Variable", or update the value with the "State Setter Function".
+At any time, you can check the current value using the "State Variable", or update the value with the "State Setter Function". 
+
+Every time we want a new persistent variable, we can make it with `useState`.And `useState` is only one example of a React hook, there are others.
 
 <!-- TODO: Image of a hook holding values -->
 
@@ -172,7 +174,7 @@ function App(): JSX.Element {
   // Only includes <div>Hello!</div> if `visible` is true
   return <div>
     <Button onClick={flipVisibility}>Show/Hide</Button>
-    {visible && <div>Hello!</div>}
+    {visible && <div>Hello!</div>}  //JSX allows us to mix code and HTML
   </div>;
 }
 ```
@@ -181,7 +183,7 @@ Run the application. When you click the button, the text will be hidden. We are 
 
 Notice how we can embed the Model into our View using curly brackets. Without those curly brackets, the logic involving `visible` just becomes boring HTML text. Try removing the curly brackets and see for yourself. We need those brackets whenever we want to render a bit of our state.
 
-One last thing to highlight: we bind give `onClick` the name of the function `flipVisibility` WITHOUT calling the function. If we were calling `flipVisibility`, we would have parentheses after it like this: `flipVisibility()`
+One last thing to highlight: we bind `onClick` to the name of the function `flipVisibility` WITHOUT calling the function. If we were calling `flipVisibility`, we would have parentheses after it like this: `flipVisibility()`
 
 Instead, we hand the function's reference to the `Button`, and allow the `Button` to decide when to call its `onClick` function (in this case, `flipVisibility`). This is the magic of event binding, and we'll use it A LOT.
 
@@ -332,7 +334,8 @@ export function Counter(): JSX.Element {
   </span>;
 }
 
-// src/App.tsx
+// src/App.tsx  A DIFFERENT FILE
+//import { Counter } from "./Counter";
 function App(): JSX.Element {
   // Have three counters, each on their own line.
   return <div>
