@@ -293,3 +293,21 @@ A complex example in a github repository that models an application where we hav
   * State gone wrong: Ultimately we escalate to multiple levels of nested state. We have some specific examples where that breaks down when done incorrectly.
 * list of list of object states
 * record of list of object states
+
+# Task
+
+List of Quizzes
+    Each quiz has a title, description, due_date, draft
+
+Button to add a quiz at a certain location (modal with title/description/due_date/draft)
+Button to add a quiz at the end
+Button to show/hide editor for quiz question
+  Ability to edit the title/description/due_date/draft of a specific quiz
+Button to remove a quiz
+Button to remove all draft quizzes
+Button to publish all quizzes
+Button to assign weekly due dates (based on modal with start/end?)
+
+# Example
+
+Record of Movies

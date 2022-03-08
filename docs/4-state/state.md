@@ -599,7 +599,7 @@ The `StartAttempt` component simulates yet another part of the quiz application,
 * You will need two pieces of state: the number of attempts and whether the quiz in progress.
   * The initial number of attempts is 4
   * The quiz is initially NOT in progress
-* There is a button labelled `Start Quiz` that puts the Quiz in progress and increases the number of attempts by one.
+* There is a button labelled `Start Quiz` that puts the Quiz in progress and decreases the number of attempts by one.
 * There is a button labelled `Stop Quiz` that stops the Quiz from being in progress.
 * There is a button labelled `Mulligan` that increase the attempts by one.
 * When the quiz is in progress, the `Start Quiz` and `Mulligan` buttons are disabled.
