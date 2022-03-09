@@ -191,14 +191,15 @@ This may seem a little complicated for such a simple idea: we just want the user
 
 A small variation on the Textbox is the number box. The only real change is that the HTML element will enforce the user to enter a number, although technically it is up to the browser to decide how to render things differently. For example, mobile phones will often switch keyboard layout for a Number Input Box.
 
-The type of data stored in the value field is still a string, like with a `text` field. Therefore, we must parse the user's text and handle the case where the user manages to enter something that is not a number (e.g., an empty string). We wrote that code below as an anonymous function that relies on `parseInt`; you can try removing the `parseInt` and see what happens to the `{released-1}` text in the `div` when you run the application.
+The type of data stored in the value field is still a string, like with a `text` field. Therefore, we must parse the user's text and handle the case where the user manages to enter something that is not a number (e.g., an empty string). There are two ways to handle this: you can try to update the state to always be a number (which prevents us from having reasonable inputs like the empty string `""`), or you can use a calculated value based on the current state. We used `|| 0` to provide a default value if the text is unparseable; you might also use a ternary or provide some specific text string (e.g., `"error"`).
 
 ```tsx
 // Simplify type definition of the Change Event
 type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
 
 export function App(): JSX.Element {
-  const [released, setReleased] = useState<number>(2022);
+  const [released, setReleased] = useState<string>("2022");
+  const previousYear = (parseInt(released)-1) || 0;
 
   // Provide forms for editing the new movie
   // And also a button to append the movie
@@ -208,11 +209,11 @@ export function App(): JSX.Element {
       <Form.Control
         type="number"
         value={released}
-        onChange={(event: ChangeEvent) => setReleased(parseInt(event.target.value) || 0)}
+        onChange={(event: ChangeEvent) => setReleased(event.target.value)}
       />
     </Form.Group>
     <div>
-      The year before the movie was released was {released-1}.
+      The year before the movie was released was {previousYear}.
     </div>
   </div>;
 }

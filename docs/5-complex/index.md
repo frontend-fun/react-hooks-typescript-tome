@@ -311,3 +311,12 @@ Button to assign weekly due dates (based on modal with start/end?)
 # Example
 
 Record of Movies
+
+
+* Users must be able to view a list of movies
+* Users can see the title, description, and rating of the movie
+* Users should be able to edit movie's attributes
+* Users can indicate if they have seen or liked a movie
+* Users can filter the movies based on whether they have seen them
+* Movies should have a playable youtube trailer
+* Songs should have a preview button
