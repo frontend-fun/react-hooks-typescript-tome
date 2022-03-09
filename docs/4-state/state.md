@@ -409,11 +409,11 @@ We have three types of suffixes (which determine "what kind" of elements we look
 The prefixes determine "how many elements" we look for.
 
 * `getBy` means we expect there to be exactly ONE instance of the element. Any more or less and an error is thrown instead.
-* `queryBy` means we expect there to be ONE or ZERO instances of the element. If there are more than one, than an error is thrown. If there are zero elements, than `null` is returned.
+* `queryBy` means we expect there to be ONE or ZERO instances of the element. If there are more than one, than an error is thrown. If there are zero elements, then `null` is returned.
 
 These two prefixes are very handy when you can narrow the numbers down to just one. The `getBy` is good when you have an element you DO expect in the document; the `queryBy` is good when you have an element you DO NOT expect in the document (since it does not cause an error, just returns `null`).
 
-There are other prefixes for accessing "more than one" element, but we'll tackle those later when we need them. For now, all of our examples will assume we have uniquely labelled everything and don't have more than one instance of a given chunk of text.
+There are other prefixes for accessing "more than one" element, but we'll tackle those later when we need them. For now, all of our examples will assume we have uniquely labeled everything and don't have more than one instance of a given chunk of text.
 
 ### Suffixes
 
@@ -596,14 +596,14 @@ The `ChangeType` component simulates another an editor for a quiz application th
 
 The `StartAttempt` component simulates yet another part of the quiz application, this time providing a "Start" and "Stop" button for the quiz. Since the quiz should have a limited number of attempts, there is also a "Mulligan" button to give more attempts.
 
-* You will need two pieces of state: the number of attempts and whether the quiz in progress.
+* You will need two pieces of state: the number of attempts and whether the quiz is in progress.
   * The initial number of attempts is 4
   * The quiz is initially NOT in progress
 * There is a button labelled `Start Quiz` that puts the Quiz in progress and increases the number of attempts by one.
 * There is a button labelled `Stop Quiz` that stops the Quiz from being in progress.
 * There is a button labelled `Mulligan` that increase the attempts by one.
 * When the quiz is in progress, the `Start Quiz` and `Mulligan` buttons are disabled.
-* When the quiz is not in progress, the `Stop Quiz` and button is disabled.
+* When the quiz is not in progress, the `Stop Quiz` button is disabled.
 * When the attempts are zero, the `Start Quiz` button is disabled.
 
 ### TwoDice
