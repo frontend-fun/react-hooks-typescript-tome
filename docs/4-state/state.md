@@ -608,15 +608,16 @@ The `StartAttempt` component simulates yet another part of the quiz application,
 
 ### TwoDice
 
-The `TwoDice` component will simulate a game where you roll two dice in attempt to get matching values. However, you lose the game if your dice ever come up as a pair of ones ("snake eyes").
+The `TwoDice` component will simulate a game where you roll two dice in an attempt to get matching values. However, you lose the game if your dice ever come up as a pair of ones ("snake eyes").
 
-* You will need two states, one for each dice.
-* Each dice's value should be rendered in the View in a `span` tag of their own, with the first dice having the `data-testid` of `left-die` and the second dice having the `data-testid` of `right-die`.
+* You will need two states, one for each die.
+* Each die's value should be rendered in the View in a `span` tag of their own, with the first dice having the `data-testid` of `left-die` and the second dice having the `data-testid` of `right-die`.
 * You will need two "Roll" buttons (labelled `Roll Left` and `Roll Right`).
 * Clicking a Roll button will change the value for the corresponding dice using the provided `d6` function.
 * The initial values of the dice cannot be the same.
 * When the two states are equal, render a message that includes the word `Lose`.
 * When the two states are equal, render a message that includes the word `Win`.
+* If you do all these and are still not passing all tests, read the test file, it is a good practice! In much of software engineering, the tests *are* the product spec.
 
 ### CycleHoliday
 
