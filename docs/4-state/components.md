@@ -45,7 +45,7 @@ We have to be very precise about the curly braces. Notice how:
 * Inside of the body of the anonymous function there are `<li> </li>` tags
 * Inside of the `li` tags there are another pair of `{ }` braces surrounding the `name` variable
 
-TSX allows us to nest HTML tags anywhere that we would normally write an expression. However, in order to embed values, variables, and code in the TSX, we must surround the expression with curly braces. Be very careful with this nesting, since skipping a curly brace or parentheses can have a disasterous effect on the code!
+TSX allows us to nest HTML tags anywhere that we would normally write an expression. However, in order to embed values, variables, and code in the TSX, we must surround the expression with curly braces. Be very careful with this nesting, since skipping a curly brace or parentheses can have a disastrous effect on the code!
 
 You might also notice that we include an attribute named `key`. This is related to what we saw previously about object equality. You can read more about `key` in the [React guide page about lists and keys](https://reactjs.org/docs/lists-and-keys.html), but the basic idea is that we must provide a `key` attribute to help React distinguish between different adjacent elements created from the `map`. It'll be easy to forget, but can often be the source of many errors.
 
@@ -96,7 +96,7 @@ setPeople(newPeople);
 
 The core idea is that we must create a NEW list so that React can compare their references, and discover that the new list is different. Otherwise, it compares the old reference to itself, without realizing that the CONTENTS of the array has changed.
 
-Review [Reference Equality vs. Value Quality](../3-control/arrays.md#reference-equality-vs-value-equality) for more information about reference and value (content) equality. This is also known as shallow vs. deep equality. If you still don't understand the concept, please go out and seek more help until you understand!
+Review [Reference Equality vs. Value Quality](../3-control/arrays.md#reference-equality-vs-value-equality) for more information about reference and value (content) equality. This is also known as shallow vs. deep equality. If you still don't understand the concept, please go out and seek more help until you understand! (Note: this is a standard job interview question.)
 
 ## Closures and Mapping Arrays
 
@@ -152,6 +152,8 @@ function App(): JSX.Element {
 Notice that we *had* to use an anonymous function instead of just providing the name `updateChosen`. The `updateChosen` function requires a parameter (the `newColor`), which was fortunately available to us via the `color` parameter of the `colors.map` anonymous function.
 
 The idea here is that we create a temporary function `() => updateChosen(color)` who's only job when called is to invoke the `updateChosen` function with the current `color`. Since we define the temporary function INSIDE of the loop from `colors.map`, the variable `color` is *closed over* the function and will use the value from that iteration of the loop. This would not work if we did `onClick={updateChosen}`!
+
+Note that this means each of five Buttons in this example will get its own *custom* onClick function. For example, the *blue* button onClick will be `() => updateChosen(blue)`.
 
 # Late Updates
 
