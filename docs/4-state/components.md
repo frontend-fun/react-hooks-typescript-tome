@@ -151,7 +151,7 @@ function App(): JSX.Element {
 
 Notice that we *had* to use an anonymous function instead of just providing the name `updateChosen`. The `updateChosen` function requires a parameter (the `newColor`), which was fortunately available to us via the `color` parameter of the `colors.map` anonymous function.
 
-The idea here is that we create a temporary function `() => updateChosen(color)` who's only job when called is to invoke the `updateChosen` function with the current `color`. Since we define the temporary function INSIDE of the loop from `colors.map`, the variable `color` is *closed over* the function and will use the value from that iteration of the loop. This would not work if we did `onClick={updateChosen}`!
+The idea here is that we create a temporary function `() => updateChosen(color)` whose only job when called is to invoke the `updateChosen` function with the current `color`. Since we define the temporary function INSIDE of the loop from `colors.map`, the variable `color` is *closed over* the function and will use the value from that iteration of the loop. This would not work if we did `onClick={updateChosen}`!
 
 Note that this means each of five Buttons in this example will get its own *custom* onClick function. For example, the *blue* button onClick will be `() => updateChosen(blue)`.
 
