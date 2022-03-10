@@ -25,3 +25,4 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
    3. [Forms](4-state/forms.md)
 5. [Complex Representations](5-complex/index.md)
 6. [Your Own App](6-journey/index.md)
+7. [The Lost Chapters](7-extras/index.md)
