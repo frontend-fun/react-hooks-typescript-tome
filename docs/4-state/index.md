@@ -7,11 +7,6 @@ has_children: true
 
 # Chapter 4 - Using State
 
-Coming soon
-{: .label .label-yellow }
-
-**Oops! This chapter is not yet ready. Please be patient while we finish it up.**
-
 [&laquo; Return to the Table of Contents](../index.md)
 
 Things get a lot more interesting in this chapter, when we start learning how to make actual applications with real state.
