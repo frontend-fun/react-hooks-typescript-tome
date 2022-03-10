@@ -24,4 +24,6 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
    2. [Components](4-state/components.md)
    3. [Forms](4-state/forms.md)
 5. [Complex Representations](5-complex/index.md)
+   1. [Nested Examples](5-examples/index.md)
+   2. [Full Application](5-complex/complex.md)
 6. [Your Own App](6-journey/index.md)
