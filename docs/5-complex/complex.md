@@ -111,9 +111,13 @@ Since we have the data for our Movie List, we want to be able to see the Movies.
 
 The `MovieList` component is really just responsible for calling `map` on the movies in order to in turn build up a whole stack of `MovieView` components. Notice how much we have to pass around state and setters, even though this component isn't using the state and setters themselves very much!
 
+The `MovieView` component has a lot going on inside of it, hinting at all the future work that it will do. But it actually started off quite small. Looking carefully through the 
+
 * [Defining the `MovieView` component](https://github.com/frontend-fun/movie-records/blob/main/src/components/MovieList.tsx)
+* [Early version](https://github.com/frontend-fun/movie-records/blob/592b0ec4d2fb6a4e39c48f1a7134afaeda5bc30a/src/components/MovieView.tsx#L8-L27)
 * [Showing the title](https://github.com/frontend-fun/movie-records/blob/21964cdddb05caec5d7cbf7e24110bd84a191fdc/src/components/MovieView.tsx#L39)
 * [Showing the released date](https://github.com/frontend-fun/movie-records/blob/21964cdddb05caec5d7cbf7e24110bd84a191fdc/src/components/MovieView.tsx#L48)
+* [Showing the description](https://github.com/frontend-fun/movie-records/blob/21964cdddb05caec5d7cbf7e24110bd84a191fdc/src/components/MovieView.tsx#L53)
 
 ### Rendering the Song List
 
