@@ -26,3 +26,4 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
 5. [Complex Representations](5-complex/index.md)
 6. [Your Own App](6-journey/index.md)
 7. [The Lost Chapters](7-extras/index.md)
+   1. [Sharing Code](7-extras/sharing-code.md)
