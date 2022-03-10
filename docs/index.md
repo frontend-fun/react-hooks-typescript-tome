@@ -27,3 +27,5 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
    1. [Nested Examples](5-examples/index.md)
    2. [Full Application](5-complex/complex.md)
 6. [Your Own App](6-journey/index.md)
+7. [The Lost Chapters](7-extras/index.md)
+   1. [Sharing Code](7-extras/sharing-code.md)
