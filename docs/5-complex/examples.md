@@ -259,7 +259,7 @@ export function App(): JSX.Element {
 
 A downside with the approach of duplication in this way is deciding what to set as the name (which must be unique in the application as coded). In the next chapter, we will discuss the critical idea of unique IDs for data.
 
-##
+<!--
 
 # Record State
 
@@ -267,7 +267,8 @@ A common alternative to an "array of objects" is a "record of objects", mapping 
 
 Unfortunately, we don't really have time to explain this idea in more depth. In future versions of the Tome, we definitely will write up a cool bunch of paragraphs here. But for now, we're just telling you that it exists and suggesting you play with it more if you get the chance.
 
-<!--
+
+
 # Writing Your Own Tests
 
 You're going to need to start writing your own tests soon, as the applications get bigger and more complicated. We have a little bit of advice.
