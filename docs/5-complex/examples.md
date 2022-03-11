@@ -7,11 +7,6 @@ parent: Complex Representations
 
 # Nested Examples
 
-Coming soon
-{: .label .label-yellow }
-
-**Oops! This page is not yet ready. Please be patient while we finish it up.**
-
 [&laquo; Return to the Chapter Index](index.md)
 
 <details open markdown="block">

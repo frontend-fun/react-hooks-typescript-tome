@@ -7,11 +7,6 @@ parent: Complex Representations
 
 # Full Application
 
-Coming soon
-{: .label .label-yellow }
-
-**Oops! This page is not yet ready. Please be patient while we finish it up.**
-
 [&laquo; Return to the Chapter Index](index.md)
 
 <details open markdown="block">
@@ -237,11 +232,23 @@ Ultimately, we also need a way to update the specific movie in the main `movies`
 
 * [The `editMovie` helper function](https://github.com/frontend-fun/movie-records/blob/6033ebaa10c97f8d77823a95d812e4031e952757/src/App.tsx#L41-L47)
 
-Songs should also have been editable, but we ran out of time to set that up. For now, we just render the fields of the song. We'll come back and edit this section later once we finish that feature!
+### Editing a Song
 
-* [The `ReadOnlySongs` component](https://github.com/frontend-fun/movie-records/blob/6033ebaa10c97f8d77823a95d812e4031e952757/src/components/MovieEditor.tsx#L112)
+The Movie's soundtrack is a little more complicated to edit, since there are a list of songs for each movie. However, the model is largely the same as what we've seen before. We begin by declaring some state for the temporary `soundtrack`, at the `MovieEditor` level so we have access to `soundtrack` inside of the `save` helper function we described previously. We also need to instantiate the `SoundtrackEditor` component and provide the state.
 
-<!-- TODO: need to make this editable as a proper example! -->
+* [The `soundtrack` and `setSoundtrack` state in `MovieEditor`](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/MovieEditor.tsx#L26)
+* [The use of `soundtrack` in `save`](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/MovieEditor.tsx#L35)
+* [Instantiation of `SoundtrackEditor` with `soundtrack` and `setSoundtrack`](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/MovieEditor.tsx#L115-L118)
+
+We wrote `SoundtrackEditor.tsx` a little differently than some of the other components, to highlight some of the variation possible. Specifically, the file contains not only the `SoundtrackEditor` component, but also two helper components named `SongByEditor` and `SongNameEditor`. Usually, each component lives in a separate file, but some folks also believe it's reasonable to place components near each other if there's a strong relationship between them. And in this case, the `SongNameEditor` and `SongByEditor` are being exclusively used by the `SoundtrackEditor` component.
+
+The main responsibility of the `SoundtrackEditor` component is to render the song list (using a `ListGroup` and `map`), with each individual `Song` rendered as the two helper components (`SongNameEditor` and `SongByEditor`) inside of a `div`. Each component is just a textbox, and require the same props, so we encapsulated the type definition of those props into a new interface named `SongProps`. Both components depend on a helper function named `setSong` that updates a given song based on its `id` field using the provided `newSong` parameter.
+
+* [The body of the `SoundtrackEditor` component](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/SoundtrackEditor.tsx#L50-L71)
+* [The `SongProps` interface](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/SoundtrackEditor.tsx#L5-L8)
+* [The `SongNameEditor` component](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/SoundtrackEditor.tsx#L10-L22)
+* [The `SongByEditor` component](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/SoundtrackEditor.tsx#L24-L36)
+* [The `setSong` helper function](https://github.com/frontend-fun/movie-records/blob/aa04610af1d535a882b0288e5751c17982e68870/src/components/SoundtrackEditor.tsx#L45-L47)
 
 ### Deleting a Movie
 
@@ -278,22 +285,104 @@ The `EditableSongList` component has several parts and depends on state created 
 * [The textbox for editing the song's ID](https://github.com/frontend-fun/movie-records/blob/6033ebaa10c97f8d77823a95d812e4031e952757/src/components/EditableSongList.tsx#L40-L50)
 * [The button for deleting a song](https://github.com/frontend-fun/movie-records/blob/6033ebaa10c97f8d77823a95d812e4031e952757/src/components/EditableSongList.tsx#L51-L59)
 
+## Testing the Application
+
+We haven't written any tests for this codebase yet. There's no reason other than lack of time. Again, you should really be testing this application consistently throughout. Certainly, before we declare victory, we really should write some tests. Some example ideas that we will do when we have more time:
+
+* Does the page render the movies at all with all of the expected information?
+* Can we edit a movie's name? Its description? Etc.
+* Can we delete a movie?
+* Can we add a movie with several songs?
+* Can we add a movie, delete that movie, and a new different movie?
+* Can we edit a song's name?
+
 ## Iterate
 
 At this point, we have enough of a website that we should definitely show this version to a human. In fact, most likely, we should have been showing even earlier versions to the client throughout. For now, we are simply trying to get some practice in developing web applications, so we're relaxing our usual process a lot. In the next chapter, we'll talk more about the best practices for developing software in a maintainable way that leads to a successful product.
 
-# 📝 Task - Quizzer
+As we mentioned earlier, the example shown here may look like a straightforward line of development from A to B. However, the reality is that we kept changing things and undoing things. Programming is a messy process, and we often make mistakes: we don't realize that some state needs to be higher, or that a helper function needed another parameter, or a Component could be broken up in several places. At least, not at first - these are easier things to realize after you've written them.
 
-**DO NOT START THIS YET. I AM STILL WRITING UP THE PROCEDURE.**
+One of our last pieces of advice is to keep your codebase as clean as possible as long as you can. Cutting corners, abusing state, and not thinking about how to break things up may often seem convenient. But you pay the "technical debt" you accumulate at some point - often near the end of the development, when you encounter bugs or issues and you can't fix them because you chose poor variable names or aren't decomposing.
+
+# 📝 Task - Quizzer
 
 The task for this chapter is very different from previous ones. Up until now, we had the expectation that you would be able to achieve every subtask we set out, and that you would not proceed without finishing each part. However, that expectation might be unrealistic for this Task since we are establishing a lot of potential critiera. Your grade will be influenced by the amount of criteria that you complete, but we do not really expect you to finish all of the task 100%. Use this opportunity to learn what you can about writing a larger application!
 
-* List of Quizzes - Each quiz has a title, description, due_date, draft
-* Button to add a quiz at a certain location (modal with title/description/due_date/draft)
-* Button to add a quiz at the end
-* Button to show/hide editor for quiz question
-* Ability to edit the title/description/due_date/draft of a specific quiz
-* Button to remove a quiz
-* Button to remove all draft quizzes
-* Button to publish all quizzes
-* Button to assign weekly due dates (based on modal with start/end?)
+Our goal is to have you walk through the same process we did in developing the Movie Records, but instead developing an application for quizzes (both academic ones and fun trivia ones). We have already created a list of user requirements below. However, we have not sketched the application, started any of the development, or written you any tests. These are all things that we want YOU to do.
+
+## Create the Branch
+
+We begin by having you checkout the `solved-forms` branch, so that we can then branch off into a new fresh branch.
+
+```sh
+$> git checkout solved-forms
+$> git pull upstream main
+$> git fetch upstream task-quizzer
+$> git checkout -b solved-quizzer
+$> git merge upstream/task-quizzer
+```
+
+You will find that we have provided VERY little code. It's really just the `quizzer` folder, the `quizzer/Quizzer.tsx` file, and the `quizzer/Quizzer.test.tsx` file. We expect you to add more files in order to achieve the final result.
+
+## Task Requirements
+
+Here is our set of user requirements that we have solicited from our client.
+
+* Users can see a list of quizzes, including the quizzes title, description, and how many questions it has
+* Users can select a specific quiz to see the questions, including the question's name, body, and points
+* Quiz questions can be of AT LEAST two types: a short answer question or multiple choice question
+* Users can enter or choose an answer for a quiz question, and be told if they are correct
+* Users can see how many total points they have earned
+* Users can clear out their existing answers for a quiz
+* Users can publish or unpublish a question
+* Users can filter the questions in a list so that only published questions are shown
+* Users can edit the questions and fields of a quiz
+* Users can add a new quiz question
+* Users can delete an existing quiz question
+* Users can reorder quiz questions
+* Users can add a new quiz
+* Users can delete an existing quiz
+
+If you need clarification for a requirement, you can ask the client. But in general, the policy is that if the requirement is vague or behavior is not required, you should feel free to make the call on this. The goal is to get you practice making a larger-scale application, not to make a real piece of software. For now!
+
+## First Steps
+
+Going through our advice again, you will hopefully see the general flow of how we worked:
+
+1. Gather requirements
+2. Sketch the application
+3. Develop the data model
+4. Develop some test data
+5. Build a "Minimally Viable" version
+   1. Get the data to render
+   2. Add interactivity
+
+We strongly urge you to proceed in this fashion. Part of our grading will be to look at your sketch and data model!
+
+## Grading
+
+Given the open-ended nature of this application, you are being graded by a rubric. Completing more requirements will tend to get you more points, but so will writing tests. You also earn points for things like sketching the application and making up test data.
+
+Everyone will feel comfortable completing a different number of requirements, and have different amounts of time they can commit. We understand how this can be stressful and we appreciate your flexibility in approaching this activity the right way. Recognize that you can pass the course even if you are struggling to get started - you will be getting another attempt when we get to he Final Project, and there you will explicitly have a team, so things are likely to go more smoothly.
+
+## Submission
+
+Soon, we will want to review your application so that we can make decisions about team assignments. Do not delay in submitting for this Task - as soon as you have started, deploy your application and submit on Canvas.
+
+```sh
+$> git push --set-upstream origin solved-components
+```
+
+As you make more changes, add and commit regularly. Every now and then, you can push your changes (no longer needing to specify the upstream):
+
+```sh
+$> git push
+```
+
+Failure to submit this assignment tells us something about your preparation for the Final Project. There will be more time before the Final Project begins to work on this Task, but do not prevent us from viewing your application!
+
+## Creative Freedom
+
+You have a LOT of freedom to make the Quizzer look the way you want. Colors, spacing, specific features - we want to see folks have fun and build something they feel they can own.
+
+Work together, show people your design, and avoid living in a vaccuum. Make a fun trivia quiz to show to your classmate and have them try out your application! Make the entire application dog-themed! The sky is the limit, as long as it meets the general requirements we specified before.
