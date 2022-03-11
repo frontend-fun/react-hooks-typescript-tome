@@ -369,6 +369,10 @@ Everyone will feel comfortable completing a different number of requirements, an
 
 If you produce a sketch (and you should), then embed the sketch somewhere on your webpage BELOW the Quizzer as an image.
 
+## Completing Requirements
+
+Every time you complete a requirement, add them to a bulleted list of "Completed Features" that we can see on your website BELOW the Quizzer and Sketch. Don't forget to keep this list updated!
+
 ## Submission
 
 Soon, we will want to review your application so that we can make decisions about team assignments. Do not delay in submitting for this Task - as soon as you have started, deploy your application and submit on Canvas.
