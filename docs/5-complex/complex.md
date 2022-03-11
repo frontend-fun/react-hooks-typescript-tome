@@ -365,11 +365,11 @@ Given the open-ended nature of this application, you are being graded by a rubri
 
 Everyone will feel comfortable completing a different number of requirements, and have different amounts of time they can commit. We understand how this can be stressful and we appreciate your flexibility in approaching this activity the right way. Recognize that you can pass the course even if you are struggling to get started - you will be getting another attempt when we get to he Final Project, and there you will explicitly have a team, so things are likely to go more smoothly.
 
-## Sketch
+### Sketch
 
 If you produce a sketch (and you should), then embed the sketch somewhere on your webpage BELOW the Quizzer as an image.
 
-## Completing Requirements
+### Completing Requirements
 
 Every time you complete a requirement, add them to a bulleted list of "Completed Features" that we can see on your website BELOW the Quizzer and Sketch. Don't forget to keep this list updated!
 
