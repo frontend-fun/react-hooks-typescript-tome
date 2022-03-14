@@ -359,6 +359,36 @@ Going through our advice again, you will hopefully see the general flow of how w
 
 We strongly urge you to proceed in this fashion. Part of our grading will be to look at your sketch and data model!
 
+### Existing Code
+
+If the components from the other tasks are getting in your way, you can hide them behind some conditional logic of a new component: either a Show/Hide kind of component, or a Mode Switch component. The idea for the Show/Hide component is as follows:
+
+1. Take all of the existing component instantiations from `App` and move them into the new component
+2. Add a new bit of state (e.g., a boolean state named `visible`)
+3. Render a button to invert the state
+4. Use the `&&` operator to only render the existing components when the state is true.
+
+```tsx
+// Just an example, many other ways to do this!
+function ShowHide(): JSX.Element {
+  const [visible, setVisible] = useState<boolean>(false);
+  return <div>
+    {visible && <>
+        <Counter></Counter>
+        <hr>
+        <RevealAnswer></RevealAnswer>
+        <hr>
+        ...
+      <>
+    </>}
+  </div>;
+}
+```
+
+The Mode Switch component would work similarly, except with a String state (e.g., "quiz mode", "earlier tasks mode") and the `?` operator. Ultimately, how you want to hide the earlier tasks is up to you, as long as we have easy access for grading purposes! Make sure your button is down near the bottom of the page so that we can find it.
+
+None of this should affect your existing tests, since they work independently of what happens in the `App` component itself.
+
 ## Grading
 
 Given the open-ended nature of this application, you are being graded by a rubric. Completing more requirements will tend to get you more points, but so will writing tests. You also earn points for things like sketching the application and making up test data.
