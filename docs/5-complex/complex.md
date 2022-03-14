@@ -408,7 +408,7 @@ Every time you complete a requirement, add them to a bulleted list of "Completed
 Soon, we will want to review your application so that we can make decisions about team assignments. Do not delay in submitting for this Task - as soon as you have started, deploy your application and submit on Canvas.
 
 ```sh
-$> git push --set-upstream origin solved-components
+$> git push --set-upstream origin solved-quizzer
 ```
 
 As you make more changes, add and commit regularly. Every now and then, you can push your changes (no longer needing to specify the upstream):
