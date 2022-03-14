@@ -370,17 +370,22 @@ If the components from the other tasks are getting in your way, you can hide the
 
 ```tsx
 // Just an example, many other ways to do this!
-function ShowHide(): JSX.Element {
+export function ShowHideTasks(): JSX.Element {
   const [visible, setVisible] = useState<boolean>(false);
   return <div>
-    {visible && <>
-        <Counter></Counter>
-        <hr>
-        <RevealAnswer></RevealAnswer>
-        <hr>
+    {visible && <div>
+        // Existing component instantiations go here
         ...
-      <>
-    </>}
+    </div>}
+    <Button onClick={()=>setVisible(!visible)}>Show/Hide</Button>
+  </div>;
+}
+
+// App.tsx
+export function App(): JSX.Element {
+  return <div>
+    ... Quizzer component ...
+    <ShowHideTasks></ShowHideTasks>
   </div>;
 }
 ```
