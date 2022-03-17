@@ -123,6 +123,12 @@ export function App(): JSX.Element {
 
 If you look closely, this tag doesn't have an end tag (there's no `</img>`). Instead, it's just a "self-closing" tag (`<img/>`).
 
+The URL we used in the example above works for this textbook, but you may have to setup your URL very differently.
+
+* One approach is to cheat and use a direct hyperlink. This is a risky strategy, because you are now at the mercy of whatever external service is hosting the image. What if they make the image private, take down the image, or, even worse, change the image later? For a professional site, you do not want to take such risks.
+* Another approach is to place the image in the `public` folder of your application, which allows you to link to the image after it is built. There is [advice out there](https://stackoverflow.com/questions/47196800/reactjs-and-images-in-public-folder) on how to do so. This has [drawbacks too](https://create-react-app.dev/docs/using-the-public-folder/#adding-assets-outside-of-the-module-system), since the public folder is meant to exist somewhat outside of the compilation of your website. If there is a mistake with your path, the error messages you get will be less helpful.
+* Our favored approach is to place the image in your `src` folder (perhaps further within an `assets` or `images` subfolder) and then import the image using code, which is [explained in this guide](https://stackoverflow.com/questions/39999367/how-do-i-reference-a-local-image-in-react). This surfaces errors more easily. You may find this more difficult to get started with, since it requires a bit more code, but long-term this is how we usually recommend you include images. You can learn more about this approach in [this page](https://create-react-app.dev/docs/adding-images-fonts-and-files).
+
 # Editing CSS
 
 There are two ways to change the style of a elements. You can use the `style` attribute or edit the rules in the `App.css` file. Let's run through some quick examples.
