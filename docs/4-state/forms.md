@@ -130,8 +130,10 @@ You will often see the `event` parameter abbreviated as `e` or `evt`. This is a 
 Continually typing `React.ChangeEvent<HTMLInputElement>` is a little inconvenient, so we will often rely on a type declaration to simplify our code. Whether you choose to use such a shortcut is again a developer's choice. However, we particularly like this snippet because it allows you to use `ChangeEvent` for either single line input boxes or multiline text areas.
 
 ```tsx
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
+type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 ```
+
+Still, this isn't perfect. If the code depends on an attribute available in one of the two types but not the other, TypeScript will be confused and not recognize the attribute. So you may need to be careful when choosing an appropriate type parameter.
 
 
 # Specific Components
@@ -145,15 +147,12 @@ After the button, the Textbox is probably one of the most fundamental types of u
 The two critical fields that tie the `Form.Control` component to the application's State are the `value` and `onChange` fields. The `value` is text that will be shown in the box when the component is rendered. The `onChange` is the callback function that will call a State Setter to update the current state, triggering a new render of the Component with an updated state.
 
 ```tsx
-// Simplify type definition of the Change Event
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   // This is the State (Model)
   const [name, setName] = useState<string>('Alien');
 
   // This is the Control
-  function updateName(event: ChangeEvent) {
+  function updateName(event: React.ChangeEvent<HTMLInputElement>) {
     setName(event.target.value)
   }
 
@@ -194,9 +193,6 @@ A small variation on the Textbox is the number box. The only real change is that
 The type of data stored in the value field is still a string, like with a `text` field. Therefore, we must parse the user's text and handle the case where the user manages to enter something that is not a number (e.g., an empty string). There are two ways to handle this: you can try to update the state to always be a number (which prevents us from having reasonable inputs like the empty string `""`), or you can use a calculated value based on the current state. We used `|| 0` to provide a default value if the text is unparseable; you might also use a ternary or provide some specific text string (e.g., `"error"`).
 
 ```tsx
-// Simplify type definition of the Change Event
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   const [released, setReleased] = useState<string>("2022");
   const previousYear = (parseInt(released)-1) || 0;
@@ -209,7 +205,8 @@ export function App(): JSX.Element {
       <Form.Control
         type="number"
         value={released}
-        onChange={(event: ChangeEvent) => setReleased(event.target.value)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setReleased(event.target.value)}
       />
     </Form.Group>
     <div>
@@ -230,8 +227,6 @@ Frequently, you want to have a horizontal layout for your forms. This requires c
 You can learn more about Horizontal Layouts (and other layout options) here: <https://react-bootstrap.github.io/forms/layout/#horizontal-form>
 
 ```tsx
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   // These will be the values for the new Movie
   const [name, setName] = useState<string>('New Movie');
@@ -245,13 +240,15 @@ export function App(): JSX.Element {
       <Col>
         <Form.Control
           value={name}
-          onChange={(event: ChangeEvent) => setName(event.target.value)} />
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setName(event.target.value)} />
       </Col>
     </Form.Group>
     <Form.Group controlId="formMovieReleased" as={Row}>
       <Form.Label column sm={2}>Released:</Form.Label>
       <Col><Form.Control type="number" value={released}
-        onChange={(event: ChangeEvent) => setReleased(event.target.value)} />
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setReleased(event.target.value)} />
       </Col>
     </Form.Group>
     <div>
@@ -267,15 +264,12 @@ The text box is only good for a single line. If you want multiple lines, then yo
 
 
 ```tsx
-// Simplify type definition of the Change Event
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   // This is the State (Model)
   const [description, setDescription] = useState<string>('What can you tell me?');
 
   // This is the Control
-  function updateDescription(event: ChangeEvent) {
+  function updateDescription(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setDescription(event.target.value)
   }
 
@@ -301,14 +295,12 @@ export function App(): JSX.Element {
 The next kind of Form we will look at is a checkbox. This corresponds to some boolean State, either checked or unchecked. The attribute is `checked` instead of `value`, confusingly. Notice we no longer need a separate `Form.Group`, `Form.Input`, or `Form.Label` for this component; instead we use a special `Form.Check`. We provide a `label` as an attribute, and we should also provide an `id` to help with screenreaders. A good `id` will just be a unique internal label that the user doesn't see, but the `label` is visible to the user!
 
 ```tsx
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   // This is the State (Model)
   const [isHappy, setIsHappy] = useState<boolean>(true);
 
   // This is the Control
-  function updateHappiness(event: ChangeEvent) {
+  function updateHappiness(event: React.ChangeEvent<HTMLInputElement>) {
     setIsHappy(event.target.checked)
   }
 
@@ -331,14 +323,12 @@ export function App(): JSX.Element {
 The switch is essentially a visual modification of the checkbox, so it's not really that different.
 
 ```tsx
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   // This is the State (Model)
   const [isHappy, setIsHappy] = useState<boolean>(true);
 
   // This is the Control
-  function updateHappiness(event: ChangeEvent) {
+  function updateHappiness(event: React.ChangeEvent<HTMLInputElement>) {
     setIsHappy(event.target.checked)
   }
 
@@ -364,14 +354,12 @@ Instead of a boolean State, we are now facing a string State (or at least, some 
 We must also dramatically change how we provide `checked`, using a calculated expression based on the state (in order to turn the string state into a boolean value). We also provide a `value` attribute again, which simplifies our callback for `onChange` (since we can just unconditionally update the state the same way for each component).
 
 ```tsx
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   // This is the State (Model)
     const [emotion, setEmotion] = useState<string>("happy");
 
     // This is the Control
-    function updateEmotion(event: ChangeEvent) {
+    function updateEmotion(event: React.ChangeEvent<HTMLInputElement>) {
         setEmotion(event.target.value);
     }
 
@@ -450,14 +438,12 @@ export function App(): JSX.Element {
 Radio buttons are mutually exclusive, but what if you want to have a bunch of options and the user can select any one of them? This means that we have some state that is really a list.
 
 ```tsx
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
   // This is the State (Model)
     const [emotions, setEmotions] = useState<string[]>(["happy", "sad"]);
 
     // This is the Control
-    function updateEmotion(event: ChangeEvent) {
+    function updateEmotion(event: React.ChangeEvent<HTMLInputElement>) {
         const emotion = event.target.value;
         // Check if the emotion is already present
         if (emotions.includes(emotion)) {
@@ -510,15 +496,12 @@ export function App(): JSX.Element {
 Select menus (also known as Dropdown menus or Comboboxes) are very popular. They are structured a little bit like a combination of the other two types, representing a string state (or subset of strings) with a `Form.Select` tag. They still have the single `value` and `onChange` attributes, but they also must have a bunch of `option` tags inside with their own `value` attributes.
 
 ```tsx
-// Simplify type definition of the Change Event
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 export function App(): JSX.Element {
     // This is the State (Model)
     const [emotion, setEmotion] = useState<string>("happy");
 
     // This is the Control
-    function updateEmotion(event: ChangeEvent) {
+    function updateEmotion(event: React.ChangeEvent<HTMLSelectElement>) {
         setEmotion(event.target.value);
     }
 
@@ -544,9 +527,6 @@ export function App(): JSX.Element {
 A very frequent situation is to have a Select menu that is populated by a list of options. This requires that you provide a unique `key` attribute, or else you will get subtle errors. But otherwise, you just generate all of the `option` tags from a `.map()` over an array.
 
 ```tsx
-// Simplify type definition of the Change Event
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>;
-
 const COLORS = ["red", "blue", "green", "orange", "purple", "yellow"];
 const DEFAULT_COLOR = COLORS[0];
 
@@ -555,7 +535,7 @@ export function App(): JSX.Element {
     const [favorite, setFavorite] = useState<string>(DEFAULT_COLOR);
 
     // This is the Control
-    function updateFavorite(event: ChangeEvent) {
+    function updateFavorite(event: React.ChangeEvent<HTMLSelectElement>) {
         setFavorite(event.target.value);
     }
 
