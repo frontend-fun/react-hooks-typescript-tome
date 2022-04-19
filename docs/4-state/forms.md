@@ -63,7 +63,7 @@ Almost every single component of a Form has a `value` that represents its curren
 
 # Events
 
-One of the most important aspects of a user interfaces is responding to user interaction. JavaScript and HTML have developed a sophisticated "Event System" that lets developers bind HTML actions (like clicking a button, or typing into an input box) to JavaScript functions. React builds on this existing infrastructure, with basically the same concept. Of course, in many places, React will change names slightly; TypeScript adds further complications you may have to provide types.
+One of the most important aspects of a user interfaces is responding to user interaction. JavaScript and HTML have developed a sophisticated "Event System" that lets developers bind HTML actions (like clicking a button, or typing into an input box) to JavaScript functions. React builds on this existing infrastructure, with basically the same concept. Of course, in many places, React will change names slightly. TypeScript adds further complications: you may have to provide types.
 
 When you google for help with Forms, you must pay close attention to whether the advice is appropriate for the technology stack you are using (which in this case, is React Hooks, TypeScript, and React Bootstrap). You will often find advice that suggests workable solutions which are wrong for your technology stack. Just because you *can* make the code you find works, doesn't mean that it's a good idea. Jamming different libraries and approaches together leads to confusing, fragile code. It is very likely that you will need to fix that code later on ("Technical Debt" has accrued), that small subtle errors will manifest sporadically, or you'll have issues with performance.
 
@@ -82,7 +82,7 @@ function App(): JSX.Element {
 }
 ```
 
-You can also provide the function inline using the lambda syntax. This is sometimes known as an "Anonymous Function" since you do not specify the function's name. Why would you, if you were only going to use that function in this one specific circumstance? An anonymous function is often concise, but might be inappropriate if the function to be executed becomes complicated. Still, if the function is short, they are often used instead; it's really developer preference most of the time.
+You can also provide the function inline using the lambda syntax. This is sometimes known as an "Anonymous Function" since you do not specify the function's name. Why would you, if you were only going to use that function in this one specific circumstance? An anonymous function is often concise, but might be inappropriate if the function to be executed becomes complicated. Still, if the function is short, they are often used; it's really developer preference most of the time.
 
 ```tsx
 function App(): JSX.Element {
@@ -693,7 +693,7 @@ The `GiveAttempts` component simulates a user taking a quiz with a limited numbe
 
 ## EditMode
 
-The `EditMode` component has two states controlled by a switch: the default state shows text indiciating the user's name and whether they are a student, and then the alternate state is an editable form for editing the user's name and whether they are a student.
+The `EditMode` component has two states controlled by a switch: the default state shows text indicating the user's name and whether they are a student, and then the alternate state is an editable form for editing the user's name and whether they are a student.
 
 * You will need state to handle the component being in "edit mode", the user's name, and whether or not the user is a student.
 * Initially, the component is NOT in edit mode, the user's name is literally the string `Your Name` (as in, that exact string, not your actual name), and the user IS a student.
