@@ -380,7 +380,7 @@ function App(): JSX.Element {
 }
 ```
 
-To be clear, the two previous code blocks achieve *exactly the same effect*. The last one may look a little confusing since we are not used to having curly braces INSIDE of the function header, but it can become natural if you see it enough. If a component only has a few parameters (which is usually desirable), then emebedding the type as an object directly in the header is often preferred.
+To be clear, the two previous code blocks achieve *exactly the same effect*. The last one may look a little confusing since we are not used to having curly braces INSIDE of the function header, but it can become natural if you see it enough. If a component only has a few parameters (which is usually desirable), then embedding the type as an object directly in the header is often preferred.
 
 ### Lifting State
 
@@ -500,7 +500,7 @@ export function App(): JSX.Element {
 
 ### Grandparents, Great-grandparents, and the Hierarchy
 
-As your React application grows, you will often end up in a situation where you have a large amount of State that needs to be shared across multiple components. Sometimes these components will be embedding other components inside. You end up with a large hierarchy of components. State defined up at the top of the hiearchy has to be passed down through a "chain" of Props and Attributes, sometimes being handed to Components that don't even care about all the details. This can be quite frustrating.
+As your React application grows, you will often end up in a situation where you have a large amount of State that needs to be shared across multiple components. Sometimes these components will embed other components inside. You end up with a large hierarchy of components. State defined up at the top of the hiearchy has to be passed down through a "chain" of Props and Attributes, sometimes being handed to Components that don't even care about all the details. This can be quite frustrating.
 
 There are other ways to have State shared between components without requiring a heirarchy of Props and Attributes, but we will not learn about them. They are an advanced feature, suitable for larger-scale applications. When you start making *very* sophisticated applications, you can look into systems like "React Redux" that support this kind of sharing. For now, though, our goal is to keep State at a minimum, and localize it down to the lowest point in the Heirarchy possible.
 
@@ -539,7 +539,7 @@ To summarize, there are pluses and minuses to closures compared to just having m
 
 * Downsides: Functions are recreated every time our component renders. Functions are not as reusable between components because they are specifically bound to the variables they are closed upon.
 
-* Upsides: We can conveniently include variables directly inside the closure, reducing the number of variables that have to be passed around. Also, functions are close to where they will be used.
+* Upsides: We can conveniently include variables directly inside the closure, reducing the number of variables that have to be passed around. Also, functions are defined close to where they will be used.
 
 ## Mostly Wrong: Nested Components
 
@@ -562,7 +562,6 @@ export function App(): JSX.Element {
         </div>
     }
     
-    // The attribute and the value do not have to match!
     return <div>
         <RevealButton></RevealButton>
         <Answer></Answer>
@@ -572,9 +571,9 @@ export function App(): JSX.Element {
 
 This code works fine in the browser, similar to code we saw before. And this approach might seem convenient, since there are no parameters ("Props") required for the Components. Everything is just available as a closure!
 
-Unfortunately, there are hidden penalties because of how React expects things to work. Remember that React is essentially a sophisticated system for detecting changes to the State, determining when a Component needs to re-render to avoid unnecessary work. The computational cost of deciding whether a component has changed is much smaller than the cost of actually having to redraw a component, so we save a lot of time if we figure out that a component has not changed. This is true not only of parent components, but also for children components. In this case, the `App` is the parent component and `RevealButton` and `Answer` are both *nested*, *children* components. If React is acting intelligently, then it might find situations where it has to re-render `App` but could *remount* (aka reuse) existing versions of `RevealButton` and `Answer` instead of having to re-render them.
+Unfortunately, there are hidden penalties because of how React expects things to work. Remember that React is essentially a sophisticated system for detecting changes to the State, determining when a Component needs to re-render to avoid unnecessary work. The computational cost of deciding whether a component has changed is much smaller than the cost of having to redraw a component, so we save a lot of time if we figure out that a component has not changed. This is true not only of parent components, but also for children components. In this case, the `App` is the parent component and `RevealButton` and `Answer` are both *nested*, *children* components. If React is acting intelligently, then it might find situations where it has to re-render `App` but could *remount* (aka reuse) existing versions of `RevealButton` and `Answer` instead of having to re-render them.
 
-But with nested components, when you call `App` and render the component, there is no way for React to know whether or not `RevealButton` and `Answer` depend on data that has changed, so React makes the decision to *always* re-render those children components. In fact, it wouldn't matter if props were passed in to those components (which also defeats the value of a closure), since React will actually be inspecting the actual reference (essentially the memory address) of the components. Since new functions were declared for these nested components, React will always identify them as changing - regardless of any parameters that changed, the functions themselves were redeclared. Even if two functions have the exact same body and name and other properties, TypeScript only believes they are equal if they live in the same memory address. 
+But with nested components, when you call `App` and render the component, there is no way for React to know whether or not `RevealButton` and `Answer` depend on data that has changed, so React makes the decision to *always* re-render those children components. In fact, it wouldn't matter if props were passed in to those components (which also defeats the value of a closure), since React will be inspecting the actual reference (essentially the memory address) of the components. Since new functions were declared for these nested components, React will always identify them as changing - regardless of any parameters that changed, the functions themselves were redeclared. Even if two functions have the exact same body and name and other properties, TypeScript only believes they are equal if they live in the same memory address. 
 
 So the outcome here is that if you are nesting components, you lose some of the best advantages of React: rather than efficiently reusing existing versions of a child component, React must instead recreate and redraw a new version of a component, even if the data involved in rendering the component has not changed. The `Answer` component above may change every time `visible` changes its value, but the `RevealButton` definitely should not, since its `onClick` function doesn't actually change. These small inefficiencies can add up quickly in large applications!
 
@@ -620,7 +619,7 @@ The `DoubleHalf` component provides two buttons. One doubles the value, the othe
 
 Currently, the component is commented out because it is broken and crashes your application. Uncomment the component's instantiation in `src/App.tsx`, and then fix the Component so that it works correctly.
 
-You must NOT add or remove components; you can only *modify* the existing components. Hint: You are free to delete files if they serve no purpose, thouhgh...
+You must NOT add or remove components; you can only *modify* the existing components. Hint: You are free to delete files if they serve no purpose, though...
 
 ## Fix `ChooseTeam`
 
@@ -640,7 +639,7 @@ You must NOT add or remove components; you can only *modify* the existing compon
 
 ## Fix `ShoveBox`
 
-The `ShoveBox` component provides a button that moves an adjancet box farther away, by increasing the boxes left margin.
+The `ShoveBox` component provides a button that moves an adjacent box farther away, by increasing the boxes left margin.
 
 Currently, part of the component's returned body is commented out because it is broken and crashes your application. Uncomment the component's body in `src/ShoveBox.tsx` and then fix the Component so that it works correctly.
 
