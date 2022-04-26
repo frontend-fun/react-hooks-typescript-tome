@@ -680,6 +680,12 @@ The `EditMode` component has two states controlled by a switch: the default stat
 * When not in edit mode, the text of the component must include `Your Name is a student` or `Your Name is not a student`.
 * As another example, if the user entered their name as `Charles Babbage` and said they were NOT a student, then the text would be `Charles Babbage is not a student`.
 
+HINT: We said "switch" and we meant it.
+
+HINT: If you can't figure out why you are failing a test, *read the test code*. The tests are the most specific form of description.
+
+HINT: If an element is rendered not visible, then a test looking for it will fail. If a test fails, check to see if the elements you have written are rendered in the Javascript.
+
 ## ChangeColor
 
 The `ChangeColor` component offers the user a bunch of radio buttons labeled with different colors; choosing a radio button updates the text and color of a nearby box of text.
