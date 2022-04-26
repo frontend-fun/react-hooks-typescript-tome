@@ -29,3 +29,5 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
 6. [Your Own App](6-journey/index.md)
 7. [The Lost Chapters](7-extras/index.md)
    1. [Sharing Code](7-extras/sharing-code.md)
+   2. [Record Types](7-extras/records.md)
+   3. [Saving and Loading](7-extras/saving.md)
