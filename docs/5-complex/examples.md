@@ -259,6 +259,266 @@ export function App(): JSX.Element {
 
 A downside with the approach of duplication in this way is deciding what to set as the name (which must be unique in the application as coded). In the next chapter, we will discuss the critical idea of unique IDs for data.
 
+# Heavy Nesting
+
+So far, we have been working with a list of objects. But in previous chapters, we dealt with situations where there were heavily nested data structures. The same rules apply as we have seen above, we just have to work hard to keep everything straight. Let's look at some more sophisticated examples.
+
+In the application below, we have a Record mapping strings to arrays of Emails, where each email itself has an array of Contacts.
+
+```tsx
+interface Contact {
+    id: number;
+    name: string;
+    address: string;    
+}
+
+interface Email {
+    id: number;
+    subject: string;
+    body: string;
+    sender: Contact;
+    recipients: Contact[];
+    tags: string[];
+}
+
+// Some example data
+const INBOXES = {
+  "Sent": [
+    {
+      id: 0,
+      subject: "Wanna be a BIG SHOT?",
+      body: "HEY EVERY !! IT'S ME!!!",
+      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+      tags: ["spam", "offer", "junk"],
+      recipients: [
+        { id: 159, name: "Kris", address: "krisscross@light.ner"}
+      ]
+    },
+    {
+      id: 9,
+      subject: "RE: Simple Puppet",
+      body: "Let me become your strength.",
+      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+      tags: ["correspondence", "sincere"],
+      recipients: [
+        { id: 159, name: "Kris", address: "krisscross@light.ner"},
+        { id: 173, name: "Susie", address: "biggator@light.ner"},
+        { id: 599, name: "Ralsei", address: "littlegoat@dark.ner"}
+      ]
+    }
+  ],
+  "Received": [
+    {
+      id: 49,
+      subject: "RE: Wanna be a BIG SHOT?",
+      body: "please leave me alone",
+      sender: { id: 159, name: "Kris", address: "krisscross@light.ner"},
+      tags: ["spam", "offer", "junk"],
+      recipients: [
+        { id: 14, name: "Spamton", address: "spamton@g.spamton" }
+      ]
+    }
+  ]
+};
+
+function App(): JSX.Element {
+  const [ inboxes, setInboxes ] = useState<Record<string, Email[]>>(INBOXES);
+
+  return <div>
+    {
+      Object.entries(inboxes).map(([name, emails]: [string, Email[]])=> (
+        <div className="border p-4">
+          <h3>{name}</h3>
+          <div>
+            { 
+              emails.map((email: Email) => (
+                <div className="border m-1 p-1 bg-light">
+                  <strong>Subject: {email.subject}</strong>
+                  <ul>
+                    {
+                      email.recipients.map((recipient: Contact) => (
+                        <li>{recipient.name} ({recipient.address})</li>
+                      ))
+                    }
+                  </ul>
+                </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>;
+}
+```
+
+## Adding Inboxes, Emails, and Contacts
+
+You would use the following functions like so:
+
+```tsx
+// Convenient type definition for a record mapping strings to arrays of emails
+type Inboxes = Record<string, Email[]>;
+
+function addInbox(inboxes: Inboxes, name: string): Inboxes {
+  return {
+    // Copy over all the old ones unchanged
+    ...inboxes,
+    // Wrap a key in square brackets to use the variable
+    // Otherwise we end up with literal key "name" instead of the argument
+    [name]: []
+  }
+}
+
+// e.g., an add button could then be implemented with the following lambda function:
+// () => setInboxes(addInbox(inboxes, newInboxName))
+
+function addEmail(inboxes: Inboxes, inboxName: string, newEmail: Email): Inboxes {
+  return {
+    ...inboxes,
+    [inboxName]: [
+      // Copy over the existing inboxes' emails, if any
+      ...inboxes[inboxName],
+      // And include the new one
+      newEmail
+    ]
+  }
+}
+
+function addRecipient(inboxes: Inboxes, inboxName: string, emailId: number, newContact: Contact): Inboxes {
+  return {
+    ...inboxes,
+    [inboxName]: inboxes[inboxName].map((email: Email) => (
+      // Check if this email is the target
+      email.id !== emailId ?
+        // If it isn't, leave it unchanged
+        email :
+        // But if it IS, then create a new one based on the old one
+        {
+          // Copy over old properties
+          ...email,
+          // Change the recipients to also have the new contact
+          recipients: [...email.recipients, newContact]
+        }
+    ))
+  }
+}
+```
+
+## Editing Emails and Contacts
+
+```tsx
+// Convenient type definition for a record mapping strings to arrays of emails
+type Inboxes = Record<string, Email[]>;
+
+// Only have to manipulate one level
+function editEmailSubject(inboxes: Inboxes, inboxName: string, emailId: number, newSubject: string): Inboxes {
+  return {
+    ...inboxes,
+    [inboxName]: inboxes[inboxName].map((email: Email) => (
+      email.id !== emailId ?
+        email :
+        {
+          ...email,
+          subject: newSubject
+        }
+    ))
+  }
+}
+
+// Need to manipulate two levels
+function editRecipientAddress(inboxes: Inboxes, inboxName: string, emailId: number, contactId: number, newAddress: string): Inboxes {
+  return {
+    // Copy over all the old ones unchanged
+    ...inboxes,
+    // But change the target inboxes' emails accordingly
+    [inboxName]: inboxes[inboxName].map((email: Email) => (
+      // Check if this email is the target
+      email.id !== emailId ?
+        // If it isn't, leave the email unchanged
+        email :
+        // But if it IS, then create a new Email based on the old one
+        {
+          // Copy over old properties
+          ...email,
+          // Change the recipients to also have the new contact
+          recipients: email.recipients.map((contact: Contact) => (
+            // Check if this contact is the target
+            contact.id !== contactId ?
+              // If it isn't, then leave the contact unchanged
+              contact :
+              // But if it IS, then create a new Contact based on the old one
+              {
+                // Copy over old properties
+                ...contact,
+                // Change the target attribute
+                address: newAddress
+              }
+          ))
+        }
+    ))
+  }
+}
+```
+
+## Helper Functions
+
+If you are finding that your heavily nested loops are getting messy, you can often break them up with helper functions.
+Knowing when this is necessary is tricky and more of an art than a science. You want to strike a balance between
+having a lot of functions and having a lot of nesting. You can easily go too far in either direction - think critically
+and think about what you will want to test.
+
+```tsx
+function editRecipientAddress(contact: Contact, contactId: number, newAddress: string): Contact {
+  return contact.id !== contactId ?
+    contact :
+    { ...contact, address: newAddress };
+}
+
+function editEmailRecipientAddress(email: Email, emailId: number, contactId: number, newAddress: string): Email {
+  return email.id !== emailId ? email :
+    {
+      ...email,
+      recipients: email.recipients.map(
+        (contact: Contact) => editRecipientAddress(contact, contactId, newAddress)
+      ) 
+    };
+}
+
+function editInboxEmailRecipientAddress(inboxes: Inboxes, inboxName: string, emailId: number, contactId: number, newAddress: string): Inboxes {
+  return {
+    ...inboxes,
+    [inboxName]: inboxes[inboxName].map(
+        (email: Email) => editEmailRecipientAddress(email, emailId, contactId, newAddress)
+    )
+  }
+}
+```
+
+## Dynamic Keys
+
+If you have a lot of attributes to update in a field, and you don't want to write many different helper functions, there are some fancy TypeScript
+tricks to dynamically reference properties in an object. The main trick is `keyof`, which allows us to say that a value is "one of the keys of a
+given interface". In the example below, we say that the second argument must be either `"id"`, `"name"`, or `"address"`.
+
+This is a rabbit hole and I don't want to get into it. You can read [more in the official docs](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html).
+
+
+```tsx
+// The `keyof` operator allows us to reference keys dynamically!
+function updateContactAttr(contact: Contact, key: keyof Contact, value: Contact[keyof Contact]) {
+    return {
+        ...contact, 
+        [key]: value
+    }
+}
+
+console.log(updateContactAttr(INBOXES.Sent[0].sender, "name", "Bob"))
+
+// Can now also write this in `editEmailRecipientAddress` from before:
+//    (contact: Contact) => updateContactAttr(contact, "address", newAddress)
+// Though you would need to move the contactId part inside of editEmailRecipientAddress
+```
+
 <!--
 
 # Record State
