@@ -136,7 +136,7 @@ function App(): JSX.Element {
 
     return (
         <div>
-            <pre style={{ overflow: "scroll", height: "100px" }}>{content}</pre>
+            <pre style={ { overflow: "scroll", height: "100px" } }>{content}</pre>
             <Form.Group controlId="exampleForm">
                 <Form.Label>Upload a file</Form.Label>
                 <Form.Control type="file" onChange={uploadFile} />

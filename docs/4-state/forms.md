@@ -45,7 +45,7 @@ function App(): JSX.Element {
 
 Notice the `controlId` parameter we have included in the form above. This improves the accessibility of the form for folks using Screen Readers and other automated tools. You should always keep these kinds of users' experience in mind!
 
-You will sometimes see widgets surrounded by a `Form` tag, but we recommend against using a `Form` tag for now. This tag makes the widgets behave as a full HTML Form, which has a lot of additional functionality that you probably do not want at this point in time. 
+You will sometimes see widgets surrounded by a `Form` tag, but we recommend against using a `Form` tag for now. This tag makes the widgets behave as a full HTML Form, which has a lot of additional functionality that you probably do not want at this time. 
 
 ## Form Attributes
 
@@ -63,7 +63,7 @@ Almost every single component of a Form has a `value` that represents its curren
 
 # Events
 
-One of the most important aspects of a user interfaces is responding to user interaction. JavaScript and HTML have developed a sophisticated "Event System" that let's developers bind HTML actions (like clicking a button, or typing into an input box) to JavaScript functions. React builds on this existing infrastructure, with basically the same concept. Of course, in many places, React will change names slightly; TypeScript adds further complications you may have to provide types.
+One of the most important aspects of a user interfaces is responding to user interaction. JavaScript and HTML have developed a sophisticated "Event System" that lets developers bind HTML actions (like clicking a button, or typing into an input box) to JavaScript functions. React builds on this existing infrastructure, with basically the same concept. Of course, in many places, React will change names slightly. TypeScript adds further complications: you may have to provide types.
 
 When you google for help with Forms, you must pay close attention to whether the advice is appropriate for the technology stack you are using (which in this case, is React Hooks, TypeScript, and React Bootstrap). You will often find advice that suggests workable solutions which are wrong for your technology stack. Just because you *can* make the code you find works, doesn't mean that it's a good idea. Jamming different libraries and approaches together leads to confusing, fragile code. It is very likely that you will need to fix that code later on ("Technical Debt" has accrued), that small subtle errors will manifest sporadically, or you'll have issues with performance.
 
@@ -82,7 +82,7 @@ function App(): JSX.Element {
 }
 ```
 
-You can also provide the function inline using the lambda syntax. This is sometimes known as an "Anonymous Function" since you do not specify the function's name. Why would you, if you were only going to use that function in this one specific circumstance? An anonymous function is often concise, but might be inappropriate if the function to be executed becomes complicated. Still, if the function is short, they are often used instead; it's really developer preference most of the time.
+You can also provide the function inline using the lambda syntax. This is sometimes known as an "Anonymous Function" since you do not specify the function's name. Why would you, if you were only going to use that function in this one specific circumstance? An anonymous function is often concise, but might be inappropriate if the function to be executed becomes complicated. Still, if the function is short, they are often used; it's really developer preference most of the time.
 
 ```tsx
 function App(): JSX.Element {
@@ -673,7 +673,7 @@ The `GiveAttempts` component simulates a user taking a quiz with a limited numbe
 
 ## EditMode
 
-The `EditMode` component has two states controlled by a switch: the default state shows text indiciating the user's name and whether they are a student, and then the alternate state is an editable form for editing the user's name and whether they are a student.
+The `EditMode` component has two states controlled by a switch: the default state shows text indicating the user's name and whether they are a student, and then the alternate state is an editable form for editing the user's name and whether they are a student.
 
 * You will need state to handle the component being in "edit mode", the user's name, and whether or not the user is a student.
 * The state of "edit mode" should be controlled by a switch (not a button or checkbox).
@@ -681,6 +681,12 @@ The `EditMode` component has two states controlled by a switch: the default stat
 * When not in edit mode, the text of the component must include `Your Name is a student` or `Your Name is not a student`.
 * As another example, if the user entered their name as `Charles Babbage` and said they were NOT a student, then the text would be `Charles Babbage is not a student`.
 * Whether or not the user is a student should be controlled by a regular checkbox, not a switch or button.
+
+HINT: We said "switch" and we meant it.
+
+HINT: If you can't figure out why you are failing a test, *read the test code*. The tests are the most specific form of description.
+
+HINT: If an element is rendered not visible, then a test looking for it will fail. If a test fails, check to see if the elements you have written are rendered in the Javascript.
 
 ## ChangeColor
 
