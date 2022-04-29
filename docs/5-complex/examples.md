@@ -353,7 +353,7 @@ function App(): JSX.Element {
 
 ## Adding Inboxes, Emails, and Contacts
 
-You would use the following functions like so:
+Here are some examples of functions that add new data.
 
 ```tsx
 // Convenient type definition for a record mapping strings to arrays of emails
@@ -405,6 +405,8 @@ function addRecipient(inboxes: Inboxes, inboxName: string, emailId: number, newC
 ```
 
 ## Editing Emails and Contacts
+
+Here's some examples of editing nested data instead of adding.
 
 ```tsx
 // Convenient type definition for a record mapping strings to arrays of emails
@@ -460,7 +462,7 @@ function editRecipientAddress(inboxes: Inboxes, inboxName: string, emailId: numb
 }
 ```
 
-## Helper Functions
+### Helper Functions
 
 If you are finding that your heavily nested loops are getting messy, you can often break them up with helper functions.
 Knowing when this is necessary is tricky and more of an art than a science. You want to strike a balance between
@@ -494,7 +496,7 @@ function editInboxEmailRecipientAddress(inboxes: Inboxes, inboxName: string, ema
 }
 ```
 
-## Dynamic Keys
+### Dynamic Keys
 
 If you have a lot of attributes to update in a field, and you don't want to write many different helper functions, there are some fancy TypeScript
 tricks to dynamically reference properties in an object. The main trick is `keyof`, which allows us to say that a value is "one of the keys of a
@@ -517,6 +519,124 @@ console.log(updateContactAttr(INBOXES.Sent[0].sender, "name", "Bob"))
 // Can now also write this in `editEmailRecipientAddress` from before:
 //    (contact: Contact) => updateContactAttr(contact, "address", newAddress)
 // Though you would need to move the contactId part inside of editEmailRecipientAddress
+```
+
+## Heart Name
+
+So how does this all connect back to an actual application? The example below is the same inbox stuff as before, but now you can add a heart next to the names of recipients.
+
+We could have avoided a lot of the parameters by using closures and putting the function inside of the function. There are tradeoffs of complexity, readability, and testability to consider. Organize your code as makes the most sense for your application!
+
+```tsx
+interface Contact {
+    id: number;
+    name: string;
+    address: string;    
+}
+
+interface Email {
+    id: number;
+    subject: string;
+    body: string;
+    sender: Contact;
+    recipients: Contact[];
+    tags: string[];
+}
+
+// Some example data
+const INBOXES = {
+  "Sent": [
+    {
+      id: 0,
+      subject: "Wanna be a BIG SHOT?",
+      body: "HEY EVERY !! IT'S ME!!!",
+      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+      tags: ["spam", "offer", "junk"],
+      recipients: [
+        { id: 159, name: "Kris", address: "krisscross@light.ner"}
+      ]
+    },
+    {
+      id: 9,
+      subject: "RE: Simple Puppet",
+      body: "Let me become your strength.",
+      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+      tags: ["correspondence", "sincere"],
+      recipients: [
+        { id: 159, name: "Kris", address: "krisscross@light.ner"},
+        { id: 173, name: "Susie", address: "biggator@light.ner"},
+        { id: 599, name: "Ralsei", address: "littlegoat@dark.ner"}
+      ]
+    }
+  ],
+  "Received": [
+    {
+      id: 49,
+      subject: "RE: Wanna be a BIG SHOT?",
+      body: "please leave me alone",
+      sender: { id: 159, name: "Kris", address: "krisscross@light.ner"},
+      tags: ["spam", "offer", "junk"],
+      recipients: [
+        { id: 14, name: "Spamton", address: "spamton@g.spamton" }
+      ]
+    }
+  ]
+};
+
+function addHeart(inboxes: Inboxes, inboxName: string, emailId: number, contactId: number): Inboxes {
+  return {
+    ...inboxes,
+    [inboxName]: inboxes[inboxName].map((email: Email) => (
+      email.id !== emailId ?
+        email :
+        {
+          ...email,
+          recipients: email.recipients.map((contact: Contact) => (
+            contact.id !== contactId ?
+              contact :
+              {
+                ...contact,
+                name: contact.name + "❤️"
+              }
+          ))
+        }
+    ))
+  }
+}
+
+function App(): JSX.Element {
+  const [ inboxes, setInboxes ] = useState<Record<string, Email[]>>(INBOXES);
+
+  return <div>
+    {
+      Object.entries(inboxes).map(([inbox, emails]: [string, Email[]])=> (
+        <div className="border p-4">
+          <h3>{inbox}</h3>
+          <div>
+            { 
+              emails.map((email: Email) => (
+                <div className="border m-1 p-1 bg-light">
+                  <strong>Subject: {email.subject}</strong>
+                  <ul>
+                    {
+                      email.recipients.map((recipient: Contact) => (
+                        <li>
+                          {recipient.name} ({recipient.address})
+                          <Button onClick={
+                            ()=>setInboxes(addHeart(inboxes, inbox, email.id, recipient.id))
+                          }>Heart!</Button>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>;
+}
 ```
 
 <!--
