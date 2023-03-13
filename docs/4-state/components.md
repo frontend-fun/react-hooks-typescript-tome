@@ -96,7 +96,7 @@ setPeople(newPeople);
 
 The core idea is that we must create a NEW list so that React can compare their references, and discover that the new list is different. Otherwise, it compares the old reference to itself, without realizing that the CONTENTS of the array has changed.
 
-Review [Reference Equality vs. Value Quality](../3-control/arrays.md#reference-equality-vs-value-equality) for more information about reference and value (content) equality. This is also known as shallow vs. deep equality. If you still don't understand the concept, please go out and seek more help until you understand! (Note: this is a standard job interview question.)
+Review [Reference Equality vs. Value Equality](../3-control/arrays.md#reference-equality-vs-value-equality) for more information about reference and value (content) equality. This is also known as shallow vs. deep equality. If you still don't understand the concept, please go out and seek more help until you understand! (Note: this is a standard job interview question.)
 
 ## Closures and Mapping Arrays
 
