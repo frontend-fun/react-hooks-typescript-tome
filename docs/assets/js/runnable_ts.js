@@ -55,6 +55,8 @@ function addSubArea(area, headerText, type) {
 function setupExecutionZone(target, editor) {
   const runButton = document.createElement("button");
   runButton.classList.add("btn", "btn-success");
+  runButton.style.position = 'relative';
+  runButton.style.zIndex = "100";
   runButton.appendChild(document.createTextNode("Run"));
   const errorArea = addSubArea(target, "Errors", "pre");
   const outputArea = addSubArea(target, "Console Log", "pre");
