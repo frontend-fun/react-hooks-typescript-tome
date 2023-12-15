@@ -20,7 +20,7 @@ parent: TypeScript
 
 # Arrays
 
-JavaScript has lists, but calls them "Arrays". This is because JavaScript was dumb and doesn't know what to name things. They are really lists, but we'll go with the JavaScript lingo and call them Arrays. But remember they act more like Java's `ArrayList` or Python's Lists, compared to Java's or C++'s arrays.
+JavaScript has lists, but calls them "Arrays". This is because JavaScript was dumb and didn't know what to name things. They are really lists, but we'll go with the JavaScript lingo and call them Arrays. But remember they act more like Java's `ArrayList` or Python's Lists, compared to Java's or C++'s arrays.
 
 ```typescript
 // Example of creating array variables
