@@ -105,7 +105,7 @@ console.log("myGrades===clonedGrades", myGrades === clonedGrades);
 The `...` operator is not part of the `[  ]` square brackets. The square brackets are being used to create a new literal array. The `...` works separately. These dots work with function calls too to "unpack" the contents of an array into function calls as separate arguments.
 
 ```typescript
-const prices = [10, 8, 9, 7];
+const prices = [10, 8, 9, 7, 55];
 
 console.log(10, 8, 9, 7, 55);
 // 10, 8, 9, 7, 55
@@ -125,7 +125,7 @@ console.log([...prices]);
 Previously you saw me use the `push` method to add an element to an array. You won't do that anymore. Instead, you're going to use the spread operator to unpack the array and then add a new element to the end, thereby creating NEW arrays. We'll talk about why later, but the gist is that we aren't going to modify our arrays, we're going to make new arrays based on old arrays.
 
 ```typescript
-const prices = [10, 8, 9, 7, 55];
+const prices = [10, 8, 9, 7];
 console.log(prices);
 
 const pricesAtEnd = [...prices, 55];
