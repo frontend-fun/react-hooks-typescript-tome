@@ -105,7 +105,7 @@ console.log("myGrades===clonedGrades", myGrades === clonedGrades);
 The `...` operator is not part of the `[  ]` square brackets. The square brackets are being used to create a new literal array. The `...` works separately. These dots work with function calls too to "unpack" the contents of an array into function calls as separate arguments.
 
 ```typescript
-const prices = [10, 8, 9, 7, 55];
+const prices = [10, 8, 9, 7];
 
 console.log(10, 8, 9, 7, 55);
 // 10, 8, 9, 7, 55
