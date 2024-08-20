@@ -61,35 +61,35 @@ You'll need to enable Workflow actions in your forked repository; go to the Acti
 
 2. Next, you need to enable Github Pages for your repository. Go to the repository on Github, click on the "Settings" tab.
 
-![Github Settings](images/github_settings.png)
+![Github Settings](../images/github_settings.png)
 
 4. Scroll down to the "Github Pages" section. 
 
-![Github Pages](images/pages_settings.png)
+![Github Pages](../images/pages_settings.png)
 
 5. In the Source dropdown, select "GitHub Actions".
 
-![Github Actions](images/github_actions.png)
+![Github Actions](../images/github_actions.png)
 
 6. Go to the Actions tab and you should see a "workflow" running. This workflow will build and deploy your site to Github Pages. Once the workflow is complete, you should see a link to your site at the top of the page.
 
-![Check Workflow](images/check_workflow.png)
+![Check Workflow](../images/check_workflow.png)
 
 If the workflow doesn't seem to be running, click "Deploy dev build on main push" and then click "Run workflow". This will manually trigger the workflow to run, although you may have to reload the page to see it.
 
-![Run Workflow](images/run_workflow.png)
+![Run Workflow](../images/run_workflow.png)
 
 You can check the progress of a workflow by clicking on it:
 
-![Workflow Progress](images/workflow_progress.png)
+![Workflow Progress](../images/workflow_progress.png)
 
 Click on the "deploy" button on the left sidebar to see the details of the deployment.
 
-![Deployment Details](images/click_again.png)
+![Deployment Details](../images/click_again.png)
 
 Assuming nothing goes wrong during deployment, the final step can be expanded to get the URL of your live site. Click on the URL to visit your site.
 
-![Live Site](images/final_link.png)
+![Live Site](../images/final_link.png)
 
 The site should now be able to deploy whenever you push a change to the `main` branch!
 
