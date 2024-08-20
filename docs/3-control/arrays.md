@@ -20,7 +20,7 @@ parent: TypeScript
 
 # Arrays
 
-JavaScript has lists, but calls them "Arrays". This is because JavaScript was dumb and doesn't know what to name things. They are really lists, but we'll go with the JavaScript lingo and call them Arrays. But remember they act more like Java's `ArrayList` or Python's Lists, compared to Java's or C++'s arrays.
+JavaScript has lists, but calls them "Arrays". This is because JavaScript was dumb and didn't know what to name things. They are really lists, but we'll go with the JavaScript lingo and call them Arrays. But remember they act more like Java's `ArrayList` or Python's Lists, compared to Java's or C++'s arrays.
 
 ```typescript
 // Example of creating array variables
@@ -125,7 +125,7 @@ console.log([...prices]);
 Previously you saw me use the `push` method to add an element to an array. You won't do that anymore. Instead, you're going to use the spread operator to unpack the array and then add a new element to the end, thereby creating NEW arrays. We'll talk about why later, but the gist is that we aren't going to modify our arrays, we're going to make new arrays based on old arrays.
 
 ```typescript
-const prices = [10, 8, 9, 7, 55];
+const prices = [10, 8, 9, 7];
 console.log(prices);
 
 const pricesAtEnd = [...prices, 55];
