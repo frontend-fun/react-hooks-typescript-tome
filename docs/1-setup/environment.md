@@ -105,7 +105,7 @@ $> cd tasks
 You'll need to add our original repository as an upstream remote, allowing you to pull in changes that we make along the way:
 
 ```sh
-$> git remote add upstream https://github.com/UD-CISC275-S22/tasks.git
+$> git remote add upstream https://github.com/frontend-fun/tasks.git
 ```
 
 # Install Dependencies and Run
