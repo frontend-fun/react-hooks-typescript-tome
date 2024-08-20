@@ -49,7 +49,7 @@ There's a bunch of Software that you need on your machine. We aren't providing i
 
 To accompany the material in this book, we have created a special GitHub repository full of tasks to complete.
 
-Begin by forking the `tasks` repository to your GitHub account: <https://github.com/UD-CISC275-S22/tasks/fork>
+Begin by forking the `tasks` repository to your GitHub account: <https://github.com/frontend-fun/tasks/fork>
 
 ## Enable Workflow Actions
 
@@ -57,16 +57,39 @@ You'll need to enable Workflow actions in your forked repository; go to the Acti
 
 ![Enable Workflow Actions in your Forked Repository](../images/enable-actions.png)
 
-## Setup Personal Access Key
+## Deploy from GitHub Actions
 
-Your website is not yet deployed, because we have not yet setup the personal access key. Go to the Forked Repository on Github:
+2. Next, you need to enable Github Pages for your repository. Go to the repository on Github, click on the "Settings" tab.
 
-1. Click on your picture -> `settings` in the top right of Github.
-2. Then, scroll to `Developer Settings` and click `Personal access tokens`
-3. Generate a new token with `repo` access and no expiration date.
-4. Make sure you copy the created token as you will not be able to see it after this.
-5. Navigate back to the repository, go to `settings` -> `secrets` -> `Actions` and click the `New repository secret` button in the topright.
-6. Name the secret "GH_TOKEN" and paste in the token you copied in the previous step.
+![Github Settings](images/github_settings.png)
+
+4. Scroll down to the "Github Pages" section. 
+
+![Github Pages](images/pages_settings.png)
+
+5. In the Source dropdown, select "GitHub Actions".
+
+![Github Actions](images/github_actions.png)
+
+6. Go to the Actions tab and you should see a "workflow" running. This workflow will build and deploy your site to Github Pages. Once the workflow is complete, you should see a link to your site at the top of the page.
+
+![Check Workflow](images/check_workflow.png)
+
+If the workflow doesn't seem to be running, click "Deploy dev build on main push" and then click "Run workflow". This will manually trigger the workflow to run, although you may have to reload the page to see it.
+
+![Run Workflow](images/run_workflow.png)
+
+You can check the progress of a workflow by clicking on it:
+
+![Workflow Progress](images/workflow_progress.png)
+
+Click on the "deploy" button on the left sidebar to see the details of the deployment.
+
+![Deployment Details](images/click_again.png)
+
+Assuming nothing goes wrong during deployment, the final step can be expanded to get the URL of your live site. Click on the URL to visit your site.
+
+![Live Site](images/final_link.png)
 
 The site should now be able to deploy whenever you push a change to the `main` branch!
 
