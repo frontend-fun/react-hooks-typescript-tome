@@ -31,3 +31,4 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
    1. [Sharing Code](7-extras/sharing-code.md)
    2. [Record Types](7-extras/records.md)
    3. [Saving and Loading](7-extras/saving.md)
+   4. [Re-wrapping States](7-extras/wrapping.md)
