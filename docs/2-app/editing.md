@@ -184,7 +184,7 @@ The button does not do anything, which is sad. We'll give you some code so that 
 ```tsx
 export function App(): JSX.Element {
     return <div>
-        <Button onClick={ () => console.log("I am logged") }>Click Me</Button>
+        <Button onClick={ () => { console.log("I am logged") } }>Click Me</Button>
     </div>;
 }
 ```
@@ -239,13 +239,9 @@ Since we are now failing these tests, we need to fix them. Refer to the informat
 * Change the background color of the header area
 * Add a bootstrap button with the text `Log Hello World`
 * Make the button log `Hello World!` when clicked
+* Put a red-filled rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
 
-THERE ARE TWO TASKS NOT REPRESENTED IN THE TESTS.
-
-1. Have a two-column layout on the page somwhere
-2. Put a red-filled rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
-
-To earn full points, you must pass all the tests and also complete these two additional tasks.
+To earn full points, you must pass all the tests.
 
 Once you are done, add and commit all your changes for the branch. Then, you will need to push your local branch to the remote repository.
 We will no longer remind you about this command to push a new branch after this page!
