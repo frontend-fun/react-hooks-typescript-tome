@@ -113,4 +113,8 @@ The default base repository for your Pull Request is the original repository you
 
 Assuming you do not have any issues with your code, you can click through the menus and initiate the Pull Request. Once completed, the `main` branch is updated and should rebuild itself shortly. After a couple minutes, your changes should now be live on the deployed site.
 
+## Submitting on GradeScope
+
+You will need to once again submit on GradeScope. You should be able to submit either your `main` branch (now that it is up to date), or the `solved-first-branch`. The choice is yours, although I suspect the `solved-first-branch` will be simpler (just in case any future edits you make to `main` interfere with the unit tests from this chapter).
+
 Once you're done, we can start our [Basic Application &raquo;](../2-app/index.md)

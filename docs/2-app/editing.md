@@ -251,6 +251,6 @@ $> git push --set-upstream origin solved-html-css
 ```
 
 
-Anyway, next you need to make a Pull Request back to your `main` branch on the GitHub repository. Make sure your tests pass and the site deploys, before you submit!
+Anyway, next you need to make a Pull Request back to your `main` branch on the GitHub repository. Make sure your tests pass and the site deploys, before you submit to GradeScope!
 
 Once you're done, we'll start learning more about [TypeScript &raquo;](../3-control/index.md)

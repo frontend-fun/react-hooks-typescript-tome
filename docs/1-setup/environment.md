@@ -174,6 +174,29 @@ If the site failed to build properly, there will be a Red X. Clicking the Red X 
 
 Otherwise, hopefully your changes will now be live on the website. You might need to do a hard-refresh.
 
+# Submitting on GradeScope
+
+Once you have confirmed that your changes are live on the website, you can submit your work on GradeScope (if your instructor is using this course with GradeScope). At the bottom of the assignment page on Canvas, you will see a box with GradeScope embedded inside (just like BlockPy!). GradeScope is a platform for running student code through instructor unit tests, which will give you automatic feedback and score you.
+
+In the box at the bottom of the assignment page, click Submit and then choose "GitHub" as the submission method.
+
+The first time you submit your repository, you will need to authorize Gradescope to access your git repository.
+
+When you click to authorize GitHub with Gradescope, the embedded page may fail to load. If this happens, just open
+<https://gradescope.com>, go into the course and assignment (e.g., `"Task 1- Environment Setup"`), and authorize there. The
+permissions should work fine in a separate browser tab.
+{: .warning}
+
+Type the name of your repository and choose it from the dropdown. It should start with `task`.
+
+From the branch dropdown, choose the `main` branch this time. Next time, you will choose a branch!
+
+You can submit multiple times before the deadline. Your last submission will determine your grade in the system. For some assignments,
+we will give you additional feedback beyond what the autograder will give you, so do not assume that your grade will
+remain as it is (they are always subject to what a human instructor says your grade is!). However, if the autograder reports any issues, you should definitely handle them now!
+
+# Next Steps
+
 At this point in time, your setup is done.
 
 Let's try the first REAL task: [Branching Out &raquo;](../1-setup/branching.md)
