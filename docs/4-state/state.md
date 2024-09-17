@@ -566,7 +566,27 @@ You are going to need to edit the components themselves and include them in your
 $> npm run start
 ```
 
-Every time you save a file in VS Code, the website should update automatically!
+Unfortunately, when you run this command, you will receive a number of errors. This is because the components we have provided are incomplete. You will need to complete the components in order to make the tests pass and the website run without errors. However, in the meantime, so that you can develop your site, you can comment out the incomplete components in the `App` component. If you highlight a line and press `CTRL+/` (or `CMD+/` on a Mac), you can comment out that line (or lines) of code. Pressing the same key combination will uncomment the code.
+
+```tsx
+import React from "react";
+import "./App.css";
+// import { ChangeType } from "./components/ChangeType";
+// ...
+
+function App(): JSX.Element {
+    return (
+        <div className="App">
+            <header className="App-header">
+                UD CISC275 with React Hooks and TypeScript
+            </header>
+            <hr></hr>
+            <Counter></Counter>
+            <hr />
+            {/* <ChangeType></ChangeType> */}
+```
+
+Every time you save a file in VS Code, the website should update automatically. Comment out all except the `Counter` component, and then work on the `Counter` component until it is complete. Once you have completed the `Counter` component, you can move on to the next component, and so on.
 
 ### Counter
 
