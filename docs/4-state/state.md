@@ -625,6 +625,7 @@ The `StartAttempt` component simulates yet another part of the quiz application,
 * When the quiz is in progress, the `Start Quiz` and `Mulligan` buttons are disabled.
 * When the quiz is not in progress, the `Stop Quiz` button is disabled.
 * When the attempts are zero, the `Start Quiz` button is disabled.
+* The number of attempts should be visible in the interface.
 
 ### TwoDice
 
