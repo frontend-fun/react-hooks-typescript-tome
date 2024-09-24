@@ -637,7 +637,7 @@ The `TwoDice` component will simulate a game where you roll two dice in an attem
 * Clicking a Roll button will change the value for the corresponding dice using the provided `d6` function.
 * The initial values of the dice cannot be the same.
 * When the two states are equal, render a message that includes the word `Lose`.
-* When the two states are equal, render a message that includes the word `Win`.
+* When the two states are not equal, render a message that includes the word `Win`.
 * If you do all these and are still not passing all tests, read the test file, it is a good practice! In much of software engineering, the tests *are* the product spec.
 
 ### CycleHoliday
