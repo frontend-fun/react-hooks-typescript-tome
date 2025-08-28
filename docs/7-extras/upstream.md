@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Pulling from Upstream
-nav_order: 14.1
-parent: Appendix
+nav_order: 7.5
+parent: The Lost Chapters
 ---
 
 # Pulling from Upstream
