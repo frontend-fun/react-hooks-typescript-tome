@@ -590,7 +590,7 @@ Every time you save a file in VS Code, the website should update automatically. 
 
 ### Counter
 
-The `Counter` component is one that we provide, allowing you to click a button to increase a rendered number. You should be able to run the application and interact with the `Counter`, similar to what you saw earlier on this page. You should also be able to run the tests and see that they are all passing.
+The `Counter` component is one that we provide, allowing you to click a button to increase a rendered number. You should be able to run the application and interact with the `Counter`, similar to what you saw earlier on this page. You should also be able to run the tests and see that they are all passing. However, there is a small linting issue with the code: read the feedback from the linter, figure out what is wrong, and fix the code. Hint: it's a minor change.
 
 ### RevealAnswer
 
