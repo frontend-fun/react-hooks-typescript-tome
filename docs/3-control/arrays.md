@@ -190,7 +190,7 @@ console.log(doubled);
 // Foreach loop style - do not use this!
 let doubled = [];
 for (const price of prices) {
-  doubled.push(price);
+  doubled.push(price*2);
   // Alternative Immutable style which we won't use either:
   // doubled = [...doubled, price];
 }
@@ -209,6 +209,43 @@ console.log(dollars);
 So why not `for` loop? Not the style. We tend to always have a list, take advantage of that.
 
 So why not `while` loops? ARE YOU SERIOUS DO NOT USE `while` LOOPS. They are messy and error-prone. I will be surprised if you ever actually need a `while` loop in this course.
+
+Are you still confused by the two approaches? Here's one more example to really try and break it out:
+
+```typescript
+// Named function
+function addStar(text: string): string {
+    return text + "*";
+}
+// Anonymous function, assigned to a constant.
+const addStar2 = (text: string): string => text + "*";
+
+const original = ["Hi", "Everyone!"];
+
+// For loop version
+const starred1 = [];
+for (let text of original) {
+    starred1.push( text+"*" );
+}
+
+// Map with previously named functions
+const starred2 = original.map(addStar);
+const starred3 = original.map(addStar2);
+
+// Map with inline anonymous functions
+const starred4 = original.map(function addStar3(text: string): string {
+    return text + "*";
+});
+const starred5 = original.map((text: string): string => text + "*");
+
+console.log(starred1);
+console.log(starred2);
+console.log(starred3);
+console.log(starred4);
+console.log(starred5);
+```
+
+All four of those arrays are basically the same. It doesn't matter if we name the function or not. It doesn't matter if we use the short lambda syntax or the `function` keyword syntax. Either way, we're just applying an operation to every element of the array, in order to create a new array. It's just much shorter to do it the last way.
 
 # Filter an Array
 
