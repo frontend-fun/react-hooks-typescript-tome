@@ -232,10 +232,11 @@ for (let text of original) {
 const starred2 = original.map(addStar);
 const starred3 = original.map(addStar2);
 
-// Map with inline anonymous functions
+// Map with named inline function
 const starred4 = original.map(function addStar3(text: string): string {
     return text + "*";
 });
+// Map with inline anonymous functions
 const starred5 = original.map((text: string): string => text + "*");
 
 console.log(starred1);
