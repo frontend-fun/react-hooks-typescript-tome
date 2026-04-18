@@ -251,7 +251,7 @@ function App(): JSX.Element {
         // If it's green, make it yellow
         lightColor === 'green' ?
           'yellow' :
-          // Otherwise it is yellow, so make it yellow
+          // Otherwise it is yellow, so make it red
           'red'
     )
   }
