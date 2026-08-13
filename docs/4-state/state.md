@@ -619,7 +619,7 @@ Every time you save a file in VS Code, the website should update automatically. 
 
 ### Counter
 
-The `Counter` component is one that we provide, allowing you to click a button to increase a rendered number. You should be able to run the application and interact with the `Counter`, similar to what you saw earlier on this page. You should also be able to run the tests and see that they are all passing.
+The `Counter` component is one that we provide, allowing you to click a button to increase a rendered number. You should be able to run the application and interact with the `Counter`, similar to what you saw earlier on this page. You should also be able to run the tests and see that they are all passing. However, there is a small linting issue with the code: read the feedback from the linter, figure out what is wrong, and fix the code. Hint: it's a minor change.
 
 ### RevealAnswer
 
@@ -646,7 +646,7 @@ The `ChangeType` component simulates another an editor for a quiz application th
 The `StartAttempt` component simulates yet another part of the quiz application, this time providing a "Start" and "Stop" button for the quiz. Since the quiz should have a limited number of attempts, there is also a "Mulligan" button to give more attempts.
 
 - You will need two pieces of state: the number of attempts and whether the quiz is in progress.
-    - The initial number of attempts should be a number like 4 (the tests accept any value between 1 and 9)
+    - The initial number of attempts is 4
     - The quiz is initially NOT in progress
 - There is a button labelled `Start Quiz` that puts the Quiz in progress and decreases the number of attempts by one.
 - There is a button labelled `Stop Quiz` that stops the Quiz from being in progress.
@@ -654,6 +654,7 @@ The `StartAttempt` component simulates yet another part of the quiz application,
 - When the quiz is in progress, the `Start Quiz` and `Mulligan` buttons are disabled.
 - When the quiz is not in progress, the `Stop Quiz` button is disabled.
 - When the attempts are zero, the `Start Quiz` button is disabled.
+- The number of attempts should be visible in the interface.
 
 ### TwoDice
 
