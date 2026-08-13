@@ -26,48 +26,59 @@ In the example app below, there is a list of movies that can be either `seen` or
 
 ```tsx
 interface Movie {
-  name: string
-  released: number
-  seen: boolean
+    name: string;
+    released: number;
+    seen: boolean;
 }
 
 const INITIAL_MOVIES: Movie[] = [
-  {name: "Kiki's Delivery Service", released: 1989, seen: true},
-  {name: "Ponyo", released: 2008, seen: false},
-  {name: "Howl's Moving Castle", released: 2004, seen: true},
-  {name: "Castle in the Sky", released: 1986, seen: true},
-  {name: "Arietty", released: 2010, seen: false},
-  {name: "Whisper of the Heart", released: 1995, seen: false}
-]
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
 
 export function App(): JSX.Element {
-  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
-  
-  function changeMovieSeen(movieName: string, newSeen: boolean) {
-    // Need to map a new version of the array
-    const modifiedMovies = movies.map((movie: Movie): Movie =>
-      // If this movie is the target movie
-      (movie.name === movieName) ?
-        // Return a new modified movie
-        {...movie, seen: newSeen} :
-        // Otherwise return the movie unchanged
-        {...movie}));
-    // Update the movies array to be the new version
-    setMovies(modifiedMovies);
-  }
+    const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
 
-  // Render each movie in a bulleted list
-  return <div>
-    <ol>
-      {(movies.map((movie: Movie): JSX.Element => 
-        <li>
-          {movie.name} ({movie.released}): 
-          <Button onClick={()=>changeMovieSeen(movie.name, !movie.seen)}>
-            {movie.seen ? 'Seen' : 'Not seen'}
-          </Button>
-      </li>))}
-    </ol>
-  </div>;
+    function changeMovieSeen(movieName: string, newSeen: boolean) {
+        // Need to map a new version of the array
+        const modifiedMovies = movies.map(
+            (movie: Movie): Movie =>
+                // If this movie is the target movie
+                movie.name === movieName
+                    ? // Return a new modified movie
+                      { ...movie, seen: newSeen }
+                    : // Otherwise return the movie unchanged
+                      { ...movie },
+        );
+        // Update the movies array to be the new version
+        setMovies(modifiedMovies);
+    }
+
+    // Render each movie in a bulleted list
+    return (
+        <div>
+            <ol>
+                {movies.map(
+                    (movie: Movie): JSX.Element => (
+                        <li>
+                            {movie.name} ({movie.released}):
+                            <Button
+                                onClick={() =>
+                                    changeMovieSeen(movie.name, !movie.seen)
+                                }
+                            >
+                                {movie.seen ? "Seen" : "Not seen"}
+                            </Button>
+                        </li>
+                    ),
+                )}
+            </ol>
+        </div>
+    );
 }
 ```
 
@@ -77,46 +88,53 @@ In this example, we show a list of movies, each with a button next to them. Clic
 
 ```tsx
 interface Movie {
-  name: string
-  released: number
-  seen: boolean
+    name: string;
+    released: number;
+    seen: boolean;
 }
 
 const INITIAL_MOVIES: Movie[] = [
-  {name: "Kiki's Delivery Service", released: 1989, seen: true},
-  {name: "Ponyo", released: 2008, seen: false},
-  {name: "Howl's Moving Castle", released: 2004, seen: true},
-  {name: "Castle in the Sky", released: 1986, seen: true},
-  {name: "Arietty", released: 2010, seen: false},
-  {name: "Whisper of the Heart", released: 1995, seen: false}
-]
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
 
 export function App(): JSX.Element {
-  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
-  
-  function removeMovieByName(movieName: string) {
-    // Need to map a new version of the array
-    const modifiedMovies = movies.filter(
-      (movie: Movie): Movie =>
-        // If this movie is the target movie
-        movie.name !== movieName
-    );
-    // Update the movies array to be the new version
-    setMovies(modifiedMovies);
-  }
+    const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
 
-  // Render each movie in a bulleted list
-  return <div>
-    <ol>
-      {(movies.map((movie: Movie): JSX.Element => 
-        <li key={movie.name}>
-          {movie.name} ({movie.released}): 
-          <Button onClick={()=>removeMovieByName(movie.name)}>
-            Remove
-          </Button>
-      </li>))}
-    </ol>
-  </div>;
+    function removeMovieByName(movieName: string) {
+        // Need to filter a new version of the array
+        const modifiedMovies = movies.filter(
+            (movie: Movie): boolean =>
+                // If this movie is the target movie
+                movie.name !== movieName,
+        );
+        // Update the movies array to be the new version
+        setMovies(modifiedMovies);
+    }
+
+    // Render each movie in a bulleted list
+    return (
+        <div>
+            <ol>
+                {movies.map(
+                    (movie: Movie): JSX.Element => (
+                        <li key={movie.name}>
+                            {movie.name} ({movie.released}):
+                            <Button
+                                onClick={() => removeMovieByName(movie.name)}
+                            >
+                                Remove
+                            </Button>
+                        </li>
+                    ),
+                )}
+            </ol>
+        </div>
+    );
 }
 ```
 
@@ -126,18 +144,18 @@ This example shows off adding a new `Movie` to the end of the array of movies, i
 
 ```tsx
 interface Movie {
-  name: string
-  released: number
-  seen: boolean
+    name: string;
+    released: number;
+    seen: boolean;
 }
 
 const INITIAL_MOVIES: Movie[] = [
-  {name: "Kiki's Delivery Service", released: 1989, seen: true},
-  {name: "Ponyo", released: 2008, seen: false},
-  {name: "Howl's Moving Castle", released: 2004, seen: true},
-  {name: "Castle in the Sky", released: 1986, seen: true},
-  {name: "Arietty", released: 2010, seen: false},
-  {name: "Whisper of the Heart", released: 1995, seen: false}
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
 // Simplify type definition of the Change Event
@@ -145,61 +163,83 @@ type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
 // Simplify the Component's parameter's type
 interface AddMovieBoxParams {
-  // Consumes a function that consumes the name and released date
-  //  and returns nothing (because it's passed to a React State Setter).
-  // This is passed in much later
-  appendMovie: (n: string, r: number)=>void
+    // Consumes a function that consumes the name and released date
+    //  and returns nothing (because it's passed to a React State Setter).
+    // This is passed in much later
+    appendMovie: (n: string, r: number) => void;
 }
 
-export function AddMovieBox({appendMovie}: AddMovieBoxParams): JSX.Element {
-  // These will be the values for the new Movie
-  const [name, setName] = useState<string>('New Movie');
-  const [released, setReleased] = useState<number>(2022);
+export function AddMovieBox({ appendMovie }: AddMovieBoxParams): JSX.Element {
+    // These will be the values for the new Movie
+    const [name, setName] = useState<string>("New Movie");
+    const [released, setReleased] = useState<number>(2022);
 
-  // Provide forms for editing the new movie
-  // And also a button to append the movie
-  return <div>
-    <Form>
-      <Form.Group controlId="formMovieName">
-        <Form.Label>Name:</Form.Label>
-        <Form.Control type="text" value={name}
-          onChange={(event: ChangeEvent) => setName(event.target.value)} />
-      </Form.Group>
-    </Form>
-    <Form>
-      <Form.Group controlId="formMovieReleased">
-        <Form.Label>Released:</Form.Label>
-        <Form.Control type="number" value={released}
-          onChange={(event: ChangeEvent) => setReleased(event.target.value)} />
-      </Form.Group>
-    </Form>
-    <Button onClick={()=>appendMovie(name, released)}>Append</Button>
-  </div>;
+    // Provide forms for editing the new movie
+    // And also a button to append the movie
+    return (
+        <div>
+            <Form>
+                <Form.Group controlId="formMovieName">
+                    <Form.Label>Name:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={name}
+                        onChange={(event: ChangeEvent) =>
+                            setName(event.target.value)
+                        }
+                    />
+                </Form.Group>
+            </Form>
+            <Form>
+                <Form.Group controlId="formMovieReleased">
+                    <Form.Label>Released:</Form.Label>
+                    <Form.Control
+                        type="number"
+                        value={released}
+                        onChange={(event: ChangeEvent) =>
+                            setReleased(parseInt(event.target.value) || 0)
+                        }
+                    />
+                </Form.Group>
+            </Form>
+            <Button onClick={() => appendMovie(name, released)}>Append</Button>
+        </div>
+    );
 }
 
 export function App(): JSX.Element {
-  // The entire list of all movies
-  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
-  
-  function appendMovie(name: string, released: number) {
-    // Making a new array of movies, with an additional extra one
-    const modifiedMovies = [...movies, {
-      name: name, released: released, seen: false
-    }];
-    // Update the movies array to be the new version
-    setMovies(modifiedMovies);
-  }
+    // The entire list of all movies
+    const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
 
-  // Render each movie in a bulleted list, with an AddMovieBox below
-  return <div>
-    <ol>
-      {(movies.map((movie: Movie): JSX.Element => 
-        <li key={movie.name}>
-          {movie.name} ({movie.released})
-      </li>))}
-    </ol>
-    <AddMovieBox appendMovie={appendMovie}></AddMovieBox>
-  </div>;
+    function appendMovie(name: string, released: number) {
+        // Making a new array of movies, with an additional extra one
+        const modifiedMovies = [
+            ...movies,
+            {
+                name: name,
+                released: released,
+                seen: false,
+            },
+        ];
+        // Update the movies array to be the new version
+        setMovies(modifiedMovies);
+    }
+
+    // Render each movie in a bulleted list, with an AddMovieBox below
+    return (
+        <div>
+            <ol>
+                {movies.map(
+                    (movie: Movie): JSX.Element => (
+                        <li key={movie.name}>
+                            {movie.name} ({movie.released})
+                        </li>
+                    ),
+                )}
+            </ol>
+            <AddMovieBox appendMovie={appendMovie}></AddMovieBox>
+        </div>
+    );
 }
 ```
 
@@ -209,51 +249,63 @@ This next example allows for a more complicated operation: duplicating a Movie t
 
 ```tsx
 interface Movie {
-  name: string
-  released: number
-  seen: boolean
+    name: string;
+    released: number;
+    seen: boolean;
 }
 
 const INITIAL_MOVIES: Movie[] = [
-  {name: "Kiki's Delivery Service", released: 1989, seen: true},
-  {name: "Ponyo", released: 2008, seen: false},
-  {name: "Howl's Moving Castle", released: 2004, seen: true},
-  {name: "Castle in the Sky", released: 1986, seen: true},
-  {name: "Arietty", released: 2010, seen: false},
-  {name: "Whisper of the Heart", released: 1995, seen: false}
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
 export function App(): JSX.Element {
-  // The entire list of all movies
-  const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
-  
-  function duplicateMovie(targetName: string) {
-    // Find the target movie's index
-    const targetMovieIndex = movies.findIndex((movie: Movie):boolean =>
-      // Returns `true` if this is the movie with the target name
-      movie.name === targetName);
-    // Access the original movie
-    const originalMovie = movies[targetMovieIndex];
-    // Make a modified duplicate
-    const copiedMovie = {...originalMovie, name: "Copy of "+originalMovie.name};
-    // Make a new array based on the old array
-    const modifiedMovies = [... movies];
-    // Splice in the `copiedMovie` in the correct location (`1+targetMovieIndex`), with `0` deletions
-    modifiedMovies.splice(1+targetMovieIndex, 0, copiedMovie);
-    // Update the movies array to be the new version
-    setMovies(modifiedMovies);
-  }
+    // The entire list of all movies
+    const [movies, setMovies] = useState<Movie[]>(INITIAL_MOVIES);
 
-  // Render each movie in a bulleted list, with an AddMovieBox below
-  return <div>
-    <ol>
-      {(movies.map((movie: Movie): JSX.Element => 
-        <li key={movie.name}>
-          {movie.name} ({movie.released}):
-          <Button onClick={()=>duplicateMovie(movie.name)}>Duplicate</Button>
-      </li>))}
-    </ol>
-  </div>;
+    function duplicateMovie(targetName: string) {
+        // Find the target movie's index
+        const targetMovieIndex = movies.findIndex(
+            (movie: Movie): boolean =>
+                // Returns `true` if this is the movie with the target name
+                movie.name === targetName,
+        );
+        // Access the original movie
+        const originalMovie = movies[targetMovieIndex];
+        // Make a modified duplicate
+        const copiedMovie = {
+            ...originalMovie,
+            name: "Copy of " + originalMovie.name,
+        };
+        // Make a new array based on the old array
+        const modifiedMovies = [...movies];
+        // Splice in the `copiedMovie` in the correct location (`1+targetMovieIndex`), with `0` deletions
+        modifiedMovies.splice(1 + targetMovieIndex, 0, copiedMovie);
+        // Update the movies array to be the new version
+        setMovies(modifiedMovies);
+    }
+
+    // Render each movie in a bulleted list, with an AddMovieBox below
+    return (
+        <div>
+            <ol>
+                {movies.map(
+                    (movie: Movie): JSX.Element => (
+                        <li key={movie.name}>
+                            {movie.name} ({movie.released}):
+                            <Button onClick={() => duplicateMovie(movie.name)}>
+                                Duplicate
+                            </Button>
+                        </li>
+                    ),
+                )}
+            </ol>
+        </div>
+    );
 }
 ```
 
@@ -269,7 +321,7 @@ In the application below, we have a Record mapping strings to arrays of Emails, 
 interface Contact {
     id: number;
     name: string;
-    address: string;    
+    address: string;
 }
 
 interface Email {
@@ -283,71 +335,75 @@ interface Email {
 
 // Some example data
 const INBOXES = {
-  "Sent": [
-    {
-      id: 0,
-      subject: "Wanna be a BIG SHOT?",
-      body: "HEY EVERY !! IT'S ME!!!",
-      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
-      tags: ["spam", "offer", "junk"],
-      recipients: [
-        { id: 159, name: "Kris", address: "krisscross@light.ner"}
-      ]
-    },
-    {
-      id: 9,
-      subject: "RE: Simple Puppet",
-      body: "Let me become your strength.",
-      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
-      tags: ["correspondence", "sincere"],
-      recipients: [
-        { id: 159, name: "Kris", address: "krisscross@light.ner"},
-        { id: 173, name: "Susie", address: "biggator@light.ner"},
-        { id: 599, name: "Ralsei", address: "littlegoat@dark.ner"}
-      ]
-    }
-  ],
-  "Received": [
-    {
-      id: 49,
-      subject: "RE: Wanna be a BIG SHOT?",
-      body: "please leave me alone",
-      sender: { id: 159, name: "Kris", address: "krisscross@light.ner"},
-      tags: ["spam", "offer", "junk"],
-      recipients: [
-        { id: 14, name: "Spamton", address: "spamton@g.spamton" }
-      ]
-    }
-  ]
+    Sent: [
+        {
+            id: 0,
+            subject: "Wanna be a BIG SHOT?",
+            body: "HEY EVERY !! IT'S ME!!!",
+            sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+            tags: ["spam", "offer", "junk"],
+            recipients: [
+                { id: 159, name: "Kris", address: "krisscross@light.ner" },
+            ],
+        },
+        {
+            id: 9,
+            subject: "RE: Simple Puppet",
+            body: "Let me become your strength.",
+            sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+            tags: ["correspondence", "sincere"],
+            recipients: [
+                { id: 159, name: "Kris", address: "krisscross@light.ner" },
+                { id: 173, name: "Susie", address: "biggator@light.ner" },
+                { id: 599, name: "Ralsei", address: "littlegoat@dark.ner" },
+            ],
+        },
+    ],
+    Received: [
+        {
+            id: 49,
+            subject: "RE: Wanna be a BIG SHOT?",
+            body: "please leave me alone",
+            sender: { id: 159, name: "Kris", address: "krisscross@light.ner" },
+            tags: ["spam", "offer", "junk"],
+            recipients: [
+                { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+            ],
+        },
+    ],
 };
 
 function App(): JSX.Element {
-  const [ inboxes, setInboxes ] = useState<Record<string, Email[]>>(INBOXES);
+    const [inboxes, setInboxes] = useState<Record<string, Email[]>>(INBOXES);
 
-  return <div>
-    {
-      Object.entries(inboxes).map(([name, emails]: [string, Email[]])=> (
-        <div className="border p-4">
-          <h3>{name}</h3>
-          <div>
-            { 
-              emails.map((email: Email) => (
-                <div className="border m-1 p-1 bg-light">
-                  <strong>Subject: {email.subject}</strong>
-                  <ul>
-                    {
-                      email.recipients.map((recipient: Contact) => (
-                        <li>{recipient.name} ({recipient.address})</li>
-                      ))
-                    }
-                  </ul>
-                </div>
-            ))}
-          </div>
+    return (
+        <div>
+            {Object.entries(inboxes).map(
+                ([name, emails]: [string, Email[]]) => (
+                    <div className="border p-4">
+                        <h3>{name}</h3>
+                        <div>
+                            {emails.map((email: Email) => (
+                                <div className="border m-1 p-1 bg-light">
+                                    <strong>Subject: {email.subject}</strong>
+                                    <ul>
+                                        {email.recipients.map(
+                                            (recipient: Contact) => (
+                                                <li>
+                                                    {recipient.name} (
+                                                    {recipient.address})
+                                                </li>
+                                            ),
+                                        )}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ),
+            )}
         </div>
-      ))
-    }
-  </div>;
+    );
 }
 ```
 
@@ -360,47 +416,56 @@ Here are some examples of functions that add new data.
 type Inboxes = Record<string, Email[]>;
 
 function addInbox(inboxes: Inboxes, name: string): Inboxes {
-  return {
-    // Copy over all the old ones unchanged
-    ...inboxes,
-    // Wrap a key in square brackets to use the variable
-    // Otherwise we end up with literal key "name" instead of the argument
-    [name]: []
-  }
+    return {
+        // Copy over all the old ones unchanged
+        ...inboxes,
+        // Wrap a key in square brackets to use the variable
+        // Otherwise we end up with literal key "name" instead of the argument
+        [name]: [],
+    };
 }
 
 // e.g., an add button could then be implemented with the following lambda function:
 // () => setInboxes(addInbox(inboxes, newInboxName))
 
-function addEmail(inboxes: Inboxes, inboxName: string, newEmail: Email): Inboxes {
-  return {
-    ...inboxes,
-    [inboxName]: [
-      // Copy over the existing inboxes' emails, if any
-      ...inboxes[inboxName],
-      // And include the new one
-      newEmail
-    ]
-  }
+function addEmail(
+    inboxes: Inboxes,
+    inboxName: string,
+    newEmail: Email,
+): Inboxes {
+    return {
+        ...inboxes,
+        [inboxName]: [
+            // Copy over the existing inboxes' emails, if any
+            ...inboxes[inboxName],
+            // And include the new one
+            newEmail,
+        ],
+    };
 }
 
-function addRecipient(inboxes: Inboxes, inboxName: string, emailId: number, newContact: Contact): Inboxes {
-  return {
-    ...inboxes,
-    [inboxName]: inboxes[inboxName].map((email: Email) => (
-      // Check if this email is the target
-      email.id !== emailId ?
-        // If it isn't, leave it unchanged
-        email :
-        // But if it IS, then create a new one based on the old one
-        {
-          // Copy over old properties
-          ...email,
-          // Change the recipients to also have the new contact
-          recipients: [...email.recipients, newContact]
-        }
-    ))
-  }
+function addRecipient(
+    inboxes: Inboxes,
+    inboxName: string,
+    emailId: number,
+    newContact: Contact,
+): Inboxes {
+    return {
+        ...inboxes,
+        [inboxName]: inboxes[inboxName].map((email: Email) =>
+            // Check if this email is the target
+            email.id !== emailId
+                ? // If it isn't, leave it unchanged
+                  email
+                : // But if it IS, then create a new one based on the old one
+                  {
+                      // Copy over old properties
+                      ...email,
+                      // Change the recipients to also have the new contact
+                      recipients: [...email.recipients, newContact],
+                  },
+        ),
+    };
 }
 ```
 
@@ -413,52 +478,63 @@ Here's some examples of editing nested data instead of adding.
 type Inboxes = Record<string, Email[]>;
 
 // Only have to manipulate one level
-function editEmailSubject(inboxes: Inboxes, inboxName: string, emailId: number, newSubject: string): Inboxes {
-  return {
-    ...inboxes,
-    [inboxName]: inboxes[inboxName].map((email: Email) => (
-      email.id !== emailId ?
-        email :
-        {
-          ...email,
-          subject: newSubject
-        }
-    ))
-  }
+function editEmailSubject(
+    inboxes: Inboxes,
+    inboxName: string,
+    emailId: number,
+    newSubject: string,
+): Inboxes {
+    return {
+        ...inboxes,
+        [inboxName]: inboxes[inboxName].map((email: Email) =>
+            email.id !== emailId
+                ? email
+                : {
+                      ...email,
+                      subject: newSubject,
+                  },
+        ),
+    };
 }
 
 // Need to manipulate two levels
-function editRecipientAddress(inboxes: Inboxes, inboxName: string, emailId: number, contactId: number, newAddress: string): Inboxes {
-  return {
-    // Copy over all the old ones unchanged
-    ...inboxes,
-    // But change the target inboxes' emails accordingly
-    [inboxName]: inboxes[inboxName].map((email: Email) => (
-      // Check if this email is the target
-      email.id !== emailId ?
-        // If it isn't, leave the email unchanged
-        email :
-        // But if it IS, then create a new Email based on the old one
-        {
-          // Copy over old properties
-          ...email,
-          // Change the recipients to also have the new contact
-          recipients: email.recipients.map((contact: Contact) => (
-            // Check if this contact is the target
-            contact.id !== contactId ?
-              // If it isn't, then leave the contact unchanged
-              contact :
-              // But if it IS, then create a new Contact based on the old one
-              {
-                // Copy over old properties
-                ...contact,
-                // Change the target attribute
-                address: newAddress
-              }
-          ))
-        }
-    ))
-  }
+function editRecipientAddress(
+    inboxes: Inboxes,
+    inboxName: string,
+    emailId: number,
+    contactId: number,
+    newAddress: string,
+): Inboxes {
+    return {
+        // Copy over all the old ones unchanged
+        ...inboxes,
+        // But change the target inboxes' emails accordingly
+        [inboxName]: inboxes[inboxName].map((email: Email) =>
+            // Check if this email is the target
+            email.id !== emailId
+                ? // If it isn't, leave the email unchanged
+                  email
+                : // But if it IS, then create a new Email based on the old one
+                  {
+                      // Copy over old properties
+                      ...email,
+                      // Change the recipients to also have the new contact
+                      recipients: email.recipients.map((contact: Contact) =>
+                          // Check if this contact is the target
+                          contact.id !== contactId
+                              ? // If it isn't, then leave the contact unchanged
+                                contact
+                              : // But if it IS, then create a new Contact based on the old one
+                                {
+                                    // Copy over old properties
+                                    ...contact,
+                                    // Change the target attribute
+                                    address: newAddress,
+                                },
+                      ),
+                  },
+        ),
+    };
 }
 ```
 
@@ -470,29 +546,45 @@ having a lot of functions and having a lot of nesting. You can easily go too far
 and think about what you will want to test.
 
 ```tsx
-function editRecipientAddress(contact: Contact, contactId: number, newAddress: string): Contact {
-  return contact.id !== contactId ?
-    contact :
-    { ...contact, address: newAddress };
+function editRecipientAddress(
+    contact: Contact,
+    contactId: number,
+    newAddress: string,
+): Contact {
+    return contact.id !== contactId
+        ? contact
+        : { ...contact, address: newAddress };
 }
 
-function editEmailRecipientAddress(email: Email, emailId: number, contactId: number, newAddress: string): Email {
-  return email.id !== emailId ? email :
-    {
-      ...email,
-      recipients: email.recipients.map(
-        (contact: Contact) => editRecipientAddress(contact, contactId, newAddress)
-      ) 
+function editEmailRecipientAddress(
+    email: Email,
+    emailId: number,
+    contactId: number,
+    newAddress: string,
+): Email {
+    return email.id !== emailId
+        ? email
+        : {
+              ...email,
+              recipients: email.recipients.map((contact: Contact) =>
+                  editRecipientAddress(contact, contactId, newAddress),
+              ),
+          };
+}
+
+function editInboxEmailRecipientAddress(
+    inboxes: Inboxes,
+    inboxName: string,
+    emailId: number,
+    contactId: number,
+    newAddress: string,
+): Inboxes {
+    return {
+        ...inboxes,
+        [inboxName]: inboxes[inboxName].map((email: Email) =>
+            editEmailRecipientAddress(email, emailId, contactId, newAddress),
+        ),
     };
-}
-
-function editInboxEmailRecipientAddress(inboxes: Inboxes, inboxName: string, emailId: number, contactId: number, newAddress: string): Inboxes {
-  return {
-    ...inboxes,
-    [inboxName]: inboxes[inboxName].map(
-        (email: Email) => editEmailRecipientAddress(email, emailId, contactId, newAddress)
-    )
-  }
 }
 ```
 
@@ -504,17 +596,20 @@ given interface". In the example below, we say that the second argument must be 
 
 This is a rabbit hole and I don't want to get into it. You can read [more in the official docs](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html).
 
-
 ```tsx
 // The `keyof` operator allows us to reference keys dynamically!
-function updateContactAttr(contact: Contact, key: keyof Contact, value: Contact[keyof Contact]) {
+function updateContactAttr(
+    contact: Contact,
+    key: keyof Contact,
+    value: Contact[keyof Contact],
+) {
     return {
-        ...contact, 
-        [key]: value
-    }
+        ...contact,
+        [key]: value,
+    };
 }
 
-console.log(updateContactAttr(INBOXES.Sent[0].sender, "name", "Bob"))
+console.log(updateContactAttr(INBOXES.Sent[0].sender, "name", "Bob"));
 
 // Can now also write this in `editEmailRecipientAddress` from before:
 //    (contact: Contact) => updateContactAttr(contact, "address", newAddress)
@@ -531,7 +626,7 @@ We could have avoided a lot of the parameters by using closures and putting the 
 interface Contact {
     id: number;
     name: string;
-    address: string;    
+    address: string;
 }
 
 interface Email {
@@ -545,97 +640,115 @@ interface Email {
 
 // Some example data
 const INBOXES = {
-  "Sent": [
-    {
-      id: 0,
-      subject: "Wanna be a BIG SHOT?",
-      body: "HEY EVERY !! IT'S ME!!!",
-      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
-      tags: ["spam", "offer", "junk"],
-      recipients: [
-        { id: 159, name: "Kris", address: "krisscross@light.ner"}
-      ]
-    },
-    {
-      id: 9,
-      subject: "RE: Simple Puppet",
-      body: "Let me become your strength.",
-      sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
-      tags: ["correspondence", "sincere"],
-      recipients: [
-        { id: 159, name: "Kris", address: "krisscross@light.ner"},
-        { id: 173, name: "Susie", address: "biggator@light.ner"},
-        { id: 599, name: "Ralsei", address: "littlegoat@dark.ner"}
-      ]
-    }
-  ],
-  "Received": [
-    {
-      id: 49,
-      subject: "RE: Wanna be a BIG SHOT?",
-      body: "please leave me alone",
-      sender: { id: 159, name: "Kris", address: "krisscross@light.ner"},
-      tags: ["spam", "offer", "junk"],
-      recipients: [
-        { id: 14, name: "Spamton", address: "spamton@g.spamton" }
-      ]
-    }
-  ]
+    Sent: [
+        {
+            id: 0,
+            subject: "Wanna be a BIG SHOT?",
+            body: "HEY EVERY !! IT'S ME!!!",
+            sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+            tags: ["spam", "offer", "junk"],
+            recipients: [
+                { id: 159, name: "Kris", address: "krisscross@light.ner" },
+            ],
+        },
+        {
+            id: 9,
+            subject: "RE: Simple Puppet",
+            body: "Let me become your strength.",
+            sender: { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+            tags: ["correspondence", "sincere"],
+            recipients: [
+                { id: 159, name: "Kris", address: "krisscross@light.ner" },
+                { id: 173, name: "Susie", address: "biggator@light.ner" },
+                { id: 599, name: "Ralsei", address: "littlegoat@dark.ner" },
+            ],
+        },
+    ],
+    Received: [
+        {
+            id: 49,
+            subject: "RE: Wanna be a BIG SHOT?",
+            body: "please leave me alone",
+            sender: { id: 159, name: "Kris", address: "krisscross@light.ner" },
+            tags: ["spam", "offer", "junk"],
+            recipients: [
+                { id: 14, name: "Spamton", address: "spamton@g.spamton" },
+            ],
+        },
+    ],
 };
 
-function addHeart(inboxes: Inboxes, inboxName: string, emailId: number, contactId: number): Inboxes {
-  return {
-    ...inboxes,
-    [inboxName]: inboxes[inboxName].map((email: Email) => (
-      email.id !== emailId ?
-        email :
-        {
-          ...email,
-          recipients: email.recipients.map((contact: Contact) => (
-            contact.id !== contactId ?
-              contact :
-              {
-                ...contact,
-                name: contact.name + "❤️"
-              }
-          ))
-        }
-    ))
-  }
+function addHeart(
+    inboxes: Inboxes,
+    inboxName: string,
+    emailId: number,
+    contactId: number,
+): Inboxes {
+    return {
+        ...inboxes,
+        [inboxName]: inboxes[inboxName].map((email: Email) =>
+            email.id !== emailId
+                ? email
+                : {
+                      ...email,
+                      recipients: email.recipients.map((contact: Contact) =>
+                          contact.id !== contactId
+                              ? contact
+                              : {
+                                    ...contact,
+                                    name: contact.name + "❤️",
+                                },
+                      ),
+                  },
+        ),
+    };
 }
 
 function App(): JSX.Element {
-  const [ inboxes, setInboxes ] = useState<Record<string, Email[]>>(INBOXES);
+    const [inboxes, setInboxes] = useState<Record<string, Email[]>>(INBOXES);
 
-  return <div>
-    {
-      Object.entries(inboxes).map(([inbox, emails]: [string, Email[]])=> (
-        <div className="border p-4">
-          <h3>{inbox}</h3>
-          <div>
-            { 
-              emails.map((email: Email) => (
-                <div className="border m-1 p-1 bg-light">
-                  <strong>Subject: {email.subject}</strong>
-                  <ul>
-                    {
-                      email.recipients.map((recipient: Contact) => (
-                        <li>
-                          {recipient.name} ({recipient.address})
-                          <Button onClick={
-                            ()=>setInboxes(addHeart(inboxes, inbox, email.id, recipient.id))
-                          }>Heart!</Button>
-                        </li>
-                      ))
-                    }
-                  </ul>
-                </div>
-            ))}
-          </div>
+    return (
+        <div>
+            {Object.entries(inboxes).map(
+                ([inbox, emails]: [string, Email[]]) => (
+                    <div className="border p-4">
+                        <h3>{inbox}</h3>
+                        <div>
+                            {emails.map((email: Email) => (
+                                <div className="border m-1 p-1 bg-light">
+                                    <strong>Subject: {email.subject}</strong>
+                                    <ul>
+                                        {email.recipients.map(
+                                            (recipient: Contact) => (
+                                                <li>
+                                                    {recipient.name} (
+                                                    {recipient.address})
+                                                    <Button
+                                                        onClick={() =>
+                                                            setInboxes(
+                                                                addHeart(
+                                                                    inboxes,
+                                                                    inbox,
+                                                                    email.id,
+                                                                    recipient.id,
+                                                                ),
+                                                            )
+                                                        }
+                                                    >
+                                                        Heart!
+                                                    </Button>
+                                                </li>
+                                            ),
+                                        )}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ),
+            )}
         </div>
-      ))
-    }
-  </div>;
+    );
 }
 ```
 
@@ -643,7 +756,7 @@ function App(): JSX.Element {
 
 # Record State
 
-A common alternative to an "array of objects" is a "record of objects", mapping IDs (often strings or numbers) to each object. This takes advantage of the algorithmic time complexity of hash-based data structures to quickly speed up accessing a specific object. This is necessarily more complicated. 
+A common alternative to an "array of objects" is a "record of objects", mapping IDs (often strings or numbers) to each object. This takes advantage of the algorithmic time complexity of hash-based data structures to quickly speed up accessing a specific object. This is necessarily more complicated.
 
 Unfortunately, we don't really have time to explain this idea in more depth. In future versions of the Tome, we definitely will write up a cool bunch of paragraphs here. But for now, we're just telling you that it exists and suggesting you play with it more if you get the chance.
 

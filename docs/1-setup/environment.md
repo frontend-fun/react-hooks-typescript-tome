@@ -26,7 +26,6 @@ Do not skip steps.
 
 Read error messages, and ask questions. Talk to humans as needed to get help, and use google intelligently.
 
-
 # Installations
 
 There's a bunch of Software that you need on your machine. We aren't providing instructions for most of these. Seek help proactively.
@@ -35,8 +34,8 @@ There's a bunch of Software that you need on your machine. We aren't providing i
 2. [Install Node](https://nodejs.org/en/download/): You can use the LTS version. You may need to reinstall Node if you do not have at least the LTS version. Make sure you have `node` on your path by running `npm --version`
 3. [Install VS Code](https://code.visualstudio.com/download): This is an editor that you can open files and folders in.
 4. Install React Devtools: This is a browser extension that will work on pages that have React running (like this one!). You only need one of these, for whichever browser you're using. We do most of our testing in Chrome, personally.
-   1. [For Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
-   2. [For FireFox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
+    1. [For Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+    2. [For FireFox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
 5. Install the Prettier Plugin for VS Code using the menu shown below (last tab on the left, type in `prettier`, and then click `install`).
 
 ![Screenshot of Installing the Prettier Extension in VS Code](../images/prettier.png)
@@ -63,7 +62,7 @@ You'll need to enable Workflow actions in your forked repository; go to the Acti
 
 ![Github Settings](../images/github_settings.png)
 
-4. Scroll down to the "Github Pages" section. 
+4. Scroll down to the "Github Pages" section.
 
 ![Github Pages](../images/pages_settings.png)
 
@@ -75,7 +74,7 @@ You'll need to enable Workflow actions in your forked repository; go to the Acti
 
 ![Check Workflow](../images/check_workflow.png)
 
-If the workflow doesn't seem to be running, click "Deploy dev build on main push" and then click "Run workflow". This will manually trigger the workflow to run, although you may have to reload the page to see it.
+If the workflow doesn't seem to be running, click "Deploy main branch as website" and then click "Run workflow". This will manually trigger the workflow to run, although you may have to reload the page to see it.
 
 ![Run Workflow](../images/run_workflow.png)
 
@@ -136,7 +135,7 @@ Edit `src/App.tsx` to include your name somewhere in the `return` statement, alo
 
 Save the file, and then check the website again in your browser. The site should update automatically.
 
-Once you have visually confirmed the text is there, you can use `CTRL+C` to cancel the `npm run start` command running in the termainal, so you can run other commands. 
+Once you have visually confirmed the text is there, you can use `CTRL+C` to cancel the `npm run start` command running in the termainal, so you can run other commands.
 
 The next command to run is the tests, which will give another perspective on whether you are meeting our requirements:
 
@@ -148,17 +147,17 @@ So far, we only have one test, which checks to make sure that the text `CISC275`
 
 # Deploying the Site
 
-The window that appeared is showing your website running from a local webserver. You cannot share its link with other people, because that webserver is only available on your computer. Fortunately, we can *deploy* the web application through GitHub.
+The window that appeared is showing your website running from a local webserver. You cannot share its link with other people, because that webserver is only available on your computer. Fortunately, we can _deploy_ the web application through GitHub.
 
-GitHub is a platform that lets us store copies of our code as it changes over time ("Version Control"), share that code with others, and even host simple websites. Projects are organized into repositories, and changes to the repository over time are organized into "commits". When you change your source code, you need to *commit* the changes and *push* them to the remote version of the repository.
+GitHub is a platform that lets us store copies of our code as it changes over time ("Version Control"), share that code with others, and even host simple websites. Projects are organized into repositories, and changes to the repository over time are organized into "commits". When you change your source code, you need to _commit_ the changes and _push_ them to the remote version of the repository.
 
-Before you can make a commit, you must *stage* file any files that you want to include in the commit as being changed. You can quickly list files via the third menu on the left of Visual Studio Code, or using this terminal command:
+Before you can make a commit, you must _stage_ file any files that you want to include in the commit as being changed. You can quickly list files via the third menu on the left of Visual Studio Code, or using this terminal command:
 
 ```sh
 $> git status
 ```
 
-The only file we should have edited by now is `App.tsx`, so that will be listed. We need to *add* this file to the *stage* list, write a *commit* message, and then *push* the change. You can do this through the VS Code interface, or through the command line:
+The only file we should have edited by now is `App.tsx`, so that will be listed. We need to _add_ this file to the _stage_ list, write a _commit_ message, and then _push_ the change. You can do this through the VS Code interface, or through the command line:
 
 ```sh
 $> git add src/App.tsx

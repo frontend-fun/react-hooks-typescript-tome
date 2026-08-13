@@ -38,13 +38,13 @@ You can use array types just like any other type, so they can be used for functi
 ```typescript
 // Function that consumes an array of numbers
 const summate = (numbers: number[]): number => {
-  // ...
-}
+    // ...
+};
 
 // Function that consumes an array of strings and produces an array of strings
 const removeQuestions = (sentences: string[]): string[] => {
-  // ...
-}
+    // ...
+};
 ```
 
 # Reference equality vs value equality
@@ -66,7 +66,7 @@ console.log(x === z);
 
 Run the code to see. Then look at the below if you got it wrong.
 
-The variable `y` is a separate array from `x`. Modifying `x` does not affect `y`. JavaScript equality tests that two arrays have the same *reference*, not the same *contents*. It doesn't matter what is inside, it basically matters if they are the same place in memory.
+The variable `y` is a separate array from `x`. Modifying `x` does not affect `y`. JavaScript equality tests that two arrays have the same _reference_, not the same _contents_. It doesn't matter what is inside, it basically matters if they are the same place in memory.
 
 The variable `z` is pointing at the same array as `x`. So it's not a separate array. Anytime you modify `x`, you are also modifying `z`. This example below might give you a better mental model:
 
@@ -82,7 +82,10 @@ const drBartsGrades = myGrades;
 myGrades.push(55);
 
 // Which of these evaluate to true?
-console.log("myGrades is the same as drBartsGrades:", myGrades === drBartsGrades);
+console.log(
+    "myGrades is the same as drBartsGrades:",
+    myGrades === drBartsGrades,
+);
 console.log("myGrades is not the same as yourGrades:", myGrades !== yourGrades);
 ```
 
@@ -151,13 +154,13 @@ console.log(prices);
 
 // GOAL: Insert 499 after the 8 (aka after index 2)
 // Make a duplicate of the original array
-const pricesInside = [...prices]
+const pricesInside = [...prices];
 // Use the Array's `splice` method that mutates the cloned array
 // Splice takes three arguments: the new position, the number of
-//    deletions, and then the new element 
-pricesInside.splice(2, 0, 499)
+//    deletions, and then the new element
+pricesInside.splice(2, 0, 499);
 
-console.log(pricesInside)
+console.log(pricesInside);
 // [10, 8, 499, 9, 7, 55]
 ```
 
@@ -184,17 +187,17 @@ Let's use this to modify every element of the array.
 const prices = [13, 7, 8, 2];
 
 // Using `map` - awesome!
-const doubled = prices.map((price: number): number => price*2);
+const doubled = prices.map((price: number): number => price * 2);
 console.log(doubled);
 
 // Foreach loop style - do not use this!
-let doubled = [];
+let doubledLoop = [];
 for (const price of prices) {
-  doubled.push(price);
-  // Alternative Immutable style which we won't use either:
-  // doubled = [...doubled, price];
+    doubledLoop.push(2 * price);
+    // Alternative Immutable style which we won't use either:
+    // doubledLoop = [...doubledLoop, price];
 }
-console.log(doubled);
+console.log(doubledLoop);
 ```
 
 Then what if we want to convert an array? WE STILL USE MAP. We can change the return type to be something besides the original element type.
@@ -202,7 +205,7 @@ Then what if we want to convert an array? WE STILL USE MAP. We can change the re
 ```typescript
 const prices = [13, 7, 8, 2];
 
-const dollars = prices.map((price: number): string => "$"+price.toString());
+const dollars = prices.map((price: number): string => "$" + price.toString());
 console.log(dollars);
 ```
 
@@ -251,9 +254,9 @@ const prices = [13, 7, 8, 2, 19];
 
 let lowPrices = [];
 for (const price of prices) {
-  if (price < 10) {
-    lowPrices.push(price);
-  }
+    if (price < 10) {
+        lowPrices.push(price);
+    }
 }
 console.log(lowPrices);
 ```
@@ -265,14 +268,15 @@ const sentences = ["How are you?", "I am great.", "Oh really?"];
 
 const questions = sentences.filter(
     // Check if the string in `sentence` includes the substring "?"
-    (sentence: string): boolean => sentence.includes("?"));
+    (sentence: string): boolean => sentence.includes("?"),
+);
 // Get the `length` of the array
 console.log("There were", questions.length, "questions.");
 ```
 
 # Conditionally Modify Array
 
-So we saw how to REMOVE elements from an array, and how to CHANGE elements in an array. What if we want to CHANGE SOME OF THE ELEMENTS in the array? Sometimes folks get confused and think they need `filter`, but you actually need to use `map`. Think about it - the list is still the same size, we're just changing some of the elements. The confusing part is that we still need a *question*.
+So we saw how to REMOVE elements from an array, and how to CHANGE elements in an array. What if we want to CHANGE SOME OF THE ELEMENTS in the array? Sometimes folks get confused and think they need `filter`, but you actually need to use `map`. Think about it - the list is still the same size, we're just changing some of the elements. The confusing part is that we still need a _question_.
 
 Let's say we want to double all the "small" prices (prices less than $10). We can use the ternary `?` operator, which we saw in the previous chapter, to write this succinctly.
 
@@ -280,8 +284,8 @@ Let's say we want to double all the "small" prices (prices less than $10). We ca
 const prices = [13, 7, 8, 2, 19];
 
 const doubledLowPrices = prices.map(
-  // If the price is less than 10, double the price, otherwise use the price unchanged
-  (price: number): number => (price < 10) ? (2 * price) : price
+    // If the price is less than 10, double the price, otherwise use the price unchanged
+    (price: number): number => (price < 10 ? 2 * price : price),
 );
 console.log(doubledLowPrices);
 ```
@@ -294,11 +298,11 @@ const prices = [13, 7, 8, 2, 19];
 
 let doubledLowPrices = [];
 for (const price of prices) {
-  if (price < 10) {
-    doubledLowPrices.push(2 * price);
-  } else {
-    doubledLowPrices.push(price);
-  }
+    if (price < 10) {
+        doubledLowPrices.push(2 * price);
+    } else {
+        doubledLowPrices.push(price);
+    }
 }
 console.log(doubledLowPrices);
 ```
@@ -318,31 +322,34 @@ reduce:
 
 People tend to get confused by the `reduce` function, because it's weirder. It has an extra parameter (`initialValue`) and its function (the "reducer") has two parameters instead of one.
 
-The `reduce` function makes more sense when you see how it connects to a classic `for` or `foreach` loop accumulation. The idea is that you have an "in-progress" variable with some initial value that is defined *outside* of the loop and updated *inside* of the loop. 
+The `reduce` function makes more sense when you see how it connects to a classic `for` or `foreach` loop accumulation. The idea is that you have an "in-progress" variable with some initial value that is defined _outside_ of the loop and updated _inside_ of the loop.
 
 ```typescript
 const prices = [13, 7, 8, 2];
 
 // Using `reduce` method - awesome!
-const sum = prices.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
-console.log(sum);
+const sumReduce = prices.reduce(
+    (currentTotal: number, num: number) => currentTotal + num,
+    0,
+);
+console.log(sumReduce);
 
 // Foreach style - do not use!
 let currentTotal = 0;
 for (const num of prices) {
-  currentTotal += num;
+    currentTotal += num;
 }
-const sum = currentTotal;
-console.log(sum);
+const sumForeach = currentTotal;
+console.log(sumForeach);
 
 // For style - do not use!
 let currentTotal = 0;
-for (let i=0; i < prices.length; i+=1) {
-  const num = prices[i];
-  currentTotal += num;
+for (let i = 0; i < prices.length; i += 1) {
+    const num = prices[i];
+    currentTotal += num;
 }
-const sum = currentTotal;
-console.log(sum);
+const sumFor = currentTotal;
+console.log(sumFor);
 ```
 
 # Other Array Operations
@@ -357,7 +364,9 @@ const firstLowPrice = prices.find((price: number): boolean => price < 10);
 console.log("First low price is", firstLowPrice);
 
 // `findIndex` gives you the index of the element matching a condition
-const firstLowPriceIndex = prices.findIndex((price: number): boolean => price < 10);
+const firstLowPriceIndex = prices.findIndex(
+    (price: number): boolean => price < 10,
+);
 console.log("Index of first low price is", firstLowPriceIndex);
 
 // `every` checks if a condition holds for each element (repeatedly and)
@@ -383,7 +392,6 @@ console.log("The prices in descending order are", descendingPrices);
 const priceCount = prices.length;
 console.log("There are", priceCount, "prices");
 ```
-
 
 # 📝 Task - Arrays
 

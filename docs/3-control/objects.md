@@ -29,7 +29,12 @@ It's actually really convenient. You use `{}` to make a new object.
 ```typescript
 let drBart = { title: "Dr. Bart", shirtColor: "blue", isProfessor: true };
 let ada = { height: 23, name: "Ada Bart" };
-let cisc275 = { id: "CISC275", seats: 80, online: false, labs: ['20', '21', '22'] };
+let cisc275 = {
+    id: "CISC275",
+    seats: 80,
+    online: false,
+    labs: ["20", "21", "22"],
+};
 let emptyObject = {};
 
 // Get fields
@@ -38,10 +43,10 @@ console.log(ada.height);
 console.log(cisc275.labs);
 
 // Fields are case-sensitive; this logs `undefined`
-console.log(drBart.Title)
+console.log(drBart.Title);
 
 // If fields don't exist, then `undefined` is produced
-console.log(emptyObject.name)
+console.log(emptyObject.name);
 ```
 
 ## Object-Oriented Programming vs. Functional Programming
@@ -70,7 +75,7 @@ const bakedIngredients = bake(mixedIngredients);
 const result = serve(bakedIngredients);
 ```
 
-The true differences extend far beyond this simplistic example, but you can start getting the idea of the experience as a programmer. With Object-Oriented Programming, you call methods that manipulate the mutable state of the object; you always have a `recipe`, you just change its state over time. On the other hand, the Functional Style has you calling functions that create a new object at each step, as the state changes over time. 
+The true differences extend far beyond this simplistic example, but you can start getting the idea of the experience as a programmer. With Object-Oriented Programming, you call methods that manipulate the mutable state of the object; you always have a `recipe`, you just change its state over time. On the other hand, the Functional Style has you calling functions that create a new object at each step, as the state changes over time.
 
 Someone may try to tell you that Object-Oriented or Functional programming is superior to the other. They may also suggest other kinds of programming styles. Don't believe the hype. All of these different styles are just tools for your toolkit. You use the right tool for the right job. Get experience with every kind of programming style that you can, and you will eventually learn what the best tool to reach for a given problem is. There's a lot of personal preference involved, but that preference will change over time. Someday, you too will be amused when you hear people advocate for one style over another.
 
@@ -80,13 +85,16 @@ For now, though, we're going to focus on learning to work in a Functional Style.
 const originalNumbers = [10, 20, 30, 40];
 console.log(originalNumbers);
 
-const doubledNumbers = originalNumbers.map((num: number): number => num*2);
+const doubledNumbers = originalNumbers.map((num: number): number => num * 2);
 console.log(doubledNumbers);
 
 const smallNumbers = doubledNumbers.filter((num: number): boolean => num < 30);
 console.log(smallNumbers);
 
-const sum = smallNumbers.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
+const sum = smallNumbers.reduce(
+    (currentTotal: number, num: number) => currentTotal + num,
+    0,
+);
 console.log(sum);
 ```
 
@@ -108,7 +116,7 @@ Instead, we will be creating new objects based on old objects, using the spread 
 
 ```typescript
 const myPhone = { brand: "Samsung", model: "Galaxy", batteryLeft: 97 };
-console.log("Before": myPhone.batteryLeft);
+console.log("Before:", myPhone.batteryLeft);
 
 // Creates an entirely new phone based on the old one, with a
 //    different value for batteryLeft
@@ -125,11 +133,25 @@ console.log("New player:", player.score, player.money, player.position);
 
 // Make an unchanged copy
 const copyPlayer = { ...player };
-console.log("New player:", copyPlayer.score, copyPlayer.money, copyPlayer.position);
+console.log(
+    "New player:",
+    copyPlayer.score,
+    copyPlayer.money,
+    copyPlayer.position,
+);
 
 // Modify multiple fields at once (double the score, increase position by one)
-const advancedPlayer = { ...player, score: player.score*2, position: player.position+1 }
-console.log("New player:", advancedPlayer.score, advancedPlayer.money, advancedPlayer.position);
+const advancedPlayer = {
+    ...player,
+    score: player.score * 2,
+    position: player.position + 1,
+};
+console.log(
+    "New player:",
+    advancedPlayer.score,
+    advancedPlayer.money,
+    advancedPlayer.position,
+);
 ```
 
 ## Nested Fields
@@ -137,12 +159,12 @@ console.log("New player:", advancedPlayer.score, advancedPlayer.money, advancedP
 When you are updating fields that have a data structure (like an array or another object), things get a little trickier. We have to be very careful to avoid modifying the original. Therefore, we do a nested copy.
 
 ```typescript
-const student = { name: "Ada", grades: [100, 99, 78, 97]};
+const student = { name: "Ada", grades: [100, 99, 78, 97] };
 
 const studentWithNewGrade = {
-  ...student,
-  grades: [...student.grades, 100]
-}
+    ...student,
+    grades: [...student.grades, 100],
+};
 console.log("Original student grades:", student.grades);
 console.log("New version's grades:", studentWithNewGrade.grades);
 ```
@@ -157,30 +179,30 @@ The data inside of an object is organized into "fields" or "attributes" (you cou
 
 ```typescript
 interface Dog {
-  name: string
-  age: number
-  // Type union of strings, must be one of these options
-  breed: "Corgi" | "Chihuahua" | "Mutt"
-  fuzzy: boolean
+    name: string;
+    age: number;
+    // Type union of strings, must be one of these options
+    breed: "Corgi" | "Chihuahua" | "Mutt";
+    fuzzy: boolean;
 }
 
-const ada: Dog = {name: "Ada Bart", breed: "Corgi", age: 4, fuzzy: true };
+const ada: Dog = { name: "Ada Bart", breed: "Corgi", age: 4, fuzzy: true };
 console.log(ada.name);
 console.log(ada.age);
 
-const olderAda = {...ada, age: ada.age+1 };
+const olderAda = { ...ada, age: ada.age + 1 };
 console.log(ada.age);
 
 function makeCorgi(name: string): Dog {
-  return {name: name, breed: "Corgi", age: 1, fuzzy: true};
+    return { name: name, breed: "Corgi", age: 1, fuzzy: true };
 }
 
 function groomDog(dog: Dog): Dog {
-  return {... dog, fuzzy: false };
+    return { ...dog, fuzzy: false };
 }
 
 function ageInHumanYears(dog: Dog): number {
-  return dog.age * 7;
+    return dog.age * 7;
 }
 
 const grace = makeCorgi("Grace");
@@ -195,20 +217,20 @@ console.log("After grooming, is Ada fuzzy?", fancyAda.fuzzy);
 
 # Records
 
-If you paid attention in Data Structures, you know that Hash Maps are the best thing ever. Python calls them Dictionaries, some languages call them Tables, but the idea is that you can look up a value given a key. Unlike an object, you can have any number of keys and values bound together. The lookup time is *very* fast, similar to an array (thanks to the magic of hashing).
+If you paid attention in Data Structures, you know that Hash Maps are the best thing ever. Python calls them Dictionaries, some languages call them Tables, but the idea is that you can look up a value given a key. Unlike an object, you can have any number of keys and values bound together. The lookup time is _very_ fast, similar to an array (thanks to the magic of hashing).
 
 In JavaScript, there is actually a special class called `Map` that YOU WILL NEVER USE. Probably. I mean, you can, but it's more work than is necessary. Instead, we will just use regular old objects and tell TypeScript to treat them as `Record` type.
 
 ```typescript
 const courseLookup: Record<string, string> = {
-  "CISC108": "Introduction to Computer Science",
-  "CISC210": "Systems Programming",
-  "CISC220": "Data Structures",
-  "CISC275": "Introduction to Software Engineering",
+    CISC108: "Introduction to Computer Science",
+    CISC210: "Systems Programming",
+    CISC220: "Data Structures",
+    CISC275: "Introduction to Software Engineering",
 };
 
-console.log(courseLookup['CISC275'])
-console.log(courseLookup['CISC108'])
+console.log(courseLookup["CISC275"]);
+console.log(courseLookup["CISC108"]);
 ```
 
 ## Records from Arrays
@@ -219,29 +241,32 @@ Anyway, the point is that it's often very useful to convert an Array into a Reco
 
 ```typescript
 interface State {
-  abbreviation: string
-  name: string
-  capitol: string
+    abbreviation: string;
+    name: string;
+    capitol: string;
 }
 
 const usaStates: State[] = [
-  { abbreviation: "DE", name: "Delaware", capitol: "Dover" },
-  { abbreviation: "MD", name: "Maryland", capitol: "Annapolis" },
-  { abbreviation: "VA", name: "Virginia", capitol: "Richmond" },
-  { abbreviation: "PA", name: "Pennsylvania", capitol: "Harrisburg" }
+    { abbreviation: "DE", name: "Delaware", capitol: "Dover" },
+    { abbreviation: "MD", name: "Maryland", capitol: "Annapolis" },
+    { abbreviation: "VA", name: "Virginia", capitol: "Richmond" },
+    { abbreviation: "PA", name: "Pennsylvania", capitol: "Harrisburg" },
 ];
 
 // The `fromEntries` function converts an array of pairs to an object
 const lookupState: Record<string, State> = Object.fromEntries(
     // Convert the array to an array of pairs, where each pair has the abbreviation
     // and the state.
-    usaStates.map((state: State): [string, State] => [state.abbreviation, state])
+    usaStates.map((state: State): [string, State] => [
+        state.abbreviation,
+        state,
+    ]),
 );
 
 console.log(lookupState["DE"].capitol);
 
 // You can also go back using Object.keys() or Object.values()
-console.log("State Abbreviations:", Object.keys(lookupState);
+console.log("State Abbreviations:", Object.keys(lookupState));
 ```
 
 # Unpacking Objects ("Destructuring Assignment")
@@ -249,7 +274,7 @@ console.log("State Abbreviations:", Object.keys(lookupState);
 Okay this is a really weird and cool feature, but it's gonna be a little complicated. Basically, we can unpack objects' fields directly into variables.
 
 ```typescript
-const ada = {name: "Ada Bart", breed: "Corgi", age: 4, fuzzy: true };
+const ada = { name: "Ada Bart", breed: "Corgi", age: 4, fuzzy: true };
 
 // This works, because you can access fields
 console.log("Ada's name:", ada.name);
@@ -258,12 +283,12 @@ console.log("Ada's name:", ada.name);
 // console.log("Ada's name:", name);
 
 // But it DOES work if we unpack that field first!
-const { name, breed } = ada
+const { name, breed } = ada;
 console.log("Ada's name", name);
 console.log("Ada's breed", breed);
 
 // You can also rename fields if you wanted to
-const { name: adaName } = ada
+const { name: adaName } = ada;
 console.log("Ada's name", adaName);
 ```
 
@@ -271,15 +296,15 @@ This works with parameters, weird as that might sound. We'll see later that it c
 
 ```typescript
 interface Dog {
-  name: string
-  breed: "Corgi" | "Chihuahua" | "Mutt"
-  age: number
-  fuzzy: boolean
+    name: string;
+    breed: "Corgi" | "Chihuahua" | "Mutt";
+    age: number;
+    fuzzy: boolean;
 }
 
 // We only specify that the object passed to the function MUST contain the field `breed`
 // and that field MUST be a string. It can have other fields, too.
-function checkIfCorgi({breed}: {breed: string}): boolean {
+function checkIfCorgi({ breed }: { breed: string }): boolean {
     return breed === "Corgi";
 }
 
@@ -304,12 +329,12 @@ console.log(red, green, blue);
 
 The six core types combined make up the core idea of "JSON" data ("JavaScript Object Notation").
 
-* number
-* string
-* boolean
-* array
-* object
-* null
+- number
+- string
+- boolean
+- array
+- object
+- null
 
 With the JSON types, you can represent most interesting kinds of data. Therefore, the format has become an extremely popular format for storing and transmiting data. You will see JSON data many, many times outside of this course.
 

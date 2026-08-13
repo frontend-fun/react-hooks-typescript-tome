@@ -28,22 +28,26 @@ The `map` function provides a convenient way to render more Array state. The syn
 
 ```tsx
 function App(): JSX.Element {
-  const names = ["Ada", "Pumpkin", "Babbage"];
+    const names = ["Ada", "Pumpkin", "Babbage"];
 
-  return <div>
-    The names are:
-    <ul>
-      { names.map((name: string) => <li key={name}>{name}</li>) }
-    </ul>
-  </div>
+    return (
+        <div>
+            The names are:
+            <ul>
+                {names.map((name: string) => (
+                    <li key={name}>{name}</li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 ```
 
 We have to be very precise about the curly braces. Notice how:
 
-* The `names.map(...)` expression is contained within `{ }` braces 
-* Inside of the body of the anonymous function there are `<li> </li>` tags
-* Inside of the `li` tags there are another pair of `{ }` braces surrounding the `name` variable
+- The `names.map(...)` expression is contained within `{ }` braces
+- Inside of the body of the anonymous function there are `<li> </li>` tags
+- Inside of the `li` tags there are another pair of `{ }` braces surrounding the `name` variable
 
 TSX allows us to nest HTML tags anywhere that we would normally write an expression. However, in order to embed values, variables, and code in the TSX, we must surround the expression with curly braces. Be very careful with this nesting, since skipping a curly brace or parentheses can have a disastrous effect on the code!
 
@@ -53,37 +57,42 @@ The example above is simple, because the State of the application is constant. N
 
 ## Whether to Render
 
-What happens when you call `setState`? The Component functions get called again. This means we end up generating the TSX to be returned all over again, binding the freshest version of all the Hook's values. This sounds expensive, but the costs aren't as bad as you might think (especially compared to just naively rendering ALL the components again). In fact, React is very good at figuring out which Components need to be called again. React decides to renrender a Component based strictly on the hooks's value, relying on *reference equality*.
+What happens when you call `setState`? The Component functions get called again. This means we end up generating the TSX to be returned all over again, binding the freshest version of all the Hook's values. This sounds expensive, but the costs aren't as bad as you might think (especially compared to just naively rendering ALL the components again). In fact, React is very good at figuring out which Components need to be called again. React decides to renrender a Component based strictly on the hooks's value, relying on _reference equality_.
 
-Remember how we kept making a big deal about Immutability back in Chapter 3? We kept stressing that we had to make NEW lists and NEW objects in our functions, rather than mutating existing ones. 
+Remember how we kept making a big deal about Immutability back in Chapter 3? We kept stressing that we had to make NEW lists and NEW objects in our functions, rather than mutating existing ones.
 
 What happens if we fail to follow the rule of immutability? Let's look at an example using an editable box; don't worry about how the input box works, we'll learn more about it later. For now, we're focusing on adding and removing elements from the list.
 
 ```tsx
 export function App(): JSX.Element {
-  const [people, setPeople] = useState<string[]>([]);
-  const [newName, setNewName] = useState<string>("New Name");
+    const [people, setPeople] = useState<string[]>([]);
+    const [newName, setNewName] = useState<string>("New Name");
 
-  function addPerson(name: string) {
-    // No detection of changed value, reference equality
-    people.push(newName);
-    setPeople(people)
-    // VERY BAD!!!
-  }
+    function addPerson(name: string) {
+        // No detection of changed value, reference equality
+        people.push(newName);
+        setPeople(people);
+        // VERY BAD!!!
+    }
 
-  return <div>
-    <input type="textbox" onChange={(event) => setNewName(event.target.value)}/>
-    <button onClick={()=>addPerson(newName)}>Add Person</button>
-    <ul>
-      {(people.map(
-        (person: string) => <li key={person}>{person}</li>
-      ))}
-    </ul>
-  </div>;
+    return (
+        <div>
+            <input
+                type="textbox"
+                onChange={(event) => setNewName(event.target.value)}
+            />
+            <button onClick={() => addPerson(newName)}>Add Person</button>
+            <ul>
+                {people.map((person: string) => (
+                    <li key={person}>{person}</li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 ```
 
-If you run the application, type into the box, and press the "Add Person" button, nothing will occur. HOWEVER, if you *then* type into the box, suddenly the application will re-render and the new person will appear in the list.
+If you run the application, type into the box, and press the "Add Person" button, nothing will occur. HOWEVER, if you _then_ type into the box, suddenly the application will re-render and the new person will appear in the list.
 
 This behavior, where messing with a different part of the application seems to suddenly "fix" another part of the application, is a dead giveaway that you are using state incorrectly. Avoiding that problem is why we are avoiding mutable state so diligently.
 
@@ -100,22 +109,22 @@ Review [Reference Equality vs. Value Equality](../3-control/arrays.md#reference-
 
 ## Closures and Mapping Arrays
 
-If you render an array with `map`, then the function defined inside of the `map` has a parameter representing each element of the array. To be clear, the parameter can only represent ONE element at any given time - the `map` function iterates through ALL of the elements one-by-one, just like a `for` loop, passing each element as an argument to the provided function. This allows us to use an individual *singular* element from a *plural* collection of elements (and also provides a hint to how we should name the variables involved: plural words for the variable holding the array, and the singular version of that word for the parameter). In the example below, we have `colors` holding an array of strings and `color` representing one element.
+If you render an array with `map`, then the function defined inside of the `map` has a parameter representing each element of the array. To be clear, the parameter can only represent ONE element at any given time - the `map` function iterates through ALL of the elements one-by-one, just like a `for` loop, passing each element as an argument to the provided function. This allows us to use an individual _singular_ element from a _plural_ collection of elements (and also provides a hint to how we should name the variables involved: plural words for the variable holding the array, and the singular version of that word for the parameter). In the example below, we have `colors` holding an array of strings and `color` representing one element.
 
 ```tsx
 function App(): JSX.Element {
-  const [colors, setColors] = useState<string[]>(["Red", "Blue", "Green"]);
+    const [colors, setColors] = useState<string[]>(["Red", "Blue", "Green"]);
 
-  return <div>
-    The colors are:
-    <ul>
-      { colors.map((color: string) => 
-          <li key={color}>
-            {color}
-          </li>
-        )}
-    </ul>
-  </div>
+    return (
+        <div>
+            The colors are:
+            <ul>
+                {colors.map((color: string) => (
+                    <li key={color}>{color}</li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 ```
 
@@ -123,37 +132,47 @@ That `name` variable is available for any code inside of the `map` function's in
 
 ```tsx
 function App(): JSX.Element {
-  const [colors, setColors] = useState<string[]>(["Red", "Blue", "Green", "Orange", "White"]);
-  const [chosen, setChosen] = useState<string>(colors[0]);
+    const [colors, setColors] = useState<string[]>([
+        "Red",
+        "Blue",
+        "Green",
+        "Orange",
+        "White",
+    ]);
+    const [chosen, setChosen] = useState<string>(colors[0]);
 
-  function updateChosen(newColor: string) {
-    setChosen(newColor);
-  }
+    function updateChosen(newColor: string) {
+        setChosen(newColor);
+    }
 
-  return <div>
-    <div>
-      Current Color is:
-      <span style={ {backgroundColor: chosen} }>{chosen}</span>
-    </div>
-    <div>
-      Choose a color:
-      <ul>
-        { colors.map((color: string) => 
-            <li key={color}>
-              <Button onClick={() => updateChosen(color)}>{color}</Button>
-            </li>
-          )}
-      </ul>
-    </div>
-  </div>
+    return (
+        <div>
+            <div>
+                Current Color is:
+                <span style={{ backgroundColor: chosen }}>{chosen}</span>
+            </div>
+            <div>
+                Choose a color:
+                <ul>
+                    {colors.map((color: string) => (
+                        <li key={color}>
+                            <Button onClick={() => updateChosen(color)}>
+                                {color}
+                            </Button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
 }
 ```
 
-Notice that we *had* to use an anonymous function instead of just providing the name `updateChosen`. The `updateChosen` function requires a parameter (the `newColor`), which was fortunately available to us via the `color` parameter of the `colors.map` anonymous function.
+Notice that we _had_ to use an anonymous function instead of just providing the name `updateChosen`. The `updateChosen` function requires a parameter (the `newColor`), which was fortunately available to us via the `color` parameter of the `colors.map` anonymous function.
 
-The idea here is that we create a temporary function `() => updateChosen(color)` whose only job when called is to invoke the `updateChosen` function with the current `color`. Since we define the temporary function INSIDE of the loop from `colors.map`, the variable `color` is *closed over* the function and will use the value from that iteration of the loop. This would not work if we did `onClick={updateChosen}`!
+The idea here is that we create a temporary function `() => updateChosen(color)` whose only job when called is to invoke the `updateChosen` function with the current `color`. Since we define the temporary function INSIDE of the loop from `colors.map`, the variable `color` is _closed over_ the function and will use the value from that iteration of the loop. This would not work if we did `onClick={updateChosen}`!
 
-Note that this means each of five Buttons in this example will get its own *custom* onClick function. For example, the *blue* button onClick will be `() => updateChosen(blue)`.
+Note that this means each of five Buttons in this example will get its own _custom_ onClick function. For example, the _blue_ button onClick will be `() => updateChosen(blue)`.
 
 # Late Updates
 
@@ -161,39 +180,43 @@ Continuing the conversation about weird React behavior, another critical thing t
 
 ```tsx
 function App(): JSX.Element {
-  const [value, setValue] = useState<number>(0);
-  
-  function increaseTwice() {
-    // Nope, doesn't actually increase twice!
-    setValue(1+value);
-    setValue(1+value);
-  }
-  
-  return <Button onClick={increaseTwice}>{value}</Button>
+    const [value, setValue] = useState<number>(0);
+
+    function increaseTwice() {
+        // Nope, doesn't actually increase twice!
+        setValue(1 + value);
+        setValue(1 + value);
+    }
+
+    return <Button onClick={increaseTwice}>{value}</Button>;
 }
 ```
 
-If you run this application, you might expect that the value shown on the button would increase by two, since we are calling `setValue` twice. However, that is not what happens. We are calling `setValue` twice, but each time we are performing the same calculation (`1+value`), and that value involves a constant (`value`) that cannot change. The `setValue` function *does not modify `value`*. This is probably strange to think about, just based on its name. But the idea is that we are updating the Hook's value, and that Hook will provide a value the next time the component renders, which does not happen immediately when you call `setValue`. React waits until the `increaseTwice` function is done before it re-renders anything.
+If you run this application, you might expect that the value shown on the button would increase by two, since we are calling `setValue` twice. However, that is not what happens. We are calling `setValue` twice, but each time we are performing the same calculation (`1+value`), and that value involves a constant (`value`) that cannot change. The `setValue` function _does not modify `value`_. This is probably strange to think about, just based on its name. But the idea is that we are updating the Hook's value, and that Hook will provide a value the next time the component renders, which does not happen immediately when you call `setValue`. React waits until the `increaseTwice` function is done before it re-renders anything.
 
 The issue is a little easier to see when you have two pieces of state that are relying on each other. The code below works because the order of calling `setNewNumber` and `setNums` has no effect on the elements being added to the list.
 
 ```tsx
 function App(): JSX.Element {
-  const [ nums, setNums ] = useState<number[]>([]);
-  const [ newNumber, setNewNumber ] = useState<number>(0);
-  
-  const addNumber = () => {
-    setNewNumber(newNumber+1);
-    // The correct number is added even though we just did `newNumber+1`!
-    setNums([...nums, newNumber]);
-  };
-  
-  return <div>
-    <Button onClick={addNumber}>Add {newNumber}</Button>
-    <ul>
-      { nums.map((num: number) => <li key={num}>{num}</num>)}
-    </ul>
-  </div>
+    const [nums, setNums] = useState<number[]>([]);
+    const [newNumber, setNewNumber] = useState<number>(0);
+
+    const addNumber = () => {
+        setNewNumber(newNumber + 1);
+        // The correct number is added even though we just did `newNumber+1`!
+        setNums([...nums, newNumber]);
+    };
+
+    return (
+        <div>
+            <Button onClick={addNumber}>Add {newNumber}</Button>
+            <ul>
+                {nums.map((num: number) => (
+                    <li key={num}>{num}</li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 ```
 
@@ -201,20 +224,24 @@ Compare that to this non-working code below, which tries to rely on a `count` va
 
 ```tsx
 function App(): JSX.Element {
-  const [ nums, setNums ] = useState<number[]>([]);
-  const [ count, setCount ] = useState<number>(0);
-  
-  const addNumber = () => {
-    setNums([...nums, count]);
-    setCount(nums.length);
-  };
-  
-  return <div>
-    <Button onClick={addNumber}>Add {count}</Button>
-    <ul>
-      { nums.map((num: number) => <li key={num}>{num}</li>)}
-    </ul>
-  </div>
+    const [nums, setNums] = useState<number[]>([]);
+    const [count, setCount] = useState<number>(0);
+
+    const addNumber = () => {
+        setNums([...nums, count]);
+        setCount(nums.length);
+    };
+
+    return (
+        <div>
+            <Button onClick={addNumber}>Add {count}</Button>
+            <ul>
+                {nums.map((num: number) => (
+                    <li key={num}>{num}</li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 ```
 
@@ -236,23 +263,25 @@ Let's start with something that doesn't work: trying to have state imported and 
 export const [visible, setVisible] = useState<boolean>(false);
 
 export function Reveal(): JSX.Element {
-    return <Button onClick={() => setVisible(!visible)}>Show/Hide</Button>
+    return <Button onClick={() => setVisible(!visible)}>Show/Hide</Button>;
 }
 
 // Second file: src/App.tsx
 import { visible, Reveal } from "./Reveal";
 
 export function App(): JSX.Element {
-    return <div>
-      <Reveal></Reveal> {visible && '42'}
-    </div>
+    return (
+        <div>
+            <Reveal></Reveal> {visible && "42"}
+        </div>
+    );
 }
 ```
 
 ## Wrong Idea: Accessing Components "Fields"
 
 Another approach that DOES NOT WORK is to try and access fields or methods from one Component in another.
-Functions and variables defined inside of a Component are NOT available outside of that Component's function definition. They are *not* methods or fields, like in a Class. They are local variables and inner functions. In fact, "inner functions" are just variables defined inside of another function that happen to be holding functions instead of primitive values (functions are just another type!). And as always, local variables disappear when the function (in this case a Component) returns.
+Functions and variables defined inside of a Component are NOT available outside of that Component's function definition. They are _not_ methods or fields, like in a Class. They are local variables and inner functions. In fact, "inner functions" are just variables defined inside of another function that happen to be holding functions instead of primitive values (functions are just another type!). And as always, local variables disappear when the function (in this case a Component) returns.
 
 ```tsx
 // THIS ALSO DOES NOT WORK!!! BAD IDEA
@@ -261,7 +290,7 @@ Functions and variables defined inside of a Component are NOT available outside 
 // First file: src/Reveal.tsx
 export function Reveal(): JSX.Element {
     const [visible, setVisible] = useState<boolean>(false);
-    return <Button onClick={() => setVisible(!visible)}>Show/Hide</Button>
+    return <Button onClick={() => setVisible(!visible)}>Show/Hide</Button>;
 }
 
 // Second file: src/App.tsx
@@ -270,9 +299,11 @@ import { visible, Reveal } from "./Reveal";
 export function App(): JSX.Element {
     const revealButton = <Reveal></Reveal>;
     // BIG FAT NOPE, THIS DOES NOT WORK!!!
-    return <div>
-        {revealButton} {revealButton.visible && '42'}
-    </div>
+    return (
+        <div>
+            {revealButton} {revealButton.visible && "42"}
+        </div>
+    );
 }
 ```
 
@@ -281,7 +312,7 @@ If you are unsure why this does not work, consider the following example, which 
 ```typescript
 function average(first: number, second: number): number {
     const sum = first + second;
-    return sum/2;
+    return sum / 2;
 }
 
 const answer = average(1, 3);
@@ -292,17 +323,17 @@ console.log("The sum is", answer.sum);
 
 ## Right Idea: Parameters and Arguments
 
-Okay, so how *do* you have shared state between two components? The answer is to use "Props" and "Attributes". Or rather, what we might call "Component Parameters" and "Component Arguments".
+Okay, so how _do_ you have shared state between two components? The answer is to use "Props" and "Attributes". Or rather, what we might call "Component Parameters" and "Component Arguments".
 
-* Props: The parameters of a Component, defined as part of the function definition of the component
-* Attributes: The arguments of a Component, provided when you instantiate the component.
+- Props: The parameters of a Component, defined as part of the function definition of the component
+- Attributes: The arguments of a Component, provided when you instantiate the component.
 
 You've been using Attributes when you use Components since almost the very beginning. This is the `key={value}` syntax that you kept seeing whenever you have an HTML tag:
 
 ```tsx
 function App(): JSX.Element {
     // The `src` attribute is an *argument* to the `Image` component
-    return <Image src={`../assets/images/pet-ada.jpg`}/>
+    return <Image src={`../assets/images/pet-ada.jpg`} />;
 }
 ```
 
@@ -315,18 +346,26 @@ interface IDCardProps {
 }
 
 function IDCard(props: IDCardProps): JSX.Element {
-    return <div style={ {border: '1px solid black'} }>
-        <h3>ID Card</h3>
-        <p>First name: <span>{props.firstName}</span></p>
-        <p>Last name: <span>{props.lastName}</span></p>
-    </div>;
-} 
+    return (
+        <div style={{ border: "1px solid black" }}>
+            <h3>ID Card</h3>
+            <p>
+                First name: <span>{props.firstName}</span>
+            </p>
+            <p>
+                Last name: <span>{props.lastName}</span>
+            </p>
+        </div>
+    );
+}
 
 function App(): JSX.Element {
-    return <div>
-        <IDCard firstName="Babbage" lastName="Bart"></IDCard>
-        <IDCard firstName="Ada" lastName="Bart"></IDCard>
-    </div>;
+    return (
+        <div>
+            <IDCard firstName="Babbage" lastName="Bart"></IDCard>
+            <IDCard firstName="Ada" lastName="Bart"></IDCard>
+        </div>
+    );
 }
 ```
 
@@ -340,19 +379,27 @@ interface IDCardProps {
     lastName: string;
 }
 
-function IDCard({firstName, lastName}: IDCardProps): JSX.Element {
-    return <div style={ {border: '1px solid black'} }>
-        <h3>ID Card</h3>
-        <p>First name: <span>{firstName}</span></p>
-        <p>Last name: <span>{lastName}</span></p>
-    </div>;
-} 
+function IDCard({ firstName, lastName }: IDCardProps): JSX.Element {
+    return (
+        <div style={{ border: "1px solid black" }}>
+            <h3>ID Card</h3>
+            <p>
+                First name: <span>{firstName}</span>
+            </p>
+            <p>
+                Last name: <span>{lastName}</span>
+            </p>
+        </div>
+    );
+}
 
 function App(): JSX.Element {
-    return <div>
-        <IDCard firstName="Babbage" lastName="Bart"></IDCard>
-        <IDCard firstName="Ada" lastName="Bart"></IDCard>
-    </div>;
+    return (
+        <div>
+            <IDCard firstName="Babbage" lastName="Bart"></IDCard>
+            <IDCard firstName="Ada" lastName="Bart"></IDCard>
+        </div>
+    );
 }
 ```
 
@@ -361,26 +408,37 @@ By replacing our `props` parameter name with a curly brace containing the attrib
 Many React developers will go one step further, and also do away with interfaces like `IDCardProps` by embedding the interface's type directly into the parameter. This will look a little cumbersome, but it is quite popular.
 
 ```tsx
-function IDCard({firstName, lastName}: {
+function IDCard({
+    firstName,
+    lastName,
+}: {
     firstName: string;
     lastName: string;
 }): JSX.Element {
-    return <div style={ {border: '1px solid black'} }>
-        <h3>ID Card</h3>
-        <p>First name: <span>{firstName}</span></p>
-        <p>Last name: <span>{lastName}</span></p>
-    </div>;
-} 
+    return (
+        <div style={{ border: "1px solid black" }}>
+            <h3>ID Card</h3>
+            <p>
+                First name: <span>{firstName}</span>
+            </p>
+            <p>
+                Last name: <span>{lastName}</span>
+            </p>
+        </div>
+    );
+}
 
 function App(): JSX.Element {
-    return <div>
-        <IDCard firstName="Babbage" lastName="Bart"></IDCard>
-        <IDCard firstName="Ada" lastName="Bart"></IDCard>
-    </div>;
+    return (
+        <div>
+            <IDCard firstName="Babbage" lastName="Bart"></IDCard>
+            <IDCard firstName="Ada" lastName="Bart"></IDCard>
+        </div>
+    );
 }
 ```
 
-To be clear, the two previous code blocks achieve *exactly the same effect*. The last one may look a little confusing since we are not used to having curly braces INSIDE of the function header, but it can become natural if you see it enough. If a component only has a few parameters (which is usually desirable), then embedding the type as an object directly in the header is often preferred.
+To be clear, the two previous code blocks achieve _exactly the same effect_. The last one may look a little confusing since we are not used to having curly braces INSIDE of the function header, but it can become natural if you see it enough. If a component only has a few parameters (which is usually desirable), then embedding the type as an object directly in the header is often preferred.
 
 ### Lifting State
 
@@ -388,23 +446,27 @@ Now that we know about Props and Attributes, we are able to share state between 
 
 ```tsx
 interface RevealButtonsProps {
-  // The type is "a function that consumes a boolean and returns nothing"
-  setVisible: (newVisibility: boolean) => void
+    // The type is "a function that consumes a boolean and returns nothing"
+    setVisible: (newVisibility: boolean) => void;
 }
 
-function RevealButtons({setVisible}: RevealButtonsProps): JSX.Element {
-    return <div>
-      <Button onClick={() => setVisible(true)}>Show</Button>
-      <Button onClick={() => setVisible(false)}>Hide</Button>
-    </div>;
+function RevealButtons({ setVisible }: RevealButtonsProps): JSX.Element {
+    return (
+        <div>
+            <Button onClick={() => setVisible(true)}>Show</Button>
+            <Button onClick={() => setVisible(false)}>Hide</Button>
+        </div>
+    );
 }
 
 export function App(): JSX.Element {
     const [visible, setVisible] = useState<boolean>(false);
-    return <div>
-        <RevealButtons setVisible={setVisible}></RevealButtons>
-        {visible && '42'}
-    </div>
+    return (
+        <div>
+            <RevealButtons setVisible={setVisible}></RevealButtons>
+            {visible && "42"}
+        </div>
+    );
 }
 ```
 
@@ -414,42 +476,51 @@ In the example above, we had two separate buttons, one to show and one to hide. 
 
 ```tsx
 interface RevealButtonProps {
-  // The type is "a function that consumes a boolean and returns nothing"
-  setVisible: (newVisibility: boolean) => void
-  visible: boolean
+    // The type is "a function that consumes a boolean and returns nothing"
+    setVisible: (newVisibility: boolean) => void;
+    visible: boolean;
 }
 
-function RevealButton({setVisible, visible}: RevealButtonProps): JSX.Element {
-    return <div>
-      <Button onClick={() => setVisible(!visible)}>
-        { visible ? 'Hide' : 'Show'}
-      </Button>
-    </div>;
+function RevealButton({ setVisible, visible }: RevealButtonProps): JSX.Element {
+    return (
+        <div>
+            <Button onClick={() => setVisible(!visible)}>
+                {visible ? "Hide" : "Show"}
+            </Button>
+        </div>
+    );
 }
 
 export function App(): JSX.Element {
     const [visible, setVisible] = useState<boolean>(false);
-    return <div>
-        <RevealButton setVisible={setVisible} visible={visible}></RevealButton>
-        {visible && '42'}
-    </div>
+    return (
+        <div>
+            <RevealButton
+                setVisible={setVisible}
+                visible={visible}
+            ></RevealButton>
+            {visible && "42"}
+        </div>
+    );
 }
 ```
 
 We had to provide a second field for the `RevealButtonProps` interface, a second parameter in the `RevealButton` function definition, and a second attribute in the `RevealButton` call. However, by doing so, we are now free to use both `visible` and `setVisible` in the child Component (`RevealButton`) AND the parent Component (`App`).
 
-Passing in both `visible` and `setVisible` is a little cumbersome, since it forces `RevealButton` to deal with a lot of state from its parent. A common trick is to define a *closure* (a function with variables from an enclosing scope) using the variables. This loses us the ability to refer to `visible` or `setVisible`, but if that was truly not necessary, it can simplify the function definition a little.
+Passing in both `visible` and `setVisible` is a little cumbersome, since it forces `RevealButton` to deal with a lot of state from its parent. A common trick is to define a _closure_ (a function with variables from an enclosing scope) using the variables. This loses us the ability to refer to `visible` or `setVisible`, but if that was truly not necessary, it can simplify the function definition a little.
 
 ```tsx
 interface RevealButtonProps {
-  // The type is "a function that consumes nothing and returns nothing"
-  showHide: () => void
+    // The type is "a function that consumes nothing and returns nothing"
+    showHide: () => void;
 }
 
-function RevealButton({showHide}: RevealButtonProps): JSX.Element {
-    return <div>
-      <Button onClick={showHide}>Show/Hide</Button>
-    </div>;
+function RevealButton({ showHide }: RevealButtonProps): JSX.Element {
+    return (
+        <div>
+            <Button onClick={showHide}>Show/Hide</Button>
+        </div>
+    );
 }
 
 export function App(): JSX.Element {
@@ -457,33 +528,39 @@ export function App(): JSX.Element {
     // Closure on visible and setVisible
     const flipVisible = () => setVisible(!visible);
     // The attribute and the value do not have to match!
-    return <div>
-        <RevealButton showHide={flipVisible}></RevealButton>
-        {visible && '42'}
-    </div>
+    return (
+        <div>
+            <RevealButton showHide={flipVisible}></RevealButton>
+            {visible && "42"}
+        </div>
+    );
 }
 ```
 
 ### Peer Components
 
-We have just seen several examples with a Parent and Child component. But the most common case is actually having *peer* (or "sibling") components. In fact, often you will have a lot of state defined in the top of your `App`, and then passed down to multiple Child components.
+We have just seen several examples with a Parent and Child component. But the most common case is actually having _peer_ (or "sibling") components. In fact, often you will have a lot of state defined in the top of your `App`, and then passed down to multiple Child components.
 
 ```tsx
 interface RevealButtonProps {
-  // The type is "a function that consumes nothing and returns nothing"
-  showHide: () => void
+    // The type is "a function that consumes nothing and returns nothing"
+    showHide: () => void;
 }
 
-function RevealButton({showHide}: RevealButtonProps): JSX.Element {
-    return <div>
-      <Button onClick={showHide}>Show/Hide</Button>
-    </div>;
+function RevealButton({ showHide }: RevealButtonProps): JSX.Element {
+    return (
+        <div>
+            <Button onClick={showHide}>Show/Hide</Button>
+        </div>
+    );
 }
 
-function Answer({visible}: {visible: boolean}): JSX.Element {
-    return <div>
-      The answer is { visible ? <span>42</span> : <span>A SECRET!</span>}.
-    </div>;
+function Answer({ visible }: { visible: boolean }): JSX.Element {
+    return (
+        <div>
+            The answer is {visible ? <span>42</span> : <span>A SECRET!</span>}.
+        </div>
+    );
 }
 
 export function App(): JSX.Element {
@@ -491,10 +568,12 @@ export function App(): JSX.Element {
     // Closure on visible and setVisible
     const flipVisible = () => setVisible(!visible);
     // The attribute and the value do not have to match!
-    return <div>
-        <RevealButton showHide={flipVisible}></RevealButton>
-        <Answer visible={visible}></Answer>
-    </div>
+    return (
+        <div>
+            <RevealButton showHide={flipVisible}></RevealButton>
+            <Answer visible={visible}></Answer>
+        </div>
+    );
 }
 ```
 
@@ -502,7 +581,7 @@ export function App(): JSX.Element {
 
 As your React application grows, you will often end up in a situation where you have a large amount of State that needs to be shared across multiple components. Sometimes these components will embed other components inside. You end up with a large hierarchy of components. State defined up at the top of the hiearchy has to be passed down through a "chain" of Props and Attributes, sometimes being handed to Components that don't even care about all the details. This can be quite frustrating.
 
-There are other ways to have State shared between components without requiring a heirarchy of Props and Attributes, but we will not learn about them. They are an advanced feature, suitable for larger-scale applications. When you start making *very* sophisticated applications, you can look into systems like "React Redux" that support this kind of sharing. For now, though, our goal is to keep State at a minimum, and localize it down to the lowest point in the Heirarchy possible.
+There are other ways to have State shared between components without requiring a heirarchy of Props and Attributes, but we will not learn about them. They are an advanced feature, suitable for larger-scale applications. When you start making _very_ sophisticated applications, you can look into systems like "React Redux" that support this kind of sharing. For now, though, our goal is to keep State at a minimum, and localize it down to the lowest point in the Heirarchy possible.
 
 A really cool feature of React Developer Tools is to be able to visualize the heirarchy via a special "Components" tab. This shows off not only the parent, child, and sibling relationships, but also allows you to inspect the current State of Hooks, and see how Hooks have been passed around via Props and Attributes. Check out the Components tab in your Developer Console!
 
@@ -515,10 +594,13 @@ Let's take just a minute to talk about how closures can help us streamline funct
 ```tsx
 // Two parameter version
 function calculatePrice(price: number, taxRate: number): number {
-  return price + price * taxRate;
+    return price + price * taxRate;
 }
 
-console.log("At a 7% tax rate, a price of $9.99 is now", calculatePrice(9.99, .07));
+console.log(
+    "At a 7% tax rate, a price of $9.99 is now",
+    calculatePrice(9.99, 0.07),
+);
 ```
 
 Now let us look at an alternative version, where we create a function inside of a function, using the `taxRate` parameter from the outer function inside of the inner function `calculatePrice`.
@@ -526,24 +608,27 @@ Now let us look at an alternative version, where we create a function inside of 
 ```typescript
 // One parameter, closure version
 function makePriceCalculator(taxRate: number): (p: number) => number {
-  return (price: number): number => price + price * taxRate;
+    return (price: number): number => price + price * taxRate;
 }
 
-const calculatePriceInAlaska = makePriceCalculator(.7);
-console.log("At a 7% tax rate, a price of $9.99 is now", calculatePriceInAlaska(9.99));
+const calculatePriceInAlaska = makePriceCalculator(0.07);
+console.log(
+    "At a 7% tax rate, a price of $9.99 is now",
+    calculatePriceInAlaska(9.99),
+);
 ```
 
-Connecting this back to the example we saw earlier with `showHide` and `flipVisible`, you can see that a closure provides a simpler interface: the `calculatePriceInAlaska` function takes only a single parameter, and the `showHide` function takes no parameters. Of course, we had to create a custom function in order to do so in both cases. In the case of the Components, this is happening *whenever* we render that Component. This is not insanely expensive, but it is a cost!
+Connecting this back to the example we saw earlier with `showHide` and `flipVisible`, you can see that a closure provides a simpler interface: the `calculatePriceInAlaska` function takes only a single parameter, and the `showHide` function takes no parameters. Of course, we had to create a custom function in order to do so in both cases. In the case of the Components, this is happening _whenever_ we render that Component. This is not insanely expensive, but it is a cost!
 
 To summarize, there are pluses and minuses to closures compared to just having more parameters in functions:
 
-* Downsides: Functions are recreated every time our component renders. Functions are not as reusable between components because they are specifically bound to the variables they are closed upon.
+- Downsides: Functions are recreated every time our component renders. Functions are not as reusable between components because they are specifically bound to the variables they are closed upon.
 
-* Upsides: We can conveniently include variables directly inside the closure, reducing the number of variables that have to be passed around. Also, functions are defined close to where they will be used.
+- Upsides: We can conveniently include variables directly inside the closure, reducing the number of variables that have to be passed around. Also, functions are defined close to where they will be used.
 
 ## Mostly Wrong: Nested Components
 
-An idea that leads to runnable but *inefficient* code is to use nested components. Using closures, you can technically define components inside of other components - which means defining a function inside of another function. This may lead to working code, like below.
+An idea that leads to runnable but _inefficient_ code is to use nested components. Using closures, you can technically define components inside of other components - which means defining a function inside of another function. This may lead to working code, like below.
 
 ```tsx
 // Not the best approach! See below
@@ -551,29 +636,36 @@ export function App(): JSX.Element {
     const [visible, setVisible] = useState<boolean>(false);
 
     function RevealButton(): JSX.Element {
-        return <div>
-          <Button onClick={()=> setVisible(!visible)}>Show/Hide</Button>
-        </div>
+        return (
+            <div>
+                <Button onClick={() => setVisible(!visible)}>Show/Hide</Button>
+            </div>
+        );
     }
 
     function Answer(): JSX.Element {
-        return <div>
-          The answer is { visible ? <span>42</span> : <span>A SECRET!</span>}.
-        </div>
+        return (
+            <div>
+                The answer is{" "}
+                {visible ? <span>42</span> : <span>A SECRET!</span>}.
+            </div>
+        );
     }
-    
-    return <div>
-        <RevealButton></RevealButton>
-        <Answer></Answer>
-    </div>
+
+    return (
+        <div>
+            <RevealButton></RevealButton>
+            <Answer></Answer>
+        </div>
+    );
 }
 ```
 
 This code works fine in the browser, similar to code we saw before. And this approach might seem convenient, since there are no parameters ("Props") required for the Components. Everything is just available as a closure!
 
-Unfortunately, there are hidden penalties because of how React expects things to work. Remember that React is essentially a sophisticated system for detecting changes to the State, determining when a Component needs to re-render to avoid unnecessary work. The computational cost of deciding whether a component has changed is much smaller than the cost of having to redraw a component, so we save a lot of time if we figure out that a component has not changed. This is true not only of parent components, but also for children components. In this case, the `App` is the parent component and `RevealButton` and `Answer` are both *nested*, *children* components. If React is acting intelligently, then it might find situations where it has to re-render `App` but could *remount* (aka reuse) existing versions of `RevealButton` and `Answer` instead of having to re-render them.
+Unfortunately, there are hidden penalties because of how React expects things to work. Remember that React is essentially a sophisticated system for detecting changes to the State, determining when a Component needs to re-render to avoid unnecessary work. The computational cost of deciding whether a component has changed is much smaller than the cost of having to redraw a component, so we save a lot of time if we figure out that a component has not changed. This is true not only of parent components, but also for children components. In this case, the `App` is the parent component and `RevealButton` and `Answer` are both _nested_, _children_ components. If React is acting intelligently, then it might find situations where it has to re-render `App` but could _remount_ (aka reuse) existing versions of `RevealButton` and `Answer` instead of having to re-render them.
 
-But with nested components, when you call `App` and render the component, there is no way for React to know whether or not `RevealButton` and `Answer` depend on data that has changed, so React makes the decision to *always* re-render those children components. In fact, it wouldn't matter if props were passed in to those components (which also defeats the value of a closure), since React will be inspecting the actual reference (essentially the memory address) of the components. Since new functions were declared for these nested components, React will always identify them as changing - regardless of any parameters that changed, the functions themselves were redeclared. Even if two functions have the exact same body and name and other properties, TypeScript only believes they are equal if they live in the same memory address. 
+But with nested components, when you call `App` and render the component, there is no way for React to know whether or not `RevealButton` and `Answer` depend on data that has changed, so React makes the decision to _always_ re-render those children components. In fact, it wouldn't matter if props were passed in to those components (which also defeats the value of a closure), since React will be inspecting the actual reference (essentially the memory address) of the components. Since new functions were declared for these nested components, React will always identify them as changing - regardless of any parameters that changed, the functions themselves were redeclared. Even if two functions have the exact same body and name and other properties, TypeScript only believes they are equal if they live in the same memory address.
 
 So the outcome here is that if you are nesting components, you lose some of the best advantages of React: rather than efficiently reusing existing versions of a child component, React must instead recreate and redraw a new version of a component, even if the data involved in rendering the component has not changed. The `Answer` component above may change every time `visible` changes its value, but the `RevealButton` definitely should not, since its `onClick` function doesn't actually change. These small inefficiencies can add up quickly in large applications!
 
@@ -619,7 +711,7 @@ The `DoubleHalf` component provides two buttons. One doubles the value, the othe
 
 Currently, the component is commented out because it is broken and crashes your application. Uncomment the component's instantiation in `src/App.tsx`, and then fix the Component so that it works correctly.
 
-You must NOT add or remove components; you can only *modify* the existing components. Hint: You are free to delete files if they serve no purpose, though...
+You must NOT add or remove components; you can only _modify_ the existing components. Hint: You are free to delete files if they serve no purpose, though...
 
 ## Fix `ChooseTeam`
 
@@ -627,7 +719,7 @@ The `ChooseTeam` component provides a list of buttons representing people, and a
 
 Currently, the component is broken and partially out, because its click handlers are not coded correctly to properly update state. Fix the click handler functions so that the component works correctly. Hint: You will want to modify the signature and binding of one of the inner helper functions.
 
-You must not add or remove components; you can only *modify* the existing components.
+You must not add or remove components; you can only _modify_ the existing components.
 
 ## Fix `ColoredBox`
 
@@ -635,7 +727,7 @@ The `ColoredBox` component provides a single button that cycles through a list o
 
 Currently, the component does not work, since the box always stays the same color when clicked. Fix the state so the component works correctly.
 
-You must NOT add or remove components; you can only *modify* the existing components.
+You must NOT add or remove components; you can only _modify_ the existing components.
 
 ## Fix `ShoveBox`
 
@@ -643,7 +735,7 @@ The `ShoveBox` component provides a button that moves an adjacent box farther aw
 
 Currently, part of the component's returned body is commented out because it is broken and crashes your application. Uncomment the component's body in `src/ShoveBox.tsx` and then fix the Component so that it works correctly.
 
-You must NOT add or remove components; you can only *modify* the existing components.
+You must NOT add or remove components; you can only _modify_ the existing components.
 
 <!--
 TODO: Decided not to use this question. It's too easy to game, and doesn't say its point clearly enough. I wanted something where students would see that React doesnt' update its variables immediately. But it's a relatively rare situation. For now, I'm holding off on this until we get something better.

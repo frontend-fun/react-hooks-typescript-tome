@@ -26,26 +26,27 @@ Essentially, a "Form" is a collection of specialized user interface elements. Yo
 
 Bootstrap is a very popular library for styling web pages, and provides a ton of helpful CSS rules for making forms look decent without much developer effort. The React Bootstrap libraries builds on the two underlying technologies (React and Bootstrap) to provide Components that make building Forms much more pleasant and effective. You can see a lot more information about Bootstrap and its Forms here: <https://react-bootstrap.github.io/forms/overview/>
 
-
 ## Form Groups
 
 Technically, most user input components correspond to a single underlying HTML tag: there's `input`, `textarea`, and occasionally more complicated ones like the `select` dropdown. However, on their own, these inputs do not provide a very nice user experience since they will not be labelled and laying them out correctly is tricky. Therefore, when using React Bootstrap, you will organize most components in a `Form.Group` which will have several other tags such as a `Form.Control` (the actual input component), a `Form.Label` (a human-friendly identifier visible to the user), and a `Form.Text` (a longer, more subtley-rendered note adjacent to the form).
 
 ```tsx
 function App(): JSX.Element {
-    return <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-        </Form.Text>
-    </Form.Group>
+    return (
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+            </Form.Text>
+        </Form.Group>
+    );
 }
 ```
 
 Notice the `controlId` parameter we have included in the form above. This improves the accessibility of the form for folks using Screen Readers and other automated tools. You should always keep these kinds of users' experience in mind!
 
-You will sometimes see widgets surrounded by a `Form` tag, but we recommend against using a `Form` tag for now. This tag makes the widgets behave as a full HTML Form, which has a lot of additional functionality that you probably do not want at this time. 
+You will sometimes see widgets surrounded by a `Form` tag, but we recommend against using a `Form` tag for now. This tag makes the widgets behave as a full HTML Form, which has a lot of additional functionality that you probably do not want at this time.
 
 ## Form Attributes
 
@@ -65,20 +66,20 @@ Almost every single component of a Form has a `value` that represents its curren
 
 One of the most important aspects of a user interfaces is responding to user interaction. JavaScript and HTML have developed a sophisticated "Event System" that lets developers bind HTML actions (like clicking a button, or typing into an input box) to JavaScript functions. React builds on this existing infrastructure, with basically the same concept. Of course, in many places, React will change names slightly. TypeScript adds further complications: you may have to provide types.
 
-When you google for help with Forms, you must pay close attention to whether the advice is appropriate for the technology stack you are using (which in this case, is React Hooks, TypeScript, and React Bootstrap). You will often find advice that suggests workable solutions which are wrong for your technology stack. Just because you *can* make the code you find works, doesn't mean that it's a good idea. Jamming different libraries and approaches together leads to confusing, fragile code. It is very likely that you will need to fix that code later on ("Technical Debt" has accrued), that small subtle errors will manifest sporadically, or you'll have issues with performance.
+When you google for help with Forms, you must pay close attention to whether the advice is appropriate for the technology stack you are using (which in this case, is React Hooks, TypeScript, and React Bootstrap). You will often find advice that suggests workable solutions which are wrong for your technology stack. Just because you _can_ make the code you find works, doesn't mean that it's a good idea. Jamming different libraries and approaches together leads to confusing, fragile code. It is very likely that you will need to fix that code later on ("Technical Debt" has accrued), that small subtle errors will manifest sporadically, or you'll have issues with performance.
 
-However, fundamentally for now, the important thing to remember is that React gives us a way to bind *Callback Functions* to different *Events*.
+However, fundamentally for now, the important thing to remember is that React gives us a way to bind _Callback Functions_ to different _Events_.
 
 ## Callback Functions
 
-We have already seen `onClick` events, which are quite simple. A button is clicked, and a function is executed. The function to be executed is sometimes referred to as a "Callback Function". That function must be given as a *reference* instead of being called directly: syntactically, that means writing the name of the function *without* parentheses (`name` instead of `name()`).
+We have already seen `onClick` events, which are quite simple. A button is clicked, and a function is executed. The function to be executed is sometimes referred to as a "Callback Function". That function must be given as a _reference_ instead of being called directly: syntactically, that means writing the name of the function _without_ parentheses (`name` instead of `name()`).
 
 ```tsx
 function App(): JSX.Element {
-  function clickCallback() {
-    console.log("I was clicked!")
-  }
-  return <Button onClick={clickCallback}>Click me!</Button>
+    function clickCallback() {
+        console.log("I was clicked!");
+    }
+    return <Button onClick={clickCallback}>Click me!</Button>;
 }
 ```
 
@@ -86,7 +87,9 @@ You can also provide the function inline using the lambda syntax. This is someti
 
 ```tsx
 function App(): JSX.Element {
-  return <Button onClick={() => console.log("I was clicked!")}>Click me!</Button>
+    return (
+        <Button onClick={() => console.log("I was clicked!")}>Click me!</Button>
+    );
 }
 ```
 
@@ -98,30 +101,30 @@ Another event you will see instead of `onClick` is the `onChange` event. This on
 
 There are many, many other events available. You are unlikely to encounter many of them at first, since some are very esoteric. But some examples are:
 
-* `onFocus`: Fires when an element is given focus - such as clicking into a textbox, or tabbing onto a link. The corresponding event for losing focus is `onBlur`
-* `onMouseOver`: Fires when the mouse cursor is placed on top of the element. There are other variations for when the mouse cursor leaves, or moves while on top of the element.
-* `onDrag`: Fires when an element is clicked and dragged somewhere.
-* `onLoad`: Fires when an Image element finishes loading. There is also `onError` for if it fails to load correctly.
+- `onFocus`: Fires when an element is given focus - such as clicking into a textbox, or tabbing onto a link. The corresponding event for losing focus is `onBlur`
+- `onMouseOver`: Fires when the mouse cursor is placed on top of the element. There are other variations for when the mouse cursor leaves, or moves while on top of the element.
+- `onDrag`: Fires when an element is clicked and dragged somewhere.
+- `onLoad`: Fires when an Image element finishes loading. There is also `onError` for if it fails to load correctly.
 
 ## Event Parameters
 
 Even within a type of event (e.g., `onClick` or `onChange`) there are a lot of variations. Did the user click the left mouse button, or the right mouse button? Did the user enter `H` into the input textbox, or did they press the `Enter` key? JavaScript's Event System provides information about the specifics of the event via a parameter to its bound callback function. This event is a complex object which has event details and also information about the "target" of the event (aka, the HTML element involved).
 
-The most important event that we will see frequently is the `React.ChangeEvent`, which is fired by the `onChange` event. This event is a *Generic* event type, getting fired for input boxes, text areas, and drop-down boxes ("Select" boxes). You have seen generics when dealing with `useState`, which required you to indicate the element type in angle brackets (e.g., `useState<number>()`). When using `React.ChangeEvent`, we narrow the specific kind of element involved using angle brackets again (using values like `HTMLInputElement`, `HTMLTextAreaElement`, or `HTMLSelectElement`):
+The most important event that we will see frequently is the `React.ChangeEvent`, which is fired by the `onChange` event. This event is a _Generic_ event type, getting fired for input boxes, text areas, and drop-down boxes ("Select" boxes). You have seen generics when dealing with `useState`, which required you to indicate the element type in angle brackets (e.g., `useState<number>()`). When using `React.ChangeEvent`, we narrow the specific kind of element involved using angle brackets again (using values like `HTMLInputElement`, `HTMLTextAreaElement`, or `HTMLSelectElement`):
 
 ```tsx
-function textboxCallback(event: React.ChangeEvent<HTMLInputElement>) => {
-  // `event.target` is the actual HTML element that is changing
-  // That element has an attribute named `value` containing its new text
-  console.log(event.target.value);
-};
+function textboxCallback(event: React.ChangeEvent<HTMLInputElement>) {
+    // `event.target` is the actual HTML element that is changing
+    // That element has an attribute named `value` containing its new text
+    console.log(event.target.value);
+}
 ```
 
 As an alternative to providing the parameter type to the callback function, you can instead provide the type of the entire function:
 
 ```tsx
 const textboxCallback: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-  console.log(event.target.value);
+    console.log(event.target.value);
 };
 ```
 
@@ -135,7 +138,6 @@ type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
 Still, this isn't perfect. If the code depends on an attribute available in one of the two types but not the other, TypeScript will be confused and not recognize the attribute. So you may need to be careful when choosing an appropriate type parameter.
 
-
 # Specific Components
 
 Now that we have the theory of Bootstrap's Forms and React's HTML events and TypeScript's callbacks, let's take a look at how these components behave in isolated practice. In a later chapter, we will see how they can be combined together to make truly complicated applications!
@@ -148,26 +150,24 @@ The two critical fields that tie the `Form.Control` component to the application
 
 ```tsx
 export function App(): JSX.Element {
-  // This is the State (Model)
-  const [name, setName] = useState<string>('Alien');
+    // This is the State (Model)
+    const [name, setName] = useState<string>("Alien");
 
-  // This is the Control
-  function updateName(event: React.ChangeEvent<HTMLInputElement>) {
-    setName(event.target.value)
-  }
+    // This is the Control
+    function updateName(event: React.ChangeEvent<HTMLInputElement>) {
+        setName(event.target.value);
+    }
 
-  // This is the View
-  return <div>
-    <Form.Group controlId="formMovieName">
-      <Form.Label>Name:</Form.Label>
-      <Form.Control
-        value={name}
-        onChange={updateName} />
-    </Form.Group>
-    <div>
-      The movie is "{name}".
-    </div>
-  </div>;
+    // This is the View
+    return (
+        <div>
+            <Form.Group controlId="formMovieName">
+                <Form.Label>Name:</Form.Label>
+                <Form.Control value={name} onChange={updateName} />
+            </Form.Group>
+            <div>The movie is "{name}".</div>
+        </div>
+    );
 }
 ```
 
@@ -194,25 +194,28 @@ The type of data stored in the value field is still a string, like with a `text`
 
 ```tsx
 export function App(): JSX.Element {
-  const [released, setReleased] = useState<string>("2022");
-  const previousYear = (parseInt(released)-1) || 0;
+    const [released, setReleased] = useState<string>("2022");
+    const previousYear = parseInt(released) - 1 || 0;
 
-  // Provide forms for editing the new movie
-  // And also a button to append the movie
-  return <div>
-    <Form.Group controlId="formMovieReleased">
-      <Form.Label>Released:</Form.Label>
-      <Form.Control
-        type="number"
-        value={released}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setReleased(event.target.value)}
-      />
-    </Form.Group>
-    <div>
-      The year before the movie was released was {previousYear}.
-    </div>
-  </div>;
+    // Provide forms for editing the new movie
+    // And also a button to append the movie
+    return (
+        <div>
+            <Form.Group controlId="formMovieReleased">
+                <Form.Label>Released:</Form.Label>
+                <Form.Control
+                    type="number"
+                    value={released}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        setReleased(event.target.value)
+                    }
+                />
+            </Form.Group>
+            <div>
+                The year before the movie was released was {previousYear}.
+            </div>
+        </div>
+    );
 }
 ```
 
@@ -220,41 +223,54 @@ export function App(): JSX.Element {
 
 Frequently, you want to have a horizontal layout for your forms. This requires changing around the TSX a little bit. For the textboxes above, for example, we had to do the following:
 
-* Add the `as={Row}` attribute to the `Form.Group` tag
-* Add `column` and `sm={2}` attributes to the `Form.Label` tag
-* Surround the `Form.Control` with a new `Col` tag
+- Add the `as={Row}` attribute to the `Form.Group` tag
+- Add `column` and `sm={2}` attributes to the `Form.Label` tag
+- Surround the `Form.Control` with a new `Col` tag
 
 You can learn more about Horizontal Layouts (and other layout options) here: <https://react-bootstrap.github.io/forms/layout/#horizontal-form>
 
 ```tsx
 export function App(): JSX.Element {
-  // These will be the values for the new Movie
-  const [name, setName] = useState<string>('New Movie');
-  const [released, setReleased] = useState<number>(2022);
+    // These will be the values for the new Movie
+    const [name, setName] = useState<string>("New Movie");
+    const [released, setReleased] = useState<string>("2022");
 
-  // Provide forms for editing the new movie
-  // And also a button to append the movie
-  return <div>
-    <Form.Group controlId="formMovieName" as={Row} >
-      <Form.Label column sm={2}>Name:</Form.Label>
-      <Col>
-        <Form.Control
-          value={name}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setName(event.target.value)} />
-      </Col>
-    </Form.Group>
-    <Form.Group controlId="formMovieReleased" as={Row}>
-      <Form.Label column sm={2}>Released:</Form.Label>
-      <Col><Form.Control type="number" value={released}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setReleased(event.target.value)} />
-      </Col>
-    </Form.Group>
-    <div>
-      The movie {name} was released in {released}.
-    </div>
-  </div>;
+    // Provide forms for editing the new movie
+    // And also a button to append the movie
+    return (
+        <div>
+            <Form.Group controlId="formMovieName" as={Row}>
+                <Form.Label column sm={2}>
+                    Name:
+                </Form.Label>
+                <Col>
+                    <Form.Control
+                        value={name}
+                        onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>,
+                        ) => setName(event.target.value)}
+                    />
+                </Col>
+            </Form.Group>
+            <Form.Group controlId="formMovieReleased" as={Row}>
+                <Form.Label column sm={2}>
+                    Released:
+                </Form.Label>
+                <Col>
+                    <Form.Control
+                        type="number"
+                        value={released}
+                        onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>,
+                        ) => setReleased(event.target.value)}
+                    />
+                </Col>
+            </Form.Group>
+            <div>
+                The movie {name} was released in {released}.
+            </div>
+        </div>
+    );
 }
 ```
 
@@ -262,31 +278,33 @@ export function App(): JSX.Element {
 
 The text box is only good for a single line. If you want multiple lines, then you want a Text area, by adding a new attribute `as="textarea"`:
 
-
 ```tsx
 export function App(): JSX.Element {
-  // This is the State (Model)
-  const [description, setDescription] = useState<string>('What can you tell me?');
+    // This is the State (Model)
+    const [description, setDescription] = useState<string>(
+        "What can you tell me?",
+    );
 
-  // This is the Control
-  function updateDescription(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    setDescription(event.target.value)
-  }
+    // This is the Control
+    function updateDescription(event: React.ChangeEvent<HTMLTextAreaElement>) {
+        setDescription(event.target.value);
+    }
 
-  // This is the View
-  return <div>
-    <Form.Group controlId="formMovieName">
-      <Form.Label>Name:</Form.Label>
-      <Form.Control
-        as="textarea"
-        rows={3}
-        value={description}
-        onChange={updateDescription} />
-    </Form.Group>
-    <div>
-      Your description is {description.length} characters.
-    </div>
-  </div>;
+    // This is the View
+    return (
+        <div>
+            <Form.Group controlId="formMovieName">
+                <Form.Label>Name:</Form.Label>
+                <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={description}
+                    onChange={updateDescription}
+                />
+            </Form.Group>
+            <div>Your description is {description.length} characters.</div>
+        </div>
+    );
 }
 ```
 
@@ -296,25 +314,27 @@ The next kind of Form we will look at is a checkbox. This corresponds to some bo
 
 ```tsx
 export function App(): JSX.Element {
-  // This is the State (Model)
-  const [isHappy, setIsHappy] = useState<boolean>(true);
+    // This is the State (Model)
+    const [isHappy, setIsHappy] = useState<boolean>(true);
 
-  // This is the Control
-  function updateHappiness(event: React.ChangeEvent<HTMLInputElement>) {
-    setIsHappy(event.target.checked)
-  }
+    // This is the Control
+    function updateHappiness(event: React.ChangeEvent<HTMLInputElement>) {
+        setIsHappy(event.target.checked);
+    }
 
-  // This is the View
-  return <div>
-      <Form.Check
-          type="checkbox"
-          id="is-happy-check"
-          label="Happy?"
-          checked={isHappy}
-          onChange={updateHappiness}
-      />
-      <div>The user is {isHappy ? "happy" : "not happy"}.</div>
-  </div>;
+    // This is the View
+    return (
+        <div>
+            <Form.Check
+                type="checkbox"
+                id="is-happy-check"
+                label="Happy?"
+                checked={isHappy}
+                onChange={updateHappiness}
+            />
+            <div>The user is {isHappy ? "happy" : "not happy"}.</div>
+        </div>
+    );
 }
 ```
 
@@ -324,25 +344,27 @@ The switch is essentially a visual modification of the checkbox, so it's not rea
 
 ```tsx
 export function App(): JSX.Element {
-  // This is the State (Model)
-  const [isHappy, setIsHappy] = useState<boolean>(true);
+    // This is the State (Model)
+    const [isHappy, setIsHappy] = useState<boolean>(true);
 
-  // This is the Control
-  function updateHappiness(event: React.ChangeEvent<HTMLInputElement>) {
-    setIsHappy(event.target.checked)
-  }
+    // This is the Control
+    function updateHappiness(event: React.ChangeEvent<HTMLInputElement>) {
+        setIsHappy(event.target.checked);
+    }
 
-  // This is the View
-  return <div>
-      <Form.Check
-          type="switch"
-          id="is-happy-check"
-          label="Happy?"
-          checked={isHappy}
-          onChange={updateHappiness}
-      />
-      <div>The user is {isHappy ? "happy" : "not happy"}.</div>
-  </div>;
+    // This is the View
+    return (
+        <div>
+            <Form.Check
+                type="switch"
+                id="is-happy-check"
+                label="Happy?"
+                checked={isHappy}
+                onChange={updateHappiness}
+            />
+            <div>The user is {isHappy ? "happy" : "not happy"}.</div>
+        </div>
+    );
 }
 ```
 
@@ -355,7 +377,7 @@ We must also dramatically change how we provide `checked`, using a calculated ex
 
 ```tsx
 export function App(): JSX.Element {
-  // This is the State (Model)
+    // This is the State (Model)
     const [emotion, setEmotion] = useState<string>("happy");
 
     // This is the Control
@@ -439,7 +461,7 @@ Radio buttons are mutually exclusive, but what if you want to have a bunch of op
 
 ```tsx
 export function App(): JSX.Element {
-  // This is the State (Model)
+    // This is the State (Model)
     const [emotions, setEmotions] = useState<string[]>(["happy", "sad"]);
 
     // This is the Control
@@ -545,9 +567,11 @@ export function App(): JSX.Element {
             <Form.Group controlId="favoriteColors">
                 <Form.Label>What is your favorite color?</Form.Label>
                 <Form.Select value={favorite} onChange={updateFavorite}>
-                  { COLORS.map((color: string) =>
-                    <option key={color} value={color}>{color}</option>
-                  )}
+                    {COLORS.map((color: string) => (
+                        <option key={color} value={color}>
+                            {color}
+                        </option>
+                    ))}
                 </Form.Select>
             </Form.Group>
             The user's favorite color is {favorite}.
@@ -565,7 +589,7 @@ With more sophisticated kinds of user input, we must also now have more sophisti
 First, we'll introduce two new suffixes (`LabelText` for checking labels and `DisplayValue`). The `LabelText` suffix allows us to find elements based on their `Form.Label`; we access the actual interactive component rather than the Label itself (i.e., you'd get an input box or select instead of the label). The `DisplayValue` checks the current value entered into the input element.
 
 |              | getBy             | queryBy             |
-|--------------|-------------------|---------------------|
+| ------------ | ----------------- | ------------------- |
 | Text         | getByText         | queryByText         |
 | Role         | getByRole         | queryByRole         |
 | TestId       | getByTestId       | queryByTestId       |
@@ -575,7 +599,7 @@ First, we'll introduce two new suffixes (`LabelText` for checking labels and `Di
 We'll also introduce a variation on our existing prefixes which will let us get `All` matching elements. The `getAllBy` variant expects 1 or more elements, while the `queryAll` allows 0, 1, or more elements. The end result is a list, which you will probably need to filter further in order to do anything interesting.
 
 |              | getAllBy             | queryAllBy             |
-|--------------|----------------------|------------------------|
+| ------------ | -------------------- | ---------------------- |
 | Text         | getAllByText         | queryAllByText         |
 | Role         | getAllByRole         | queryAllByRole         |
 | TestId       | getAllByTestId       | queryAllByTestId       |
@@ -584,9 +608,9 @@ We'll also introduce a variation on our existing prefixes which will let us get 
 
 This list is still not exhaustive. There are still a bunch of other suffixes, which we will be unlikely to use:
 
-* `ByPlaceholderText` find by input placeholder value
-* `ByAltText` find by img alt attribute
-* `ByTitle` find by title attribute or svg title tag
+- `ByPlaceholderText` find by input placeholder value
+- `ByAltText` find by img alt attribute
+- `ByTitle` find by title attribute or svg title tag
 
 There are also the `findBy` and `findAllBy` prefixes, which support asynchronous interaction. We will cover that in a future version of the Tome, but for now hope that you won't need them.
 
@@ -604,10 +628,10 @@ Your worst case scenario is using the `data-testid` attribute, which you hate to
 
 ## New Assertions
 
-We'll add a new assertion to our list of tools too. 
+We'll add a new assertion to our list of tools too.
 
-* `toHaveValue(value)` assertion will check an input element to make sure it has a given value. Keep in mind that the value will most likely be a string, since it comes from HTML and not JavaScript.
-* `toBeChecked()` assertion will make sure a textbox or radio has a check (is true).
+- `toHaveValue(value)` assertion will check an input element to make sure it has a given value. Keep in mind that the value will most likely be a string, since it comes from HTML and not JavaScript.
+- `toBeChecked()` assertion will make sure a textbox or radio has a check (is true).
 
 ## New Ways to Simulate User Input
 
@@ -622,9 +646,8 @@ expect(nameElement).toHaveValue("Aliens the Movie");
 
 There is also the `.selectOptions()` function for targetting dropdowns. There are many other ways to simulate user input, depending on what kinds of forms you are dealing with. We won't get into any more details, but expect to have to use the resources we have pointed to before:
 
-* Here is an article on the [React Testing Library](
-https://www.robinwieruch.de/react-testing-library/).
-* Here is a [React Testing Library Cheat Sheet](https://testing-library.com/docs/react-testing-library/cheatsheet/).
+- Here is an article on the [React Testing Library](https://www.robinwieruch.de/react-testing-library/).
+- Here is a [React Testing Library Cheat Sheet](https://testing-library.com/docs/react-testing-library/cheatsheet/).
 
 # 📝 Task - Making Forms
 
@@ -637,6 +660,7 @@ $> git fetch upstream task-forms
 $> git checkout -b solved-forms
 $> git merge upstream/task-forms
 ```
+
 You may encounter merge errors once again. If so, then you need to resolve the conflicts, stage the files, and then commit your changes BEFORE you start working on the components. Here is a [tutorial on merging conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line) if you are still struggling.
 
 ## Creating Components
@@ -655,36 +679,36 @@ Every time you save a file in VS Code, the website should update automatically w
 
 The `CheckAnswer` component allows a user to enter an answer to a short answer question, and then displays whether they got it correct or incorrect. The component takes in a parameter representing the `expectedAnswer`.
 
-* You will need a state to handle the user's given answer
-* The user's given answer should initially be the empty string
-* When the user's given answer matches the `expectedAnswer`, display ✔️; otherwise display ❌
+- You will need a state to handle the user's given answer
+- The user's given answer should initially be the empty string
+- When the user's given answer matches the `expectedAnswer`, display ✔️; otherwise display ❌
 
 ## GiveAttempts
 
 The `GiveAttempts` component simulates a user taking a quiz with a limited number of attempts, but also provides a way for them to gain as many attempts as they want via a numeric input box.
 
-* You will need a state to represent the number of attempts the user has left, and another state to represent the number of attempts they are requesting.
-* The initial number of attempts left should be 3.
-* The number of attempts left should be visible.
-* There should be a numeric input box where the user can specify their requested number of attempts.
-* There should be two buttons, one labeled `use` that decreases the attempts by one and one labeled `gain` that increases the attempts by the amount in the input box.
-* If the user attempts to request an invalid amount (e.g., the empty string `""`) that cannot be parsed as an integer, then do not change their number of attempts.
-* When the user is out of attempts, the `use` button should be disabled
+- You will need a state to represent the number of attempts the user has left, and another state to represent the number of attempts they are requesting.
+- The initial number of attempts left should be 3.
+- The number of attempts left should be visible.
+- There should be a numeric input box where the user can specify their requested number of attempts.
+- There should be two buttons, one labeled `use` that decreases the attempts by one and one labeled `gain` that increases the attempts by the amount in the input box.
+- If the user attempts to request an invalid amount (e.g., the empty string `""`) that cannot be parsed as an integer, then do not change their number of attempts.
+- When the user is out of attempts, the `use` button should be disabled
 
 ## EditMode
 
 The `EditMode` component has two states controlled by a switch: the default state shows text indicating the user's name and whether they are a student, and then the alternate state is an editable form for editing the user's name and whether they are a student.
 
-* You will need state to handle the component being in "edit mode", the user's name, and whether or not the user is a student.
-* The state of "edit mode" should be controlled by a switch (not a button or checkbox).
-* Initially, the component is NOT in edit mode, the user's name is literally the string `Your Name` (as in, that exact string, not your actual name), and the user IS a student.
-* When not in edit mode, the text of the component must include `Your Name is a student` or `Your Name is not a student`.
-* As another example, if the user entered their name as `Charles Babbage` and said they were NOT a student, then the text would be `Charles Babbage is not a student`.
-* Whether or not the user is a student should be controlled by a regular checkbox, not a switch or button.
+- You will need state to handle the component being in "edit mode", the user's name, and whether or not the user is a student.
+- The state of "edit mode" should be controlled by a switch (not a button or checkbox).
+- Initially, the component is NOT in edit mode, the user's name is literally the string `Your Name` (as in, that exact string, not your actual name), and the user IS a student.
+- When not in edit mode, the text of the component must include `Your Name is a student` or `Your Name is not a student`.
+- As another example, if the user entered their name as `Charles Babbage` and said they were NOT a student, then the text would be `Charles Babbage is not a student`.
+- Whether or not the user is a student should be controlled by a regular checkbox, not a switch or button.
 
 HINT: We said "switch" and we meant it.
 
-HINT: If you can't figure out why you are failing a test, *read the test code*. The tests are the most specific form of description.
+HINT: If you can't figure out why you are failing a test, _read the test code_. The tests are the most specific form of description.
 
 HINT: If an element is rendered not visible, then a test looking for it will fail. If a test fails, check to see if the elements you have written are rendered in the Javascript.
 
@@ -692,11 +716,11 @@ HINT: If an element is rendered not visible, then a test looking for it will fai
 
 The `ChangeColor` component offers the user a bunch of radio buttons labeled with different colors; choosing a radio button updates the text and color of a nearby box of text.
 
-* You will need state to represent the chosen color
-* You are free to make up your own list of colors, but you must have AT LEAST 8 unique colors. 
-* Each color must be represented by a radio button.
-* There should be a box of text with a `data-testid="colored-box"` attribute and value.
-* The box of text should have the same text and `backgroundColor` style as the currently selected radio button.
+- You will need state to represent the chosen color
+- You are free to make up your own list of colors, but you must have AT LEAST 8 unique colors.
+- Each color must be represented by a radio button.
+- There should be a box of text with a `data-testid="colored-box"` attribute and value.
+- The box of text should have the same text and `backgroundColor` style as the currently selected radio button.
 
 HINT: We strongly recommend you use `map` to render all the color's `Form.Check` tags rather than hardcoding each one!
 
@@ -708,9 +732,9 @@ HINT: We recommend you use the `inline` attribute for the radio buttons.
 
 The `MultipleChoiceQuestions` component allows a user to select an answer from a list in a dropdown, and then displays whether they got it correct or incorrect. The component takes in a parameter representing the `expectedAnswer` and also a parameter representing the list of `options`.
 
-* You will need a state to represent the user's currently selected choice.
-* The initial state of the selected choice is the first element of the `options` list.
-* When the user's given answer matches the `expectedAnswer`, display ✔️; otherwise display ❌
+- You will need a state to represent the user's currently selected choice.
+- The initial state of the selected choice is the first element of the `options` list.
+- When the user's given answer matches the `expectedAnswer`, display ✔️; otherwise display ❌
 
 ## Testing and Deploying
 

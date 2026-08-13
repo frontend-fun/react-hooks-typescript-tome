@@ -26,7 +26,7 @@ You can bring up your developer console by pressing `CTRL+SHIFT+J` (windows) and
 
 The console has several useful views like the Elements panel and the Network Panel. But right now we need to focus on the `Console` tab. There you can write individual lines of JavaScript to experiment with the language, manipulate the page, and see the results of logging and errors. The Developer Console is a useful tool, don't be afraid to try it.
 
-In this site, we have also made all the code examples runnable. They probably work *okay*, although they don't give the same nice errors and warnings that you get in Visual Studio Code, and they don't give you all the interactive views that the JS Console gives. Still, hopefully you find it helpful to experiment with them.
+In this site, we have also made all the code examples runnable. They probably work _okay_, although they don't give the same nice errors and warnings that you get in Visual Studio Code, and they don't give you all the interactive views that the JS Console gives. Still, hopefully you find it helpful to experiment with them.
 
 # Logging
 
@@ -50,9 +50,9 @@ Let's talk about types, values, operators, and variables.
 
 Here are the basic types:
 
-* `number`: Includes integers and decimals. Implemented as floating points.
-* `boolean`: Either `true` or `false`
-* `string`: You can use `'single quotes'` or `"double quotes"`. There are also backticks ` for multi-line strings (and a lot more). You should stick to double quotes and backticks; Prettier will change double quotes into single quotes, and the linter will complain about single quotes.
+- `number`: Includes integers and decimals. Implemented as floating points.
+- `boolean`: Either `true` or `false`
+- `string`: You can use `'single quotes'` or `"double quotes"`. There are also backticks ` for multi-line strings (and a lot more). You should stick to double quotes and backticks; Prettier will change double quotes into single quotes, and the linter will complain about single quotes.
 
 ```typescript
 // Numbers
@@ -66,16 +66,16 @@ console.log(false);
 
 // Strings
 console.log("Hello there");
-console.log('Guess what?\nSpecial characters exist!');
+console.log("Guess what?\nSpecial characters exist!");
 console.log(`Backticks
 allow multiple lines!`);
 ```
 
 There's also several special values:
 
-* `null`: A special value used to indicate something is "unknown".
-* `undefined`: Another special value used to indicate a value is not yet set.
-* `NaN`: Short for "Not a Number". Except if you typecheck it, it *is* counted as a `number`. The idea is that it is produced when you do math with numbers that is invalid. Basically, if you see it in your code, things have gone badly.
+- `null`: A special value used to indicate something is "unknown".
+- `undefined`: Another special value used to indicate a value is not yet set.
+- `NaN`: Short for "Not a Number". Except if you typecheck it, it _is_ counted as a `number`. The idea is that it is produced when you do math with numbers that is invalid. Basically, if you see it in your code, things have gone badly.
 
 ## Operators
 
@@ -87,7 +87,7 @@ console.log("9/3 is", 9 / 3);
 console.log("4/0 is", 4 / 0);
 console.log("0/0 is", 0 / 0);
 console.log("2.1*4.7 is", 2.1 * 4.7);
-// Remember modulo? Clock arithematic? Remainder? Whatever you want to call it. 
+// Remember modulo? Clock arithematic? Remainder? Whatever you want to call it.
 console.log("18 % 12 is", 18 % 12);
 ```
 
@@ -128,7 +128,7 @@ A cool feature in modern JavaScript is that we can embed variables and expressio
 let name: string = "Dr. Bart";
 let pets: number = 3;
 
-let message: string = `${name} has ${pets} pets. He would like ${pets+1} pets though!`;
+let message: string = `${name} has ${pets} pets. He would like ${pets + 1} pets though!`;
 
 console.log(message);
 ```
@@ -147,15 +147,14 @@ Use of `any` will result in a zero grade for an assignment.
 
 Remember the vocabulary you have seen in previous courses:
 
-* Define: To specify what a function does
-* Call: To activate a function
-* Parameters: The formal names of the values passed to a function
-* Arguments: The actual values passed to a function
+- Define: To specify what a function does
+- Call: To activate a function
+- Parameters: The formal names of the values passed to a function
+- Arguments: The actual values passed to a function
 
 ## Function Calls
 
 You call functions with the name of the function and parentheses. You can have any number of arguments.
-
 
 ```typescript
 // Function name is `console.log`
@@ -170,13 +169,13 @@ You can define function in two different ways. There's the classic syntax with t
 ```typescript
 // Classic syntax
 function add(first: number, second: number): number {
-  return first + second;
+    return first + second;
 }
 
 // Modern "lambda" syntax
 const subtract = (first: number, second: number): number => {
-  return first - second;
-}
+    return first - second;
+};
 
 // Both are called the exact same way:
 console.log(add(1, 3));
@@ -186,7 +185,7 @@ console.log(subtract(9, 3));
 With the lambda syntax, you actually don't even need the curly braces and `return` IF the body of the function is just a single expression:
 
 ```typescript
-const subtract = (first: number, second: number): number => (first - second);
+const subtract = (first: number, second: number): number => first - second;
 
 // Still works the same way
 console.log(subtract(9, 3));
@@ -196,8 +195,8 @@ To make functions available in other files, you need to use the `export` keyword
 
 ```typescript
 export const multiply = (first: number, second: number): number => {
-  return first * second;
-}
+    return first * second;
+};
 
 console.log(multiply(3, 4));
 ```
@@ -210,12 +209,12 @@ The `void` type is used for a function that doesn't return anything.
 
 ```typescript
 export const sayHello = (name: string): void => {
-  console.log("Hello", name);
-}
+    console.log("Hello", name);
+};
 
-sayHello();
+sayHello("World");
 
-console.log(sayHello());
+console.log(sayHello("World"));
 ```
 
 What happens when you log the result of calling a `void` function? The function MUST return a value, so it returns `undefined` by default. Depending on how you log it, it might appear as an empty string or the word `undefined`. Importantly, `console.log` is NOT the same thing as `return`.
@@ -230,17 +229,16 @@ Our web application is setup to support tests. We can write classic unit tests v
  * Vampire always have two fangs each.
  */
 export function countFangs(vampires: number): number {
-  return vampires * 2;
+    return vampires * 2;
 }
 
 // TODO: This is not currently supported in the browser, unfortunately.
 test("Count vampires' teeth", () => {
-  expect(countFangs(0)).toBe(0);
-  expect(countFangs(1)).toBe(2);
-  expect(countFangs(15)).toBe(30);
+    expect(countFangs(0)).toBe(0);
+    expect(countFangs(1)).toBe(2);
+    expect(countFangs(15)).toBe(30);
 });
 ```
-
 
 # Conditionals
 
@@ -249,9 +247,9 @@ JavaScript has `if` statements. Parentheses are required.
 ```typescript
 let age: number = 29;
 if (age >= 21) {
-  console.log("Can drink");
+    console.log("Can drink");
 } else {
-  console.log("Cannot drink");
+    console.log("Cannot drink");
 }
 ```
 
@@ -269,9 +267,9 @@ console.log(age >= 21 ? "Can drink" : "Cannot drink");
 There are two equality operators in JavaScript. There's the double equal operator (which you will never use) and the triple equal operator (which you will always use). Along with the `!==` equal operator ("not equal equal"), you can check for equality.
 
 ```typescript
-console.log(1+1 === 2);
+console.log(1 + 1 === 2);
 console.log("Hello" + "World" === "HelloWorld");
-console.log(1+3 !== "4");
+console.log(1 + 3 !== 5);
 ```
 
 Okay there is actually a case where you MIGHT choose to use the double equal operator, but we're gonna skip over it for now. Just assume you won't use it.
@@ -284,7 +282,7 @@ You have all the classics: `<` , `>`, `<=`, and `>=`.
 
 You have the `!` (not).
 
-You have `&&` (and) and `||` (or) and `^^` (xor).
+You have `&&` (and) and `||` (or).
 
 ## Truthiness
 
@@ -296,12 +294,11 @@ You can read more here: <https://developer.mozilla.org/en-US/docs/Glossary/Truth
 
 JavaScript has several kinds of loops that are similar to what you have seen in other languages:
 
-* The `for` loop
-* For-each loops
-* The `while` loop
+- The `for` loop
+- For-each loops
+- The `while` loop
 
 But hey we aren't going to teach you how to use these because we'll do something even better in the next section with arrays. Get hyped!
-
 
 # 📝 Task - Functions
 
