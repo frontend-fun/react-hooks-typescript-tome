@@ -100,15 +100,28 @@ console.log("This produces true:", true || false);
 
 Strings use `+`, indexing. Strings have a bunch of useful methods that you can call.
 
-## Variables
+## Types and Variables
+
+You can declare variables using three keywords: `const`, `let`, and `var`. In this course, we will primarily use `const` and `let`. If you see `var`, think of it as being like `let` and avoid it in new code.
+
+Declare variables that do not change with `const` and an explicit type annotation:
 
 ```typescript
-const UNCHANGED_VALUE: number = 100;
+const quizTitle: string = "TypeScript Fundamentals";
+const questionCount: number = 10;
+const isPublished: boolean = false;
 
-let name: string = "Dr. Bart";
+console.log(quizTitle, questionCount, isPublished);
+```
 
-console.log(UNCHANGED_VALUE);
-console.log(name);
+If a variable needs to be reassigned, use `let` with an explicit type annotation instead of `const`.
+
+```typescript
+let currentScore: number = 0;
+console.log("Original value:", currentScore);
+
+currentScore = 10;
+console.log("New value:", currentScore);
 ```
 
 You might also see `var`, but you don't need to worry about using it. Basically, you should define variables using the keyword `const` by default, and only use `let` when you actually need to reassign the variable later.
@@ -118,6 +131,84 @@ You might also see `var`, but you don't need to worry about using it. Basically,
 var name = "Dr. Bart";
 
 console.log(name);
+```
+
+Two house rules:
+
+- **`const` by default.** Use `let` only when a variable genuinely needs reassignment, which is rarer than you think. A value that cannot be reassigned is a value you never have to hunt for.
+- **Annotate boundaries.** Our lint rules require explicit types where code meets other code: function parameters, function return types, and exported values. Inside a function body, inference can do the work.
+
+The example below shows how you don't always have to provide an explicit type annotation for every variable; TypeScript can often infer the type from the assigned value. Hover over the variables to see their types; you will notice that they are actually inferred as their _literal values_ instead of the more general `string`, `number`, or `boolean` types.
+
+```typescript
+const inferredString = "I am inferred as a string value";
+const inferredNumber = 42;
+const inferredBoolean = true;
+
+console.log(inferredString, inferredNumber, inferredBoolean);
+```
+
+When the types disagree, the compiler says so. This example is deliberately wrong:
+
+```typescript
+// Type 'string' is not assignable to type 'number'.(2322)
+const enrollment: number = "twenty";
+console.log(enrollment);
+```
+
+If you hover over the `enrollment` variable in VS Code, you will see a message like:
+
+```text
+Type 'string' is not assignable to type 'number'.(2322)
+```
+
+It is critical to actually read error messages like this and think about what they are saying.
+
+## The Evil `any` type
+
+You will never ever be allowed to use this.
+
+Seriously, if you use this we literally will throw your project out.
+
+The idea of the `any` type is to admit that you don't know what type something is. That means you don't know what you're doing. If you don't know what you're doing, then you need to learn (because that is the purpose of all this). If you learn what you are doing, then you know what type of data you are dealing with. Then you don't need `any`. (Hint: the error messages are great at telling you what types are not working in an expression!)
+
+Use of `any` will result in a zero grade for an assignment.
+
+## Type Unions
+
+A type union allows a variable to hold one of several types or values. For example, a variable could be either a `string` or `number`:
+
+```typescript
+let value: string | number;
+
+value = "Hello";
+console.log(value);
+
+value = 42;
+console.log(value);
+```
+
+Much more useful is a type union that covers a subset of specific values from a type. You can give special names to these subsets using type aliases. For example:
+
+```typescript
+type LetterGrade = "A" | "B" | "C" | "D" | "F";
+
+let grade: LetterGrade;
+grade = "A";
+console.log(grade);
+
+grade = "F";
+console.log(grade);
+```
+
+This prevents an error where someone tries to assign a value to `grade` that is not one of the allowed letter grades.
+
+```typescript
+type LetterGrade = "A" | "B" | "C" | "D" | "F";
+
+let grade: LetterGrade;
+grade = "E"; // This should produce a type error
+console.log(grade);
 ```
 
 ## String Interpolation
@@ -132,16 +223,6 @@ let message: string = `${name} has ${pets} pets. He would like ${pets + 1} pets 
 
 console.log(message);
 ```
-
-## The Evil `any` type
-
-You will never ever be allowed to use this.
-
-Seriously, if you use this we literally will throw your project out.
-
-The idea of the `any` type is to admit that you don't know what type something is. That means you don't know what you're doing. If you don't know what you're doing, then you need to learn (because that is the purpose of all this). If you learn what you are doing, then you know what type of data you are dealing with. Then you don't need `any`. (Hint: the error messages are great at telling you what types are not working in an expression!)
-
-Use of `any` will result in a zero grade for an assignment.
 
 # Functions
 
@@ -162,17 +243,17 @@ You call functions with the name of the function and parentheses. You can have a
 console.log(19, "Hello World", true);
 ```
 
-## Function Declarations
+## Defining Functions
 
-You can define function in two different ways. There's the classic syntax with the `function` keyword, and the modern "lambda" syntax using the `=>` symbols. Both are called the same way, with the name of the function, parentheses, and the arguments.
+There are two main ways to define functions in TypeScript: using the `function` declaration and arrow (`=>`) functions. Both are called the same way, with the name of the function, parentheses, and the arguments.
 
 ```typescript
-// Classic syntax
+// Function declaration
 function add(first: number, second: number): number {
     return first + second;
 }
 
-// Modern "lambda" syntax
+// Arrow Function
 const subtract = (first: number, second: number): number => {
     return first - second;
 };
@@ -182,7 +263,7 @@ console.log(add(1, 3));
 console.log(subtract(9, 3));
 ```
 
-With the lambda syntax, you actually don't even need the curly braces and `return` IF the body of the function is just a single expression:
+With the lambda syntax, you actually don't even need the curly braces and `return` if the body of the function is just a single expression:
 
 ```typescript
 const subtract = (first: number, second: number): number => first - second;
@@ -190,6 +271,8 @@ const subtract = (first: number, second: number): number => first - second;
 // Still works the same way
 console.log(subtract(9, 3));
 ```
+
+## Exporting Functions
 
 To make functions available in other files, you need to use the `export` keyword:
 
@@ -203,21 +286,51 @@ console.log(multiply(3, 4));
 
 This won't do anything interesting here, but if were in Visual Studio Code you'd now be able to use the `multiply` function in other files. Nifty!
 
-## Function Signature
+## Annotations
 
-The `void` type is used for a function that doesn't return anything.
+Annotations are how you tell TypeScript what type a variable, parameter, or return value should have. They are optional in many cases because TypeScript can infer types, but we are requiring them for this course to ensure clarity and consistency.
+
+If you have a function that doesn't return anything, you should annotate it with the `void` return type. For example:
 
 ```typescript
 export const sayHello = (name: string): void => {
     console.log("Hello", name);
 };
 
-sayHello("World");
+sayHello("Dr. Bart");
 
-console.log(sayHello("World"));
+console.log(sayHello("someone else"));
 ```
 
 What happens when you log the result of calling a `void` function? The function MUST return a value, so it returns `undefined` by default. Depending on how you log it, it might appear as an empty string or the word `undefined`. Importantly, `console.log` is NOT the same thing as `return`.
+
+## Function Types
+
+Function names are just variables holding a value of type function.
+
+FUNCTIONS ARE A TYPE OF DATA.
+
+This is often uncomfortable for people new to "functional programming", but it's one of the most powerful ideas in all of computing. Functions are a first-class type of data and can be assigned to variables. That's literally what is happening when you use arrow expressions.
+
+However, it's not enough to say that a variable is of type "function", since you need to specify its arity, parameter types, and return type:
+
+- **Arity**: The number of parameters a function takes.
+- **Parameter types**: The types of each parameter a function accepts.
+- **Return type**: The type of value a function returns.
+
+The syntax for this looks a lot like the syntax for defining a function itself, but written as a type annotation. For example:
+
+```typescript
+let myOperation: (first: number, second: number) => number;
+
+myOperation = (first: number, second: number): number => first + second;
+console.log(myOperation(2, 3));
+
+myOperation = (first: number, second: number): number => first * second;
+console.log(myOperation(2, 3));
+```
+
+Hover over the `myOperation` variable in your editor to see its type. It should show `(first: number, second: number) => number`. This may seem like a lot of gibberish the first time you see it; you need to carefully parse through each piece of the type to make sure you fully understand what you are seeing.
 
 ## Testing Functions
 
@@ -242,25 +355,7 @@ test("Count vampires' teeth", () => {
 
 # Conditionals
 
-JavaScript has `if` statements. Parentheses are required.
-
-```typescript
-let age: number = 29;
-if (age >= 21) {
-    console.log("Can drink");
-} else {
-    console.log("Cannot drink");
-}
-```
-
-## Ternary IF
-
-There's also a ternary `?` operator that you can use for expressions instead of statements.
-
-```typescript
-let age: number = 29;
-console.log(age >= 21 ? "Can drink" : "Cannot drink");
-```
+TypeScript has a few different ways of handling conditionals, including `if` statements, the ternary operator, and logical operators.
 
 ## Equality
 
@@ -272,23 +367,65 @@ console.log("Hello" + "World" === "HelloWorld");
 console.log(1 + 3 !== 5);
 ```
 
-Okay there is actually a case where you MIGHT choose to use the double equal operator, but we're gonna skip over it for now. Just assume you won't use it.
+Okay there is actually a case where you MIGHT choose to use the double equal operator (`==`) or the not equal operator (`!=`) , but we're gonna skip over it for now. Just assume you won't use it.
 
 You will basically never use `==` or `!=`. You will only ever use `===` and `!==`.
 
-## Comparison and Logical Operators
+## Logical Operators
 
-For comparison (aka "relational") operators, you have all the classics: `<` , `>`, `<=`, and `>=`.
+You have all the classics: `<` , `>`, `<=`, and `>=`.
 
-For logical operators, you have the `!` (not).
+You have the `!` (not).
 
 You have `&&` (and) and `||` (or).
 
 ## Truthiness
 
-Like Python, JavaScript has Truthiness. Any value can be evaluated in a conditional context as either Truthy or Falsey. The rules are different than in Python.
+Like Python, JavaScript has Truthiness. Any value can be evaluated in a conditional context as either Truthy or Falsy. The rules are different than in Python.
 
-You can read more here: <https://developer.mozilla.org/en-US/docs/Glossary/Truthy>
+You can read more here: [https://developer.mozilla.org/en-US/docs/Glossary/Truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
+
+## `if` Statements
+
+The most common approach is using `if`, `else if`, and `else` blocks.
+
+```typescript
+let age: number = 29;
+
+if (age >= 21) {
+    console.log("Can drink");
+} else if (age >= 18) {
+    console.log("Getting closer");
+} else {
+    console.log("Cannot drink");
+}
+```
+
+You actually won't use `if` statements as much, because there are often more concise ways to express conditional logic, such as the ternary operator or logical operators.
+
+## Ternary `? :` Operator
+
+The ternary operator is a concise way to write short `if-else` statements. It has the form:
+
+```typescript
+condition ? expressionIfTrue : expressionIfFalse;
+```
+
+For example:
+
+```typescript
+let age: number = 29;
+console.log(age >= 21 ? "Can drink" : "Cannot drink");
+```
+
+You can actually even nest the operator:
+
+```typescript
+let age: number = 29;
+console.log(
+    age >= 21 ? (age >= 65 ? "Senior can drink" : "Can drink") : "Cannot drink",
+);
+```
 
 # Loops
 
