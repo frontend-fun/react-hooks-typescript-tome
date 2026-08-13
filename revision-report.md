@@ -2,17 +2,17 @@
 
 A full audit of the tome (`docs/`) for errors, misleading content, and out-of-date material, cross-checked against the companion tasks repo and autograder.
 
-> **Status update (Aug 13):** Checkboxes below now reflect the current state of the repo. Most P0/P1/P2 items were fixed by your commits `00164f6` ("Fix some major typos") and `ce5d8ca` ("More little mistakes"); all P3 items except the screenshot re-shoot were fixed in the working tree (uncommitted) by the P3 cleanup pass, which also completed two fixes your commits started (the ToC link's directory name, and the second `currentTotal` redeclaration in arrays.md). **What's still open:**
-> 1. **nested.md merge-conflict guidance** — the highest-stakes item; still no conflict section (P0)
-> 2. nested.md:117/126 — live `castleInTheSky.released` / `post2000Movie.name` still error under strict TS (P0 remnant; the `?.` explanation was added in comments, but the active lines are unchanged)
-> 3. GitHub authentication paragraph in environment.md (P1)
-> 4. components.md:666-670 — the re-render/"remount" mental-model paragraph (P1)
-> 5. objects.md:45-49 — "logs `undefined`" claims that are actually TS compile errors (P1)
-> 6. complex.md:380 — `//` comment rendered as JSX text (P1; the state.md instance was fixed)
-> 7. components.md task section — still no one-line merge-conflict warning (P1 remnant of the task-state item)
-> 8. state.md:476 — `match(...)[0]` strict-null error (P2)
-> 9. `change-base-repo-pr-alt.png` screenshot re-shoot (P3)
-> 10. The two cross-repo decisions (task-state branch refresh; autograder coverage config)
+> **Status update (Aug 13, second pass):** Checkboxes below reflect the current state of the repo. Most P0/P1/P2 items were fixed by your commits `00164f6` and `ce5d8ca`; all P3 items except the screenshot re-shoot were fixed by the P3 cleanup pass (which also completed the ToC-link and `currentTotal` fixes your commits started). A follow-up pass then fixed the nested.md merge-conflict guidance, the strict-null `find` lines, and the re-render/"remount" paragraph. **Remaining:**
+> 1. ~~nested.md merge-conflict guidance~~ *(FIXED — conflict section added with per-file keep-ours/take-theirs instructions)*
+> 2. ~~nested.md:117/126 strict-null `find` access~~ *(FIXED — live lines now use `?.`)*
+> 3. GitHub authentication paragraph in environment.md (P1) — **deferred by author decision**
+> 4. ~~components.md re-render/"remount" paragraph~~ *(FIXED — rewritten around component-type identity and remount-destroys-state)*
+> 5. objects.md:45-49 — "logs `undefined`" claims that are actually TS compile errors (P1) — open
+> 6. complex.md:380 — `//` comment rendered as JSX text (P1; the state.md instance was fixed) — open
+> 7. components.md task section — one-line merge-conflict warning (P1 remnant of the task-state item) — open
+> 8. state.md:476 — `match(...)[0]` strict-null error (P2) — **deferred by author decision**
+> 9. `change-base-repo-pr-alt.png` screenshot re-shoot (P3) — open
+> 10. The two cross-repo decisions (task-state branch refresh; autograder coverage config) — open
 
 **Method.** Every chapter was read line-by-line. Every substantive code snippet was type-checked verbatim against the course's actual toolchain (TypeScript 4.9.5, React 18.3.1, react-bootstrap 2.10.4, `--strict`, from the tasks repo's own `node_modules`); runtime-output claims were executed in Node 22. The book's git command sequences for all 10 tasks were replayed in order in a throwaway clone of the tasks repo. Every task branch's tests and the autograder's staging suites were compared against the book's task descriptions. All ~55 unique external URLs were checked. Neither the tasks repo nor the autograder was modified.
 
@@ -33,8 +33,7 @@ A full audit of the tome (`docs/`) for errors, misleading content, and out-of-da
 
 ### The one that destroys student work
 
-- [ ] **`docs/3-control/nested.md` (task section, end of chapter) — the `task-nested` merge ALWAYS conflicts, and the book gives zero guidance.** *(STILL OPEN)* `task-objects` is not an ancestor of `task-nested`; the branch independently re-adds `objects.test.ts`, `data/questions.json`, and `interfaces/question.ts`. Replaying the book's commands verbatim, `git merge upstream/task-nested` stops with add/add conflicts in exactly those three files for **every** student, plus `src/objects.ts` for anyone who solved the objects task. Worse, the correct resolution is opposite per file (keep **ours** for `objects.ts`, take **theirs** for the other three) — resolving "theirs" wholesale silently wipes the student's graded `objects.ts` solution. The chapter never mentions merge conflicts.
-  **Fix (textbook-only):** add a merge-conflict section to nested.md (like the one state.md now has), stating explicitly which side to keep per file. **Cross-repo alternative** (higher bar): rebuild `task-nested` on top of `task-objects` so the merge is clean.
+- [x] ~~**`docs/3-control/nested.md` — the `task-nested` merge ALWAYS conflicts with zero guidance.**~~ *(FIXED: a "Merge Conflicts" section modeled on state.md's now follows the git commands in the task section. It states the per-file resolution explicitly — keep YOURS for `src/objects.ts` (your solved work; accepting incoming erases it), take OURS for `src/objects.test.ts`, `src/data/questions.json`, and `src/interfaces/question.ts` — and warns against "Accept All Incoming". The cross-repo alternative — rebuilding `task-nested` on top of `task-objects` — remains available if you ever want the merge to be clean.)*
 
 ### Snippets that don't compile or produce wrong output
 
@@ -50,7 +49,7 @@ Chapter 3 (`docs/3-control/`):
 - [x] ~~`nested.md` — `movie === "Castle in the Sky"` object/string comparison + front-insertion logic bug~~ *(fixed in your commits: now `movie.name ===`)*
 - [x] ~~`nested.md` — `splice(..., { ... }];` bracket mismatch~~ *(fixed in your commits)*
 - [x] ~~`nested.md` — `kiki` etc. assigned without `const`/`let`~~ *(fixed in your commits)*
-- [ ] **`nested.md:113-117, 126` — `find` result used without handling `undefined`.** *(PARTIALLY fixed: your commit added a comment explaining `?.` — good — but the live lines still read `console.log(..., castleInTheSky.released)` and `console.log(..., post2000Movie.name)`, which still fail strict TS (TS18048) if pasted into the tasks repo. Smallest fix: make the active lines use `?.` and keep the comment.)*
+- [x] ~~`nested.md:113-117, 126` — `find` result used without handling `undefined`~~ *(FIXED: the live lines now use `castleInTheSky?.released` and `post2000Movie?.name`, with a tightened comment explaining why `find` forces optional chaining under strict TS.)*
 - [x] ~~`nested.md` — email capstone: missing comma + `name:` vs required `subject:`~~ *(fixed in your commits)*
 
 Chapter 4 (`docs/4-state/`):
@@ -76,13 +75,13 @@ Chapter 1 / index:
 
 - [x] ~~`state.md` — TwoDice spec self-contradictory vs. autograder~~ *(fixed in your commits: now "both 1 (snake eyes)" → Lose, "equal (and not 1)" → Win, matching the tests)*
 - [ ] **`task-state` branch is stale — merge conflicts the book doesn't fully cover.** *(PARTIALLY addressed: state.md now tells students to delete a resurrected `.eslintrc.json` and keep `.eslintrc.js` — the key mitigation. Still missing: a one-line conflict warning in components.md's task section, since the `.eslintrc.json` conflict can recur on the `task-components` merge. The underlying cause is cross-repo — see Cross-repo decisions.)*
-- [ ] **`components.md:666-670` — wrong mental model of child re-rendering, and "remount" used to mean its opposite.** *(STILL OPEN)* The passage says React "could *remount* (aka reuse)" properly-defined children and only re-renders because it can't tell if props changed. Both halves are wrong: React 18 re-renders **all** children when a parent re-renders (skipping requires `React.memo`), and *remount* means unmount+mount fresh (DOM destroyed, **state reset**) — which is exactly the real penalty of the nested-component anti-pattern the section is warning about, and it goes unmentioned ("small inefficiencies"). Also "TypeScript only believes they are equal" — that's JavaScript runtime reference equality, not TypeScript. Rewrite the paragraph around: nested component = new component *type* every render → React unmounts and remounts the subtree, destroying its DOM and state.
+- [x] ~~`components.md:666-670` — wrong mental model of child re-rendering; "remount" used to mean its opposite~~ *(FIXED: the three paragraphs now explain the real mechanism — children re-render with the parent and React diffs by component type to update in place; nested components declare new functions each render, so React sees a different type, unmounts the old subtree, and remounts fresh, destroying its DOM and any State — and the "TypeScript" reference-equality claim now correctly says JavaScript.)*
 - [ ] **`objects.md:45-49` — "Fields are case-sensitive; this logs `undefined`" (`drBart.Title`, `emptyObject.name`).** *(STILL OPEN)* True only in plain JS — TypeScript rejects both at compile time (TS2551/TS2339), which is TS's core value proposition. The embedded editor masks this. Fix: comment the lines out and say "JavaScript would log `undefined`; TypeScript catches this as a compile error."
 - [ ] **`complex.md:380` — `<div>// Existing component instantiations go here ...</div>` renders the `//` text literally.** *(STILL OPEN — the equivalent bug in state.md was fixed in your commits.)* Fix: `{/* ... */}` or prose outside the JSX.
 - [x] ~~`examples.md` — Heart Name capstone missing `type Inboxes`~~ *(fixed in your commits)*
 - [x] ~~`arrays.md` — reduce signature spec `initialValue: X` should be `Y`~~ *(fixed in your commits)*
 - [x] ~~`primitives.md` — Prettier quote-direction claim backwards~~ *(fixed in your commits)*
-- [ ] **`environment.md` (clone/push flow) — no GitHub authentication guidance.** *(STILL OPEN)* Password auth over HTTPS died in 2021; students without Git Credential Manager (mostly macOS/Linux) hit "Authentication failed" at first push with no help. Add one short paragraph: browser sign-in popup (GCM) → do that; otherwise `gh auth login`, a PAT, or SSH keys, with a link to GitHub's docs.
+- [ ] **`environment.md` (clone/push flow) — no GitHub authentication guidance.** *(OPEN — deferred by author decision)* Password auth over HTTPS died in 2021; students without Git Credential Manager (mostly macOS/Linux) hit "Authentication failed" at first push with no help. Add one short paragraph: browser sign-in popup (GCM) → do that; otherwise `gh auth login`, a PAT, or SSH keys, with a link to GitHub's docs.
 - [x] ~~`objects.md` — jest filter example names nonexistent `makeQuiz`~~ *(fixed in your commits)*
 
 ## P2 — Painfully out of date
@@ -93,7 +92,7 @@ Chapter 1 / index:
 - [x] ~~`state.md` — bare `element.click()` vs. the course tests' `act` wrapper~~ *(fixed in your commits: now `await act(async () => addButton.click())`)*
 - [x] ~~`forms.md` — Textbox walkthrough referencing a nonexistent second hook~~ *(fixed in your commits)*
 - [x] ~~`forms.md` — `MultipleChoiceQuestions` plural vs. repo's singular~~ *(fixed in your commits)*
-- [ ] **`state.md:476` — `someText.match(/(\d\d?)/)[0]` fails the course's strict tsconfig** (TS2531, match can return null). *(STILL OPEN)* Fix: `?.[0]`.
+- [ ] **`state.md:476` — `someText.match(/(\d\d?)/)[0]` fails the course's strict tsconfig** (TS2531, match can return null). *(OPEN — deferred by author decision)* Fix: `?.[0]`.
 - [x] ~~`objects.md` — duplicate `function checkIfCorgi` implementations~~ *(fixed in your commits: second renamed `checkIfCorgiAlternative`)*
 - [x] ~~`concepts.md` — Knockout as popular framework; hooks as "new fancy hotness"~~ *(fixed in your commits: hooks "now the standard", Knockout dropped)*
 - [x] ~~`branching.md` — `src/text.Test.tsx` wrong casing~~ *(fixed in your commits)*
@@ -168,10 +167,9 @@ To save you re-checking: these were explicitly verified and are fine.
 
 ## Remaining work, in suggested order
 
-1. **nested.md merge-conflict section** — the one item that costs students grades. Mirror state.md's conflict note; say per-file which side to keep (`objects.ts` → ours; `objects.test.ts`, `data/questions.json`, `interfaces/question.ts` → theirs).
-2. **environment.md GitHub auth paragraph** — one paragraph, prevents day-one helpdesk load.
-3. **The four small open code/text fixes:** nested.md:117/126 (`?.`), state.md:476 (`?.[0]`), complex.md:380 (JSX comment), components.md task-section conflict warning (one line).
-4. **components.md re-render/"remount" paragraph rewrite** — one paragraph, needs care with wording.
-5. **objects.md:45-49** — reframe the "logs undefined" lines as JS-vs-TS difference.
-6. **Cross-repo decisions** (task-state refresh; coverage config) — these may want lead time before the semester.
-7. **Screenshot re-shoot** (`change-base-repo-pr-alt.png`) when convenient.
+1. **objects.md:45-49** — reframe the "logs undefined" lines as JS-vs-TS difference.
+2. **complex.md:380** — change the `//` JSX comment to `{/* ... */}`.
+3. **components.md task section** — one-line merge-conflict warning (the `.eslintrc.json` conflict can recur on the `task-components` merge).
+4. **Cross-repo decisions** (task-state refresh; coverage config) — these may want lead time before the semester.
+5. **Screenshot re-shoot** (`change-base-repo-pr-alt.png`) when convenient.
+6. *Deferred by choice:* environment.md GitHub auth paragraph; state.md:476 `?.[0]`.

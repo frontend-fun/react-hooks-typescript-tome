@@ -110,11 +110,10 @@ console.log("***************************************************");
 const castleInTheSky = ghibliMovies.find(
     (movie: Movie): boolean => movie.name === "Castle in the Sky",
 );
-// Might technically return undefined if the movie is not found
-// In that case, you would use optional chaining or a conditional check, e.g.,
-// console.log("Release year of Castle in the Sky:", castleInTheSky?.released);
+// `find` might return undefined if no movie matches, so TypeScript makes
+// us use optional chaining (`?.`) or a conditional check to access fields:
+console.log("Release year of Castle in the Sky:", castleInTheSky?.released);
 //                   Note the weird optional chaining operator:  --^
-console.log("Release year of Castle in the Sky:", castleInTheSky.released);
 
 console.log("***************************************************");
 
@@ -123,7 +122,7 @@ console.log("***************************************************");
 const post2000Movie = ghibliMovies.find(
     (movie: Movie): boolean => movie.released >= 2000,
 );
-console.log("A movie released after 2000:", post2000Movie.name);
+console.log("A movie released after 2000:", post2000Movie?.name);
 
 console.log("***************************************************");
 
@@ -449,6 +448,19 @@ $> git fetch upstream task-nested
 $> git checkout -b solved-nested
 $> git merge upstream/task-nested
 ```
+
+## Merge Conflicts
+
+This merge WILL produce conflicts - that is expected, and it is a good chance to practice resolving them. These conflicts occur because our `task-nested` branch provides its own versions of files that also exist on your branch. If you are not familiar with resolving merge conflicts, here is a [tutorial on merging conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line) that might help. The VS Code editor can make choosing the appropriate updated code easier, though you still will have to commit the chosen change.
+
+The critical part is that different files need different resolutions:
+
+- `src/objects.ts`: keep YOUR version (the "Current Change"). This file contains the functions you solved in the previous task, and our incoming version is just the unsolved skeleton. **If you accept the incoming change here, you will erase your own solved work!**
+- `src/objects.test.ts`, `src/data/questions.json`, and `src/interfaces/question.ts`: take OUR version (the "Incoming Change"). These are instructor-provided files that we have updated for this task.
+
+Do not blindly click "Accept All Incoming" - that would wipe out your solved `objects.ts`. Once you have resolved each file, run the tests to confirm your `objects.ts` functions still pass, then `git add` the resolved files and `git commit` to finish the merge.
+
+![Image of a merge conflict in Visual Studio Code](../images/incoming-merge-conflict.png)
 
 You'll need to edit the `nested.ts` file.
 
