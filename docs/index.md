@@ -27,6 +27,8 @@ This irreverant, sloppy, but interactive textbook wants to teach you how to make
     1. [Nested Examples](5-complex/examples.md)
     2. [Full Application](5-complex/complex.md)
 6. [Your Own App](6-journey/index.md)
+    1. [User Stories](6-journey/stories.md)
+    2. [Agile Sprints](6-journey/agile.md)
 7. [The Lost Chapters](7-extras/index.md)
     1. [Sharing Code](7-extras/sharing-code.md)
     2. [Record Types](7-extras/records.md)

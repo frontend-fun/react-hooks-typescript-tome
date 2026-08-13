@@ -2,25 +2,15 @@
 layout: default
 title: Your Own Application
 nav_order: 6
+has_children: true
 ---
 
-# Your Own Application
+# Chapter 6 - Your Own Application
 
-Coming soon
-{: .label .label-yellow }
+[&laquo; Return to the Table of Contents](../index.md)
 
-**Oops! This page is not yet ready. Please be patient while we finish it up.**
+You now know enough React and TypeScript to build a larger application with a team. Before the final project begins, this chapter introduces the practices that will help your team decide what to build, organize the work, and learn from each iteration.
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
+Start with [User Stories](stories.md), which explains how to describe a user's needs and define testable acceptance criteria.
 
-
-* User stories
-* Agile
-* Sketching out your app
+Then read [Agile Sprints](agile.md) to learn how your team will organize those stories into short planning and feedback cycles.
