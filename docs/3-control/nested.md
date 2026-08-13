@@ -26,7 +26,7 @@ In this section, we're going to provide a whole bunch of examples with comments 
 
 ## Make the Movie Data
 
-This code makes the `Movie` interface and an array of `Movie` objects. All the examples in this section use this array.
+This code makes the `Movie` interface and an array of `Movie` objects. All the examples in this section use this array. Each example has its own copy of the array, so you can run each example by itself.
 
 ```typescript
 interface Movie {
@@ -50,10 +50,20 @@ const ghibliMovies: Movie[] = [
 This example uses `filter` to make a new array. The new array keeps only the movies that have a `seen` value of `false`.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const unseenMovies = ghibliMovies.filter(
     (movie: Movie): boolean => !movie.seen,
 );
 console.log(ghibliMovies.length, "->", unseenMovies.length);
+// 6 -> 3
 ```
 
 ## Map the Movies to Titles
@@ -61,8 +71,19 @@ console.log(ghibliMovies.length, "->", unseenMovies.length);
 This example uses `map` to make a new array. The new array contains only the name of each movie.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const movieTitles = ghibliMovies.map((movie: Movie): string => movie.name);
 console.log(movieTitles);
+// ["Kiki's Delivery Service", "Ponyo", "Howl's Moving Castle",
+//   "Castle in the Sky", "Arrietty", "Whisper of the Heart"]
 ```
 
 ## Reduce the Movies to a Total
@@ -70,11 +91,21 @@ console.log(movieTitles);
 This example uses `reduce` to add together the number of characters in each movie name. The result is one number.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const totalCharacters = ghibliMovies.reduce(
     (currentSum: number, movie: Movie) => currentSum + movie.name.length,
     0,
 );
 console.log("Total Characters:", totalCharacters);
+// Total Characters: 93
 ```
 
 ## Make a CSV String
@@ -82,6 +113,15 @@ console.log("Total Characters:", totalCharacters);
 This example uses `map` and `join` to make a CSV string. A CSV string is a multi-line string with comma-separated values. Refer to [String Interpolation](primitives.md#string-interpolation) if the braces in the string are not clear.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const movieCSV = ghibliMovies
     .map(
         (movie: Movie): string =>
@@ -91,6 +131,13 @@ const movieCSV = ghibliMovies
     .join("\n");
 console.log("Movie CSV:");
 console.log(movieCSV);
+// Movie CSV:
+//   Kiki's Delivery Service,1989,Seen
+//   Ponyo,2008,Not Seen
+//   Howl's Moving Castle,2004,Seen
+//   Castle in the Sky,1986,Seen
+//   Arrietty,2010,Not Seen
+//   Whisper of the Heart,1995,Not Seen
 ```
 
 ## Change a Field in Each Movie
@@ -98,11 +145,21 @@ console.log(movieCSV);
 This example uses `map` and the spread operator to make a new array. Each new movie has a `released` value of 2026. The original array does not change.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const rereleasedMovies = ghibliMovies.map(
     // The parentheses around the curly braces are CRITICAL!
     (movie: Movie): Movie => ({ ...movie, released: 2026 }),
 );
 console.log("Rereleased Year:", rereleasedMovies[0].released);
+// Rereleased Year: 2026
 ```
 
 ## Change a Field with a Condition
@@ -110,6 +167,15 @@ console.log("Rereleased Year:", rereleasedMovies[0].released);
 This example uses `map` with a conditional expression. Each movie from the year 2000 or before gets a new name. The new name starts with "Ghibli Classic:".
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const relabeledMovies = ghibliMovies.map(
     (movie: Movie): Movie => ({
         ...movie,
@@ -120,6 +186,7 @@ const relabeledMovies = ghibliMovies.map(
     }),
 );
 console.log(relabeledMovies[0].name, relabeledMovies[1].name);
+// Ghibli Classic: Kiki's Delivery Service Ponyo
 ```
 
 ## Find a Movie by Its Name
@@ -127,11 +194,21 @@ console.log(relabeledMovies[0].name, relabeledMovies[1].name);
 This example uses `find` to get the movie with a specified name. The result can be `undefined` if no movie has that name. Because of this, the code must use the optional chaining operator (`?.`) to get the `released` field.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const castleInTheSky = ghibliMovies.find(
     (movie: Movie): boolean => movie.name === "Castle in the Sky",
 );
 console.log("Release year of Castle in the Sky:", castleInTheSky?.released);
 //                   Note the weird optional chaining operator:  --^
+// Release year of Castle in the Sky: 1986
 ```
 
 ## Find a Movie with a Condition
@@ -139,10 +216,20 @@ console.log("Release year of Castle in the Sky:", castleInTheSky?.released);
 This example uses `find` to get the first movie that has a `released` value of 2000 or more.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const post2000Movie = ghibliMovies.find(
     (movie: Movie): boolean => movie.released >= 2000,
 );
 console.log("A movie released after 2000:", post2000Movie?.name);
+// A movie released after 2000: Ponyo
 ```
 
 ## Find the Oldest Movie
@@ -150,11 +237,21 @@ console.log("A movie released after 2000:", post2000Movie?.name);
 This example uses `reduce` to compare the movies and keep the movie with the smallest `released` value. To find the newest movie, change the `<` to a `>`.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const oldestMovie = ghibliMovies.reduce(
     (currentOldest: Movie, movie: Movie): Movie =>
         movie.released < currentOldest.released ? movie : currentOldest,
 );
 console.log("Oldest movie:", oldestMovie.name, "in", oldestMovie.released);
+// Oldest movie: Castle in the Sky in 1986
 ```
 
 ## Add a Movie to the End
@@ -162,6 +259,15 @@ console.log("Oldest movie:", oldestMovie.name, "in", oldestMovie.released);
 This example uses the spread operator to make a new array with one more movie at the end. The original array does not change.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 const ghibliWithMononoke = [
     ...ghibliMovies,
     {
@@ -171,14 +277,24 @@ const ghibliWithMononoke = [
     },
 ];
 console.log("Last movie is:", ghibliWithMononoke.slice(-1)[0].name);
+// Last movie is: Princess Mononoke
 ```
 
 ## Insert a Movie at a Position
 
-This example uses the `ghibliWithMononoke` array from the previous example. It uses `findIndex` to get the position of a movie in the array. Then it uses `splice` to put a new movie after that position. `splice` changes the array, so the code makes a copy of the array first.
+This example uses `findIndex` to get the position of a movie in the array. Then it uses `splice` to put a new movie after that position. `splice` changes the array, so the code makes a copy of the array first.
 
 ```typescript
-const myGhibliCollection = [...ghibliWithMononoke];
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
+const myGhibliCollection = [...ghibliMovies];
 const castleIndex: number = myGhibliCollection.findIndex(
     (movie: Movie): boolean => movie.name === "Castle in the Sky",
 );
@@ -188,6 +304,7 @@ myGhibliCollection.splice(1 + castleIndex, 0, {
     seen: true,
 });
 console.log("Added:", myGhibliCollection[castleIndex + 1].name);
+// Added: Nausicaä of the Valley of the Wind
 ```
 
 ## Map the Movies to a New Interface
@@ -195,6 +312,15 @@ console.log("Added:", myGhibliCollection[castleIndex + 1].name);
 This example makes a second interface with the name `MovieDetails`. It then uses `map` to change each `Movie` object into a `MovieDetails` object.
 
 ```typescript
+const ghibliMovies: Movie[] = [
+    { name: "Kiki's Delivery Service", released: 1989, seen: true },
+    { name: "Ponyo", released: 2008, seen: false },
+    { name: "Howl's Moving Castle", released: 2004, seen: true },
+    { name: "Castle in the Sky", released: 1986, seen: true },
+    { name: "Arrietty", released: 2010, seen: false },
+    { name: "Whisper of the Heart", released: 1995, seen: false },
+];
+
 interface MovieDetails {
     title: string;
     studio: string;
@@ -202,7 +328,7 @@ interface MovieDetails {
     released: number;
     seen: boolean;
 }
-const fullCollection: MovieDetails[] = myGhibliCollection.map(
+const fullCollection: MovieDetails[] = ghibliMovies.map(
     (movie: Movie): MovieDetails => ({
         title: movie.name,
         studio: "Studio Ghibli",
@@ -212,6 +338,7 @@ const fullCollection: MovieDetails[] = myGhibliCollection.map(
     }),
 );
 console.log("First movie in full collection:", fullCollection[0].title);
+// First movie in full collection: Kiki's Delivery Service
 ```
 
 # Shallow and Deep Copies
@@ -243,8 +370,11 @@ kiki.seen = false;
 
 // What do you expect that to do to the other "copies"?
 console.log("Have I seen `kiki`?", kiki.seen);
+// Have I seen `kiki`? false
 console.log("Have I seen `tonightsMovie`?", tonightsMovie.seen);
+// Have I seen `tonightsMovie`? false
 console.log("Have I seen `kikiCopy`?", kikiCopy.seen);
+// Have I seen `kikiCopy`? true
 ```
 
 However, the conversation becomes even more complicated when we copy nested data. When we say Nested Data, we mean situations where you have an array in an object, or an object in an array, or an object in an object, or an array in an array, or any other situation where you have a non-primitive data structure inside of a non-primitive data structure. You see, cloning the outer data structure does NOT clone the inner data structure! We refer to this behavior as a "Shallow Copy" of the original.
@@ -282,16 +412,19 @@ const myMovieCollection = [...ghibliMovies];
 // Adding a new element to the original array only mutates the original array
 ghibliMovies.push(newMovie);
 console.log("There are", ghibliMovies.length, "movies in `ghibliMovies`");
+// There are 7 movies in `ghibliMovies`
 console.log(
     "There are",
     moviesByStudioGhibli.length,
     "movies in `moviesByStudioGhibli`",
 );
+// There are 7 movies in `moviesByStudioGhibli`
 console.log(
     "There are",
     myMovieCollection.length,
     "movies in `myMovieCollection`",
 );
+// There are 6 movies in `myMovieCollection`
 
 // But the first element is the same in all three collections, so modifying its `seen`
 //   field means that the INNER CONTENTS of the two arrays has changed! But not the
@@ -301,14 +434,17 @@ console.log(
     "Have I seen the first movie of `ghibliMovies`?",
     ghibliMovies[0].seen,
 );
+// Have I seen the first movie of `ghibliMovies`? false
 console.log(
     "Have I seen the first movie of `moviesByStudioGhibli`?",
     moviesByStudioGhibli[0].seen,
 );
+// Have I seen the first movie of `moviesByStudioGhibli`? false
 console.log(
     "Have I seen the first movie of `myMovieCollection`?",
     myMovieCollection[0].seen,
 );
+// Have I seen the first movie of `myMovieCollection`? false
 ```
 
 When a Shallow Copy just won't do, you need a "Deep Copy". This means that when you do the copy,
@@ -363,15 +499,19 @@ console.log(
     "Have I seen the first movie of `ghibliMovies`?",
     ghibliMovies[0].seen,
 );
+// Have I seen the first movie of `ghibliMovies`? false
 console.log(
     "Have I seen the first movie of `moviesByStudioGhibli`?",
     moviesByStudioGhibli[0].seen,
 );
+// Have I seen the first movie of `moviesByStudioGhibli`? false
 console.log(
     "Have I seen the first movie of `shallowCopy`?",
     shallowCopy[0].seen,
 );
+// Have I seen the first movie of `shallowCopy`? false
 console.log("Have I seen the first movie of `deepCopy`?", deepCopy[0].seen);
+// Have I seen the first movie of `deepCopy`? true
 ```
 
 The example above shows off cloning an array of objects, where each object only contains primitive data. But what if we had to clone
@@ -451,10 +591,12 @@ console.log(
     "The first email address of the first contact of `myEmails` is",
     myEmails[0].recipients[0].address,
 );
+// The first email address of the first contact of `myEmails` is stranger@gaster.net
 console.log(
     "The first email address of the first contact of `copiedEmails` is",
     copiedEmails[0].recipients[0].address,
 );
+// The first email address of the first contact of `copiedEmails` is krisscross@light.ner
 ```
 
 There are shortcut approaches to doing a Deep Copy, but we do not recommend them:
