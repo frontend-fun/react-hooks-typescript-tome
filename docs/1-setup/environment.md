@@ -34,7 +34,7 @@ There's a bunch of Software that you need on your machine. We aren't providing i
 2. [Install Node](https://nodejs.org/en/download/): You can use the Node 22 (LTS) version. Newer versions may work but are not tested with our tooling. Make sure you have `node` on your path by running `node --version` and `npm --version`
 3. [Install VS Code](https://code.visualstudio.com/download): This is an editor that you can open files and folders in.
 4. Install React Devtools: This is a browser extension that will work on pages that have React running (like this one!). You only need one of these, for whichever browser you're using. We do most of our testing in Chrome, personally.
-    1. [For Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+    1. [For Chrome](https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
     2. [For FireFox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
 5. Install the Prettier Plugin for VS Code using the menu shown below (last tab on the left, type in `prettier`, and then click `install`).
 
@@ -58,19 +58,19 @@ You'll need to enable Workflow actions in your forked repository; go to the Acti
 
 ## Deploy from GitHub Actions
 
-2. Next, you need to enable Github Pages for your repository. Go to the repository on Github, click on the "Settings" tab.
+1. Next, you need to enable Github Pages for your repository. Go to the repository on Github, click on the "Settings" tab.
 
 ![Github Settings](../images/github_settings.png)
 
-4. On the left side bar, under "Code and automation", go to the "Github Pages" section.
+2. On the left side bar, under "Code and automation", go to the "Github Pages" section.
 
 ![Github Pages](../images/pages_settings.png)
 
-5. In the Source dropdown, select "GitHub Actions".
+3. In the Source dropdown, select "GitHub Actions".
 
 ![Github Actions](../images/github_actions.png)
 
-6. Go to the Actions tab and you should see a "workflow" running. This workflow will build and deploy your site to Github Pages. Once the workflow is complete, you should see a link to your site at the top of the page.
+4. Go to the Actions tab and you should see a "workflow" running. This workflow will build and deploy your site to Github Pages. Once the workflow is complete, you should see a link to your site at the top of the page.
 
 ![Check Workflow](../images/check_workflow.png)
 
@@ -135,7 +135,7 @@ Edit `src/App.tsx` to include your name somewhere in the `return` statement, alo
 
 Save the file, and then check the website again in your browser. The site should update automatically.
 
-Once you have visually confirmed the text is there, you can use `CTRL+C` to cancel the `npm run start` command running in the termainal, so you can run other commands.
+Once you have visually confirmed the text is there, you can use `CTRL+C` to cancel the `npm run start` command running in the terminal, so you can run other commands.
 
 The next command to run is the tests, which will give another perspective on whether you are meeting our requirements:
 
@@ -167,7 +167,7 @@ $> git push
 
 If all goes well, the changes will be pushed and you can go back to the remote repository in your browser (where you originally got the URL to clone the repository). Make sure you go to your fork, and not the original repository (since that one does not belong to you).
 
-Within a minute or two of finishing, your site should deploy. You can access the page by going to the Environments page from the right sidebar menu.
+Within a minute or two of finishing, your site should deploy. You can access the page by going to the Deployments page from the right sidebar menu.
 
 If the site failed to build properly, there will be a Red X. Clicking the Red X will give you more details.
 

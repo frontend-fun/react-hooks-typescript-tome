@@ -57,7 +57,7 @@ The example above is simple, because the State of the application is constant. N
 
 ## Whether to Render
 
-What happens when you call `setState`? The Component functions get called again. This means we end up generating the TSX to be returned all over again, binding the freshest version of all the Hook's values. This sounds expensive, but the costs aren't as bad as you might think (especially compared to just naively rendering ALL the components again). In fact, React is very good at figuring out which Components need to be called again. React decides to renrender a Component based strictly on the hooks's value, relying on _reference equality_.
+What happens when you call `setState`? The Component functions get called again. This means we end up generating the TSX to be returned all over again, binding the freshest version of all the Hook's values. This sounds expensive, but the costs aren't as bad as you might think (especially compared to just naively rendering ALL the components again). In fact, React is very good at figuring out which Components need to be called again. React decides to re-render a Component based strictly on the Hook's value, comparing the old and new values with `Object.is` - which, for objects and arrays, means _reference equality_.
 
 Remember how we kept making a big deal about Immutability back in Chapter 3? We kept stressing that we had to make NEW lists and NEW objects in our functions, rather than mutating existing ones.
 
@@ -70,7 +70,7 @@ export function App(): JSX.Element {
 
     function addPerson(name: string) {
         // No detection of changed value, reference equality
-        people.push(newName);
+        people.push(name);
         setPeople(people);
         // VERY BAD!!!
     }
@@ -78,7 +78,7 @@ export function App(): JSX.Element {
     return (
         <div>
             <input
-                type="textbox"
+                type="text"
                 onChange={(event) => setNewName(event.target.value)}
             />
             <button onClick={() => addPerson(newName)}>Add Person</button>
@@ -128,7 +128,7 @@ function App(): JSX.Element {
 }
 ```
 
-That `name` variable is available for any code inside of the `map` function's inner function. This is especially important when we want to have a click handler for each element of an array, since we can provide the variable as a **Closure** ("a variable from an outer scope being used inside of a function"). Let's say we wanted to modify the example above so that we could select one of the colors in the list and store it in a new bit of string state.
+That `color` variable is available for any code inside of the `map` function's inner function. This is especially important when we want to have a click handler for each element of an array, since we can provide the variable as a **Closure** ("a variable from an outer scope being used inside of a function"). Let's say we wanted to modify the example above so that we could select one of the colors in the list and store it in a new bit of string state.
 
 ```tsx
 function App(): JSX.Element {
@@ -172,7 +172,7 @@ Notice that we _had_ to use an anonymous function instead of just providing the 
 
 The idea here is that we create a temporary function `() => updateChosen(color)` whose only job when called is to invoke the `updateChosen` function with the current `color`. Since we define the temporary function INSIDE of the loop from `colors.map`, the variable `color` is _closed over_ the function and will use the value from that iteration of the loop. This would not work if we did `onClick={updateChosen}`!
 
-Note that this means each of five Buttons in this example will get its own _custom_ onClick function. For example, the _blue_ button onClick will be `() => updateChosen(blue)`.
+Note that this means each of five Buttons in this example will get its own _custom_ onClick function. For example, the _blue_ button onClick will be `() => updateChosen("Blue")`.
 
 # Late Updates
 
@@ -220,7 +220,7 @@ function App(): JSX.Element {
 }
 ```
 
-Compare that to this non-working code below, which tries to rely on a `count` variable. Since the `nums` has not changed just because we called `setNums`, the `count` does not get updated the right way! When you run this, the first two elements become zero instead of just the first element.
+Compare that to this non-working code below, which tries to rely on a `count` variable. Since the `nums` has not changed just because we called `setNums`, the `count` does not get updated the right way! When you run this, the first two elements become zero instead of just the first element. (You may also see a React warning in the console about duplicate `key` values, since two of the list items now have the same `num` for their `key`.)
 
 ```tsx
 function App(): JSX.Element {
@@ -253,7 +253,7 @@ Sadly, life is rarely that simple. Most of the time, messing with one Component 
 
 ## Wrong Idea: Import/Export
 
-Let's start with something that doesn't work: trying to have state imported and exported as toplevel variables. This is a mistake that some newcomers thing will work, but it definitely does not. Fundamentally, you cannot have a `useState` outside of a Component function. Therefore, you cannot export the variable and use it in another file.
+Let's start with something that doesn't work: trying to have state imported and exported as toplevel variables. This is a mistake that some newcomers think will work, but it definitely does not. Fundamentally, you cannot have a `useState` outside of a Component function. Therefore, you cannot export the variable and use it in another file.
 
 ```tsx
 // THIS DOES NOT WORK!!! BAD IDEA
@@ -371,7 +371,7 @@ function App(): JSX.Element {
 
 The `IDCardProps` interface connects exactly to the arguments (aka the attributes) that were passed into the `IDCard` component. Once bound to the parameter `props`, we can access any of the fields of the created object using `props.firstName` or `props.lastName`. The `props` are just a simple object containing whatever attributes were provided.
 
-However, that's not the only way to define the Props, thanks to modern JavaScript features called unpacking. Previously, we have used array and object unpacking (also kind "destructuring") to assign array elements and fields directly into variables. We can do the exact same thing with our Component's parameters, in order to avoid having to do field accesses like `props.firstName`:
+However, that's not the only way to define the Props, thanks to modern JavaScript features called unpacking. Previously, we have used array and object unpacking (also known as "destructuring") to assign array elements and fields directly into variables. We can do the exact same thing with our Component's parameters, in order to avoid having to do field accesses like `props.firstName`:
 
 ```tsx
 interface IDCardProps {
@@ -470,7 +470,7 @@ export function App(): JSX.Element {
 }
 ```
 
-By passing `setVisible` as an attribute to the `Reveal` component, we are allowed to call the `setVisible` function from within the `RevealButtons` component! Notice the unusual type that we gave to `setVisible` in `RevealButtonsProps`. This is how we describe the type of the State Setter: "a function that consumes a boolean and returns nothing". Recall that the State Setter does not return a value because it instead updates the Hook and triggers React to render again.
+By passing `setVisible` as an attribute to the `RevealButtons` component, we are allowed to call the `setVisible` function from within the `RevealButtons` component! Notice the unusual type that we gave to `setVisible` in `RevealButtonsProps`. This is how we describe the type of the State Setter: "a function that consumes a boolean and returns nothing". Recall that the State Setter does not return a value because it instead updates the Hook and triggers React to render again.
 
 In the example above, we had two separate buttons, one to show and one to hide. We avoided having a single button because then we would need to pass the `visible` State Variable into `RevealButtons` too. But we could do so!
 
@@ -735,7 +735,7 @@ You must NOT add or remove components; you can only _modify_ the existing compon
 
 The `ShoveBox` component provides a button that moves an adjacent box farther away, by increasing the boxes left margin.
 
-Currently, part of the component's returned body is commented out because it is broken and crashes your application. Uncomment the component's body in `src/ShoveBox.tsx` and then fix the Component so that it works correctly.
+Currently, part of the component's returned body is commented out because it is broken and crashes your application. Uncomment the component's body in `src/bad-components/ShoveBox.tsx` and then fix the Component so that it works correctly.
 
 You must NOT add or remove components; you can only _modify_ the existing components.
 

@@ -123,7 +123,7 @@ When we say values, you can imagine a piece of paper with a number, some text, a
 The first value that will be hung is the "Initial Value" that you passed in to `useState`.
 At any time, you can check the current value using the "State Variable", or update the value with the "State Setter Function".
 
-Every time we want a new persistent variable, we can make it with `useState`.And `useState` is only one example of a React hook, there are others.
+Every time we want a new persistent variable, we can make it with `useState`. And `useState` is only one example of a React hook, there are others.
 
 <!-- TODO: Image of a hook holding values -->
 
@@ -255,7 +255,7 @@ function App(): JSX.Element {
                 : // If it's green, make it yellow
                   lightColor === "green"
                   ? "yellow"
-                  : // Otherwise it is yellow, so make it yellow
+                  : // Otherwise it is yellow, so make it red
                     "red",
         );
     }
@@ -431,7 +431,7 @@ We have three types of suffixes (which determine "what kind" of elements we look
 The prefixes determine "how many elements" we look for.
 
 - `getBy` means we expect there to be exactly ONE instance of the element. Any more or less and an error is thrown instead.
-- `queryBy` means we expect there to be ONE or ZERO instances of the element. If there are more than one, than an error is thrown. If there are zero elements, then `null` is returned.
+- `queryBy` means we expect there to be ONE or ZERO instances of the element. If there are more than one, then an error is thrown. If there are zero elements, then `null` is returned.
 
 These two prefixes are very handy when you can narrow the numbers down to just one. The `getBy` is good when you have an element you DO expect in the document; the `queryBy` is good when you have an element you DO NOT expect in the document (since it does not cause an error, just returns `null`).
 
@@ -453,7 +453,7 @@ The `Text` (such as `getByText`) means we are literally looking for the given te
 const paragraph = screen.getByText(/hello/i);
 ```
 
-This is the simplest suffix type, but one nice feature is that we can provide either an exact string literal (e.g., `"Hello World") or a _Regular Expression_. The Regular Expression type is very convenient type of data provided by JavaScript, although its history and usage extends far beyond this language. Using "Regexes", we can search for text without needing to be as exact and specific (e.g., ignore capitalization, check for digits, look for repeated characters matching a pattern). If you haven't heard about Regular Expressions, we recommend reading over this [Regular Expressions Guide](https://eloquentjavascript.net/09_regexp.html) and using this [interactive Regular Expression Editor](https://regex101.com/). But briefly, here are some examples of handy regular expression checks:
+This is the simplest suffix type, but one nice feature is that we can provide either an exact string literal (e.g., `"Hello World"`) or a _Regular Expression_. The Regular Expression type is very convenient type of data provided by JavaScript, although its history and usage extends far beyond this language. Using "Regexes", we can search for text without needing to be as exact and specific (e.g., ignore capitalization, check for digits, look for repeated characters matching a pattern). If you haven't heard about Regular Expressions, we recommend reading over this [Regular Expressions Guide](https://eloquentjavascript.net/09_regexp.html) and using this [interactive Regular Expression Editor](https://regex101.com/). But briefly, here are some examples of handy regular expression checks:
 
 ```typescript
 let someText = "Hello world, is it is 77 degrees outside.";
@@ -540,11 +540,11 @@ const answer = screen.getByTestId("question-answer");
 expect(answer.textContent).toEqual("42");
 ```
 
-React's Testing Library provides many kinds of assertions using its `expect` function. Here's a quick rundown of some types of assertions you will see:
+Jest provides many kinds of assertions through its `expect` function, and the `jest-dom` library adds extra matchers for checking HTML elements (like `toBeInTheDocument`). Here's a quick rundown of some types of assertions you will see:
 
 - `toBeInTheDocument()`: Checks that the given HTML element is SOMEWHERE in the HTML of the screen.
 - `toEqual(other)`: Checks that the `expect`ed value is equivalent to the `other` value.
-- `toBe(other)`: Checks that the `expect`ed value is identical to the `other` value (as in they have the exact same reference in memory).
+- `toBe(other)`: Checks that the `expect`ed value is identical to the `other` value (using `Object.is`; primitives like `5` compare by value, but objects and arrays must be the exact same reference in memory).
 - `toHaveLength(length)`: Checks that the `expect`ed value will be an Array with the given `length`.
 - `toBeNull()`: Checks that the `expect`ed value will be `null`.
 - `toBeCalledTimes(times)`: Checks that the `expect`ed value will be a function that is called a number of `times`.
@@ -646,7 +646,7 @@ The `ChangeType` component simulates another an editor for a quiz application th
 The `StartAttempt` component simulates yet another part of the quiz application, this time providing a "Start" and "Stop" button for the quiz. Since the quiz should have a limited number of attempts, there is also a "Mulligan" button to give more attempts.
 
 - You will need two pieces of state: the number of attempts and whether the quiz is in progress.
-    - The initial number of attempts is 4
+    - The initial number of attempts should be a number like 4 (the tests accept any value between 1 and 9)
     - The quiz is initially NOT in progress
 - There is a button labelled `Start Quiz` that puts the Quiz in progress and decreases the number of attempts by one.
 - There is a button labelled `Stop Quiz` that stops the Quiz from being in progress.

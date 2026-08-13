@@ -7,7 +7,7 @@ parent: TypeScript
 
 # Typescript Objects
 
-[&laquo; Return to TypeScript Objects](arrays.md)
+[&laquo; Return to Arrays](arrays.md)
 
 <details open markdown="block">
   <summary>
@@ -173,7 +173,7 @@ console.log("New version's grades:", studentWithNewGrade.grades);
 
 Okay so what type is an Object? We don't have a class, so technically each of these curly braced things are just "plain old javascript objects" ("POJOs"). But we probably would rather give them a name and refer to similarly structured objects by their category. You could use a Class, but instead we will use an "Interface" to specify the shape of the structured data.
 
-How is this different from a class? Well, a class has methods and an interface does not. Also, you can use classes to make instances, but technically we're never going to make instances - we're just going to make objects that "satisfy" the requirements of an interface. As long as they have the right names and types, TypeScript will be happy with us.
+How is this different from a class? Well, a class has method implementations and an interface does not (an interface can declare method signatures, but no actual code for them). Also, you can use classes to make instances, but technically we're never going to make instances - we're just going to make objects that "satisfy" the requirements of an interface. As long as they have the right names and types, TypeScript will be happy with us.
 
 The data inside of an object is organized into "fields" or "attributes" (you could also say "keys", or "properties", there are many words). Each field has a specific type.
 
@@ -191,7 +191,7 @@ console.log(ada.name);
 console.log(ada.age);
 
 const olderAda = { ...ada, age: ada.age + 1 };
-console.log(ada.age);
+console.log(olderAda.age);
 
 function makeCorgi(name: string): Dog {
     return { name: name, breed: "Corgi", age: 1, fuzzy: true };
@@ -243,14 +243,14 @@ Anyway, the point is that it's often very useful to convert an Array into a Reco
 interface State {
     abbreviation: string;
     name: string;
-    capitol: string;
+    capital: string;
 }
 
 const usaStates: State[] = [
-    { abbreviation: "DE", name: "Delaware", capitol: "Dover" },
-    { abbreviation: "MD", name: "Maryland", capitol: "Annapolis" },
-    { abbreviation: "VA", name: "Virginia", capitol: "Richmond" },
-    { abbreviation: "PA", name: "Pennsylvania", capitol: "Harrisburg" },
+    { abbreviation: "DE", name: "Delaware", capital: "Dover" },
+    { abbreviation: "MD", name: "Maryland", capital: "Annapolis" },
+    { abbreviation: "VA", name: "Virginia", capital: "Richmond" },
+    { abbreviation: "PA", name: "Pennsylvania", capital: "Harrisburg" },
 ];
 
 // The `fromEntries` function converts an array of pairs to an object
@@ -263,7 +263,7 @@ const lookupState: Record<string, State> = Object.fromEntries(
     ]),
 );
 
-console.log(lookupState["DE"].capitol);
+console.log(lookupState["DE"].capital);
 
 // You can also go back using Object.keys() or Object.values()
 console.log("State Abbreviations:", Object.keys(lookupState));

@@ -36,6 +36,9 @@ The array type is just a regular type followed by a pair of empty square bracket
 You can use array types just like any other type, so they can be used for functions too.
 
 ```typescript
+// These are just incomplete signatures for illustration; they won't
+// compile until they are given a real body that returns a value.
+
 // Function that consumes an array of numbers
 const summate = (numbers: number[]): number => {
     // ...
@@ -152,7 +155,7 @@ There are many ways to add an element into an array at an arbitrary position. In
 const prices = [10, 8, 9, 7, 55];
 console.log(prices);
 
-// GOAL: Insert 499 after the 8 (aka after index 2)
+// GOAL: Insert 499 after the 8 (aka at index 2)
 // Make a duplicate of the original array
 const pricesInside = [...prices];
 // Use the Array's `splice` method that mutates the cloned array
@@ -343,12 +346,12 @@ const sumForeach = currentTotal;
 console.log(sumForeach);
 
 // For style - do not use!
-let currentTotal = 0;
+let runningTotal = 0;
 for (let i = 0; i < prices.length; i += 1) {
     const num = prices[i];
-    currentTotal += num;
+    runningTotal += num;
 }
-const sumFor = currentTotal;
+const sumFor = runningTotal;
 console.log(sumFor);
 ```
 
@@ -382,7 +385,7 @@ const thePrices = prices.join(" and ");
 console.log("The prices are", thePrices);
 
 // `sort` sorts a list. This is done inplace, like `splice`, so we need a copy.
-// Keep an eye on the second argument, very tricky: it's the comparison function
+// Keep an eye on the argument, very tricky: it's the comparison function
 const descendingPrices = [...prices];
 descendingPrices.sort((a: number, b: number): number => b - a);
 console.log("The prices in descending order are", descendingPrices);

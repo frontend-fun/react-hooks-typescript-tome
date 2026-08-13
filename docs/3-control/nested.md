@@ -37,7 +37,7 @@ const ghibliMovies: Movie[] = [
     { name: "Ponyo", released: 2008, seen: false },
     { name: "Howl's Moving Castle", released: 2004, seen: true },
     { name: "Castle in the Sky", released: 1986, seen: true },
-    { name: "Arietty", released: 2010, seen: false },
+    { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
@@ -138,7 +138,7 @@ console.log("Oldest movie:", oldestMovie.name, "in", oldestMovie.released);
 console.log("***************************************************");
 
 // Add a new movie to the end
-const ghibliWithMonoke = [
+const ghibliWithMononoke = [
     ...ghibliMovies,
     {
         name: "Princess Mononoke",
@@ -146,13 +146,13 @@ const ghibliWithMonoke = [
         seen: true,
     },
 ];
-console.log("Last movie is:", ghibliWithMonoke.slice(-1)[0].name);
+console.log("Last movie is:", ghibliWithMononoke.slice(-1)[0].name);
 
 console.log("***************************************************");
 
 // Insert an element after a specific existing element
-// Add Naussica after Castle in the Sky
-const myGhibliCollection = [...ghibliWithMonoke];
+// Add Nausicaä after Castle in the Sky
+const myGhibliCollection = [...ghibliWithMononoke];
 const castleIndex: number = myGhibliCollection.findIndex(
     (movie: Movie): boolean => movie.name === "Castle in the Sky",
 );
@@ -179,7 +179,7 @@ const fullCollection: MovieDetails[] = myGhibliCollection.map(
         studio: "Studio Ghibli",
         abbreviation: movie.name.slice(0, 3),
         released: movie.released,
-        seen: true,
+        seen: movie.seen,
     }),
 );
 console.log("First movie in full collection:", fullCollection[0].title);
@@ -233,7 +233,7 @@ const ghibliMovies: Movie[] = [
     { name: "Ponyo", released: 2008, seen: false },
     { name: "Howl's Moving Castle", released: 2004, seen: true },
     { name: "Castle in the Sky", released: 1986, seen: true },
-    { name: "Arietty", released: 2010, seen: false },
+    { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
@@ -308,7 +308,7 @@ const ghibliMovies: Movie[] = [
     { name: "Ponyo", released: 2008, seen: false },
     { name: "Howl's Moving Castle", released: 2004, seen: true },
     { name: "Castle in the Sky", released: 1986, seen: true },
-    { name: "Arietty", released: 2010, seen: false },
+    { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 

@@ -67,7 +67,7 @@ We showed this sketch to the client (making sure to remind them that it was a ve
 
 Far more important than any actual code is the development of the data model for our application. Remember, the State lives at the heart of all applications - all the control flow exists merely in service of manipulating the state. You should spend time before making components thinking about the state of your application, and where that state lives.
 
-"Where the State lives" in React means, what components need to call `useState`, so that the relevant state variables and state setters can be passed down to the children who need them. Your goal is to keep the state high enough up in the hierarchy that everyone has access who needs it, without going higher than necessary. Unfortunately, that often means that the highest component (which might be `App`, but might be some other specialized component like `MovieRecords` or `MovieApp` that lives in `App`) will contain a signficant amount of State. That State might only be in a single data structure (an Array, Object, or Record), but will still represent most of the data for the application.
+"Where the State lives" in React means, what components need to call `useState`, so that the relevant state variables and state setters can be passed down to the children who need them. Your goal is to keep the state high enough up in the hierarchy that everyone has access who needs it, without going higher than necessary. Unfortunately, that often means that the highest component (which might be `App`, but might be some other specialized component like `MovieRecords` or `MovieApp` that lives in `App`) will contain a significant amount of State. That State might only be in a single data structure (an Array, Object, or Record), but will still represent most of the data for the application.
 
 Here were our initial thoughts on the State:
 
@@ -111,7 +111,7 @@ The `MovieList` component is really just responsible for calling `map` on the mo
 The `MovieView` component has a lot going on inside of it, hinting at all the future work that it will do. But it actually started off quite small. Looking carefully through the earlier version, you'll see that we basically were just trying to render all the fields and not worry about anything else.
 
 - [Early version of the `MovieView` component](https://github.com/frontend-fun/movie-records/blob/592b0ec4d2fb6a4e39c48f1a7134afaeda5bc30a/src/components/MovieView.tsx#L8-L27)
-- [Final version of the `MovieView` component](https://github.com/frontend-fun/movie-records/blob/main/src/components/MovieList.tsx)
+- [Final version of the `MovieView` component](https://github.com/frontend-fun/movie-records/blob/main/src/components/MovieView.tsx)
 
 In both the earlier version and the final version, one of the most important things we do is to show the `title`, `release`, and `description` fields.
 
@@ -157,17 +157,17 @@ export function PlaySong({ song }: { song: Song }): JSX.Element {
 
 Throughout all of this development, we were running the site almost constantly. We wanted a working site at all times, so that we could get quick feedback on whether any individual change is working. Never write huge amounts of code without verifying that the code works. A classic beginner mistake is to "finish" the site without actually running it - you will often find that your work has only just begun, since now you must debug everything.
 
-Criticizing our own workflow, we could have been more consistent about making small, regular commits. The history shown on GitHub does not do justice to the amount of deleting and experimenting that we did along the way. Commiting regularly requires discipline, and may feel slow, but usually pays off when you are working in a large team.
+Criticizing our own workflow, we could have been more consistent about making small, regular commits. The history shown on GitHub does not do justice to the amount of deleting and experimenting that we did along the way. Committing regularly requires discipline, and may feel slow, but usually pays off when you are working in a large team.
 
 Normally, at this point, we would write some tests to verify that our site loads and displays the correct information, without us needing to actually run and test the site by hand. Unfortunately, we're short on time in developing this chapter, so have to move on to the interactive features.
 
 ### Messing with State
 
-We ended up creating several helper functions to streamline how we manipulated the movies' state. Notice how these functions are implemented as a closure over `movies` and `setMovies` (the variables are used inside the nested functions since they are availabel from the enclosing scope). An alternative approach would have been to define helper functions that live in their own separate file (similar to what we did for `arrays.ts`, `objects.ts`, and `nested.ts`), which would require us to pass around `movies` and `setMovies` to any component that wished to use them. There are advantages to providing a reduced interface, but also tradeoffs to keeping code localized to where the code is needed - you have to make think about performance and readability of your code.
+We ended up creating several helper functions to streamline how we manipulated the movies' state. Notice how these functions are implemented as a closure over `movies` and `setMovies` (the variables are used inside the nested functions since they are available from the enclosing scope). An alternative approach would have been to define helper functions that live in their own separate file (similar to what we did for `arrays.ts`, `objects.ts`, and `nested.ts`), which would require us to pass around `movies` and `setMovies` to any component that wished to use them. There are advantages to providing a reduced interface, but also tradeoffs to keeping code localized to where the code is needed - you have to make think about performance and readability of your code.
 
 - [State Setter Helper Functions](https://github.com/frontend-fun/movie-records/blob/21964cdddb05caec5d7cbf7e24110bd84a191fdc/src/App.tsx#L32-L60)
 
-A common trick when you have a lot of helper functions is to define a special object that can hold the methods. We will see more sophisticated versions of this if we ever get to finish the bonus chapter on `useReduce`. But for now, know that there are tricks to consolidate the number of helper functions that have to be passed around into a single object.
+A common trick when you have a lot of helper functions is to define a special object that can hold the methods. We will see more sophisticated versions of this if we ever get to finish the bonus chapter on `useReducer`. But for now, know that there are tricks to consolidate the number of helper functions that have to be passed around into a single object.
 
 ### Watching a Movie
 
@@ -196,7 +196,7 @@ Taking a look at the `RecordControls` component, things seem pretty messy. We ha
 - [The Watched/Unwatched button](https://github.com/frontend-fun/movie-records/blob/6033ebaa10c97f8d77823a95d812e4031e952757/src/components/RecordControls.tsx#L16-L32)
 - [The Like/Not Liked button](https://github.com/frontend-fun/movie-records/blob/6033ebaa10c97f8d77823a95d812e4031e952757/src/components/RecordControls.tsx#L33-L52)
 
-Think carefully about how we started with the State and Controllers at the top of the heirarchy, passed the data down through the components, and then finally wrote most of the View in the bottom-most component. This is not necessarily ideal - the whole goal of components is to centralize the necessary State, Controllers, and View right where they are most needed. Still, this is still much better than if we tried to dump everything in `App`.
+Think carefully about how we started with the State and Controllers at the top of the hierarchy, passed the data down through the components, and then finally wrote most of the View in the bottom-most component. This is not necessarily ideal - the whole goal of components is to centralize the necessary State, Controllers, and View right where they are most needed. Still, this is still much better than if we tried to dump everything in `App`.
 
 ### Editing a Movie
 
@@ -308,7 +308,7 @@ One of our last pieces of advice is to keep your codebase as clean as possible a
 
 # 📝 Task - Quizzer
 
-The task for this chapter is very different from previous ones. Up until now, we had the expectation that you would be able to achieve every subtask we set out, and that you would not proceed without finishing each part. However, that expectation might be unrealistic for this Task since we are establishing a lot of potential critiera. Your grade will be influenced by the amount of criteria that you complete, but we do not really expect you to finish all of the task 100%. Use this opportunity to learn what you can about writing a larger application!
+The task for this chapter is very different from previous ones. Up until now, we had the expectation that you would be able to achieve every subtask we set out, and that you would not proceed without finishing each part. However, that expectation might be unrealistic for this Task since we are establishing a lot of potential criteria. Your grade will be influenced by the amount of criteria that you complete, but we do not really expect you to finish all of the task 100%. Use this opportunity to learn what you can about writing a larger application!
 
 Our goal is to have you walk through the same process we did in developing the Movie Records, but instead developing an application for quizzes (both academic ones and fun trivia ones). We have already created a list of user requirements below. However, we have not sketched the application, started any of the development, or written you any tests. These are all things that we want YOU to do.
 
@@ -403,7 +403,7 @@ None of this should affect your existing tests, since they work independently of
 
 Given the open-ended nature of this application, you are being graded by a rubric. Completing more requirements will tend to get you more points, but so will writing tests. You also earn points for things like sketching the application and making up test data.
 
-Everyone will feel comfortable completing a different number of requirements, and have different amounts of time they can commit. We understand how this can be stressful and we appreciate your flexibility in approaching this activity the right way. Recognize that you can pass the course even if you are struggling to get started - you will be getting another attempt when we get to he Final Project, and there you will explicitly have a team, so things are likely to go more smoothly.
+Everyone will feel comfortable completing a different number of requirements, and have different amounts of time they can commit. We understand how this can be stressful and we appreciate your flexibility in approaching this activity the right way. Recognize that you can pass the course even if you are struggling to get started - you will be getting another attempt when we get to the Final Project, and there you will explicitly have a team, so things are likely to go more smoothly.
 
 ### Sketch
 
@@ -433,4 +433,4 @@ Failure to submit this assignment tells us something about your preparation for 
 
 You have a LOT of freedom to make the Quizzer look the way you want. Colors, spacing, specific features - we want to see folks have fun and build something they feel they can own.
 
-Work together, show people your design, and avoid living in a vaccuum. Make a fun trivia quiz to show to your classmate and have them try out your application! Make the entire application dog-themed! The sky is the limit, as long as it meets the general requirements we specified before.
+Work together, show people your design, and avoid living in a vacuum. Make a fun trivia quiz to show to your classmate and have them try out your application! Make the entire application dog-themed! The sky is the limit, as long as it meets the general requirements we specified before.

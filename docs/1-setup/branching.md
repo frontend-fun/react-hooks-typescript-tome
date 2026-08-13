@@ -5,7 +5,7 @@ nav_order: 1.2
 parent: Setup
 ---
 
-[&laquo; Return to Environment Setup](index.md)
+[&laquo; Return to Environment Setup](environment.md)
 
 <details open markdown="block">
   <summary>
@@ -59,9 +59,9 @@ $> git merge upstream/task-first-branch
 
 First, we are `pull`ing the latest versions of the `main` tasks branch from our upstream. If we have pushed any bug fixes to the main repository files, this will retrieve them.
 
-Next, we `fetch` the latest version of the `task-first-branch`, which has a bunch of instructor-provided code to help us get started on the task. Normally, we would use `pull` since that it does a `fetch` and a `merge`, but we are going to do these separately so that we can put the files into a new branch with our solution.
+Next, we `fetch` the latest version of the `task-first-branch`, which has a bunch of instructor-provided code to help us get started on the task. Normally, we would use `pull` since it does a `fetch` and a `merge`, but we are going to do these separately so that we can put the files into a new branch with our solution.
 
-Then, we have you `checkout` a new branch (the `-b` means create-branch-if-needed) that is named `solved-first-branch`, since this branch will contain our solution to the first task.
+Then, we have you `checkout` a new branch (the `-b` means create a new branch and switch to it) that is named `solved-first-branch`, since this branch will contain our solution to the first task.
 
 Finally, we `merge` in the upstream branch named `task-first-branch` which has those instructor-provided files we mentioned. Remember, at any given time, there are multiple repositories, each potentially with their own version of a given branch. So if you see things like `upstream/task-first-branch`, we're referring to the remote's version of that branch (which might not even have a local version).
 
@@ -87,7 +87,7 @@ $> npm run start
 
 You are now ready to add the text `"Hello World"` somewhere. Up to you to decide, but we would probably suggest the body. Make sure you don't replace the text `"CISC275"` because the original tests will still look for those!
 
-Once you have visually confirmed the text is there, you can use `CTRL+C` to cancel the `npm run start` command running in the termainal. Then, run the tests again:
+Once you have visually confirmed the text is there, you can use `CTRL+C` to cancel the `npm run start` command running in the terminal. Then, run the tests again:
 
 ```sh
 $> npm run test:cov

@@ -40,7 +40,7 @@ At the end of the day, the actual value stored in `grades` is just an object, th
 
 Ironically, the `Record` type doesn't actually meet all the usual requirements of what [Wikipedia calls a Record type](https://en.wikipedia.org/wiki/Record_(computer_science)), since they cannot have heterogenous members (aka two members with different types) and the fields are fixed (i.e., you can add new members to a TypeScript Record). Wikipedia's definition of Records are more similar to how we use Interfaces.
 
-In fact, we recommend thinking of Records as if they were like Arrays, except you can index using any type (efficiently!) instead of just numbers. Since objects are implemented with Hash Maps, you get O(1) expected runtime performance for indexing, again similar to Arrays. We can traverse Records, add and delete elements, and generally treat them like any other collection.
+In fact, we recommend thinking of Records as if they were like Arrays, except you can index using strings (efficiently!) instead of just numbers. Since objects are implemented with Hash Maps, you get O(1) expected runtime performance for indexing, again similar to Arrays. We can traverse Records, add and delete elements, and generally treat them like any other collection.
 
 This is why Records are amazing!
 
@@ -65,7 +65,7 @@ const GRADES: Record<string, number> = {
 function App(): JSX.Element {
   return <ul>
     {Object.keys(GRADES).map((user: string) => (
-        <li>User: {user}</li>
+        <li key={user}>User: {user}</li>
     ))}
   </ul>;
 }
@@ -86,7 +86,7 @@ const GRADES: Record<string, number> = {
 function App(): JSX.Element {
   return <ul>
     {Object.values(GRADES).map((grade: number) => (
-        <li>Grade: {grade}</li>
+        <li key={grade}>Grade: {grade}</li>
     ))}
   </ul>;
 }
@@ -105,7 +105,7 @@ const GRADES: Record<string, number> = {
 function App(): JSX.Element {
   return <ul>
     {Object.entries(GRADES).map(([user, grade]: [string, number]) => (
-        <li>{user}: {grade}</li>
+        <li key={user}>{user}: {grade}</li>
     ))}
   </ul>;
 }
@@ -157,7 +157,7 @@ function App(): JSX.Element {
   return <ul>
     {Object.entries(grades).map(([assignment, submissions]: [string, Record<string, Submission>]) => (
         Object.entries(submissions).map(([user, submission]: [string, Submission]) => (
-            <li>{user} scored a {submission.score} on {assignment}</li>
+            <li key={assignment + user}>{user} scored a {submission.score} on {assignment}</li>
         ))
     ))}
   </ul>;
@@ -227,7 +227,7 @@ function App(): JSX.Element {
     return <ul>
     {Object.entries(grades).map(([assignment, submissions]: [string, Record<string, Submission>]) => (
         Object.entries(submissions).map(([user, submission]: [string, Submission]) => (
-            <li>
+            <li key={assignment + user}>
                 {user} scored a {submission.score} on {assignment}.
                 <Button onClick={()=>editScore(assignment, user, submission.score+1)}>Increase by 1</Button>
             </li>

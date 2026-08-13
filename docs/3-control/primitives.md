@@ -111,7 +111,7 @@ console.log(UNCHANGED_VALUE);
 console.log(name);
 ```
 
-You might also see `var`, but you don't need to worry about using it. Basically, you should always define variables using the keyword `let`.
+You might also see `var`, but you don't need to worry about using it. Basically, you should define variables using the keyword `const` by default, and only use `let` when you actually need to reassign the variable later.
 
 ```typescript
 // You won't need this:
@@ -276,11 +276,11 @@ Okay there is actually a case where you MIGHT choose to use the double equal ope
 
 You will basically never use `==` or `!=`. You will only ever use `===` and `!==`.
 
-## Logical Operators
+## Comparison and Logical Operators
 
-You have all the classics: `<` , `>`, `<=`, and `>=`.
+For comparison (aka "relational") operators, you have all the classics: `<` , `>`, `<=`, and `>=`.
 
-You have the `!` (not).
+For logical operators, you have the `!` (not).
 
 You have `&&` (and) and `||` (or).
 

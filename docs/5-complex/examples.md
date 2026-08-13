@@ -36,7 +36,7 @@ const INITIAL_MOVIES: Movie[] = [
     { name: "Ponyo", released: 2008, seen: false },
     { name: "Howl's Moving Castle", released: 2004, seen: true },
     { name: "Castle in the Sky", released: 1986, seen: true },
-    { name: "Arietty", released: 2010, seen: false },
+    { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
@@ -64,7 +64,7 @@ export function App(): JSX.Element {
             <ol>
                 {movies.map(
                     (movie: Movie): JSX.Element => (
-                        <li>
+                        <li key={movie.name}>
                             {movie.name} ({movie.released}):
                             <Button
                                 onClick={() =>
@@ -98,7 +98,7 @@ const INITIAL_MOVIES: Movie[] = [
     { name: "Ponyo", released: 2008, seen: false },
     { name: "Howl's Moving Castle", released: 2004, seen: true },
     { name: "Castle in the Sky", released: 1986, seen: true },
-    { name: "Arietty", released: 2010, seen: false },
+    { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
@@ -154,7 +154,7 @@ const INITIAL_MOVIES: Movie[] = [
     { name: "Ponyo", released: 2008, seen: false },
     { name: "Howl's Moving Castle", released: 2004, seen: true },
     { name: "Castle in the Sky", released: 1986, seen: true },
-    { name: "Arietty", released: 2010, seen: false },
+    { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
@@ -259,7 +259,7 @@ const INITIAL_MOVIES: Movie[] = [
     { name: "Ponyo", released: 2008, seen: false },
     { name: "Howl's Moving Castle", released: 2004, seen: true },
     { name: "Castle in the Sky", released: 1986, seen: true },
-    { name: "Arietty", released: 2010, seen: false },
+    { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
 
@@ -380,16 +380,19 @@ function App(): JSX.Element {
         <div>
             {Object.entries(inboxes).map(
                 ([name, emails]: [string, Email[]]) => (
-                    <div className="border p-4">
+                    <div key={name} className="border p-4">
                         <h3>{name}</h3>
                         <div>
                             {emails.map((email: Email) => (
-                                <div className="border m-1 p-1 bg-light">
+                                <div
+                                    key={email.id}
+                                    className="border m-1 p-1 bg-light"
+                                >
                                     <strong>Subject: {email.subject}</strong>
                                     <ul>
                                         {email.recipients.map(
                                             (recipient: Contact) => (
-                                                <li>
+                                                <li key={recipient.id}>
                                                     {recipient.name} (
                                                     {recipient.address})
                                                 </li>
@@ -713,16 +716,19 @@ function App(): JSX.Element {
         <div>
             {Object.entries(inboxes).map(
                 ([inbox, emails]: [string, Email[]]) => (
-                    <div className="border p-4">
+                    <div key={inbox} className="border p-4">
                         <h3>{inbox}</h3>
                         <div>
                             {emails.map((email: Email) => (
-                                <div className="border m-1 p-1 bg-light">
+                                <div
+                                    key={email.id}
+                                    className="border m-1 p-1 bg-light"
+                                >
                                     <strong>Subject: {email.subject}</strong>
                                     <ul>
                                         {email.recipients.map(
                                             (recipient: Contact) => (
-                                                <li>
+                                                <li key={recipient.id}>
                                                     {recipient.name} (
                                                     {recipient.address})
                                                     <Button

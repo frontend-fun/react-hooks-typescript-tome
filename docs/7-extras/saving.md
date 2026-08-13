@@ -75,8 +75,8 @@ function App(): JSX.Element {
 
     return <div>
         <ol>
-            { data.map((value: number) => (
-                <li key={value}>{value}</li>
+            { data.map((value: number, index: number) => (
+                <li key={index}>{value}</li>
             ))}
         </ol>
         <Button onClick={saveData}>Save Data</Button>
@@ -94,7 +94,7 @@ Try running the example above and then:
 5. DO NOT save
 6. Run the example again
 
-The The second time you run the example, the number is retained. But the third time, the number is not retained since you didn't save. If you reload the page and run this example again, the data will be saved.
+The second time you run the example, the number is retained. But the third time, the number is not retained since you didn't save. If you reload the page and run this example again, the data will be loaded.
 
 Clearing out the data is an exercise left to the reader. Use google.
 
@@ -117,8 +117,8 @@ function App(): JSX.Element {
     function uploadFile(event: React.ChangeEvent<HTMLInputElement>) {
         // Might have removed the file, need to check that the files exist
         if (event.target.files && event.target.files.length) {
-            // Get the first filename
-            const filename = event.target.files[0];
+            // Get the first file
+            const file = event.target.files[0];
             // Create a reader
             const reader = new FileReader();
             // Create lambda callback to handle when we read the file
@@ -130,7 +130,7 @@ function App(): JSX.Element {
                 setContent(newContent as string);
             };
             // Actually read the file
-            reader.readAsText(filename);
+            reader.readAsText(file);
         }
     }
 

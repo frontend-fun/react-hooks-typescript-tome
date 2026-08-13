@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Forms
-nav_order: 4.2
+nav_order: 4.3
 parent: Using State
 ---
 
@@ -55,7 +55,7 @@ All of these components provided by Bootstrap have MANY attributes available to 
 ```tsx
 let canEdit = true;
 // This example will not run; it's just demonstrating the syntax
-<Form.Control type="email" placeholder="Enter Email" disabled={canEdit}>
+<Form.Control type="email" placeholder="Enter Email" disabled={!canEdit}>
 ```
 
 ## Form Values
@@ -310,7 +310,7 @@ export function App(): JSX.Element {
 
 ## Checkbox
 
-The next kind of Form we will look at is a checkbox. This corresponds to some boolean State, either checked or unchecked. The attribute is `checked` instead of `value`, confusingly. Notice we no longer need a separate `Form.Group`, `Form.Input`, or `Form.Label` for this component; instead we use a special `Form.Check`. We provide a `label` as an attribute, and we should also provide an `id` to help with screenreaders. A good `id` will just be a unique internal label that the user doesn't see, but the `label` is visible to the user!
+The next kind of Form we will look at is a checkbox. This corresponds to some boolean State, either checked or unchecked. The attribute is `checked` instead of `value`, confusingly. Notice we no longer need a separate `Form.Group`, `Form.Control`, or `Form.Label` for this component; instead we use a special `Form.Check`. We provide a `label` as an attribute, and we should also provide an `id` to help with screenreaders. A good `id` will just be a unique internal label that the user doesn't see, but the `label` is visible to the user!
 
 ```tsx
 export function App(): JSX.Element {
@@ -421,7 +421,7 @@ export function App(): JSX.Element {
 }
 ```
 
-If you add the `inline` attribute to the `<Form.Check>` tag, you can make put the radio buttons all on the same row.
+If you add the `inline` attribute to the `<Form.Check>` tag, you can put the radio buttons all on the same row.
 
 ```tsx
 export function App(): JSX.Element {
@@ -457,7 +457,7 @@ export function App(): JSX.Element {
 
 ### Multi-Checkbox
 
-Radio buttons are mutually exclusive, but what if you want to have a bunch of options and the user can select any one of them? This means that we have some state that is really a list.
+Radio buttons are mutually exclusive, but what if you want to have a bunch of options and the user can select any number of them? This means that we have some state that is really a list.
 
 ```tsx
 export function App(): JSX.Element {
@@ -631,7 +631,7 @@ Your worst case scenario is using the `data-testid` attribute, which you hate to
 We'll add a new assertion to our list of tools too.
 
 - `toHaveValue(value)` assertion will check an input element to make sure it has a given value. Keep in mind that the value will most likely be a string, since it comes from HTML and not JavaScript.
-- `toBeChecked()` assertion will make sure a textbox or radio has a check (is true).
+- `toBeChecked()` assertion will make sure a checkbox or radio has a check (is true).
 
 ## New Ways to Simulate User Input
 

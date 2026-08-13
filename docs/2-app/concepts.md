@@ -74,7 +74,7 @@ For better or worse, JavaScript is the programming language of the web. The orig
 
 You might think of JavaScript as combining aspects of Java and Python, although that is not its history and not entirely accurate. JavaScript is a dynamic language like Python and has many control structures like Java (index-based `for` loops, `while` loops, and `if`). It is Object-Oriented like both languages. However, its objects follow something called "Prototype-based Inheritance", which we don't have time to talk about. In fact, really JavaScript is multi-paradigm, just like modern Java and Python. The separation of programming languages is really an illusion, and we shouldn't worry too much about that.
 
-Anyway, JavaScript is the only language that runs directly in modern web-browsers. This means that if you want to make websites with dynamic behavior (like making a popup when you click a button) then you need to write JavaScript. JavaScript is able to manipulate the Document Object Model via a special variable named `document`. You won't mess with the `document` directly very much, instead relying on React to do the messing around on your behalf. And in fact we won't even actually write real JavaScript.
+Anyway, JavaScript is the only scripting language that runs directly in modern web-browsers. This means that if you want to make websites with dynamic behavior (like making a popup when you click a button) then you need to write JavaScript. JavaScript is able to manipulate the Document Object Model via a special variable named `document`. You won't mess with the `document` directly very much, instead relying on React to do the messing around on your behalf. And in fact we won't even actually write real JavaScript.
 
 # What is TypeScript?
 
