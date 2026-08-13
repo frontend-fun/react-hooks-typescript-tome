@@ -51,7 +51,7 @@ We have to be very precise about the curly braces. Notice how:
 
 TSX allows us to nest HTML tags anywhere that we would normally write an expression. However, in order to embed values, variables, and code in the TSX, we must surround the expression with curly braces. Be very careful with this nesting, since skipping a curly brace or parentheses can have a disastrous effect on the code!
 
-You might also notice that we include an attribute named `key`. This is related to what we saw previously about object equality. You can read more about `key` in the [React guide page about lists and keys](https://reactjs.org/docs/lists-and-keys.html), but the basic idea is that we must provide a `key` attribute to help React distinguish between different adjacent elements created from the `map`. It'll be easy to forget, but can often be the source of many errors.
+You might also notice that we include an attribute named `key`. This is related to what we saw previously about object equality. You can read more about `key` in the [React guide page about lists and keys](https://react.dev/learn/rendering-lists), but the basic idea is that we must provide a `key` attribute to help React distinguish between different adjacent elements created from the `map`. It'll be easy to forget, but can often be the source of many errors.
 
 The example above is simple, because the State of the application is constant. Nothing changes the `names`, and the Component only ever needs to render once. That makes this a pretty lame application. Let's mix it up a little.
 
@@ -579,13 +579,13 @@ export function App(): JSX.Element {
 
 ### Grandparents, Great-grandparents, and the Hierarchy
 
-As your React application grows, you will often end up in a situation where you have a large amount of State that needs to be shared across multiple components. Sometimes these components will embed other components inside. You end up with a large hierarchy of components. State defined up at the top of the hiearchy has to be passed down through a "chain" of Props and Attributes, sometimes being handed to Components that don't even care about all the details. This can be quite frustrating.
+As your React application grows, you will often end up in a situation where you have a large amount of State that needs to be shared across multiple components. Sometimes these components will embed other components inside. You end up with a large hierarchy of components. State defined up at the top of the hierarchy has to be passed down through a "chain" of Props and Attributes, sometimes being handed to Components that don't even care about all the details. This can be quite frustrating.
 
-There are other ways to have State shared between components without requiring a heirarchy of Props and Attributes, but we will not learn about them. They are an advanced feature, suitable for larger-scale applications. When you start making _very_ sophisticated applications, you can look into systems like "React Redux" that support this kind of sharing. For now, though, our goal is to keep State at a minimum, and localize it down to the lowest point in the Heirarchy possible.
+There are other ways to have State shared between components without requiring a hierarchy of Props and Attributes, but we will not learn about them. They are an advanced feature, suitable for larger-scale applications. When you start making _very_ sophisticated applications, you can look into systems like "React Redux" that support this kind of sharing. For now, though, our goal is to keep State at a minimum, and localize it down to the lowest point in the hierarchy possible.
 
-A really cool feature of React Developer Tools is to be able to visualize the heirarchy via a special "Components" tab. This shows off not only the parent, child, and sibling relationships, but also allows you to inspect the current State of Hooks, and see how Hooks have been passed around via Props and Attributes. Check out the Components tab in your Developer Console!
+A really cool feature of React Developer Tools is to be able to visualize the hierarchy via a special "Components" tab. This shows off not only the parent, child, and sibling relationships, but also allows you to inspect the current State of Hooks, and see how Hooks have been passed around via Props and Attributes. Check out the Components tab in your Developer Console!
 
-<!-- TODO: Make a screenshot highlighting the heirarchy and the props and the state -->
+<!-- TODO: Make a screenshot highlighting the hierarchy and the props and the state -->
 
 ### Closures and State
 
@@ -704,6 +704,8 @@ $> git merge upstream/task-components
 Congratulations! We gave you four broken components. Some of them are so broken, they will immediately cause errors. Yay!
 
 You're going to need to fix the components. Beware: just passing their tests MAY not be sufficient. Make sure you achieve the desired functionality in the correct way. For example, simply deleting a test or component is not a good strategy.
+
+If you encounter merge conflicts again, be prepared to resolve them by following this [tutorial on merging conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line) that might help. Refer to the notes in the previous lesson for additional guidance.
 
 ## Fix `DoubleHalf`
 

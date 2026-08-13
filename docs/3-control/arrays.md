@@ -315,7 +315,7 @@ Once you get used to the ternary `?` operator, your life will be very sweet inde
 reduce:
   items: X[]
   (resultSoFar: Y, currentItem: X) -> Y
-  initialValue: X
+  initialValue: Y
   ----
   Returns: Y
 ```

@@ -26,8 +26,8 @@ Let us look at a very simplistic application that has no state:
 
 ```tsx
 export function App(): JSX.Element {
-  // Boring!
-  return <div>Hello World</div>
+    // Boring!
+    return <div>Hello World</div>;
 }
 ```
 
@@ -39,16 +39,16 @@ Interactivity means that a page changes when you interact with the page. That me
 
 <!-- TODO: Image of a BEFORE and AFTER state for an application -->
 
-Every application you have ever used or created has some kind of state. State is fundamental to a program. All those fancy control structures like `if` and `for` are all in service to the idea of *getting* and *updating* state. Here are some examples of State in applications:
+Every application you have ever used or created has some kind of state. State is fundamental to a program. All those fancy control structures like `if` and `for` are all in service to the idea of _getting_ and _updating_ state. Here are some examples of State in applications:
 
-* The current number displayed in a calculator
-* A list of activities in a Todo application
-* A collection of dates mapped to activities in a Calendar application
-* Whether or not a checkbox is checked in a form
-* What song is currently playing in a music player
-* Where an avatar is on the screen in a video game
+- The current number displayed in a calculator
+- A list of activities in a Todo application
+- A collection of dates mapped to activities in a Calendar application
+- Whether or not a checkbox is checked in a form
+- What song is currently playing in a music player
+- Where an avatar is on the screen in a video game
 
-We represent State with *values*, and describe the possible sets of State with *types*. Often, State ends up being stored in *variables* temporarily, since those variables' values can change over time to reflect changes in State.
+We represent State with _values_, and describe the possible sets of State with _types_. Often, State ends up being stored in _variables_ temporarily, since those variables' values can change over time to reflect changes in State.
 
 When you build an application, you need to think of the State first. Often, this means describing the State in terms of types and data structures. React is built around the idea of "one-way" State updates.
 
@@ -56,9 +56,9 @@ When you build an application, you need to think of the State first. Often, this
 
 One of the most common architectural patterns in Software Engineering is the idea of "Model-View-Controller".
 
-* Model is the State, describing what possible values your State can live in. It needs to be *persistent*.
-* View is the parts of your application's logic that let you show off the current State.
-* Controller is the parts of your application's logic that let you change the current State.
+- Model is the State, describing what possible values your State can live in. It needs to be _persistent_.
+- View is the parts of your application's logic that let you show off the current State.
+- Controller is the parts of your application's logic that let you change the current State.
 
 Most folks recommend trying to keep your Model, View, and Controller relatively distinct from each other. "How" to do this varies among frameworks and languages, but we're going to focus on React's model, which is called One-way Data Binding.
 
@@ -68,7 +68,7 @@ React is organized into Components, and each Component has its own State. The ma
 
 A Component Function, by definition, returns JSX (aka HTML). This is the **View**. That View can use the current values of the State.
 
-The View can also bind *events* to *functions*, so that when a user interacts with the View (e.g., clicking a button, typing into an input box), an inner function can be fired that modifies the Model. We call those inner functions the **Controllers**. 
+The View can also bind _events_ to _functions_, so that when a user interacts with the View (e.g., clicking a button, typing into an input box), an inner function can be fired that modifies the Model. We call those inner functions the **Controllers**.
 
 When the Controllers update the Model, React automatically knows to re-render the View by calling the Component Function again. The State updates happen in one big circular direction - The Controller modifies the Model, the Model tells the View to update, and the View provides mechanisms for the Controller to activate.
 
@@ -78,13 +78,13 @@ So what does this mean in practice? Let's take a look at a Component that does h
 
 ```tsx
 function App(): JSX.Element {
-  const [counter, setCounter] = useState<number>(0);
+    const [counter, setCounter] = useState<number>(0);
 
-  function addOne(): void {
-    setCounter(counter+1);
-  }
-  
-  return <Button onClick={addOne}>{counter}</Button>;
+    function addOne(): void {
+        setCounter(counter + 1);
+    }
+
+    return <Button onClick={addOne}>{counter}</Button>;
 }
 ```
 
@@ -100,7 +100,7 @@ Let's take a look at that most important line, with the `useState`.
 const [state, setState] = useState<number>(initialValue);
 ```
 
-On its own outside of `App`, this line won't run. Not only because we haven't defined `initialValue`, but also because the Rules of Hooks: 
+On its own outside of `App`, this line won't run. Not only because we haven't defined `initialValue`, but also because the Rules of Hooks:
 
 1. You must always call `useState` within a Component Function (like `App`).
 2. Do not put `useState` inside of loops, conditionals, or other functions.
@@ -111,17 +111,17 @@ Before we dive into a proper example, let's get some terminology about that line
 
 Memorize these terms
 
-* `state` is the "State Variable", representing our current Model. We control its name. What is its name in the app above?
-* `setState` is the "State Setter Function", giving us a low-level Controller to modify our Model. We control its name. What is its name in the app above?
-* `useState` is the "Hook Creation Function", giving us a "Hook" to store our Model in. It returns the State and the State Setter. This name is always the same.
-* `initialValue` is the "Initial Value" for the state variable, giving us the ability to set our initial Model. This is replaced with a literal value.
+- `state` is the "State Variable", representing our current Model. We control its name. What is its name in the app above?
+- `setState` is the "State Setter Function", giving us a low-level Controller to modify our Model. We control its name. What is its name in the app above?
+- `useState` is the "Hook Creation Function", giving us a "Hook" to store our Model in. It returns the State and the State Setter. This name is always the same.
+- `initialValue` is the "Initial Value" for the state variable, giving us the ability to set our initial Model. This is replaced with a literal value.
 
 ## The Concept of a Hook
 
-When you call `useState`, think of React creating a "Hook" that values can be hung on. These values will be persistent (i.e. they won't go away) while the app runs. 
+When you call `useState`, think of React creating a "Hook" that values can be hung on. These values will be persistent (i.e. they won't go away) while the app runs.
 When we say values, you can imagine a piece of paper with a number, some text, a list, etc.
 The first value that will be hung is the "Initial Value" that you passed in to `useState`.
-At any time, you can check the current value using the "State Variable", or update the value with the "State Setter Function". 
+At any time, you can check the current value using the "State Variable", or update the value with the "State Setter Function".
 
 Every time we want a new persistent variable, we can make it with `useState`.And `useState` is only one example of a React hook, there are others.
 
@@ -135,14 +135,14 @@ Local variables inside of a function do not stick around between function calls.
 
 ```tsx
 function App(): JSX.Element {
-  let counter: number = 0;
+    let counter: number = 0;
 
-  function addOne(): void {
-    counter += 1;
-  }
-  
-  // Does not work!
-  return <Button onClick={addOne}>{counter}</Button>;
+    function addOne(): void {
+        counter += 1;
+    }
+
+    // Does not work!
+    return <Button onClick={addOne}>{counter}</Button>;
 }
 ```
 
@@ -164,18 +164,20 @@ In this example, we will have a button that shows or hides some text.
 
 ```tsx
 function App(): JSX.Element {
-  const [visible, setVisible] = useState<boolean>(true);
+    const [visible, setVisible] = useState<boolean>(true);
 
-  function flipVisibility(): void {
-    // Set visible to be the logical opposite of its previous value
-    setVisible(!visible);
-  }
+    function flipVisibility(): void {
+        // Set visible to be the logical opposite of its previous value
+        setVisible(!visible);
+    }
 
-  // Only includes <div>Hello!</div> if `visible` is true
-  return <div>
-    <Button onClick={flipVisibility}>Show/Hide</Button>
-    {visible && <div>Hello!</div>}  //JSX allows us to mix code and HTML
-  </div>;
+    // Only includes <div>Hello!</div> if `visible` is true
+    return (
+        <div>
+            <Button onClick={flipVisibility}>Show/Hide</Button>
+            {visible && <div>Hello!</div>}
+        </div>
+    );
 }
 ```
 
@@ -193,20 +195,22 @@ I've uploaded some images for this book, of some of my pets.
 
 ```tsx
 function App(): JSX.Element {
-  // We can define constants before calling useState
-  const PETS: string[] = ["ada", "pumpkin", "babbage"];
-  // Initialize to first animal
-  const [pet, setPet] = useState<string>(PETS[0]);
+    // We can define constants before calling useState
+    const PETS: string[] = ["ada", "pumpkin", "babbage"];
+    // Initialize to first animal
+    const [pet, setPet] = useState<string>(PETS[0]);
 
-  const setRandomPet = (): void => {
-    // Choose an index randomly from the PETS array
-    const chosenIndex = Math.floor(Math.random() * PETS.length);
-    // Update the `pet` to the chosen string
-    setPet(PETS[chosenIndex]);
-  };
+    const setRandomPet = (): void => {
+        // Choose an index randomly from the PETS array
+        const chosenIndex = Math.floor(Math.random() * PETS.length);
+        // Update the `pet` to the chosen string
+        setPet(PETS[chosenIndex]);
+    };
 
-  // Make an Image pointing to the current pet
-  return <Image onClick={setRandomPet} src={`../assets/images/pet-${pet}.jpg`}/>
+    // Make an Image pointing to the current pet
+    return (
+        <Image onClick={setRandomPet} src={`../assets/images/pet-${pet}.jpg`} />
+    );
 }
 ```
 
@@ -216,16 +220,16 @@ We could have stored the URL into a variable, if we wanted to simplify the compl
 
 ```tsx
 function App(): JSX.Element {
-  const PETS: string[] = ["ada", "pumpkin", "babbage"];
-  const [pet, setPet] = useState<string>(PETS[0]);
-  // Make a variable based on some State. No problem!
-  const url = `../assets/images/pet-${pet}.jpg`;
+    const PETS: string[] = ["ada", "pumpkin", "babbage"];
+    const [pet, setPet] = useState<string>(PETS[0]);
+    // Make a variable based on some State. No problem!
+    const url = `../assets/images/pet-${pet}.jpg`;
 
-  const setRandomPet = (): void => {
-    const chosenIndex = Math.floor(Math.random() * PETS.length);
-    setPet(PETS[chosenIndex]);
-  };
-  return <Image onClick={setRandomPet} src={url}/>
+    const setRandomPet = (): void => {
+        const chosenIndex = Math.floor(Math.random() * PETS.length);
+        setPet(PETS[chosenIndex]);
+    };
+    return <Image onClick={setRandomPet} src={url} />;
 }
 ```
 
@@ -235,42 +239,50 @@ Here is a much more complex example simulating a traffic light. You can only go 
 
 ```tsx
 // LightColor is a Type Union of three possible string values
-type LightColor = 'red' | 'yellow' | 'green';
+type LightColor = "red" | "yellow" | "green";
 
 function App(): JSX.Element {
-  // We have two parts to our State
-  const [lightColor, setLightColor] = useState<LightColor>("red");
-  const [driving, setDriving] = useState<boolean>(false);
+    // We have two parts to our State
+    const [lightColor, setLightColor] = useState<LightColor>("red");
+    const [driving, setDriving] = useState<boolean>(false);
 
-  // No parameters or return value, because it's a closure
-  function changeLightColor(): void {
-    setLightColor(
-      // If it's red, make it green
-      lightColor === 'red' ?
-        'green' :
-        // If it's green, make it yellow
-        lightColor === 'green' ?
-          'yellow' :
-          // Otherwise it is yellow, so make it yellow
-          'red'
-    )
-  }
+    // No parameters or return value, because it's a closure
+    function changeLightColor(): void {
+        setLightColor(
+            // If it's red, make it green
+            lightColor === "red"
+                ? "green"
+                : // If it's green, make it yellow
+                  lightColor === "green"
+                  ? "yellow"
+                  : // Otherwise it is yellow, so make it yellow
+                    "red",
+        );
+    }
 
-  return <div>
-    <div>
-      Current light: <span>{lightColor}</span>
-      <Button onClick={changeLightColor}>Advance Light</Button>
-    </div>
-    <div>
-      <Button onClick={()=>setDriving(true)} disabled={driving}>Drive</Button>
-      <Button onClick={()=>setDriving(false)} disabled={!driving}>Stop</Button>
-    </div>
-    <div>
-      {lightColor === 'red' && driving ?
-        <span>Oh no you need to stop!</span> :
-        <span>All okay!</span>}
-    </div>
-  </div>;
+    return (
+        <div>
+            <div>
+                Current light: <span>{lightColor}</span>
+                <Button onClick={changeLightColor}>Advance Light</Button>
+            </div>
+            <div>
+                <Button onClick={() => setDriving(true)} disabled={driving}>
+                    Drive
+                </Button>
+                <Button onClick={() => setDriving(false)} disabled={!driving}>
+                    Stop
+                </Button>
+            </div>
+            <div>
+                {lightColor === "red" && driving ? (
+                    <span>Oh no you need to stop!</span>
+                ) : (
+                    <span>All okay!</span>
+                )}
+            </div>
+        </div>
+    );
 }
 ```
 
@@ -282,41 +294,49 @@ Our `changeLightColor` function is a little complicated, but it basically repres
 
 ```tsx
 // LightColor is a Type Union of three possible string values
-type LightColor = 'red' | 'yellow' | 'green';
+type LightColor = "red" | "yellow" | "green";
 
 // Maps the Old state -> New State
 const LIGHT_TRANSITIONS: Record<LightColor, LightColor> = {
-  'green': 'yellow',
-  'yellow': 'red',
-  'red': 'green'
+    green: "yellow",
+    yellow: "red",
+    red: "green",
 };
 
 function App(): JSX.Element {
-  // We have two parts to our State
-  const [lightColor, setLightColor] = useState<LightColor>("red");
-  const [driving, setDriving] = useState<boolean>(false);
+    // We have two parts to our State
+    const [lightColor, setLightColor] = useState<LightColor>("red");
+    const [driving, setDriving] = useState<boolean>(false);
 
-  // No parameters or return value, because it's a closure
-  function changeLightColor(): void {
-    const newColor = LIGHT_TRANSITIONS[lightColor];
-    setLightColor(newColor);
-  }
+    // No parameters or return value, because it's a closure
+    function changeLightColor(): void {
+        const newColor = LIGHT_TRANSITIONS[lightColor];
+        setLightColor(newColor);
+    }
 
-  return <div>
-    <div>
-      Current light: <span>{lightColor}</span>
-      <Button onClick={changeLightColor}>Advance Light</Button>
-    </div>
-    <div>
-      <Button onClick={()=>setDriving(true)} disabled={driving}>Drive</Button>
-      <Button onClick={()=>setDriving(false)} disabled={!driving}>Stop</Button>
-    </div>
-    <div>
-      {lightColor === 'red' && driving ?
-        <span>Oh no you need to stop!</span> :
-        <span>All okay!</span>}
-    </div>
-  </div>;
+    return (
+        <div>
+            <div>
+                Current light: <span>{lightColor}</span>
+                <Button onClick={changeLightColor}>Advance Light</Button>
+            </div>
+            <div>
+                <Button onClick={() => setDriving(true)} disabled={driving}>
+                    Drive
+                </Button>
+                <Button onClick={() => setDriving(false)} disabled={!driving}>
+                    Stop
+                </Button>
+            </div>
+            <div>
+                {lightColor === "red" && driving ? (
+                    <span>Oh no you need to stop!</span>
+                ) : (
+                    <span>All okay!</span>
+                )}
+            </div>
+        </div>
+    );
 }
 ```
 
@@ -327,28 +347,32 @@ Our examples are starting to get very big and complicated, so we don't really wa
 ```tsx
 // src/Counter.tsx
 export function Counter(): JSX.Element {
-  const [value, setValue] = useState<number>(0);
-  return <span>
-    <Button onClick={() => setValue(1+value)}>Add One</Button>
-    to {value}.
-  </span>;
+    const [value, setValue] = useState<number>(0);
+    return (
+        <span>
+            <Button onClick={() => setValue(1 + value)}>Add One</Button>
+            to {value}.
+        </span>
+    );
 }
 
 // src/App.tsx  A DIFFERENT FILE
 //import { Counter } from "./Counter";
 function App(): JSX.Element {
-  // Have three counters, each on their own line.
-  return <div>
-    <p>
-      Counter 1: <Counter></Counter>
-    </p>
-    <p>
-      Counter 2: <Counter></Counter>
-    </p>
-    <p>
-      Counter 3: <Counter></Counter>
-    </p>
-  </div>
+    // Have three counters, each on their own line.
+    return (
+        <div>
+            <p>
+                Counter 1: <Counter></Counter>
+            </p>
+            <p>
+                Counter 2: <Counter></Counter>
+            </p>
+            <p>
+                Counter 3: <Counter></Counter>
+            </p>
+        </div>
+    );
 }
 ```
 
@@ -358,13 +382,12 @@ Each `Counter` component has its own isolated state, so changing the `value` in 
 
 Previously, we checked that your code worked by providing simple unit tests.
 
-Now, we need to determine if your code's View works, so we have to use *Integration* tests. These are more complicated than *Unit* Tests, since we're looking at how multiple functions and elements are interacting together to achieve some more complicated effect.
+Now, we need to determine if your code's View works, so we have to use _Integration_ tests. These are more complicated than _Unit_ Tests, since we're looking at how multiple functions and elements are interacting together to achieve some more complicated effect.
 
-* The goal is to test the behavior and look of the Component. Our goal is NOT to test the implementation details of our Component.
-* We expect certain text, labels, and interactive elements (e.g., buttons). We do NOT expect certain state behind the scenes.
+- The goal is to test the behavior and look of the Component. Our goal is NOT to test the implementation details of our Component.
+- We expect certain text, labels, and interactive elements (e.g., buttons). We do NOT expect certain state behind the scenes.
 
-This kind of testing is probably very unfamiliar to you, so we'll take it slow and provide most of the tests in this chapter. Still, you will need to read and understand the tests you are failing, so we need to explain what you are seeing. If you want more information sooner, you can go read over a [React Testing Library article](
-https://www.robinwieruch.de/react-testing-library/). There are also [React Testing Library Cheat Sheets](https://testing-library.com/docs/react-testing-library/cheatsheet/). However, everything you *really* need to know for now should be described below.
+This kind of testing is probably very unfamiliar to you, so we'll take it slow and provide most of the tests in this chapter. Still, you will need to read and understand the tests you are failing, so we need to explain what you are seeing. If you want more information sooner, you can go read over a [React Testing Library article](https://www.robinwieruch.de/react-testing-library/). There are also [React Testing Library Cheat Sheets](https://testing-library.com/docs/react-testing-library/cheatsheet/). However, everything you _really_ need to know for now should be described below.
 
 ## General Test Structure
 
@@ -376,11 +399,11 @@ To organize the structure of our tests, we often use the following general appro
 
 ## `render` the `screen`
 
-Each test begins by "rendering" just the component we are testing. This make a virtual DOM of the components' View, which we can then access in order to make assertions. Most of the time, since this `render` has to happen before each test, we use a special React Testing Library function: 
+Each test begins by "rendering" just the component we are testing. This make a virtual DOM of the components' View, which we can then access in order to make assertions. Most of the time, since this `render` has to happen before each test, we use a special React Testing Library function:
 
 ```tsx
 beforeEach(() => {
-    render(<Counter/>)
+    render(<Counter />);
 });
 ```
 
@@ -395,9 +418,8 @@ In order to simulate interaction and check that the component has changed, we mu
 
 How do we access the elements in the `screen`'s virtual DOM? There's a complicated set of commands. We'll describe the full set of commands in the next chapter, but for now we're just going to rely on a few basic ones that can be loosely grouped by their prefix and suffix.
 
-
 |        | getBy       | queryBy       |
-|--------|-------------|---------------|
+| ------ | ----------- | ------------- |
 | Text   | getByText   | queryByText   |
 | Role   | getByRole   | queryByRole   |
 | TestId | getByTestId | queryByTestId |
@@ -408,8 +430,8 @@ We have three types of suffixes (which determine "what kind" of elements we look
 
 The prefixes determine "how many elements" we look for.
 
-* `getBy` means we expect there to be exactly ONE instance of the element. Any more or less and an error is thrown instead.
-* `queryBy` means we expect there to be ONE or ZERO instances of the element. If there are more than one, than an error is thrown. If there are zero elements, then `null` is returned.
+- `getBy` means we expect there to be exactly ONE instance of the element. Any more or less and an error is thrown instead.
+- `queryBy` means we expect there to be ONE or ZERO instances of the element. If there are more than one, than an error is thrown. If there are zero elements, then `null` is returned.
 
 These two prefixes are very handy when you can narrow the numbers down to just one. The `getBy` is good when you have an element you DO expect in the document; the `queryBy` is good when you have an element you DO NOT expect in the document (since it does not cause an error, just returns `null`).
 
@@ -425,15 +447,13 @@ The `Text` (such as `getByText`) means we are literally looking for the given te
 
 ```tsx
 // This example doesn't run, it's just a snippet of example
-<p>
-    Hello, how are you doing today?
-</p>
+<p>Hello, how are you doing today?</p>;
 
 // The corresponding access would look like
 const paragraph = screen.getByText(/hello/i);
 ```
 
-This is the simplest suffix type, but one nice feature is that we can provide either an exact string literal (e.g., `"Hello World") or a *Regular Expression*. The Regular Expression type is very convenient type of data provided by JavaScript, although its history and usage extends far beyond this language. Using "Regexes", we can search for text without needing to be as exact and specific (e.g., ignore capitalization, check for digits, look for repeated characters matching a pattern). If you haven't heard about Regular Expressions, we recommend reading over this [Regular Expressions Guide](https://eloquentjavascript.net/09_regexp.html) and using this [interactive Regular Expression Editor](https://regex101.com/). But briefly, here are some examples of handy regular expression checks:
+This is the simplest suffix type, but one nice feature is that we can provide either an exact string literal (e.g., `"Hello World") or a _Regular Expression_. The Regular Expression type is very convenient type of data provided by JavaScript, although its history and usage extends far beyond this language. Using "Regexes", we can search for text without needing to be as exact and specific (e.g., ignore capitalization, check for digits, look for repeated characters matching a pattern). If you haven't heard about Regular Expressions, we recommend reading over this [Regular Expressions Guide](https://eloquentjavascript.net/09_regexp.html) and using this [interactive Regular Expression Editor](https://regex101.com/). But briefly, here are some examples of handy regular expression checks:
 
 ```typescript
 let someText = "Hello world, is it is 77 degrees outside.";
@@ -443,24 +463,30 @@ console.log("The word 'degrees' is in the text:", /degrees/.test(someText));
 // Searches are case sensitive by default
 console.log("The word 'hello' is in the text:", /hello/.test(someText));
 // But adding `i` to the end makes it insensitive
-console.log("The word 'hello' (any case) is in the text:", /hello/i.test(someText));
+console.log(
+    "The word 'hello' (any case) is in the text:",
+    /hello/i.test(someText),
+);
 // There are ways to specify things like "one or more digits"
-console.log("There is a one or two digit number in the text:", /\d\d?/.test(someText));
+console.log(
+    "There is a one or two digit number in the text:",
+    /\d\d?/.test(someText),
+);
 // We can extract text too, using `match` method of strings
 console.log("The first number is:", someText.match(/(\d\d?)/)[0]);
 ```
 
 #### Role Suffix
 
-The `Role` (such as `getByRole`) means we are looking for an *Aria* role. The *Aria* system is a bunch of rules to make web applications more accessible - this is critical for folks who need to use tools like screen-readers, but is also generally very helpful for anyone interacting with websites. The principle here is "Universal Design", which we'll revisit in the next chapter. But for now, know that every HTML element gets a designated "Aria role" which identfies its purpose. Sometimes, these roles are automatically associated  with a corresponding default HTML element tag (e.g., the `link` role and the `a` tag), but that's not always the case. Frequently, a specific role is provided to "override" the default role, when an HTML Element is being used in an unusual way (e.g., the `button` role being applied to a specially formatted `div`). You can read more about [Aria Roles here](https://www.codeinwp.com/blog/wai-aria-roles/), or see a [convenient table of roles here](https://www.digitala11y.com/wai-aria-1-1-cheat-sheet/).
+The `Role` (such as `getByRole`) means we are looking for an _Aria_ role. The _Aria_ system is a bunch of rules to make web applications more accessible - this is critical for folks who need to use tools like screen-readers, but is also generally very helpful for anyone interacting with websites. The principle here is "Universal Design", which we'll revisit in the next chapter. But for now, know that every HTML element gets a designated "Aria role" which identfies its purpose. Sometimes, these roles are automatically associated with a corresponding default HTML element tag (e.g., the `link` role and the `a` tag), but that's not always the case. Frequently, a specific role is provided to "override" the default role, when an HTML Element is being used in an unusual way (e.g., the `button` role being applied to a specially formatted `div`). You can read more about [Aria Roles here](https://www.codeinwp.com/blog/wai-aria-roles/), or see a [convenient table of roles here](https://www.digitala11y.com/wai-aria-1-1-cheat-sheet/).
 
 Often, we will need to be more specific when searching by role, so we will also specify some text associated with the element via the `name` option in a second parameter. When doing so, it is often convenient to use a regular expression rather than a specific name, to adjust for differences in capitalization or whitespace.
 
 ```tsx
 // This example doesn't run, it's just a snippet of example
 <div>
-  You can <Button>Add</Button> more.
-</div>
+    You can <Button>Add</Button> more.
+</div>;
 
 // The corresponding access would look like
 const addButton = screen.getByRole("button", { name: /add/i });
@@ -473,8 +499,8 @@ The `TestId` (such as `getByTestId`) means we are looking for an element with a 
 ```tsx
 // This example doesn't run, it's just a snippet of example
 <div>
-  The answer is <span data-testid="question-answer">42</span>.
-</div>
+    The answer is <span data-testid="question-answer">42</span>.
+</div>;
 
 // The corresponding access would look like
 const answer = screen.getByTestId("question-answer");
@@ -487,39 +513,41 @@ Sometimes, in addition to what you are "Given" at the start of the test (i.e., j
 ```tsx
 // This example doesn't run, it's just a snippet of example
 <div>
-  You can <Button>Add</Button> more.
-</div>
+    You can <Button>Add</Button> more.
+</div>;
 
 // Given the add button is on the screen...
 const addButton = screen.getByRole("button", { name: /add/i });
 // When the add button is clicked...
-addButton.click();
+await act(async () => addButton.click());
 ```
+
+Note that we have to wrap the click action in an async `act` function to properly simulate the user interaction and allow React to process any resulting state updates. I know that this is a weird thing to throw `async` and `await` at you but just go with it - we're basically saying, "hey this might take a while, wait for it to get done."
 
 ## Making Assertions with `expect`
 
-The ultimate goal of a test is to assert that some behavior occurs, which is our "Then" phase. Given some initial state, when we've done some interactions, *then* we expect that part of the document will have some new state. We sometimes want to check the state of entire HTML elements, or just their text content, or some other attribute of the element (e.g., its `disabled` status, its `backgroundColor`). In general, the tests might end up looking like this:
+The ultimate goal of a test is to assert that some behavior occurs, which is our "Then" phase. Given some initial state, when we've done some interactions, _then_ we expect that part of the document will have some new state. We sometimes want to check the state of entire HTML elements, or just their text content, or some other attribute of the element (e.g., its `disabled` status, its `backgroundColor`). In general, the tests might end up looking like this:
 
 ```tsx
 // This example doesn't run, it's just a snippet of example
 <div>
-  The answer is <span data-testid="question-answer">42</span>.
-</div>
+    The answer is <span data-testid="question-answer">42</span>.
+</div>;
 
 // Given the question-answer is on the screen
 const answer = screen.getByTestId("question-answer");
 // Then the answer should be 42
-expect(answer.textContent).toEqual('42');
+expect(answer.textContent).toEqual("42");
 ```
 
 React's Testing Library provides many kinds of assertions using its `expect` function. Here's a quick rundown of some types of assertions you will see:
 
-* `toBeInTheDocument()`: Checks that the given HTML element is SOMEWHERE in the HTML of the screen.
-* `toEqual(other)`: Checks that the `expect`ed value is equivalent to the `other` value.
-* `toBe(other)`: Checks that the `expect`ed value is identical to the `other` value (as in they have the exact same reference in memory).
-* `toHaveLength(length)`: Checks that the `expect`ed value will be an Array with the given `length`.
-* `toBeNull()`: Checks that the `expect`ed value will be `null`.
-* `toBeCalledTimes(times)`: Checks that the `expect`ed value will be a function that is called a number of `times`.
+- `toBeInTheDocument()`: Checks that the given HTML element is SOMEWHERE in the HTML of the screen.
+- `toEqual(other)`: Checks that the `expect`ed value is equivalent to the `other` value.
+- `toBe(other)`: Checks that the `expect`ed value is identical to the `other` value (as in they have the exact same reference in memory).
+- `toHaveLength(length)`: Checks that the `expect`ed value will be an Array with the given `length`.
+- `toBeNull()`: Checks that the `expect`ed value will be `null`.
+- `toBeCalledTimes(times)`: Checks that the `expect`ed value will be a function that is called a number of `times`.
 
 One last complication: you will sometimes see a field `not` between the `expect` and the assertion method. This field causes the assertion's logic to inverse. For example, to check that a given value is not equal to another you write:
 
@@ -537,7 +565,6 @@ Testing is a lot of work, and you may find it frustrating. It is a prime example
 
 # 📝 Task - Using State
 
-
 As always, begin by pulling our changes, making a new branch, and merging in our changes. This time, be sure that you create your new branch from the previous branch we worked on (`solved-nested`) by checking out that branch first.
 
 ```sh
@@ -550,9 +577,11 @@ $> git merge upstream/task-state
 
 ## Merge Conflicts
 
-Unfortunately, it is extremely likely that you will encounter "merge" conflicts between your code and our code. These conflicts occur because we are providing edits to a file that you have also edited. If you are lucky, the conflicts will be automatically merged. However, it is just as likely that there will be merge conflicts that you must resolve. If you are not familiar with resolving merge conflicts, here is a [tutorial on merging conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line) that might help. The VS Code editor can make choosing the appropriate updated code easier, though you still will have to merge the chosen change. You may want to read the rest of the instructions to understand what the final version of this branch should look like. 
+Unfortunately, it is extremely likely that you will encounter "merge" conflicts between your code and our code. These conflicts occur because we are providing edits to a file that you have also edited. If you are lucky, the conflicts will be automatically merged. However, it is just as likely that there will be merge conflicts that you must resolve. If you are not familiar with resolving merge conflicts, here is a [tutorial on merging conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line) that might help. The VS Code editor can make choosing the appropriate updated code easier, though you still will have to merge the chosen change. You may want to read the rest of the instructions to understand what the final version of this branch should look like.
 
 If your repository still has the `HtmlCss.test.tsx` and `text.test.tsx` files, then we give you special permission to remove those files from your new `solved-state` branch. You can also remove the old HTML that you added in your `App` that is no longer relevant to the new tasks we are working on, so that the screen is not crowded. Fortunately, none of that code is gone - it is all safely available in the other branches you made before, in case you ever need it again. This is the power of Version Control!
+
+If the merge resurrects the `.eslintrc.json` file, delete it; keep `.eslintrc.js` since that is the newer version.
 
 ![Image of a merge conflict in Visual Studio Code](../images/incoming-merge-conflict.png)
 
@@ -596,76 +625,76 @@ The `Counter` component is one that we provide, allowing you to click a button t
 
 The `RevealAnswer` component simulates a quiz application that provides a way to "reveal the answer" to a user by clicking a button. The answer will be `42` for our purposes.
 
-* You will need a state to handle whether the text is visible.
-* There is a button labelled `Reveal Answer` that inverts the state.
-* The text `42` is not initially visible.
-* When the button is clicked, the text `42` should be visible.
+- You will need a state to handle whether the text is visible.
+- There is a button labelled `Reveal Answer` that inverts the state.
+- The text `42` is not initially visible.
+- When the button is clicked, the text `42` should be visible.
 
 ### ChangeType
 
 The `ChangeType` component simulates another an editor for a quiz application that provides a way to change the type of a quiz question by pressing a button. Recall from the Objects task that Quiz Questions can come in either Multiple Choice or Short Answer.
 
-* You will need a single state to handle whether the type is `multiple_choice_question` or `short_answer_question`. 
-* The type of the state should be `QuestionType`, not `string`.
-* There should be a button labelled `Change Type` that changes the state from one type to the other.
-* When the type is `multiple_choice_question`, the text `Multiple Choice` should be visible.
-* When the type is `short_answer_question`, the text `Short Answer` should be visible.
-* The initial type must be `short_answer_question`.
+- You will need a single state to handle whether the type is `multiple_choice_question` or `short_answer_question`.
+- The type of the state should be `QuestionType`, not `string`.
+- There should be a button labelled `Change Type` that changes the state from one type to the other.
+- When the type is `multiple_choice_question`, the text `Multiple Choice` should be visible.
+- When the type is `short_answer_question`, the text `Short Answer` should be visible.
+- The initial type must be `short_answer_question`.
 
 ### StartAttempt
 
 The `StartAttempt` component simulates yet another part of the quiz application, this time providing a "Start" and "Stop" button for the quiz. Since the quiz should have a limited number of attempts, there is also a "Mulligan" button to give more attempts.
 
-* You will need two pieces of state: the number of attempts and whether the quiz is in progress.
-  * The initial number of attempts is 4
-  * The quiz is initially NOT in progress
-* There is a button labelled `Start Quiz` that puts the Quiz in progress and decreases the number of attempts by one.
-* There is a button labelled `Stop Quiz` that stops the Quiz from being in progress.
-* There is a button labelled `Mulligan` that increase the attempts by one.
-* When the quiz is in progress, the `Start Quiz` and `Mulligan` buttons are disabled.
-* When the quiz is not in progress, the `Stop Quiz` button is disabled.
-* When the attempts are zero, the `Start Quiz` button is disabled.
+- You will need two pieces of state: the number of attempts and whether the quiz is in progress.
+    - The initial number of attempts is 4
+    - The quiz is initially NOT in progress
+- There is a button labelled `Start Quiz` that puts the Quiz in progress and decreases the number of attempts by one.
+- There is a button labelled `Stop Quiz` that stops the Quiz from being in progress.
+- There is a button labelled `Mulligan` that increase the attempts by one.
+- When the quiz is in progress, the `Start Quiz` and `Mulligan` buttons are disabled.
+- When the quiz is not in progress, the `Stop Quiz` button is disabled.
+- When the attempts are zero, the `Start Quiz` button is disabled.
 
 ### TwoDice
 
 The `TwoDice` component will simulate a game where you roll two dice in an attempt to get matching values. However, you lose the game if your dice ever come up as a pair of ones ("snake eyes").
 
-* You will need two states, one for each die.
-* Each die's value should be rendered in the View in a `span` tag of their own, with the first dice having the `data-testid` of `left-die` and the second dice having the `data-testid` of `right-die`.
-* You will need two "Roll" buttons (labelled `Roll Left` and `Roll Right`).
-* Clicking a Roll button will change the value for the corresponding dice using the provided `d6` function.
-* The initial values of the dice cannot be the same.
-* When the two states are equal, render a message that includes the word `Lose`.
-* When the two states are equal, render a message that includes the word `Win`.
-* If you do all these and are still not passing all tests, read the test file, it is a good practice! In much of software engineering, the tests *are* the product spec.
+- You will need two states, one for each die.
+- Each die's value should be rendered in the View in a `span` tag of their own, with the first dice having the `data-testid` of `left-die` and the second dice having the `data-testid` of `right-die`.
+- You will need two "Roll" buttons (labelled `Roll Left` and `Roll Right`).
+- Clicking a Roll button will change the value for the corresponding dice using the provided `d6` function.
+- The initial values of the dice cannot be the same.
+- When the two states are both 1 (snake eyes), render a message that includes the word `Lose`.
+- When the two states are equal (and not 1), render a message that includes the word `Win`.
+- If you do all these and are still not passing all tests, read the test file, it is a good practice! In much of software engineering, the tests _are_ the product spec.
 
 ### CycleHoliday
 
 The `CycleHoliday` component is a little more complicated, but should be an opportunity to be creative. Think about your 5 favorite holidays, and then find 5 emojis that represent them. You will create two buttons that let you "cycle" through each holiday, one button alphabetically and the other button by time in the year. Ultimately, the holidays you pick are up to you, and we will not micromanage your choice of alphabetization or specific date chosen EXCEPT that the two orderings should not be the same (because that's no fun).
 
-* You will need one state, either a `string` or an enumeration of 5 strings like `QuestionType` (perhaps named `Holiday`).
-* You will need to define two functions (or two `Record`s) that can take in an existing holiday and produce the next holiday - one function should produce the next holiday alphabetically, and the other produces the next holiday in the year.
-* The view should render the current holiday with the text `Holiday: ` followed by the emoji (e.g., `Holiday: 🎃`).
-* The first button should include the text `Alphabet` somewhere (e.g., `Advance by Alphabet`) and changes the current holiday to the next one alphabetically.
-* The second button should include the text `Year` somewhere (e.g., `Advance by Year`) and changes the current holiday to the next one in the year.
+- You will need one state, either a `string` or an enumeration of 5 strings like `QuestionType` (perhaps named `Holiday`).
+- You will need to define two functions (or two `Record`s) that can take in an existing holiday and produce the next holiday - one function should produce the next holiday alphabetically, and the other produces the next holiday in the year.
+- The view should render the current holiday with the text `Holiday: ` followed by the emoji (e.g., `Holiday: 🎃`).
+- The first button should include the text `Alphabet` somewhere (e.g., `Advance by Alphabet`) and changes the current holiday to the next one alphabetically.
+- The second button should include the text `Year` somewhere (e.g., `Advance by Year`) and changes the current holiday to the next one in the year.
 
 For example, let us say we only had three holidays:
 
-* 🎏 to represent the **Dr**agon Boat Festival in the summer
-* 🎃 to represent **H**alloween at the end of October
-* 🪔 to represent **Di**iwali earlier in October
+- 🎏 to represent the **Dr**agon Boat Festival in the summer
+- 🎃 to represent **H**alloween at the end of October
+- 🪔 to represent **Di**iwali earlier in October
 
 Then the transitions in the year would be:
 
-* 🎏 -> 🪔
-* 🪔 -> 🎃 
-* 🎃 -> 🎏
+- 🎏 -> 🪔
+- 🪔 -> 🎃
+- 🎃 -> 🎏
 
 And the transitions alphabetically would be:
 
-* 🪔 -> 🎏
-* 🎏 -> 🎃 
-* 🎃 -> 🪔
+- 🪔 -> 🎏
+- 🎏 -> 🎃
+- 🎃 -> 🪔
 
 If you need help finding emojis, then you can use a website like [emojis.wiki](https://emojis.wiki/)
 

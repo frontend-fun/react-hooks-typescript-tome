@@ -52,7 +52,7 @@ Here are the basic types:
 
 - `number`: Includes integers and decimals. Implemented as floating points.
 - `boolean`: Either `true` or `false`
-- `string`: You can use `'single quotes'` or `"double quotes"`. There are also backticks ` for multi-line strings (and a lot more). You should stick to double quotes and backticks; Prettier will change double quotes into single quotes, and the linter will complain about single quotes.
+- `string`: You can use `'single quotes'` or `"double quotes"`. There are also backticks ` for multi-line strings (and a lot more). You should stick to double quotes and backticks; Prettier will change single quotes into double quotes.
 
 ```typescript
 // Numbers

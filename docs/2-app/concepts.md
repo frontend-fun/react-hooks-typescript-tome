@@ -86,15 +86,15 @@ The big advantage here is that when you make a mistake using your data (e.g., ac
 
 # What is React?
 
-You could make a web application with just HTML, CSS, and JavaScript. I mean, technically, that's all that will be executing in the browser. But that is really cumbersome because most of these tools weren't even designed to provide dynamic user experiences. Therefore, many generations of programmers have built libraries and frameworks that make it easier to build web applications. You may have heard of some popular ones like **Angular** or **Vue** or **Knockout** or **JQuery**. 
+You could make a web application with just HTML, CSS, and JavaScript. I mean, technically, that's all that will be executing in the browser. But that is really cumbersome because most of these tools weren't even designed to provide dynamic user experiences. Therefore, many generations of programmers have built libraries and frameworks that make it easier to build web applications. You may have heard of some popular ones like **Angular** or **Vue** or **JQuery**.
 
-One of the most popular libraries/frameworks is **React**. The core idea of the library is to build reusable "Components" that isolate HTML, CSS, and JavaScript into little chunks. Thanks to React, you can keep the *state* of your application and its associated logic in neat little bundles that make it easier to build complicated websites.
+One of the most popular libraries/frameworks is **React**. The core idea of the library is to build reusable "Components" that isolate HTML, CSS, and JavaScript into little chunks. Thanks to React, you can keep the _state_ of your application and its associated logic in neat little bundles that make it easier to build complicated websites.
 
 Another key idea of React is the idea of "reacting" to state changes. When someone edits some text or presses a button, the state of the page changes. When the state changes, React will look at the components that need to change and re-render them on the screen. We'll learn WAY more about this as we go on. For now, just know that React is very good at knowing when things change and updating your screen, as long as you play by its rules.
 
 # What are React Hooks?
 
-React used to have developers build components using a Class-based syntax ("Class-based Components") where state was managed using object fields. In the late 2010s, this was replaced with Function-based Components using a new approach involving Hooks. We're going to spend like two chapters explaining how this works, so we'll put the details aside for now. The important thing to know is that React Hooks are the new fancy hotness, and Class-based Components are the old nonsense and we won't deal with them.
+React used to have developers build components using a Class-based syntax ("Class-based Components") where state was managed using object fields. In the late 2010s, this was replaced with Function-based Components using a new approach involving Hooks. We're going to spend like two chapters explaining how this works, so we'll put the details aside for now. The important thing to know is that React Hooks are now the standard, and Class-based Components are the old nonsense and we won't deal with them.
 
 # What is JSX/TSX?
 

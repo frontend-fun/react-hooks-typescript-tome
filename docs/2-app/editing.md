@@ -50,7 +50,12 @@ There's also `h2`, `h3`, and so on.
 
 ```tsx
 export function App(): JSX.Element {
-    return <p>This is just a paragraph of text. It can go onto multiple lines, if you want.</p>;
+    return (
+        <p>
+            This is just a paragraph of text. It can go onto multiple lines, if
+            you want.
+        </p>
+    );
 }
 ```
 
@@ -60,10 +65,12 @@ What if we want both header and text? We need to group them together under one p
 
 ```tsx
 export function App(): JSX.Element {
-    return <div>
-        <h1>Hello World</h1>
-        <p>How are you doing today?</p>
-    </div>;
+    return (
+        <div>
+            <h1>Hello World</h1>
+            <p>How are you doing today?</p>
+        </div>
+    );
 }
 ```
 
@@ -74,10 +81,12 @@ A weird thing we can do in JSX is to have tagless chunks of code using empty ang
 ```tsx
 export function App(): JSX.Element {
     // Won't need to use this very much
-    return <>
-        <h1>Hello World</h1>
-        <p>How are you doing today?</p>
-    </>;
+    return (
+        <>
+            <h1>Hello World</h1>
+            <p>How are you doing today?</p>
+        </>
+    );
 }
 ```
 
@@ -89,35 +98,42 @@ There are two kinds of lists, unordered (`ul`) with bullets and ordered (`ol`) w
 
 ```tsx
 export function App(): JSX.Element {
-    return <div>
-        Unordered List:
-        <ul>
-            <li>First thing</li>
-            <li>Another thing</li>
-            <li>A third item</li>
-        </ul>
-        Ordered List:
-        <ol>
-            <li>First thing</li>
-            <li>Another thing</li>
-            <li>A third item</li>
-        </ol>
-    </div>;
+    return (
+        <div>
+            Unordered List:
+            <ul>
+                <li>First thing</li>
+                <li>Another thing</li>
+                <li>A third item</li>
+            </ul>
+            Ordered List:
+            <ol>
+                <li>First thing</li>
+                <li>Another thing</li>
+                <li>A third item</li>
+            </ol>
+        </div>
+    );
 }
 ```
 
 ## Images
 
-Embedding an image (`img`) tag requires us to specify an *attribute*. These are `name="value"` pairs inside of the start tag.
+Embedding an image (`img`) tag requires us to specify an _attribute_. These are `name="value"` pairs inside of the start tag.
 
 The two attributes relevant for an `img` tag are the `src` (the URL of the source image to display) and the `alt` (alternative text to display if the image fails to load for some reason).
 
 ```tsx
 export function App(): JSX.Element {
-    return <div>
-        <h1>Hello World</h1>
-        <img src="../assets/images/pet-ada.jpg" alt="A picture of my dog Ada" />
-    </div>;
+    return (
+        <div>
+            <h1>Hello World</h1>
+            <img
+                src="../assets/images/pet-ada.jpg"
+                alt="A picture of my dog Ada"
+            />
+        </div>
+    );
 }
 ```
 
@@ -125,9 +141,9 @@ If you look closely, this tag doesn't have an end tag (there's no `</img>`). Ins
 
 The URL we used in the example above works for this textbook, but you may have to setup your URL very differently.
 
-* One approach is to cheat and use a direct hyperlink. This is a risky strategy, because you are now at the mercy of whatever external service is hosting the image. What if they make the image private, take down the image, or, even worse, change the image later? For a professional site, you do not want to take such risks.
-* Another approach is to place the image in the `public` folder of your application, which allows you to link to the image after it is built. There is [advice out there](https://stackoverflow.com/questions/47196800/reactjs-and-images-in-public-folder) on how to do so. This has [drawbacks too](https://create-react-app.dev/docs/using-the-public-folder/#adding-assets-outside-of-the-module-system), since the public folder is meant to exist somewhat outside of the compilation of your website. If there is a mistake with your path, the error messages you get will be less helpful.
-* Our favored approach is to place the image in your `src` folder (perhaps further within an `assets` or `images` subfolder) and then import the image using code, which is [explained in this guide](https://stackoverflow.com/questions/39999367/how-do-i-reference-a-local-image-in-react). This surfaces errors more easily. You may find this more difficult to get started with, since it requires a bit more code, but long-term this is how we usually recommend you include images. You can learn more about this approach in [this page](https://create-react-app.dev/docs/adding-images-fonts-and-files).
+- One approach is to cheat and use a direct hyperlink. This is a risky strategy, because you are now at the mercy of whatever external service is hosting the image. What if they make the image private, take down the image, or, even worse, change the image later? For a professional site, you do not want to take such risks.
+- Another approach is to place the image in the `public` folder of your application, which allows you to link to the image after it is built. There is [advice out there](https://stackoverflow.com/questions/47196800/reactjs-and-images-in-public-folder) on how to do so. This has [drawbacks too](https://create-react-app.dev/docs/using-the-public-folder/#adding-assets-outside-of-the-module-system), since the public folder is meant to exist somewhat outside of the compilation of your website. If there is a mistake with your path, the error messages you get will be less helpful.
+- Our favored approach is to place the image in your `src` folder (perhaps further within an `assets` or `images` subfolder) and then import the image using code, which is [explained in this guide](https://stackoverflow.com/questions/39999367/how-do-i-reference-a-local-image-in-react). This surfaces errors more easily. You may find this more difficult to get started with, since it requires a bit more code, but long-term this is how we usually recommend you include images. You can learn more about this approach in [this page](https://create-react-app.dev/docs/adding-images-fonts-and-files).
 
 # Editing CSS
 
@@ -137,9 +153,11 @@ There are two ways to change the style of a elements. You can use the `style` at
 
 ```tsx
 export function App(): JSX.Element {
-    return <div style={ {border: '1px solid blue', padding: '4px'} }>
-        this will be surrounded by a border and padding.
-    </div>
+    return (
+        <div style={{ border: "1px solid blue", padding: "4px" }}>
+            this will be surrounded by a border and padding.
+        </div>
+    );
 }
 ```
 
@@ -149,9 +167,11 @@ Create a `span` (as in "text that spans some region of space"), and then give it
 
 ```tsx
 export function App(): JSX.Element {
-    return <div>
-        This is <span style={ {color: 'red'} }>colored text</span>.
-    </div>
+    return (
+        <div>
+            This is <span style={{ color: "red" }}>colored text</span>.
+        </div>
+    );
 }
 ```
 
@@ -171,9 +191,11 @@ Let's make a simple Bootstrap Button.
 
 ```tsx
 export function App(): JSX.Element {
-    return <div>
-        <Button>Click Me</Button>
-    </div>
+    return (
+        <div>
+            <Button>Click Me</Button>
+        </div>
+    );
 }
 ```
 
@@ -183,9 +205,17 @@ The button does not do anything, which is sad. We'll give you some code so that 
 
 ```tsx
 export function App(): JSX.Element {
-    return <div>
-        <Button onClick={ () => { console.log("I am logged") } }>Click Me</Button>
-    </div>;
+    return (
+        <div>
+            <Button
+                onClick={() => {
+                    console.log("I am logged");
+                }}
+            >
+                Click Me
+            </Button>
+        </div>
+    );
 }
 ```
 
@@ -197,22 +227,24 @@ Organize the page into at least two columns of layout. You need to have a `Conta
 
 ```tsx
 export function App(): JSX.Element {
-    return <div>
-        <Container>
-            <Row>
-                <Col>First column.</Col>
-                <Col>
-                    Second column.
-                    You can put whatever you want in here, and it will be on the right side.
-                    Maybe try adding an image?
-                </Col>
-            </Row>
-        </Container>
-    </div>;
+    return (
+        <div>
+            <Container>
+                <Row>
+                    <Col>First column.</Col>
+                    <Col>
+                        Second column. You can put whatever you want in here,
+                        and it will be on the right side. Maybe try adding an
+                        image?
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    );
 }
 ```
 
-Bootstrap layouts are pretty sophisticated, you can do a lot: <https://react-bootstrap.github.io/layout/grid/>
+Bootstrap layouts are pretty sophisticated, you can do a lot: <https://react-bootstrap.github.io/docs/layout/grid/>
 
 # 📝 Task - HTML and CSS
 
@@ -233,13 +265,13 @@ $> npm run test:cov
 
 Since we are now failing these tests, we need to fix them. Refer to the information in the page above to tackle each test in turn:
 
-* Add a header
-* Add an image with alt text
-* Add a list with at least three elements
-* Change the background color of the header area
-* Add a bootstrap button with the text `Log Hello World`
-* Make the button log `Hello World!` when clicked
-* Put a red-filled rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
+- Add a header
+- Add an image with alt text
+- Add a list with at least three elements
+- Change the background color of the header area
+- Add a bootstrap button with the text `Log Hello World`
+- Make the button log `Hello World!` when clicked
+- Put a red-filled rectangle in each column using a `div` tag with `width`, `height`, and `backgroundColor` styles.
 
 To earn full points, you must pass all the tests.
 
@@ -249,7 +281,6 @@ We will no longer remind you about this command to push a new branch after this 
 ```sh
 $> git push --set-upstream origin solved-html-css
 ```
-
 
 Anyway, next you need to make a Pull Request back to your `main` branch on the GitHub repository. Make sure your tests pass and the site deploys, before you submit to GradeScope!
 

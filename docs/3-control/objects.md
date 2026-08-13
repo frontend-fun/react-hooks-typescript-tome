@@ -310,7 +310,7 @@ function checkIfCorgi({ breed }: { breed: string }): boolean {
 
 // Compare that to this version; they're not better or worse in this case, just have tradeoffs.
 // Try swapping out the parameter types between two functions, you'll see it works either way!
-function checkIfCorgi(aDog: Dog): boolean {
+function checkIfCorgiAlternative(aDog: Dog): boolean {
     return aDog.breed === "Corgi";
 }
 ```
@@ -376,7 +376,7 @@ Check your status with the tests by running:
 $> npm run test:cov
 ```
 
-If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `makeQuiz`). You can go back to running all the tests by typing `a`.
+If you are overwhelmed by the number of failing tests, you can focus on just one at a time by typing `t` and entering the name of the function you want to test (e.g., `makeBlankQuestion`). You can go back to running all the tests by typing `a`.
 
 As you complete functions, use the `git add`/`git commit` or the Visual Studio Code interface to make small regular commits. Practice the habit now!
 

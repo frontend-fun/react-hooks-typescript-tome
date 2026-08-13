@@ -24,7 +24,7 @@ State (the Model) is a critical part of a web application, but so are the View a
 
 Essentially, a "Form" is a collection of specialized user interface elements. You are probably used to seeing many of these elements all the time: text boxes, checkboxes, radio buttons, drop down menus, file upload buttons, and so much more. These elements are sometimes referred to as "Widgets".
 
-Bootstrap is a very popular library for styling web pages, and provides a ton of helpful CSS rules for making forms look decent without much developer effort. The React Bootstrap libraries builds on the two underlying technologies (React and Bootstrap) to provide Components that make building Forms much more pleasant and effective. You can see a lot more information about Bootstrap and its Forms here: <https://react-bootstrap.github.io/forms/overview/>
+Bootstrap is a very popular library for styling web pages, and provides a ton of helpful CSS rules for making forms look decent without much developer effort. The React Bootstrap libraries builds on the two underlying technologies (React and Bootstrap) to provide Components that make building Forms much more pleasant and effective. You can see a lot more information about Bootstrap and its Forms here: <https://react-bootstrap.github.io/docs/forms/overview/>
 
 ## Form Groups
 
@@ -173,8 +173,8 @@ export function App(): JSX.Element {
 
 Let us break down the exact flow more slowly, to develop a mental conception of React's Forms:
 
-1. When the `App` component is initially rendered, the `'Alien'` value is attached to the first hook and `2022` is attached to the second hook.
-2. The values of `name` and `released` (the first two hooks) are accessed and used to render the two form components' initial states.
+1. When the `App` component is initially rendered, the `'Alien'` value is attached to the hook.
+2. The value of `name` (the hook) is accessed and used to render the form components' initial state.
 3. The user now sees the application. They can type into the `Name:` box, perhaps the letter `s`.
 4. Typing into the box fires the `onChange` event for that component, which means the corresponding callback function `updateName` is called.
 5. The callback function calls `setName` using the `event.target.value` (which is the new current value of the box, which is `Aliens`).
@@ -184,7 +184,7 @@ Let us break down the exact flow more slowly, to develop a mental conception of 
 
 Steps 4 through 8 will recur every time the user types something into the box.
 
-This may seem a little complicated for such a simple idea: we just want the user to be able to type text to update the State! Know that there are many alternative ways that this could have been developed. In fact, even within React, there are alternatives known as ["Uncontrolled Components"](https://reactjs.org/docs/uncontrolled-components.html). However, the model we are showing you here ("Controlled Components") is the dominant one for using React Hooks and will serve us in creating applications. The trick is just to keep the mental model straight!
+This may seem a little complicated for such a simple idea: we just want the user to be able to type text to update the State! Know that there are many alternative ways that this could have been developed. In fact, even within React, there are alternatives known as ["Uncontrolled Components"](https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable). However, the model we are showing you here ("Controlled Components") is the dominant one for using React Hooks and will serve us in creating applications. The trick is just to keep the mental model straight!
 
 ### Number Input Box
 
@@ -227,7 +227,7 @@ Frequently, you want to have a horizontal layout for your forms. This requires c
 - Add `column` and `sm={2}` attributes to the `Form.Label` tag
 - Surround the `Form.Control` with a new `Col` tag
 
-You can learn more about Horizontal Layouts (and other layout options) here: <https://react-bootstrap.github.io/forms/layout/#horizontal-form>
+You can learn more about Horizontal Layouts (and other layout options) here: <https://react-bootstrap.github.io/docs/forms/layout/#horizontal-form>
 
 ```tsx
 export function App(): JSX.Element {
@@ -644,7 +644,7 @@ userEvent.type(nameElement, "s the Movie");
 expect(nameElement).toHaveValue("Aliens the Movie");
 ```
 
-There is also the `.selectOptions()` function for targetting dropdowns. There are many other ways to simulate user input, depending on what kinds of forms you are dealing with. We won't get into any more details, but expect to have to use the resources we have pointed to before:
+There is also the `.selectOptions()` function for targeting dropdowns. There are many other ways to simulate user input, depending on what kinds of forms you are dealing with. We won't get into any more details, but expect to have to use the resources we have pointed to before:
 
 - Here is an article on the [React Testing Library](https://www.robinwieruch.de/react-testing-library/).
 - Here is a [React Testing Library Cheat Sheet](https://testing-library.com/docs/react-testing-library/cheatsheet/).
@@ -728,9 +728,9 @@ HINT: We recommend you use the `inline` attribute for the radio buttons.
 
 ![Screenshot of the ChangeColor component containing 8 colors, with red currently chosen](../images/task-form-components_change-color.png)
 
-## MultipleChoiceQuestions
+## MultipleChoiceQuestion
 
-The `MultipleChoiceQuestions` component allows a user to select an answer from a list in a dropdown, and then displays whether they got it correct or incorrect. The component takes in a parameter representing the `expectedAnswer` and also a parameter representing the list of `options`.
+The `MultipleChoiceQuestion` component allows a user to select an answer from a list in a dropdown, and then displays whether they got it correct or incorrect. The component takes in a parameter representing the `expectedAnswer` and also a parameter representing the list of `options`.
 
 - You will need a state to represent the user's currently selected choice.
 - The initial state of the selected choice is the first element of the `options` list.

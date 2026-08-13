@@ -63,13 +63,13 @@ Next, we `fetch` the latest version of the `task-first-branch`, which has a bunc
 
 Then, we have you `checkout` a new branch (the `-b` means create-branch-if-needed) that is named `solved-first-branch`, since this branch will contain our solution to the first task.
 
-Finally, we `merge` in the upstream branch named `task-first-branch` which has those instructor-provided files we mentioned. Remember, at any given time, there are multiple repositories, each potentially with their own version of a given branch. So if you see things like `upstream/task-first-branch`, we're referring to the remote's version of that branch (which might not even have a local version). 
+Finally, we `merge` in the upstream branch named `task-first-branch` which has those instructor-provided files we mentioned. Remember, at any given time, there are multiple repositories, each potentially with their own version of a given branch. So if you see things like `upstream/task-first-branch`, we're referring to the remote's version of that branch (which might not even have a local version).
 
 Depending on your operating system and command line setup, you may be asked to write a "commit message" when you try to `merge`. You can use the default message.
 
 ## The New Test
 
-When we ran `git merge upstream/task-first-branch`, a new file appeared named `src/text.Test.tsx`. The file contains a single new Test; inspecting its contents will reveal that the test expects the text `"Hello World"` without quotes to be somewhere on the page.
+When we ran `git merge upstream/task-first-branch`, a new file appeared named `src/text.test.tsx`. The file contains a single new test; inspecting its contents will reveal that the test expects the text `"Hello World"` without quotes to be somewhere on the page.
 
 You might want to see the test is failing by first running the command line tests. In Visual Studio Code, bring up a new terminal and enter:
 

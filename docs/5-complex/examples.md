@@ -623,6 +623,8 @@ So how does this all connect back to an actual application? The example below is
 We could have avoided a lot of the parameters by using closures and putting the function inside of the function. There are tradeoffs of complexity, readability, and testability to consider. Organize your code as makes the most sense for your application!
 
 ```tsx
+type Inboxes = Record<string, Email[]>;
+
 interface Contact {
     id: number;
     name: string;
