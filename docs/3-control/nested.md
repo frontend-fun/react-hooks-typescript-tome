@@ -24,6 +24,10 @@ Everything you need to know about working with nested data, you already learned 
 
 In this section, we're going to provide a whole bunch of examples with comments embedded. The ongoing example is a bunch of movies in a collection.
 
+## Make the Movie Data
+
+This code makes the `Movie` interface and an array of `Movie` objects. All the examples in this section use this array.
+
 ```typescript
 interface Movie {
     name: string;
@@ -31,7 +35,6 @@ interface Movie {
     seen: boolean;
 }
 
-// Make an array of objects
 const ghibliMovies: Movie[] = [
     { name: "Kiki's Delivery Service", released: 1989, seen: true },
     { name: "Ponyo", released: 2008, seen: false },
@@ -40,36 +43,45 @@ const ghibliMovies: Movie[] = [
     { name: "Arrietty", released: 2010, seen: false },
     { name: "Whisper of the Heart", released: 1995, seen: false },
 ];
+```
 
-// Filter all the movies we have not seen
-// AKA only keep movies that not seen
+## Filter the Movies
+
+This example uses `filter` to make a new array. The new array keeps only the movies that have a `seen` value of `false`.
+
+```typescript
 const unseenMovies = ghibliMovies.filter(
     (movie: Movie): boolean => !movie.seen,
 );
 console.log(ghibliMovies.length, "->", unseenMovies.length);
+```
 
-console.log("***************************************************");
+## Map the Movies to Titles
 
-// Make a new list of just the movie titles
+This example uses `map` to make a new array. The new array contains only the name of each movie.
+
+```typescript
 const movieTitles = ghibliMovies.map((movie: Movie): string => movie.name);
 console.log(movieTitles);
+```
 
-console.log("***************************************************");
+## Reduce the Movies to a Total
 
-// Add together the number of characters in the movie's titles
+This example uses `reduce` to add together the number of characters in each movie name. The result is one number.
+
+```typescript
 const totalCharacters = ghibliMovies.reduce(
     (currentSum: number, movie: Movie) => currentSum + movie.name.length,
     0,
 );
 console.log("Total Characters:", totalCharacters);
+```
 
-console.log("***************************************************");
+## Make a CSV String
 
-// Create a CSV representation of the movies
-// CSVs are just comma-separated values in a multi-line string
-// If the single quotes and braces are confusing, look back at
-// https://frontend-fun.github.io/react-hooks-typescript-tome/3-control/primitives.html#string-interpolation
+This example uses `map` and `join` to make a CSV string. A CSV string is a multi-line string with comma-separated values. Refer to [String Interpolation](primitives.md#string-interpolation) if the braces in the string are not clear.
 
+```typescript
 const movieCSV = ghibliMovies
     .map(
         (movie: Movie): string =>
@@ -79,19 +91,25 @@ const movieCSV = ghibliMovies
     .join("\n");
 console.log("Movie CSV:");
 console.log(movieCSV);
+```
 
-console.log("***************************************************");
+## Change a Field in Each Movie
 
-// Make a new list where we re-release all the movies to be in 2026
+This example uses `map` and the spread operator to make a new array. Each new movie has a `released` value of 2026. The original array does not change.
+
+```typescript
 const rereleasedMovies = ghibliMovies.map(
     // The parentheses around the curly braces are CRITICAL!
     (movie: Movie): Movie => ({ ...movie, released: 2026 }),
 );
 console.log("Rereleased Year:", rereleasedMovies[0].released);
+```
 
-console.log("***************************************************");
+## Change a Field with a Condition
 
-// Relabel the old movies as "Ghibli Classic: WHATEVER"
+This example uses `map` with a conditional expression. Each movie from the year 2000 or before gets a new name. The new name starts with "Ghibli Classic:".
+
+```typescript
 const relabeledMovies = ghibliMovies.map(
     (movie: Movie): Movie => ({
         ...movie,
@@ -102,41 +120,48 @@ const relabeledMovies = ghibliMovies.map(
     }),
 );
 console.log(relabeledMovies[0].name, relabeledMovies[1].name);
+```
 
-console.log("***************************************************");
+## Find a Movie by Its Name
 
-// Find an array's object with a specific field value:
-// Find the release year of the movie "Castle in the Sky"
+This example uses `find` to get the movie with a specified name. The result can be `undefined` if no movie has that name. Because of this, the code must use the optional chaining operator (`?.`) to get the `released` field.
+
+```typescript
 const castleInTheSky = ghibliMovies.find(
     (movie: Movie): boolean => movie.name === "Castle in the Sky",
 );
-// `find` might return undefined if no movie matches, so TypeScript makes
-// us use optional chaining (`?.`) or a conditional check to access fields:
 console.log("Release year of Castle in the Sky:", castleInTheSky?.released);
 //                   Note the weird optional chaining operator:  --^
+```
 
-console.log("***************************************************");
+## Find a Movie with a Condition
 
-// Find an array's object with a less specific field value:
-// Find a movie in the list released after 2000
+This example uses `find` to get the first movie that has a `released` value of 2000 or more.
+
+```typescript
 const post2000Movie = ghibliMovies.find(
     (movie: Movie): boolean => movie.released >= 2000,
 );
 console.log("A movie released after 2000:", post2000Movie?.name);
+```
 
-console.log("***************************************************");
+## Find the Oldest Movie
 
-// Find the oldest movie
+This example uses `reduce` to compare the movies and keep the movie with the smallest `released` value. To find the newest movie, change the `<` to a `>`.
+
+```typescript
 const oldestMovie = ghibliMovies.reduce(
     (currentOldest: Movie, movie: Movie): Movie =>
-        // Flip the < to be a > for the newest movie
         movie.released < currentOldest.released ? movie : currentOldest,
 );
 console.log("Oldest movie:", oldestMovie.name, "in", oldestMovie.released);
+```
 
-console.log("***************************************************");
+## Add a Movie to the End
 
-// Add a new movie to the end
+This example uses the spread operator to make a new array with one more movie at the end. The original array does not change.
+
+```typescript
 const ghibliWithMononoke = [
     ...ghibliMovies,
     {
@@ -146,11 +171,13 @@ const ghibliWithMononoke = [
     },
 ];
 console.log("Last movie is:", ghibliWithMononoke.slice(-1)[0].name);
+```
 
-console.log("***************************************************");
+## Insert a Movie at a Position
 
-// Insert an element after a specific existing element
-// Add Nausicaä after Castle in the Sky
+This example uses the `ghibliWithMononoke` array from the previous example. It uses `findIndex` to get the position of a movie in the array. Then it uses `splice` to put a new movie after that position. `splice` changes the array, so the code makes a copy of the array first.
+
+```typescript
 const myGhibliCollection = [...ghibliWithMononoke];
 const castleIndex: number = myGhibliCollection.findIndex(
     (movie: Movie): boolean => movie.name === "Castle in the Sky",
@@ -161,10 +188,13 @@ myGhibliCollection.splice(1 + castleIndex, 0, {
     seen: true,
 });
 console.log("Added:", myGhibliCollection[castleIndex + 1].name);
+```
 
-console.log("***************************************************");
+## Map the Movies to a New Interface
 
-// Map to a new interface named `MovieDetails`
+This example makes a second interface with the name `MovieDetails`. It then uses `map` to change each `Movie` object into a `MovieDetails` object.
+
+```typescript
 interface MovieDetails {
     title: string;
     studio: string;
