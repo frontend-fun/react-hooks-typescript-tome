@@ -174,6 +174,70 @@ The idea here is that we create a temporary function `() => updateChosen(color)`
 
 Note that this means each of five Buttons in this example will get its own _custom_ onClick function. For example, the _blue_ button onClick will be `() => updateChosen("Blue")`.
 
+### Array Updates
+
+Let's look at a quick example of mutable array state in action. In the code below, each counter has its own button to increase its value.
+
+```tsx
+function App(): JSX.Element {
+    const [counters, setCounters] = useState<number[]>([0, 0, 0, 5, 0]);
+    
+    function increaseCounter(index: number) {
+        // Could alternatively make an immutable copy and set
+        //   the target index mutably
+        const newCounters = counters.map((oldCounter, oldIndex) =>
+            oldIndex === index ? oldCounter + 1 : oldCounter
+        );
+        setCounters(newCounters);
+    }
+
+    return (
+        <div>
+            Counters:
+            <ul>
+                {counters.map((counter: number, index: number) => (
+                    <li key={index}>
+                        {counter}
+                        <Button onClick={()=>increaseCounter(index)}>+</Button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+```
+
+We have to use the `index` to identify the clicked element (and also to disambiguate its `key`). The closure function creates a new copy of the `counters` array with the changed element.
+
+### Object Updates
+
+Let's do one more example where we are updating an object. The example below uses a `Movie` object that has two fields. One of the fields is controlled via three "buttons" that have emojis on them. Which emoji gets rendered is based on the current movie rating.
+
+```tsx
+interface Movie {
+  name: string;
+  rating: number;
+}
+
+function App(): JSX.Element {
+    const [movie, setMovie] = useState<Movie>({name: "Gone with the Wind", rating: 3});
+
+    return (
+        <div>
+            <strong>{movie.name}</strong>
+            <span>
+              <span onClick={()=>setMovie({...movie, rating: 1})}>
+                {movie.rating >= 1 ? "⭐" : "⚪"}</span>
+              <span onClick={()=>setMovie({...movie, rating: 2})}>
+                {movie.rating >= 2 ? "⭐" : "⚪"}</span>
+              <span onClick={()=>setMovie({...movie, rating: 3})}>
+                {movie.rating >= 3 ? "⭐" : "⚪"}</span>
+            </span>
+        </div>
+    );
+}
+```
+
 # Late Updates
 
 Continuing the conversation about weird React behavior, another critical thing to note is that React does NOT update Hook's State Variable immediately when the Hook's State Setter is called. In fact, it would be impossible for that to happen, because the State Variable is actually stored in a constant.
